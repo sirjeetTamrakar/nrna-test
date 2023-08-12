@@ -1,0 +1,95 @@
+@font-face {
+  font-family: 'Euclid';
+  src: local('Euclid'), url('assets/fonts/EuclidCircularBRegular.ttf') format('truetype');
+  font-weight: 400;
+}
+@font-face {
+  font-family: 'Euclid';
+  src: local('Euclid'), url('assets/fonts/EuclidCircularLight.ttf') format('truetype');
+  font-weight: 300;
+}
+@font-face {
+  font-family: 'Euclid';
+  src: local('Euclid'), url('assets/fonts/EuclidCircularAMedium.ttf') format('truetype');
+  font-weight: 500;
+}
+@font-face {
+  font-family: 'Euclid';
+  src: local('Euclid'), url('assets/fonts/EuclidCircularAMedium.ttf') format('truetype');
+  font-weight: 600;
+}
+@font-face {
+  font-family: 'Euclid';
+  src: local('Euclid'), url('assets/fonts/EuclidCircularSemiBold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+* {
+  font-family: 'Euclid';
+}
+html {
+  font-size: 62.5%; /* 62.5% of 16px = 10px */
+  font-family: 'Euclid', sans-serif;
+}
+body {
+  margin: 0;
+  font-family: 'Euclid', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+// this will be extended to childs
+.toastify_common {
+  font-size: 1.3rem;
+  font-family: 'Work Sans';
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--error {
+  @extend .toastify_common;
+  background-color: #e63535 !important;
+}
+
+.Toastify__progress-bar--error {
+  background-color: #ff8080 !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--success {
+  @extend .toastify_common;
+  background-color: #05a660 !important;
+}
+.Toastify__progress-bar--success {
+  background-color: #57eba1 !important;
+}
+
+.Toastify__toast-theme--colored.Toastify__toast--warning {
+  @extend .toastify_common;
+  background-color: #ffcc00 !important;
+  color: rgb(95, 83, 83) !important;
+}
+.Toastify__toast-theme--colored.Toastify__toast--info {
+  @extend .toastify_common;
+  background-color: #0063f7 !important;
+}
+
+.MuiAutocomplete-listbox li {
+  background: #fff !important ;
+  &.Mui-focused{
+    background: rgb(233, 233, 233) !important;
+  }
+}
+
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
