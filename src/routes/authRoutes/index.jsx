@@ -1,3 +1,4 @@
+import { Homepage } from 'pages/public/Homepage';
 import Forgot from 'pages/public/forgot';
 import Login from 'pages/public/login';
 import ResetPassword from 'pages/public/reset';
@@ -7,6 +8,10 @@ const AuthRoutes = [
   {
     path: '/login',
     component: <Login />
+  },
+  {
+    path: '/',
+    component: <Homepage />
   },
   { path: '/forgot-password', component: <Forgot /> },
   { path: '/reset-password', component: <ResetPassword /> },

@@ -2,23 +2,11 @@ import { AppBar, CssBaseline, IconButton, Toolbar, Typography } from '@mui/mater
 import { Box } from '@mui/system';
 import { ReactComponent as TransferLogo } from 'assets/images/transfer.svg';
 import PropTypes from 'prop-types';
-import { useDispatch, useSelector } from 'react-redux';
-import { changeLanguage } from 'redux/auth/actions';
 import useStyles from './styles';
 
 // actual component here
 const CustomAppBar = ({ setDrawerOpen, drawerOpen }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { language } = useSelector((state) => state.auth);
-
-  const handleLanguageSwitch = () => {
-    if (language == 'en') {
-      dispatch(changeLanguage('pl'));
-    } else {
-      dispatch(changeLanguage('en'));
-    }
-  };
 
   // local styles
   const customStyles = {
@@ -33,7 +21,6 @@ const CustomAppBar = ({ setDrawerOpen, drawerOpen }) => {
       transition: 'all .3s ease'
     }
   };
-  const { user } = useSelector((state) => state.auth);
 
   return (
     <AppBar
@@ -54,13 +41,10 @@ const CustomAppBar = ({ setDrawerOpen, drawerOpen }) => {
         <Box className={classes.sideBox}>
           <Box></Box>
           <Box className={classes.avatarArea}>
-            <Box className={classes.avatar}>{user?.name.split(' ')[0][0]}</Box>
+            <Box className={classes.avatar}>Image</Box>
             <Typography className={classes.imageText} color={'#000'}>
-              {user?.name}
+              Name
             </Typography>
-          </Box>
-          <Box className={classes.language} onClick={handleLanguageSwitch}>
-            <Typography color="secondary">{language}</Typography>
           </Box>
         </Box>
       </Toolbar>

@@ -13,11 +13,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     background: theme.palette.lightGrey[2],
     width: '100vw',
-    height: '100vh',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    fontFamily: 'Work Sans'
+    height: '100vh'
   },
   authContainer: {
     display: 'flex',

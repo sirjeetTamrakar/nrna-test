@@ -1,19 +1,10 @@
-import Login from 'pages/public/login';
 import NotFound from 'pages/public/misc/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoutes from './authRoutes';
 import DashboardRoutes from './dashboardRoutes';
 
 const RouteList = () => {
-  const routeList = [
-    {
-      path: '/',
-      component: <Login />
-    },
-
-    ...AuthRoutes,
-    ...DashboardRoutes
-  ];
+  const routeList = [...AuthRoutes, ...DashboardRoutes];
 
   return (
     <Routes>
