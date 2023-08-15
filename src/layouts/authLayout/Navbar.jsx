@@ -1,5 +1,6 @@
 import Logo from 'assets/images/nrna.png';
-function Navbar({ isHomePage, currentUser }) {
+import { Link } from 'react-router-dom';
+function Navbar({ isHomePage, currentUser, sticky }) {
   const openNav = () => {
     // Implement openNav logic here
   };
@@ -10,10 +11,10 @@ function Navbar({ isHomePage, currentUser }) {
 
   return (
     <>
-      <div className="Navbar" id="nav">
+      <div className={`Navbar ${sticky ? 'navbar_sticky' : ''}`} id="nav">
         <div className="container">
           <div className="Navbar_wrapper">
-            <a href="#" style={{ textDecoration: 'none', color: 'white' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
               <div className="d-flex align-items-center" style={{ gridColumnGap: '1rem' }}>
                 <div className="logo_wrapper">
                   <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
@@ -24,29 +25,29 @@ function Navbar({ isHomePage, currentUser }) {
                   </h4>
                 </div>
               </div>
-            </a>
+            </Link>
 
             <ul className="nav_wrapper">
               <li className="d-none d-lg-block">
-                <a href="#">Home</a>
+                <Link to="/">Home</Link>
               </li>
               <li className="d-none d-lg-block">
-                <a href="#about_main">About</a>
+                <Link to="/nbns">NBNS</Link>
               </li>
               <li className="d-none d-lg-block">
-                <a href="#">Candidates</a>
+                <Link to="/candidates">Candidates</Link>
               </li>
               <li className="d-none d-lg-block">
-                <a href="#">NCC</a>
+                <Link to="/ncc">NCC</Link>
               </li>
               <li className="d-none d-lg-block">
-                <a href="#">News</a>
+                <Link to="/news">News</Link>
               </li>
               <li className="d-none d-lg-block">
-                <a href="#">Event</a>
+                <Link to="/events">Event</Link>
               </li>
               <li className="d-none d-lg-block">
-                <a href="#contact_main">Contact</a>
+                <Link to="/contact">Contact</Link>
               </li>
               <li>
                 <a href="#" className="btn-md">

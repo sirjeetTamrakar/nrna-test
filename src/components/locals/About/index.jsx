@@ -1,9 +1,9 @@
-import About from 'assets/images/about.png';
+import AboutImg from 'assets/images/about.png';
 
-const AboutSection = ({ siteSettingImages }) => {
+const About = ({ siteSettingImages }) => {
   const aboutImage = siteSettingImages?.about_image?.path
     ? siteSettingImages.about_image.path
-    : About;
+    : AboutImg;
 
   const aboutText =
     'International Coordination Council (ICC) is the highest global representative executive body of the NRNA and provides overall guidance and directives to the executive committee. Each NCC nominates its members, in a number as prescribed by the NRNA Charter, to represent itself to the ICC. ICC also includes additional members co-opted by the ICC through its meetings. To seek advice on various issues of the NRNs, the ICC also nominates a number of recognized individuals as ICC Advisors.';
@@ -28,4 +28,4 @@ const AboutSection = ({ siteSettingImages }) => {
   );
 };
 
-export default AboutSection;
+export default About;

@@ -1,4 +1,4 @@
-const ContactSection = ({ siteSettings, handleSubmit }) => {
+const Contact = ({ siteSettings, handleSubmit }) => {
   return (
     <section className="contact_page" id="contact_main" style={{ background: '#e5e5e58f' }}>
       <div className="contact_page_title">Contact Us</div>
@@ -85,4 +85,4 @@ const ContactSection = ({ siteSettings, handleSubmit }) => {
   );
 };
 
-export default ContactSection;
+export default Contact;

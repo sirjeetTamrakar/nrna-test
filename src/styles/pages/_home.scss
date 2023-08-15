@@ -55,6 +55,21 @@
     font-size: 15px;
     color: $secondary-light-text;
   }
+  .view_more{
+    color: #ffffff;
+    font-size: 13px;
+    display: inline-block;
+    background: #1565a4;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: all 0.2s linear;
+    &:hover{
+      background: #084270;
+    }
+  }
 }
 .political{
   padding: 90px 0;

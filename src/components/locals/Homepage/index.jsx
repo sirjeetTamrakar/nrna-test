@@ -1,9 +1,8 @@
-import AboutSection from './components/AboutSection';
-import BannerSection from './components/Banner';
-import ContactSection from './components/ContactSection';
-import MissionSection from './components/MissionSection';
-import TaglineSection from './components/TaglineSection';
-import VisionSection from './components/VisionSection';
+import AboutSection from 'components/globals/AboutSection';
+import BannerSection from 'components/globals/Banner';
+import MissionSection from 'components/globals/MissionSection';
+import TaglineSection from 'components/globals/TaglineSection';
+import VisionSection from 'components/globals/VisionSection';
 
 const Homepage = () => {
   return (
@@ -13,7 +12,6 @@ const Homepage = () => {
       <AboutSection />
       <MissionSection />
       <VisionSection />
-      <ContactSection />
     </>
   );
 };

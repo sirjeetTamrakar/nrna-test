@@ -1,6 +1,7 @@
 import VisionImg from 'assets/images/about.png';
+import { Link } from 'react-router-dom';
 
-const VisionSection = ({ siteSettingImages }) => {
+const VisionSection = ({ siteSettingImages, linkUrl }) => {
   const visionImage = siteSettingImages?.vision_image?.path
     ? siteSettingImages.vision_image.path
     : VisionImg;
@@ -21,6 +22,9 @@ const VisionSection = ({ siteSettingImages }) => {
             <div className="about_description">
               <p>{visionText || 'Vision Data Not Added'}</p>
             </div>
+            <Link to={linkUrl || `/vision`} className="view_more">
+              View More
+            </Link>
           </div>
         </div>
       </div>
