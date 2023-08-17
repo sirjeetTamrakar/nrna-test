@@ -1,5 +1,18 @@
-import { makeStyles } from '@mui/styles';
+import { makeStyles } from "@mui/styles";
 
-const usestyles = makeStyles(() => ({}));
+const useStyles = makeStyles((theme) => ({
+  root: {
+    margin: 0,
+    padding: "0",
+    display: "flex",
+  },
 
-export default usestyles;
+  content: {
+    minHeight: "100vh",
+    paddingBlock: "1rem",
+    paddingInline: "46px",
+    width: "calc(100vw - 245px)",
+  },
+}));
+
+export default useStyles;

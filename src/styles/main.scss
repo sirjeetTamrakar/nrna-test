@@ -31,17 +31,7 @@
 @import "./responsive";
 @import "./component/carousel";
 @import "./component/signIn";
-* {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
-  scroll-behavior: smooth;
-  font-family: 'Poppins', sans-serif;
-}
 
-body {
-  background-color: #fff;
-}
 .main_content {
   padding-top: 80px;
 }

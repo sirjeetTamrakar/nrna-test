@@ -10,11 +10,6 @@ const authWrapperStyles = {
 };
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-    background: theme.palette.lightGrey[2],
-    width: '100vw',
-    height: '100vh'
-  },
   authContainer: {
     display: 'flex',
     flexDirection: 'column',
@@ -51,7 +46,7 @@ const useStyles = makeStyles((theme) => ({
     fontSize: '2.5rem',
     marginTop: '2.4rem',
     lineHeight: '2.9rem',
-    color: theme.palette.pureBlack
+    color: theme.palette.text.main
   },
   signInWrapper: {
     ...authWrapperStyles,

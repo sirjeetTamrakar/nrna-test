@@ -10,10 +10,8 @@ export default function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <div>
-        <RouteList />
-        <ToastContainer autoClose={4000} limit={3} draggablePercent={50} />
-      </div>
+      <RouteList />
+      <ToastContainer autoClose={4000} limit={3} draggablePercent={50} />
     </ThemeProvider>
   );
 }

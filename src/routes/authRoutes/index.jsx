@@ -1,24 +1,22 @@
 import AboutPage from 'pages/public/About';
+import BusinessPage from 'pages/public/Business';
 import Candidates from 'pages/public/Candidates';
 import ContactPage from 'pages/public/Contact';
 import { Homepage } from 'pages/public/Homepage';
 import MissionPage from 'pages/public/Mission';
 import NCCPage from 'pages/public/NCC';
+import OurTeamPage from 'pages/public/OurTeam';
+import SingleBusinessPage from 'pages/public/SingleBusiness';
 import VisionPage from 'pages/public/Vision';
 import EventsPage from 'pages/public/events';
 import SingleEventPage from 'pages/public/events/SingleEvent';
 import Forgot from 'pages/public/forgot';
-import Login from 'pages/public/login';
 import NewsPage from 'pages/public/news';
 import SingleNewsPage from 'pages/public/news/SingleNews';
 import ResetPassword from 'pages/public/reset';
 import VerifyEmail from 'pages/public/verify';
 
 const AuthRoutes = [
-  {
-    path: '/login',
-    component: <Login />
-  },
   {
     path: '/',
     component: <Homepage />
@@ -54,6 +52,18 @@ const AuthRoutes = [
   {
     path: '/about',
     component: <AboutPage />
+  },
+  {
+    path: '/our-team',
+    component: <OurTeamPage />
+  },
+  {
+    path: '/business',
+    component: <BusinessPage />
+  },
+  {
+    path: '/business/:slug',
+    component: <SingleBusinessPage />
   },
   {
     path: '/vision',

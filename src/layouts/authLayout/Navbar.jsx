@@ -1,3 +1,4 @@
+import SegmentIcon from '@mui/icons-material/Segment';
 import Logo from 'assets/images/nrna.png';
 import { Link } from 'react-router-dom';
 function Navbar({ isHomePage, currentUser, sticky }) {
@@ -35,7 +36,13 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 <Link to="/nbns">NBNS</Link>
               </li>
               <li className="d-none d-lg-block">
+                <Link to="/our-team">Our Team</Link>
+              </li>
+              <li className="d-none d-lg-block">
                 <Link to="/candidates">Candidates</Link>
+              </li>
+              <li className="d-none d-lg-block">
+                <Link to="/business">Business</Link>
               </li>
               <li className="d-none d-lg-block">
                 <Link to="/ncc">NCC</Link>
@@ -50,13 +57,13 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 <Link to="/contact">Contact</Link>
               </li>
               <li>
-                <a href="#" className="btn-md">
+                <Link to="/dashboard" className="btn-md">
                   Sign In
-                </a>
+                </Link>
               </li>
               <li className="d-block d-lg-none">
                 <span onClick={openNav}>
-                  <i className="fas fa-bars fa-bars-color"></i>
+                  <SegmentIcon />
                 </span>
               </li>
             </ul>
