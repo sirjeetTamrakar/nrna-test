@@ -20,7 +20,7 @@ export const SidebarConstants = [
     items: [
       {
         label: 'Dashboard',
-        url: '/',
+        url: '/dashboard',
         icon: DashboardIcon,
         activeIcon: ActiveDashboardIcon,
         children: []

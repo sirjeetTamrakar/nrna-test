@@ -1,13 +1,22 @@
-import Protected from 'components/globals/protected';
-import Dashboard from 'pages/private/dashboard';
+import Events from 'components/locals/dashboard/Events';
+import NewsPage from 'pages/public/news';
 
 const DashboardRoutes = [
   {
-    path: '/dashboard',
+    path: 'events',
     component: (
-      <Protected>
-        <Dashboard />
-      </Protected>
+      // <Protected>
+      <Events />
+      // </Protected>
+    )
+  },
+
+  {
+    path: 'news',
+    component: (
+      // <Protected>
+      <NewsPage />
+      // </Protected>
     )
   }
 ];
