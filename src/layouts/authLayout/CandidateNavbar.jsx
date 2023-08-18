@@ -1,5 +1,9 @@
 import HomeIcon from '@mui/icons-material/Home';
 import Logo from 'assets/images/nrna.png';
+import CustomModal from 'components/common/CustomModal/CustomModal';
+import Login from 'components/globals/login';
+import Register from 'components/globals/register';
+import useToggle from 'hooks/useToggle';
 import { Link, useParams } from 'react-router-dom';
 function CandidateNavbar({ isHomePage, currentUser, sticky }) {
   const params = useParams();
@@ -12,6 +16,8 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
     // Implement closeNav logic here
   };
   const { candidate } = useParams();
+  const [open, openFunction] = useToggle(false);
+  const [openRegister, openFunctionRegister] = useToggle(false);
 
   return (
     <>
@@ -46,12 +52,12 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
                 <Link to={`/${params?.candidate}/contact`}>Contact</Link>
               </li>
               <li>
-                <a href="#" className="btn-md">
+                <button className="btn-md" onClick={openFunction}>
                   Sign In
-                </a>
+                </button>
               </li>
               <li>
-                <Link to="/" className="btn-md d-none d-lg-block">
+                <Link to="/" className="home-btn d-none d-lg-block">
                   <HomeIcon />
                 </Link>
               </li>
@@ -79,6 +85,12 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
           Back To Home
         </a>
       </div>
+      <CustomModal open={open} handleClose={openFunction} width={`22rem`}>
+        <Login handleClose={openFunction} registerOpen={openFunctionRegister} />
+      </CustomModal>
+      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`22rem`}>
+        <Register handleClose={openFunctionRegister} loginOpen={openFunction} />
+      </CustomModal>
     </>
   );
 }

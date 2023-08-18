@@ -1,5 +1,5 @@
 import { createTheme, lighten } from '@mui/material/styles';
-const mainColor = '#3EC4D5';
+const mainColor = '#2196f3';
 const buttonSharedStyles = (color) => {
   return {
     color: color,
@@ -62,14 +62,7 @@ const theme = createTheme({
     success: { main: '#06C270' },
     warning: { main: '#FFCC00' }
   },
-  typography: {
-    fontSize: {
-      default: '12px',
-      small: '12px',
-      medium: '14px',
-      large: '18px'
-    }
-  },
+
   overrides: {
     MuiCheckbox: {
       root: {
@@ -98,6 +91,13 @@ const theme = createTheme({
         }
       }
     },
+    MuiFormHelperText: {
+      styleOverrides: {
+        root: {
+          fontSize: '11px'
+        }
+      }
+    },
     MuiDivider: {
       styleOverrides: {
         root: {
@@ -111,12 +111,12 @@ const theme = createTheme({
           textTransform: 'capitalize',
           fontWeight: '500',
           fontSize: '12px',
-          padding: '9px 11px !important',
+          padding: '10px 20px !important',
           height: '34px !important'
         },
         contained: {
           '&:hover': {
-            background: '#38AEBA'
+            background: '#1680d5'
           }
         }
       },
@@ -325,7 +325,7 @@ const theme = createTheme({
           outline: 'none',
           border: 'none',
           borderRadius: '3px',
-          fontSize: '12px'
+          fontSize: '14px'
         }
       }
     },
@@ -335,13 +335,29 @@ const theme = createTheme({
           outline: 'none',
           border: 'none',
           borderRadius: '3px'
+        },
+        input: {
+          padding: '8px 15px'
+        }
+      }
+    },
+    MuiInputLabel: {
+      styleOverrides: {
+        root: {
+          fontSize: '14px',
+          marginBottom: '4px'
         }
       }
     },
     MuiAutocomplete: {
       styleOverrides: {
+        root: {
+          '& .MuiOutlinedInput-root': {
+            padding: '0 15px 2px 15px !important'
+          }
+        },
         option: {
-          fontSize: 14
+          fontSize: '14px'
         },
         listbox: {
           paddingBlock: 0

@@ -34,6 +34,18 @@
         }
         .btn-md {
           color: white;
+          background: none;
+          &:hover{
+            border-color: #0c1f62;
+          }
+        }
+        .home-btn{
+          font-size: 24px;
+          transition: all 0.2s ease-in-out;
+          
+          &:hover{
+            transform: scale(0.9);
+          }
         }
         
         svg {
@@ -63,12 +75,19 @@
     }
     a {
     color: $secondary-light-text;
-    &.btn-md {
+    }
+    .btn-md {
       color: $primary-color;
       border-color: $primary-color;
       &:hover {
-        color: #fff;
+        border-color: #fff;
       }
-    }}
+    }
+    .home-btn{
+      background: $primary-color;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: 20px;
+    }
   }
 }

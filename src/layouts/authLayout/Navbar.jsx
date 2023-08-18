@@ -1,5 +1,9 @@
 import SegmentIcon from '@mui/icons-material/Segment';
 import Logo from 'assets/images/nrna.png';
+import CustomModal from 'components/common/CustomModal/CustomModal';
+import Login from 'components/globals/login';
+import Register from 'components/globals/register';
+import useToggle from 'hooks/useToggle';
 import { Link } from 'react-router-dom';
 function Navbar({ isHomePage, currentUser, sticky }) {
   const openNav = () => {
@@ -9,6 +13,9 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   const closeNav = () => {
     // Implement closeNav logic here
   };
+
+  const [open, openFunction] = useToggle(false);
+  const [openRegister, openFunctionRegister] = useToggle(false);
 
   return (
     <>
@@ -57,10 +64,11 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 <Link to="/contact">Contact</Link>
               </li>
               <li>
-                <Link to="/dashboard" className="btn-md">
-                  Sign In
-                </Link>
+                <button className="btn-md" onClick={openFunction}>
+                  Login
+                </button>
               </li>
+
               <li className="d-block d-lg-none">
                 <span onClick={openNav}>
                   <SegmentIcon />
@@ -85,6 +93,12 @@ function Navbar({ isHomePage, currentUser, sticky }) {
           Back To Home
         </a>
       </div>
+      <CustomModal open={open} handleClose={openFunction} width={`22rem`}>
+        <Login handleClose={openFunction} registerOpen={openFunctionRegister} />
+      </CustomModal>
+      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`22rem`}>
+        <Register handleClose={openFunctionRegister} loginOpen={openFunction} />
+      </CustomModal>
     </>
   );
 }

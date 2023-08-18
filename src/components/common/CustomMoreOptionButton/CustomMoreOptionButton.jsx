@@ -1,14 +1,8 @@
-import {
-  IconButton,
-  ListItemIcon,
-  ListItemText,
-  Menu,
-  MenuItem,
-} from "@mui/material";
+import { IconButton, ListItemIcon, ListItemText, Menu, MenuItem } from '@mui/material';
 
-import { MoreVert } from "@mui/icons-material";
-import React, { memo, useState } from "react";
-import styles from "./style";
+import { MoreVert } from '@mui/icons-material';
+import { memo, useState } from 'react';
+import styles from './style';
 /* ITEMS ARRAY DATA :
    items={[
    {
@@ -30,13 +24,7 @@ import styles from "./style";
    };
 */
 
-const CustomMoreOptionButton = ({
-  handleOpenModal,
-  items,
-  row,
-  optionalIcon,
-  info,
-}) => {
+const CustomMoreOptionButton = ({ handleOpenModal, items, row, optionalIcon, info }) => {
   const classes = styles();
   const [anchorEl, setAnchorEl] = useState(null);
   const handleClick = (event) => {
@@ -50,12 +38,12 @@ const CustomMoreOptionButton = ({
       elevation={1}
       getContentAnchorEl={null}
       anchorOrigin={{
-        vertical: "bottom",
-        horizontal: "left",
+        vertical: 'bottom',
+        horizontal: 'left'
       }}
       transformOrigin={{
-        vertical: "top",
-        horizontal: "right",
+        vertical: 'top',
+        horizontal: 'right'
       }}
       {...props}
     />
@@ -68,27 +56,17 @@ const CustomMoreOptionButton = ({
 
   return (
     <>
-      <IconButton onClick={handleClick}>
-        {optionalIcon ?? <MoreVert />}
-      </IconButton>
+      <IconButton onClick={handleClick}>{optionalIcon ?? <MoreVert />}</IconButton>
       <StyledMenu
         anchorEl={anchorEl}
         keepMounted
         open={Boolean(anchorEl)}
         onClose={handleClose}
-        className={classes.menu}
-      >
+        className={classes.menu}>
         {items?.map((item, index) => (
-          <MenuItem
-            key={index}
-            className={classes.styledMenuItem}
-            onClick={() => handleOpen(item)}
-          >
+          <MenuItem key={index} className={classes.styledMenuItem} onClick={() => handleOpen(item)}>
             {item?.icon && <ListItemIcon>{item?.icon}</ListItemIcon>}
-            <ListItemText
-              primary={item?.text}
-              className={classes.listItemText}
-            />
+            <ListItemText primary={item?.text} className={classes.listItemText} />
           </MenuItem>
         ))}
       </StyledMenu>

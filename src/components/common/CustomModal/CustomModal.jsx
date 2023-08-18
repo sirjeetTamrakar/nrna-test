@@ -1,7 +1,7 @@
-import { Clear } from "@mui/icons-material";
-import { Box, Fade, IconButton, Modal, Typography } from "@mui/material";
-import { memo, useEffect, useState } from "react";
-import styles from "./style";
+import { Clear } from '@mui/icons-material';
+import { Box, Fade, IconButton, Modal, Typography } from '@mui/material';
+import { memo, useEffect, useState } from 'react';
+import styles from './style';
 
 function CustomModal({
   children,
@@ -12,18 +12,18 @@ function CustomModal({
   modalTitle,
   modalSubtitle,
   modalStyles = {},
-  icon,
+  icon
 }) {
   const classes = styles();
   function getModalStyle(height, width) {
     return {
       top: `50%`,
       left: `50%`,
-      width: width || "800px",
-      height: height || "auto",
-      maxHeight: height || "80vh",
-      transform: "translate(-50%, -50%)",
-      overflowY: "auto",
+      width: width || '800px',
+      height: height || 'auto',
+      maxHeight: height || '80vh',
+      transform: 'translate(-50%, -50%)',
+      overflowY: 'auto'
     };
   }
   const [modalStyle, setModalStyle] = useState();
@@ -38,33 +38,23 @@ function CustomModal({
       onClose={handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
-      closeAfterTransition
-    >
+      closeAfterTransition>
       <Fade in={open}>
-        <div
-          style={{ ...modalStyle, ...modalStyles }}
-          className={classes.paper}
-        >
+        <div style={{ ...modalStyle, ...modalStyles }} className={classes.paper}>
           {modalTitle && (
             <Box className={classes.modalHeader}>
               <Box className={classes.modalTitle}>
                 {icon && <Box className={classes.iconDanger}>{icon}</Box>}
                 <Box>
-                  <Typography fontSize="medium">
-                    {modalTitle?.toUpperCase()}
-                  </Typography>
+                  <Typography fontSize="medium">{modalTitle?.toUpperCase()}</Typography>
                 </Box>
               </Box>
-              <IconButton
-                variant="subtitle1"
-                className={classes.rotate}
-                onClick={handleClose}
-              >
+              <IconButton variant="subtitle1" className={classes.rotate} onClick={handleClose}>
                 <Clear />
               </IconButton>
             </Box>
           )}
-          <Box p="11px 34px 25px 34px">
+          <Box>
             <Box>{children}</Box>
           </Box>
         </div>

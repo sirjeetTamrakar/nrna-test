@@ -1,14 +1,13 @@
-import { Box, FormHelperText, Switch, Typography } from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import React from "react";
-import { Controller } from "react-hook-form";
+import { Box, FormHelperText, Switch, Typography } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Controller } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiFormControl-root": {
-      width: "100%",
-    },
-  },
+    '& .MuiFormControl-root': {
+      width: '100%'
+    }
+  }
 }));
 
 export const CustomSwitch = ({
@@ -20,9 +19,9 @@ export const CustomSwitch = ({
 
   defaultValue,
   rule = { required: false },
-  title = "",
+  title = '',
   disabled = false,
-  nonNestedSelect = true,
+  nonNestedSelect = true
 }) => {
   return (
     <>
@@ -31,24 +30,16 @@ export const CustomSwitch = ({
           name={name}
           control={control}
           render={({ field: { onChange, value } }) => (
-            <Box
-              alignItems={"start"}
-              display="flex"
-              justifyContent="space-between"
-            >
+            <Box alignItems={'start'} display="flex" justifyContent="space-between">
               <Typography>{label}</Typography>
               <Switch checked={value} onChange={onChange} />
             </Box>
           )}
           rules={rule}
         />
-        {nonNestedSelect &&
-          errors[name] &&
-          errors[name].type === "required" && (
-            <FormHelperText style={{ color: "red" }}>
-              This field is required
-            </FormHelperText>
-          )}
+        {nonNestedSelect && errors[name] && errors[name].type === 'required' && (
+          <FormHelperText style={{ color: 'red' }}>This field is required</FormHelperText>
+        )}
       </div>
     </>
   );
