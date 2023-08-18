@@ -1,63 +1,77 @@
 import { Box, Button } from '@mui/material';
 import CustomTable from 'components/common/table';
 
-const News = () => {
+const OurTeam = () => {
   const tableHeads = [
     { title: 'S.N.', type: 'Index', isSortable: true, minWidth: 20 },
 
     {
-      title: 'Title',
+      title: 'Name',
       minWidth: 100,
       isSortable: true,
-      field: 'title'
+      field: 'name'
     },
     {
-      title: 'Created by',
+      title: 'Email',
       minWidth: 100,
       isSortable: true,
-      field: 'created_by'
+      field: 'member'
     },
     {
-      title: 'Created at',
+      title: 'Phone',
       minWidth: 100,
       isSortable: true,
-      field: 'created_at'
+      field: 'phone'
+    },
+
+    {
+      title: 'Country of Resident',
+      minWidth: 100,
+      isSortable: true,
+      field: 'country_of_resident'
+    },
+    {
+      title: 'City',
+      minWidth: 100,
+      isSortable: true,
+      field: 'city'
+    },
+    {
+      title: 'Position',
+      minWidth: 100,
+      isSortable: true,
+      field: 'position'
+    },
+    {
+      title: 'Order',
+      minWidth: 100,
+      isSortable: true,
+      field: 'order'
+    },
+    {
+      title: 'Join date',
+      minWidth: 100,
+      isSortable: true,
+      field: 'join date'
+    },
+
+    {
+      title: 'Role',
+      minWidth: 100,
+      isSortable: true,
+      field: 'role'
     },
     {
       title: 'Status',
       minWidth: 100,
       isSortable: true,
-      field: 'status'
+      field: 'Status'
     },
     {
-      title: 'NRNA front',
+      title: 'View profile',
       minWidth: 100,
       isSortable: true,
-      field: 'nrna_front'
-    },
-    {
-      title: 'NCC front',
-      minWidth: 100,
-      isSortable: true,
-      field: 'ncc_front'
-    },
-    {
-      title: 'Approved by',
-      minWidth: 100,
-      isSortable: true,
-      field: 'approved_by'
-    },
-    {
-      title: 'View',
-      minWidth: 100,
-      isSortable: true,
-      field: 'view'
-    },
-    {
-      title: 'Actions',
-      minWidth: 100,
-      isSortable: true,
-      field: 'actions'
+      field: 'view_profile'
     }
   ];
 
@@ -71,7 +85,7 @@ const News = () => {
             alignItems: 'center',
             marginBottom: '40px'
           }}>
-          <Box>News</Box>
+          <Box>Our Team</Box>
           <Button sx={{ marginLeft: 'auto' }} variant="contained">
             Add
           </Button>
@@ -82,4 +96,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default OurTeam;

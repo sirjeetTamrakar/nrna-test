@@ -1,11 +1,11 @@
-import News from 'components/locals/dashboard/News';
+import Contacts from 'components/locals/dashboard/Contact';
 
-const NewsPage = () => {
+const ContactPage = () => {
   return (
     <div>
-      <News />
+      <Contacts />
     </div>
   );
 };
 
-export default NewsPage;
+export default ContactPage;

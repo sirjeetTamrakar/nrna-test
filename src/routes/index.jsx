@@ -6,6 +6,7 @@ import AuthRoutes from './authRoutes';
 import { candidateRoute } from './authRoutes/candidateRoute';
 import { nbnsRoutes } from './authRoutes/NBNSRoute';
 import { nccRoute } from './authRoutes/NCCRoute';
+// import { candidateRoute } from './authRoutes/CandidateRoute';
 import DashboardRoutes from './dashboardRoutes';
 
 const RouteList = () => {

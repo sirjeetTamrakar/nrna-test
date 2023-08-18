@@ -1,63 +1,39 @@
 import { Box, Button } from '@mui/material';
 import CustomTable from 'components/common/table';
 
-const News = () => {
+const Questions = () => {
   const tableHeads = [
     { title: 'S.N.', type: 'Index', isSortable: true, minWidth: 20 },
 
     {
-      title: 'Title',
+      title: 'Question',
       minWidth: 100,
       isSortable: true,
-      field: 'title'
+      field: 'name'
     },
     {
-      title: 'Created by',
+      title: 'Option A',
       minWidth: 100,
       isSortable: true,
-      field: 'created_by'
+      field: 'option_a'
     },
     {
-      title: 'Created at',
+      title: 'Option B',
       minWidth: 100,
       isSortable: true,
-      field: 'created_at'
+      field: 'option_b'
     },
     {
-      title: 'Status',
+      title: 'Option C',
       minWidth: 100,
       isSortable: true,
-      field: 'status'
+      field: 'option_c'
     },
     {
-      title: 'NRNA front',
+      title: 'Option D',
       minWidth: 100,
       isSortable: true,
-      field: 'nrna_front'
-    },
-    {
-      title: 'NCC front',
-      minWidth: 100,
-      isSortable: true,
-      field: 'ncc_front'
-    },
-    {
-      title: 'Approved by',
-      minWidth: 100,
-      isSortable: true,
-      field: 'approved_by'
-    },
-    {
-      title: 'View',
-      minWidth: 100,
-      isSortable: true,
-      field: 'view'
-    },
-    {
-      title: 'Actions',
-      minWidth: 100,
-      isSortable: true,
-      field: 'actions'
+      field: 'option_d'
     }
   ];
 
@@ -71,7 +47,7 @@ const News = () => {
             alignItems: 'center',
             marginBottom: '40px'
           }}>
-          <Box>News</Box>
+          <Box>Questions</Box>
           <Button sx={{ marginLeft: 'auto' }} variant="contained">
             Add
           </Button>
@@ -82,4 +58,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default Questions;
