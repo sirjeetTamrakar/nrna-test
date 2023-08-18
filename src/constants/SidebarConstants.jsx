@@ -1,7 +1,18 @@
 import ActiveDashboardIcon from 'assets/activeIcons/dashboard.svg';
 import ActiveSettingsIcon from 'assets/activeIcons/settings.svg';
+import Advice from 'assets/icon/advice.svg';
+import Candidate from 'assets/icon/candidate.svg';
+import Contact from 'assets/icon/contact.svg';
 import DashboardIcon from 'assets/icon/dashboard.svg';
+import Events from 'assets/icon/events.svg';
+import Country from 'assets/icon/ncc.svg';
+import News from 'assets/icon/news.svg';
+import Profile from 'assets/icon/profile.svg';
+import Survey from 'assets/icon/survey.svg';
+import Team from 'assets/icon/team.svg';
+
 import SettingsIcon from 'assets/icon/settings.svg';
+import UserManagement from 'assets/icon/user-management.svg';
 
 export const SidebarConstants = [
   {
@@ -17,7 +28,7 @@ export const SidebarConstants = [
       {
         label: 'User Management',
         url: '/dashboard/user-management',
-        icon: SettingsIcon,
+        icon: UserManagement,
         activeIcon: ActiveSettingsIcon,
         children: [
           {
@@ -33,30 +44,74 @@ export const SidebarConstants = [
       {
         label: 'News',
         url: '/dashboard/news',
-        icon: DashboardIcon,
+        icon: News,
         activeIcon: ActiveDashboardIcon,
         children: []
       },
       {
         label: 'Events',
         url: '/dashboard/events',
-        icon: DashboardIcon,
+        icon: Events,
         activeIcon: ActiveDashboardIcon,
         children: []
       },
       {
         label: 'Contact',
         url: '/dashboard/contact',
-        icon: DashboardIcon,
+        icon: Contact,
         activeIcon: ActiveDashboardIcon,
         children: []
       },
       {
         label: 'Profile',
         url: '/dashboard/profile',
-        icon: DashboardIcon,
+        icon: Profile,
         activeIcon: ActiveDashboardIcon,
         children: []
+      },
+      {
+        label: 'Advice',
+        url: '/dashboard/advice',
+        icon: Advice,
+        activeIcon: ActiveDashboardIcon,
+        children: []
+      },
+      {
+        label: 'NCC',
+        url: '/dashboard/ncc',
+        icon: Country,
+        activeIcon: ActiveDashboardIcon,
+        children: []
+      },
+      {
+        label: 'Our Team',
+        url: '/dashboard/our-team',
+        icon: Team,
+        activeIcon: ActiveDashboardIcon,
+        children: []
+      },
+      {
+        label: 'Candidate',
+        url: '/dashboard/candidate',
+        icon: Candidate,
+        activeIcon: ActiveDashboardIcon,
+        children: []
+      },
+      {
+        label: 'Survey',
+        url: '/survey',
+        icon: Survey,
+        activeIcon: ActiveSettingsIcon,
+        children: [
+          {
+            label: 'Questions',
+            url: '/survey/site'
+          },
+          {
+            label: 'Result',
+            url: '/survey/result'
+          }
+        ]
       },
       {
         label: 'Settings',

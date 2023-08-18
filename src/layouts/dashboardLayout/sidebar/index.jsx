@@ -132,6 +132,7 @@ export default function Sidebar() {
                             justifyContent: 'center'
                           }}>
                           <img
+                            style={{ height: '20px', width: '20px' }}
                             src={
                               isActive
                                 ? item?.children?.length
