@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import AuthRoutes from './authRoutes';
 import { nbnsRoutes } from './authRoutes/NBNSRoute';
 import { nccRoute } from './authRoutes/NCCRoute';
-import { candidateRoute } from './authRoutes/candidateRoute';
+import { candidateRoute } from './authRoutes/CandidateRoute';
 import DashboardRoutes from './dashboardRoutes';
 
 const RouteList = () => {
