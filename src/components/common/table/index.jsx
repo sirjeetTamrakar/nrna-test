@@ -99,8 +99,6 @@ const CustomTable = ({
             {isMulti && (
               <TableCell padding="checkbox">
                 <Checkbox
-                  //   indeterminate={numSelected > 0 && numSelected < rowCount}
-                  //   checked={rowCount > 0 && numSelected === rowCount}
                   onChange={(e) => onSelectAllClick(e, tableData)}
                   inputProps={{ 'aria-label': 'select all desserts' }}
                 />
@@ -127,7 +125,6 @@ const CustomTable = ({
                     {isMulti && (
                       <TableCell>
                         <Checkbox
-                          //   indeterminate={numSelected > 0 && numSelected < rowCount}
                           checked={checkChecked(index)}
                           onChange={() => handleSingleRowSelect(singleData, index)}
                           inputProps={{ 'aria-label': 'select all desserts' }}
