@@ -5,13 +5,13 @@ const usestyles = makeStyles((theme) => ({
     // boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.25)'
   },
   tableHead: {
-    background: theme.palette.lightGrey[3],
+    background: '#4d4d4d',
     height: '3.4rem !important'
   },
   tableHeadItem: {
     fontWeight: '600',
-    fontSize: '1.2rem',
-    color: theme.palette.tableHead,
+    fontSize: '12px',
+    color: '#fff !important',
     letterSpacing: '0.03em',
     padding: '1.2rem 1rem'
     // display: 'flex'
@@ -28,7 +28,7 @@ const usestyles = makeStyles((theme) => ({
     position: 'absolute',
     top: '-8px',
     cursor: 'pointer',
-    fontSize: '20px',
+    fontSize: '14px !important',
     '&:hover': {
       color: '#fff'
     }
@@ -37,7 +37,7 @@ const usestyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: '-8px',
     cursor: 'pointer',
-    fontSize: '20px',
+    fontSize: '14px !important',
     '&:hover': {
       color: '#fff'
     }
@@ -45,9 +45,12 @@ const usestyles = makeStyles((theme) => ({
   tableItem: {
     fontFamily: 'Work Sans !important',
     fontWeight: '400 !important',
-    fontSize: '1.4rem !important',
+    fontSize: '12px !important',
     color: '#171C26',
     padding: '1rem'
+  },
+  paginationBox: {
+    fontSize: '12px'
   }
 }));
 

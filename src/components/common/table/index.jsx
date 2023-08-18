@@ -119,7 +119,7 @@ const CustomTable = ({
 
         <TableBody>
           {!loading
-            ? tableData.map((singleData, index) => {
+            ? (tableData ?? [])?.map((singleData, index) => {
                 return (
                   <TableRow key={index}>
                     {isMulti && (
@@ -178,6 +178,7 @@ const CustomTable = ({
         </TableBody>
       </Table>
       <TablePagination
+        className={classes.paginationBox}
         rowsPerPageOptions={[10, 25, 100]}
         component="div"
         count={tableData.length}

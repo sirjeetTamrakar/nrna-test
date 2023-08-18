@@ -20,7 +20,7 @@ export const SidebarConstants = [
     items: [
       {
         label: 'Dashboard',
-        url: '/',
+        url: '/dashboard',
         icon: DashboardIcon,
         activeIcon: ActiveDashboardIcon,
         children: []
@@ -99,33 +99,33 @@ export const SidebarConstants = [
       },
       {
         label: 'Survey',
-        url: '/survey',
+        url: '/dashboard/survey',
         icon: Survey,
         activeIcon: ActiveSettingsIcon,
         children: [
           {
             label: 'Questions',
-            url: '/survey/site'
+            url: '/dashboard/survey/site'
           },
           {
             label: 'Result',
-            url: '/survey/result'
+            url: '/dashboard/survey/result'
           }
         ]
       },
       {
         label: 'Settings',
-        url: '/settings',
+        url: '/dashboard/settings',
         icon: SettingsIcon,
         activeIcon: ActiveSettingsIcon,
         children: [
           {
             label: 'Site Setting',
-            url: '/settings/site'
+            url: '/dashboard/settings/site'
           },
           {
             label: 'Banner',
-            url: '/settings/banner'
+            url: '/dashboard/settings/banner'
           }
         ]
       }
