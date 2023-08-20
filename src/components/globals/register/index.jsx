@@ -50,7 +50,7 @@ const Register = ({ loginOpen, handleClose }) => {
         <div className="login_wrapper">
           <div className="title">Join Us</div>
           <div className="subtitle">Register to the website to browse more</div>
-          <Box display="flex" flexDirection="column" rowGap={`15px`}>
+          <Box display="flex" flexDirection="column" rowGap={`12px`}>
             <CustomInput name="name" label="Name" />
             <CustomInput name="email" label="Email" type="email" />
             <CustomAutoComplete

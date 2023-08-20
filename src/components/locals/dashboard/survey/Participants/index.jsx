@@ -1,15 +1,15 @@
-import AddIcon from '@mui/icons-material/Add';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
 import { Box, Button, Typography } from '@mui/material';
-import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
-const Candidate = () => {
+import { useState } from 'react';
+const Participants = () => {
+  const [page, setPage] = useState();
+  const [rowsPerPage, setRowsPerPage] = useState();
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
     {
       title: 'Name',
-      minWidth: 180,
+      minWidth: 150,
       field: (row) => {
         return (
           <Box>
@@ -34,53 +34,29 @@ const Candidate = () => {
 
     {
       title: 'Address',
-      minWidth: 100,
+      minWidth: 120,
       field: (row) => {
         return (
           <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
         );
       }
     },
+
     {
-      title: 'Designation',
-      minWidth: 100,
-      field: 'designation'
+      title: 'Date',
+      minWidth: 120,
+      field: 'created_at'
     },
     {
-      title: 'Order',
-      minWidth: 100,
-      field: 'order'
-    },
-    {
-      title: 'Status',
+      title: 'Survey',
       minWidth: 100,
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
-              <Button variant="contained" color="success">
-                Active
-              </Button>
-            ) : (
-              <Button variant="contained" color="error">
-                Inactive
-              </Button>
-            )}
+            <Button variant="contained" color="success" sx={{ width: '100px' }}>
+              View
+            </Button>
           </Box>
-        );
-      }
-    },
-    {
-      title: 'Actions',
-      minWidth: 85,
-      field: (row) => {
-        return (
-          <CustomPopover ButtonComponent={<MoreVertIcon />}>
-            <Box padding={2}>
-              <Typography>View Profile</Typography>
-              <Typography>Delete</Typography>
-            </Box>
-          </CustomPopover>
         );
       }
     }
@@ -95,9 +71,36 @@ const Candidate = () => {
       country_of_residence: 'Nepal',
       city: 'Kathmandu',
       created_at: '20-Aug-2023',
-      designation: 'Chairman',
-      order: '1',
+      approved_by: 'Yogen Bahadur Chhetri',
+      rejected_by: '',
+      role: 'Super Admin',
       status: 'Active'
+    },
+    {
+      name: 'Bishwo Raj Raut',
+      slug: 'brraut',
+      email: 'bishowraut@gmail.com',
+      phone: '9841587582',
+      country_of_residence: 'Nepal',
+      city: 'Kathmandu',
+      created_at: '20-Aug-2023',
+      approved_by: '',
+      rejected_by: 'Yogen Bahadur Chhetri',
+      role: 'Super Admin',
+      status: 'Active'
+    },
+    {
+      name: 'Bishwo Raj Raut',
+      slug: 'brraut',
+      email: 'bishowraut@gmail.com',
+      phone: '9841587582',
+      country_of_residence: 'Nepal',
+      city: 'Kathmandu',
+      created_at: '20-Aug-2023',
+      approved_by: '',
+      rejected_by: '',
+      role: 'Super Admin',
+      status: 'Inactive'
     }
   ];
 
@@ -111,15 +114,20 @@ const Candidate = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>Candidate</Box>
-          <Button startIcon={<AddIcon />} variant="contained" display="flex">
-            Add Candidate
-          </Button>
+          <Box>Survey Participants</Box>
         </Box>
-        <CustomTable tableHeads={tableHeads} tableData={tableData} />
+        <CustomTable
+          tableHeads={tableHeads}
+          tableData={tableData}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          page={page}
+          setPage={setPage}
+          total={30}
+        />
       </Box>
     </>
   );
 };
 
-export default Candidate;
+export default Participants;

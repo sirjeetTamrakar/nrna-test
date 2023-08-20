@@ -43,9 +43,6 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
               </li>
 
               <li className="d-none d-lg-block">
-                <Link to={`/${params?.candidate}/profile`}>Profile</Link>
-              </li>
-              <li className="d-none d-lg-block">
                 <Link to={`/${params?.candidate}/news`}>News</Link>
               </li>
               <li className="d-none d-lg-block">

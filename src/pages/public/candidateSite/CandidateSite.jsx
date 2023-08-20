@@ -4,7 +4,7 @@ import AuthLayout from 'layouts/authLayout';
 const CandidateSitePage = () => {
   return (
     <>
-      <AuthLayout userType="candidate">
+      <AuthLayout userType="candidate" sticky>
         <CandidateSite />
       </AuthLayout>
     </>

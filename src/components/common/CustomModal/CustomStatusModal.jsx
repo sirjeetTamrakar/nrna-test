@@ -1,8 +1,9 @@
-import { Delete, DeleteOutline } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
-const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
+const CustomStatusModal = ({ open, handleClose, handleConfirm, isLoading, status }) => {
   return (
     <>
       <CustomModal
@@ -28,11 +29,11 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
               }}>
               <IconButton
                 style={{
-                  backgroundColor: '#FCE4EC',
+                  backgroundColor: '#dffffc',
                   width: '40px',
                   height: '40px'
                 }}>
-                <DeleteOutline style={{ color: '#F10056' }} />
+                <AutorenewIcon style={{ color: '#009688' }} />
               </IconButton>
 
               <p
@@ -42,19 +43,31 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
                   padding: 0,
                   marginTop: '10px'
                 }}>
-                Do you want to delete this record?
+                Do you want to change status of this record?
               </p>
-
-              <p
-                style={{
-                  margin: 0,
-                  padding: 0,
-                  fontSize: '14px',
-                  marginTop: '5px',
-                  color: '#43434390'
-                }}>
-                This action is permanent and cannot be undone.
-              </p>
+              {status === 'Active' ? (
+                <p
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: '14px',
+                    marginTop: '5px',
+                    color: '#008478'
+                  }}>
+                  Your current status is Active.
+                </p>
+              ) : (
+                <p
+                  style={{
+                    margin: 0,
+                    padding: 0,
+                    fontSize: '14px',
+                    marginTop: '5px',
+                    color: '#d92323'
+                  }}>
+                  Your current status is Inactive.
+                </p>
+              )}
             </Box>
           </Box>
 
@@ -63,26 +76,25 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'flex-end',
+              //   height: "60px",
               gap: '10px',
               marginTop: '30px'
             }}>
             <Button
+              variant="contained"
               onClick={() => handleConfirm()}
               disabled={isLoading}
-              style={{ backgroundColor: '#F10056', color: 'white' }}>
+              color="primary">
               {isLoading ? (
                 <Box display={'flex'} alignItems={'center'} gap={'10px'}>
                   <CircularProgress size={15} style={{ color: '#fff' }} />
-                  Delete
+                  Update
                 </Box>
               ) : (
-                'Delete'
+                'Update'
               )}
             </Button>
-            <Button
-              variant="outlined"
-              onClick={() => handleClose()}
-              style={{ color: '#F10056', borderColor: '#F10056' }}>
+            <Button variant="outlined" onClick={() => handleClose()} color="primary">
               Cancel
             </Button>
           </Box>
@@ -92,4 +104,4 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
   );
 };
 
-export default CustomDeleteModal;
+export default CustomStatusModal;

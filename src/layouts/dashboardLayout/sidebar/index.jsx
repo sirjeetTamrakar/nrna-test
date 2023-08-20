@@ -1,14 +1,13 @@
-import { Add, ExpandMore, Sync } from '@mui/icons-material';
-import { Collapse, IconButton, Typography } from '@mui/material';
+import { ExpandMore, Sync } from '@mui/icons-material';
+import { Collapse, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
-import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
-import { styled, useTheme } from '@mui/material/styles';
+import { styled } from '@mui/material/styles';
 import Logo from 'assets/images/nrna.png';
 import { SidebarConstants } from 'constants/SidebarConstants';
 import * as React from 'react';
@@ -64,7 +63,6 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidebar() {
-  const theme = useTheme();
   const classes = useStyles();
   const [open, setOpen] = React.useState(sessionStorage.getItem('active'));
   const handleClick = (item) => {
@@ -74,8 +72,6 @@ export default function Sidebar() {
 
   return (
     <Box sx={{ display: 'flex', '& .MuiDrawer-paper': { border: 'none' } }}>
-      <CssBaseline />
-
       <Drawer variant="permanent" open>
         <Box className={classes.drawer}>
           <DrawerHeader>
@@ -229,15 +225,12 @@ const ChildComponent = ({ child, classes }) => {
           {({ isActive }) => (
             <ListItemButton
               className={[classes.listItemButtonChild, isActive && classes.activeChildClass]}>
-              <ListItemText primary={child?.label} className="active" />
-              <IconButton
-                onClick={() => (child?.pageUrl ? navigate(`/`) : handleOpen())}
-                className={classes.iconButton}
-                sx={{
-                  visibility: hover ? 'visible' : 'hidden'
-                }}>
-                {<Add />}
-              </IconButton>
+              <ListItemText
+                disableTypography
+                primary={<Typography variant="body2">{child?.label}</Typography>}
+                className="active"
+                primaryTypographyProps="h2"
+              />
             </ListItemButton>
           )}
         </NavLink>

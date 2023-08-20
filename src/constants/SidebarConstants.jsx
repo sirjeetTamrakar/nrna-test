@@ -34,11 +34,11 @@ export const SidebarConstants = [
           {
             label: 'Member',
             url: '/dashboard/user-management/member'
-          },
-          {
-            label: 'Permission',
-            url: '/dashboard/user-management/member'
           }
+          // {
+          //   label: 'Permission',
+          //   url: '/dashboard/user-management/member'
+          // }
         ]
       },
       {
@@ -110,6 +110,10 @@ export const SidebarConstants = [
           {
             label: 'Result',
             url: '/dashboard/survey/result'
+          },
+          {
+            label: 'Participants',
+            url: '/dashboard/survey/participants'
           }
         ]
       },

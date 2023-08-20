@@ -21,7 +21,7 @@ function CustomModal({
       left: `50%`,
       width: width || '800px',
       height: height || 'auto',
-      maxHeight: height || '80vh',
+      maxHeight: height || '90vh',
       transform: 'translate(-50%, -50%)',
       overflowY: 'auto'
     };
@@ -43,10 +43,13 @@ function CustomModal({
         <div style={{ ...modalStyle, ...modalStyles }} className={classes.paper}>
           {modalTitle && (
             <Box className={classes.modalHeader}>
-              <Box className={classes.modalTitle}>
+              <Box className={classes.modalTitleWrapper}>
                 {icon && <Box className={classes.iconDanger}>{icon}</Box>}
                 <Box>
-                  <Typography fontSize="medium">{modalTitle?.toUpperCase()}</Typography>
+                  <Typography className={classes.modalTitle}>
+                    {modalTitle?.toUpperCase()}
+                  </Typography>
+                  <Typography className={classes.modalSubtitle}>{modalSubtitle}</Typography>
                 </Box>
               </Box>
               <IconButton variant="subtitle1" className={classes.rotate} onClick={handleClose}>

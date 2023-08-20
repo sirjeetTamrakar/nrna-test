@@ -1,8 +1,16 @@
-import { Delete, DeleteOutline } from '@mui/icons-material';
+import { Delete } from '@mui/icons-material';
+import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
-const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
+const CustomApproveModal = ({
+  open,
+  handleClose,
+  handleApprove,
+  handleReject,
+  isLoading,
+  status
+}) => {
   return (
     <>
       <CustomModal
@@ -28,11 +36,11 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
               }}>
               <IconButton
                 style={{
-                  backgroundColor: '#FCE4EC',
+                  backgroundColor: '#dffffc',
                   width: '40px',
                   height: '40px'
                 }}>
-                <DeleteOutline style={{ color: '#F10056' }} />
+                <AutorenewIcon style={{ color: '#009688' }} />
               </IconButton>
 
               <p
@@ -42,7 +50,7 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
                   padding: 0,
                   marginTop: '10px'
                 }}>
-                Do you want to delete this record?
+                Do you want to Approve or Reject?
               </p>
 
               <p
@@ -53,7 +61,7 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
                   marginTop: '5px',
                   color: '#43434390'
                 }}>
-                This action is permanent and cannot be undone.
+                Click green button to approve and red button to reject.
               </p>
             </Box>
           </Box>
@@ -63,26 +71,39 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'flex-end',
+              //   height: "60px",
               gap: '10px',
               marginTop: '30px'
             }}>
             <Button
-              onClick={() => handleConfirm()}
+              variant="contained"
+              onClick={() => handleApprove()}
               disabled={isLoading}
-              style={{ backgroundColor: '#F10056', color: 'white' }}>
+              color="success">
               {isLoading ? (
                 <Box display={'flex'} alignItems={'center'} gap={'10px'}>
                   <CircularProgress size={15} style={{ color: '#fff' }} />
-                  Delete
+                  Approve
                 </Box>
               ) : (
-                'Delete'
+                'Approve'
               )}
             </Button>
             <Button
-              variant="outlined"
-              onClick={() => handleClose()}
-              style={{ color: '#F10056', borderColor: '#F10056' }}>
+              variant="contained"
+              onClick={() => handleReject()}
+              disabled={isLoading}
+              color="error">
+              {isLoading ? (
+                <Box display={'flex'} alignItems={'center'} gap={'10px'}>
+                  <CircularProgress size={15} style={{ color: '#fff' }} />
+                  Reject
+                </Box>
+              ) : (
+                'Reject'
+              )}
+            </Button>
+            <Button variant="outlined" onClick={() => handleClose()} color="primary">
               Cancel
             </Button>
           </Box>
@@ -92,4 +113,4 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
   );
 };
 
-export default CustomDeleteModal;
+export default CustomApproveModal;

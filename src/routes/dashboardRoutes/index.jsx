@@ -7,6 +7,7 @@ import MemberPage from 'pages/private/dashboard/MemberPage';
 import NCCPage from 'pages/private/dashboard/NCCPage';
 import NewsPage from 'pages/private/dashboard/NewsPage';
 import OurTeamPage from 'pages/private/dashboard/OurTeamPage';
+import ParticipantsPage from 'pages/private/dashboard/Participants';
 import ProfilePage from 'pages/private/dashboard/ProfilePage';
 import QuestionsPage from 'pages/private/dashboard/Questions';
 import ResultsPage from 'pages/private/dashboard/ResultsPage';
@@ -94,6 +95,15 @@ const DashboardRoutes = [
       // </Protected>
     )
   },
+  {
+    path: 'survey/participants',
+    component: (
+      // <Protected>
+      <ParticipantsPage />
+      // </Protected>
+    )
+  },
+
   {
     path: 'settings/site',
     component: (

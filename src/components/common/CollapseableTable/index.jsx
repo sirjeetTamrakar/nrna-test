@@ -1,9 +1,14 @@
-import { ArrowDropDown, ArrowDropUp, MoreVertOutlined } from '@mui/icons-material';
+import { MoreVertOutlined } from '@mui/icons-material';
+import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
+import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import {
+  Box,
   Checkbox,
+  Collapse,
   IconButton,
   Menu,
   MenuItem,
+  Paper,
   Skeleton,
   Table,
   TableBody,
@@ -15,14 +20,13 @@ import {
 } from '@mui/material';
 import PropTypes from 'prop-types';
 import { useState } from 'react';
-import useStyles from './styles';
-
 // MAIN Component
-const CustomTable = ({
+const CollapseTable = ({
   isMulti = true,
   tableHeads,
   tableData,
   onEdit,
+  ChildComponent,
   onDelete,
   loading = false,
   rowsPerPage = 10,
@@ -60,8 +64,6 @@ const CustomTable = ({
     setPage(0);
   };
 
-  const classes = useStyles();
-
   const onSelectAllClick = (e, tableData) => {
     if (!e.target.checked) return setSelectedRows([]);
     const newDatas = tableData.map((singleData, idx) => ({
@@ -85,20 +87,12 @@ const CustomTable = ({
     return false;
   };
 
-  const arrowIcons = () => {
-    return (
-      <span className={classes.tableHeadSpan}>
-        <ArrowDropUp className={classes.arrowIcon1} />
-        <ArrowDropDown className={classes.arrowIcon2} />
-      </span>
-    );
-  };
-
   return (
-    <TableContainer className={classes.root}>
+    <TableContainer component={Paper}>
       <Table>
         <TableHead>
-          <TableRow className={classes.tableHead}>
+          <TableRow>
+            <TableCell width="20px"></TableCell>
             {isMulti && (
               <TableCell padding="checkbox">
                 <Checkbox
@@ -108,65 +102,26 @@ const CustomTable = ({
               </TableCell>
             )}
             {tableHeads?.map((element, idx) => {
-              return (
-                <TableCell className={classes.tableHeadItem} key={idx} width={element?.minWidth}>
-                  {typeof element.title == 'object'
-                    ? element.title
-                    : `${element.title}`.toUpperCase()}
-                  {element.isSortable && arrowIcons()}
-                </TableCell>
-              );
+              return <TableCell key={idx}>{`${element.title}`.toUpperCase()}</TableCell>;
             })}
           </TableRow>
         </TableHead>
 
         <TableBody>
           {!loading
-            ? (tableData ?? [])?.map((singleData, index) => {
+            ? tableData.map((singleData, index) => {
                 return (
-                  <TableRow key={index}>
-                    {isMulti && (
-                      <TableCell>
-                        <Checkbox
-                          checked={checkChecked(index)}
-                          onChange={() => handleSingleRowSelect(singleData, index)}
-                          inputProps={{ 'aria-label': 'select all desserts' }}
-                        />
-                      </TableCell>
-                    )}
-                    {tableHeads.map((el, idx) => {
-                      if (el.type?.toLowerCase() === 'index') {
-                        return (
-                          <TableCell className={classes.tableItem} key={idx}>
-                            {index + 1}
-                          </TableCell>
-                        );
-                      }
-
-                      if (typeof el.field === 'function') {
-                        return (
-                          <TableCell className={classes.tableItem} key={idx}>
-                            {el.field(singleData, el.field, index)}
-                          </TableCell>
-                        );
-                      }
-                      if (el.type?.toLowerCase() === 'actions') {
-                        return (
-                          <TableCell className={classes.tableItem} key={idx}>
-                            <IconButton
-                              onClick={(event) => handleActionButtonClick(event, singleData)}>
-                              <MoreVertOutlined />
-                            </IconButton>
-                          </TableCell>
-                        );
-                      }
-                      return (
-                        <TableCell className={classes.tableItem} key={idx}>
-                          {singleData[el.field]}
-                        </TableCell>
-                      );
-                    })}
-                  </TableRow>
+                  <Rows
+                    key={index}
+                    index={index}
+                    isMulti={isMulti}
+                    checkChecked={checkChecked}
+                    handleSingleRowSelect={handleSingleRowSelect}
+                    singleData={singleData}
+                    tableHeads={tableHeads}
+                    handleActionButtonClick={handleActionButtonClick}
+                    ChildComponent={ChildComponent}
+                  />
                 );
               })
             : [...Array(8).keys()].map((index) => (
@@ -181,7 +136,6 @@ const CustomTable = ({
         </TableBody>
       </Table>
       <TablePagination
-        className={classes.paginationBox}
         rowsPerPageOptions={[10, 25, 50, 100]}
         component="div"
         count={total}
@@ -206,15 +160,17 @@ const CustomTable = ({
   );
 };
 
-export default CustomTable;
+export default CollapseTable;
 
-CustomTable.propTypes = {
+CollapseTable.propTypes = {
   isMulti: PropTypes.bool, // this is to render the multiple row selectbox
   tableHeads: PropTypes.array, // header for table (will write custom documentation on it later)
   tableData: PropTypes.array,
-  onEdit: PropTypes.func
+  onEdit: PropTypes.func,
+  onDelete: PropTypes.func,
+  childHeads: PropTypes.component
 };
-CustomTable.defaultProps = {
+CollapseTable.defaultProps = {
   isMulti: false,
   onEdit: () => {},
   tableHeads: [
@@ -235,4 +191,73 @@ CustomTable.defaultProps = {
       }
     }
   ]
+};
+
+const Rows = ({
+  index,
+  isMulti,
+  checkChecked,
+  handleSingleRowSelect,
+  singleData,
+  tableHeads,
+  handleActionButtonClick,
+  ChildComponent
+}) => {
+  const [openCollapse, setOpenCollapse] = useState(false);
+
+  return (
+    <>
+      <TableRow key={index}>
+        <TableCell>
+          <IconButton
+            aria-label="expand row"
+            size="small"
+            onClick={() => setOpenCollapse(!openCollapse)}>
+            {openCollapse ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
+          </IconButton>
+        </TableCell>
+        {isMulti && (
+          <TableCell>
+            <Checkbox
+              //   indeterminate={numSelected > 0 && numSelected < rowCount}
+              checked={checkChecked(index)}
+              onChange={() => handleSingleRowSelect(singleData, index)}
+              inputProps={{ 'aria-label': 'select all desserts' }}
+            />
+          </TableCell>
+        )}
+        {tableHeads.map((el, idx) => {
+          //checking on  type of table data
+          // 1) if type is index automatically populate the tablecell with number data
+          if (el.type?.toLowerCase() === 'index') {
+            return <TableCell key={idx}>{index + 1}</TableCell>;
+          }
+
+          if (typeof el.field === 'function') {
+            return <TableCell key={idx}>{el.field(singleData, el.field)}</TableCell>;
+          }
+          // if type is action then render the vertical item
+          if (el.type?.toLowerCase() === 'actions') {
+            return (
+              <TableCell key={idx}>
+                <IconButton onClick={(event) => handleActionButtonClick(event, singleData)}>
+                  <MoreVertOutlined />
+                </IconButton>
+              </TableCell>
+            );
+          }
+          return <TableCell key={idx}>{singleData[el.field]}</TableCell>;
+        })}
+      </TableRow>
+      <TableRow key={index + 'a'}>
+        <TableCell colSpan={tableHeads?.length + 1} style={{ padding: 0 }}>
+          <Collapse in={openCollapse} timeout="auto" unmountOnExit>
+            <Box>
+              <ChildComponent row={singleData} />
+            </Box>
+          </Collapse>
+        </TableCell>
+      </TableRow>
+    </>
+  );
 };

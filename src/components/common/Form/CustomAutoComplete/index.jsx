@@ -26,7 +26,8 @@ const CustomAutoComplete = ({
   icon = '',
   options = [],
   tooltipLabel = '',
-  disabled = false
+  disabled = false,
+  required
 }) => {
   const {
     control,
@@ -45,7 +46,10 @@ const CustomAutoComplete = ({
         justifyContent="space-between"
         columnGap={0.5}
         sx={{ paddingBottom: '4px' }}>
-        <InputLabel>{label}</InputLabel>
+        <InputLabel>
+          {label}
+          {required && <span style={{ color: 'red' }}> * </span>}
+        </InputLabel>
         {tooltipLabel && (
           <Tooltip title={<Typography variant="h6">{tooltipLabel}</Typography>}>
             <Report sx={{ color: '#9D9CAF', cursor: 'pointer' }} />

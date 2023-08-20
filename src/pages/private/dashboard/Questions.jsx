@@ -1,4 +1,4 @@
-import Questions from 'components/locals/dashboard/survey/Questions';
+import Questions from 'components/locals/dashboard/survey/Question';
 
 const QuestionsPage = () => {
   return (

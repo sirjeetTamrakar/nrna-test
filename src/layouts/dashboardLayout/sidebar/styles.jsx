@@ -1,119 +1,115 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    paddingInline: "12px",
+    paddingInline: '12px'
   },
   drawerHeader: {
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    columnGap: "7px",
-    width: "100%",
-    "& img": { height: "35px", width: "35px", objectFit: "contain" },
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    columnGap: '7px',
+    width: '100%',
+    '& img': { height: '35px', width: '35px', objectFit: 'contain' }
   },
   drawerContent: {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    flexDirection: "column",
-    paddingBlock: "1rem",
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'column',
+    paddingBlock: '1rem'
   },
   nav: {
-    "& > a": {
-      transition: "all 1s ease-in-out",
+    '& > a': {
+      transition: 'all 1s ease-in-out',
       color: theme.palette.text.main,
-      textDecoration: "none",
-    },
+      textDecoration: 'none'
+    }
   },
   activeClass: {
-    transition: "all 1s ease-in-out",
-    color: "#4559BD !important",
-    "& > *": {
-      background: "#E1F5FF !important",
+    transition: 'all 1s ease-in-out',
+    color: '#4559BD !important',
+    '& > *': {
+      background: '#E1F5FF !important'
     },
-    "& .MuiTypography-root": {
-      fontWeight: "600",
-    },
+    '& .MuiTypography-root': {
+      fontWeight: '600'
+    }
   },
   activeChildClass: {
-    transition: "all 1s ease-in-out",
-    color: "#000 !important",
-    background: "#F9F9FB !important",
-    borderRadius: "5px !important",
-    fontWeight: "bolder !important",
-    position: "relative",
-    "&::before": {
+    transition: 'all 1s ease-in-out',
+    color: '#000 !important',
+    background: '#F9F9FB !important',
+    borderRadius: '5px !important',
+    fontWeight: 'bolder !important',
+    position: 'relative',
+    '&::before': {
       content: '""',
-      position: "absolute",
-      top: "50%",
-      left: "-8px",
-      width: "9px",
-      height: "1px",
-      background: "#E5E5EB",
-      zIndex: -1,
+      position: 'absolute',
+      top: '50%',
+      left: '-8px',
+      width: '9px',
+      height: '1px',
+      background: '#E5E5EB',
+      zIndex: -1
     },
 
-    "& .MuiTypography-root": {
-      fontWeight: "600",
-    },
+    '& .MuiTypography-root': {
+      fontWeight: '600'
+    }
   },
 
   listItemButton: {
-    justifyContent: "initial",
-    paddingInline: "12px !important",
-    paddingBlock: "8px !important",
-    fontSize: theme.typography.fontSize.medium,
+    justifyContent: 'initial',
+    paddingInline: '12px !important',
+    paddingBlock: '8px !important',
+    fontSize: theme.typography.fontSize.medium
   },
   listItemButtonChild: {
-    justifyContent: "initial",
-    paddingInline: "12px !important",
-    paddingBlock: "4px !important",
-    display: "flex",
-    columnGap: "2rem",
-    borderRadius: "5px !important",
+    paddingInline: '12px !important',
+    paddingBlock: '4px !important',
+    borderRadius: '5px !important',
     fontSize: theme.typography.fontSize.small,
-    "& svg": {
-      fontSize: "small",
-    },
+    '& svg': {
+      fontSize: 'small'
+    }
   },
 
   childContainer: {
-    width: "max-content",
-    paddingTop: "12px",
-    borderLeft: "1px solid #E5E5EB",
-    marginInline: "20px",
-    paddingInline: "8px",
+    paddingTop: '12px',
+    borderLeft: '1px solid #E5E5EB',
+    marginInline: '20px',
+    paddingInline: '8px'
   },
   iconButton: {
-    borderRadius: "0 !important",
-    "&:hover": {
+    borderRadius: '0 !important',
+    '&:hover': {
       color: `${theme.palette.primary.main} !important`,
-      background: `${theme.palette.primary.light} !important`,
-    },
+      background: `${theme.palette.primary.light} !important`
+    }
   },
 
   addAllContainer: {
-    display: "flex",
-    columnGap: "3rem",
-    padding: "1rem",
-    justifyContent: "center",
+    display: 'flex',
+    columnGap: '3rem',
+    padding: '1rem',
+    justifyContent: 'center',
 
-    "& button": {
+    '& button': {
       color: theme.palette.text.light,
-      "&:hover": {
-        "& svg": {
-          transition: "200ms all ease-in-out",
-          color: theme.palette.primary.main,
-        },
-      },
-    },
+      '&:hover': {
+        '& svg': {
+          transition: '200ms all ease-in-out',
+          color: theme.palette.primary.main
+        }
+      }
+    }
   },
   title: {
-    textTransform: "uppercase",
-    marginBottom: "1rem",
-    marginLeft: ".5rem",
-  },
+    textTransform: 'uppercase',
+    marginBottom: '1rem',
+    marginLeft: '.5rem'
+  }
 }));
 
 export default useStyles;

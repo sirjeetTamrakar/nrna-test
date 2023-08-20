@@ -18,7 +18,7 @@ const styles = makeStyles((theme) => ({
     zIndex: 1000,
     backgroundColor: '#fff',
     padding: '11px 34px',
-    color: '#3E399B',
+    color: '#1368ac',
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -26,16 +26,23 @@ const styles = makeStyles((theme) => ({
     borderBottom: '1px solid #ddd',
 
     '& svg': {
-      color: '#3E399B !important'
-    },
-    '& .MuiTypography-root': {
-      fontWeight: '700'
+      color: '#1368ac !important'
     }
   },
-  modalTitle: {
+  modalTitleWrapper: {
     display: 'flex',
     alignItems: 'center',
-    columnGap: '1rem'
+    columnGap: '0.5rem'
+  },
+  modalTitle: {
+    fontSize: '16px !important',
+    fontWeight: '600 !important',
+    lineHeight: '1 !important'
+  },
+  modalSubtitle: {
+    color: '#6f6f6f',
+    fontSize: '12px !important',
+    fontWeight: '400'
   },
   icon: {
     background: theme.palette.background.dark,
@@ -49,6 +56,12 @@ const styles = makeStyles((theme) => ({
     transform: 'rotate(0deg)', // Initial rotation value
     '&:hover': {
       transform: 'rotate(90deg)' // Rotation value on hover
+    }
+  },
+  iconDanger: {
+    '& svg': {
+      height: '40px',
+      width: '40px'
     }
   }
 }));

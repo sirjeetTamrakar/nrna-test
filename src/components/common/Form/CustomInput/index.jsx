@@ -24,10 +24,12 @@ const CustomInput = ({
   icon = '',
   tooltipLabel = '',
   loading = false,
-  multiple = false,
+  multiline = false,
   defaultValue,
   disabled,
-  inputProps = {}
+  inputProps = {},
+  required,
+  rows = 1
 }) => {
   const classes = useStyles();
   const {
@@ -38,7 +40,9 @@ const CustomInput = ({
   return (
     <Box>
       <Box display="flex" alignItems="center" columnGap={0.5}>
-        <InputLabel>{label}</InputLabel>
+        <InputLabel>
+          {label} {required && <span style={{ color: 'red' }}>*</span>}
+        </InputLabel>
         {tooltipLabel && (
           <Tooltip title={<Typography variant="body1">{tooltipLabel}</Typography>}>
             <Report sx={{ color: '#9D9CAF' }} />
@@ -56,6 +60,8 @@ const CustomInput = ({
               className={classes.inputField}
               sx={{ width: '100%' }}
               onChange={onChange}
+              multiline={multiline}
+              rows={rows}
               value={defaultValue || value}
               InputLabelProps={{ shrink: false }}
               placeholder={placeholder}

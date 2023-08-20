@@ -1,4 +1,4 @@
-import { createTheme, lighten } from '@mui/material/styles';
+import { createTheme, darken, lighten } from '@mui/material/styles';
 const mainColor = '#2196f3';
 const buttonSharedStyles = (color) => {
   return {
@@ -40,6 +40,7 @@ const theme = createTheme({
     },
     primaryBtn: {
       main: '#017054',
+      hover: lighten('#017054', 0.925),
       contrastText: '#fff'
     },
     grayBackground: {
@@ -57,10 +58,21 @@ const theme = createTheme({
     input: {
       main: '#f6f6f6'
     },
-    error: { main: '#FF3B3B' },
+    error: { main: '#FF3B3B', contrastText: '#fff', dark: darken('#FF3B3B', 0.3) },
     info: { main: '#0063F7' },
-    success: { main: '#06C270' },
+    success: { main: '#06C270', contrastText: '#fff', dark: darken('#06C270', 0.3) },
     warning: { main: '#FFCC00' }
+  },
+  typography: {
+    body1: {
+      fontSize: 14
+    },
+    body2: {
+      fontSize: 13
+    },
+    subtitle1: {
+      fontSize: 12
+    }
   },
 
   overrides: {
@@ -111,13 +123,8 @@ const theme = createTheme({
           textTransform: 'capitalize',
           fontWeight: '500',
           fontSize: '12px',
-          padding: '10px 20px !important',
+          padding: '20px 25px !important',
           height: '34px !important'
-        },
-        contained: {
-          '&:hover': {
-            background: '#1680d5'
-          }
         }
       },
       variants: [
@@ -238,12 +245,23 @@ const theme = createTheme({
         }
       }
     },
+    MuiTablePagination: {
+      styleOverrides: {
+        selectLabel: {
+          margin: 0
+        },
+        displayedRows: {
+          margin: 0
+        }
+      }
+    },
     MuiTableContainer: {
       styleOverrides: {
         root: ({ theme }) => ({
           maxHeight: '80vh',
           overflowY: 'auto',
-          border: '1px solid #ddd',
+          border: 'none',
+          background: '#fcfcfc',
           '& .MuiTable-root': {
             borderCollapse: 'separate'
           },
@@ -275,7 +293,7 @@ const theme = createTheme({
         root: ({ theme }) => ({
           padding: '10px',
           margin: '0px',
-          fontSize: '12px',
+          fontSize: '13px',
           '&.title': {
             cursor: 'pointer',
             '&:hover': {
@@ -283,6 +301,11 @@ const theme = createTheme({
             }
           }
         }),
+        head: {
+          fontWeight: '600',
+          borderBottom: '1px solid #9b9b9b',
+          borderTop: '1px solid #9b9b9b'
+        },
         footer: ({ theme }) => ({
           fontWeight: '700',
           color: '#4559BD'
@@ -326,6 +349,9 @@ const theme = createTheme({
           border: 'none',
           borderRadius: '3px',
           fontSize: '14px'
+        },
+        multiline: {
+          padding: '0 !important'
         }
       }
     },
@@ -344,7 +370,7 @@ const theme = createTheme({
     MuiInputLabel: {
       styleOverrides: {
         root: {
-          fontSize: '14px',
+          fontSize: '13px',
           marginBottom: '4px'
         }
       }

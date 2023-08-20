@@ -1,0 +1,27 @@
+import { Box, Grid } from '@mui/material';
+import CustomInput from 'components/common/Form/CustomInput';
+import { useStyles } from './styles';
+
+const MemberForm = () => {
+  const classes = useStyles();
+  return (
+    <Box className={classes.root}>
+      <Grid container spacing={2}>
+        <Grid item sm={12}>
+          <CustomInput name="question" label="Question" required multiline rows="3" />
+        </Grid>
+        {[...Array(4)?.keys()]?.map((list) => (
+          <Grid item sm={12} key={list}>
+            <CustomInput
+              name={`option${list + 1}`}
+              label={`Option ${list + 1}`}
+              required={list < 2}
+            />
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+};
+
+export default MemberForm;

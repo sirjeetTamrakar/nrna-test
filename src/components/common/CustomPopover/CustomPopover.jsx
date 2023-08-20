@@ -2,7 +2,7 @@ import { Box } from '@mui/material';
 import Popover from '@mui/material/Popover';
 import * as React from 'react';
 
-export default function CustomPopover({ ButtonComponent, component, styleProps }) {
+export default function CustomPopover({ ButtonComponent, children, styleProps }) {
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleClick = (event) => {
@@ -18,7 +18,10 @@ export default function CustomPopover({ ButtonComponent, component, styleProps }
 
   return (
     <Box width={'100%'}>
-      <Box aria-describedby={id} onClick={handleClick}>
+      <Box
+        aria-describedby={id}
+        sx={{ cursor: 'pointer', textAlign: 'center' }}
+        onClick={handleClick}>
         {ButtonComponent}{' '}
       </Box>
       <Popover
@@ -28,18 +31,18 @@ export default function CustomPopover({ ButtonComponent, component, styleProps }
         onClose={handleClose}
         anchorOrigin={
           styleProps?.anchorOrigin || {
-            vertical: 'top',
-            horizontal: 'right'
+            vertical: 'bottom',
+            horizontal: 'left'
           }
         }
         transformOrigin={
           styleProps?.transformOrigin || {
             vertical: 'top',
-            horizontal: 'left'
+            horizontal: 'center'
           }
         }
         {...styleProps}>
-        <Box>{component}</Box>{' '}
+        <Box onClick={() => setAnchorEl(false)}>{children}</Box>{' '}
       </Popover>
     </Box>
   );
