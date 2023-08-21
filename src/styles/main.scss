@@ -10,6 +10,7 @@
 @import "./component/banner";
 @import "./component/candidate";
 @import "./component/eventCard";
+@import "./component/newsCard";
 @import "./component/otherCard";
 @import "./component/contactList";
 
@@ -21,9 +22,11 @@
 @import "./pages/home";
 @import "./pages/organization";
 @import "./pages/allEvents";
+@import "./pages/allNews";
 @import "./pages/contact";
 @import "./pages/candidate";
 @import "./pages/singleEvent";
+@import "./pages/singleNews";
 @import "./pages/about";
 @import "./pages/advise";
 @import "./pages/survey";

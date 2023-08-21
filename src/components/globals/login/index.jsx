@@ -5,16 +5,20 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomPasswordInput from 'components/common/Form/CustomPasswordInput';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUser } from 'redux/auth/actions';
 import * as Yup from 'yup';
 const Login = ({ registerOpen, handleClose }) => {
   const defaultValues = {};
+  const dispatch = useDispatch();
+  const { login_loading } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
     email: Yup.string().email().required('Please enter your email'),
     password: Yup.string().required('Please enter your password')
   });
 
   const onSubmit = (data) => {
-    console.log(data, 'formData');
+    dispatch(loginUser(data, handleClose));
   };
 
   const handleRegisterOpen = () => {
@@ -35,7 +39,7 @@ const Login = ({ registerOpen, handleClose }) => {
             <CustomPasswordInput name="password" label="Password" />
           </Box>
 
-          <CustomButton buttonName="Login" fullWidth loading={false} />
+          <CustomButton buttonName="Login" fullWidth loading={login_loading} />
           <div className="link">
             Don't have an account. <span onClick={handleRegisterOpen}>Register</span>
           </div>

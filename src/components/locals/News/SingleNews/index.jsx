@@ -49,21 +49,21 @@ const SingleNews = () => {
   return (
     <div className="main_content">
       <div className="container">
-        <div className="single_event_page">
-          <div className="single_event_page_content">
-            <div className="single_event_page_title">{news?.title}</div>
-            <div className="single_event_page_date">{news?.created_date}</div>
-            <div className="single_event_page_imgwrap">
+        <div className="single_news_page">
+          <div className="single_news_page_content">
+            <div className="single_news_page_title">{news?.title}</div>
+            <div className="single_news_page_date">{news?.created_date}</div>
+            <div className="single_news_page_imgwrap">
               <img src={news?.featureImage} alt={news?.title} />
             </div>
-            <div className="single_event_page_short">
+            <div className="single_news_page_short">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
               has been the industry's standard dummy text ever since the 1500s, when an unknown
               printer took a galley of type and scrambled it to make a type specimen book.
             </div>
             {news?.gallery && news?.gallery?.length > 0 && (
               <div className="container">
-                <div className="singleEventSlider">
+                <div className="singleNewsSlider">
                   {news?.gallery.map((image, index) => (
                     <div key={index}>
                       <div className="slider_imgwrapper">
@@ -74,7 +74,7 @@ const SingleNews = () => {
                 </div>
               </div>
             )}
-            <div className="single_event_page_long">
+            <div className="single_news_page_long">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
               has been the industry's standard dummy text ever since the 1500s, when an unknown
               printer took a galley of type and scrambled it to make a type specimen book. Lorem
@@ -89,12 +89,12 @@ const SingleNews = () => {
               galley of type and scrambled it to make a type specimen book.
             </div>
           </div>
-          <div className="single_event_page_sidebar">
-            <div className="recent_events">
-              <div className="recent_events_title">Recent News</div>
+          <div className="single_news_page_sidebar">
+            <div className="recent_news">
+              <div className="recent_news_title">Recent News</div>
               {recentNews?.length > 0 ? (
                 recentNews.map((recent) => (
-                  <Link key={recent.id} to={`/news/${recent?.slug}`} className="recent_events_item">
+                  <Link key={recent.id} to={`/news/${recent?.slug}`} className="recent_newss_item">
                     <div className="img_wrapper">
                       <img src={recent?.image} alt="" />
                     </div>

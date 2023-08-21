@@ -1,6 +1,4 @@
 import axios from 'axios';
-import { getCompanyId } from 'redux/auth/actions';
-import Store from '../../redux/store';
 import TokenService from './TokenService';
 
 // for multiple requests
@@ -19,9 +17,6 @@ const processQueue = (error, token = null) => {
 
 export const axiosInstance = () => {
   const baseUrl = window?._env_?.VITE_APP_API || import.meta.env.VITE_APP_API;
-  const companyData = getCompanyId();
-  const TempCompanyId = localStorage.getItem('Temp_companyId');
-  const companyId = JSON.parse(companyData);
   const instance = axios.create({
     baseURL: baseUrl,
     headers: {
@@ -31,16 +26,10 @@ export const axiosInstance = () => {
   instance.interceptors.request.use(
     (config) => {
       const token = TokenService.getLocalAccessToken();
-      const { language } = Store.getState().auth;
       if (token) {
         config.headers['Authorization'] = 'Bearer ' + token;
       }
-      if (companyId?.id) {
-        config.headers['companyId'] = TempCompanyId || companyId?.id;
-      }
-      if (language) {
-        config.headers['XLocalization'] = language;
-      }
+
       return config;
     },
     (error) => {
@@ -80,7 +69,7 @@ export const axiosInstance = () => {
 
           try {
             const refreshToken = TokenService.getLocalRefreshToken();
-            const rs = await instance.post(`/api/accounting/refresh/${refreshToken}`).catch(() => {
+            const rs = await instance.post(`/api/refresh/${refreshToken}`).catch(() => {
               localStorage.clear();
               window.location.replace('/');
             });

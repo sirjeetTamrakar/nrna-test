@@ -7,10 +7,14 @@ import CustomInput from 'components/common/Form/CustomInput';
 import CustomPasswordInput from 'components/common/Form/CustomPasswordInput';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { registerUser } from 'redux/auth/actions';
 import * as Yup from 'yup';
 const Register = ({ loginOpen, handleClose }) => {
   const defaultValues = {};
+  const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
+  const { register_loading } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
     name: Yup.string().required('Name is Required'),
     email: Yup.string().email().required('Email is required'),
@@ -28,7 +32,7 @@ const Register = ({ loginOpen, handleClose }) => {
   };
 
   const onSubmit = (data) => {
-    console.log(data, 'formData');
+    dispatch(registerUser(data, handleClose));
   };
 
   const handleLoginOpen = () => {
@@ -64,7 +68,12 @@ const Register = ({ loginOpen, handleClose }) => {
           <Box className="agree">
             <input type="checkbox" onChange={handleChange} /> <p>I agree to terms & condition.</p>
           </Box>
-          <CustomButton buttonName="Register" fullWidth loading={false} disabled={!agree} />
+          <CustomButton
+            buttonName="Register"
+            fullWidth
+            loading={register_loading}
+            disabled={!agree}
+          />
           <div className="link">
             Already have an account. <span onClick={handleLoginOpen}>Login</span>
           </div>
