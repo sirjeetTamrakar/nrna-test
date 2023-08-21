@@ -3,7 +3,7 @@ import Dashboard from 'pages/private/dashboard';
 import NotFound from 'pages/public/misc/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoutes from './authRoutes';
-import { candidateRoute } from './authRoutes/candidateRoute';
+import { candidateRoute } from './authRoutes/CandidateRoute';
 import { nbnsRoutes } from './authRoutes/NBNSRoute';
 import { nccRoute } from './authRoutes/NCCRoute';
 // import { candidateRoute } from './authRoutes/CandidateRoute';
