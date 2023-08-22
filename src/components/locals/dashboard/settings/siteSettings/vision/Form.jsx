@@ -27,10 +27,6 @@ const VisionForm = () => {
     <Box className={classes.root}>
       <Grid container spacing={2}>
         <Grid item sm={12}>
-          <CustomTextArea name="description" label="Vision Description" required rows={6} />
-        </Grid>
-
-        <Grid item sm={12}>
           <FileUploader
             title="Banner Image"
             // control={control}
@@ -42,6 +38,9 @@ const VisionForm = () => {
             // required={true}
             imageLink={watch('image') || ''}
           />
+        </Grid>
+        <Grid item sm={12}>
+          <CustomTextArea name="description" label="Vision Description" required rows={6} />
         </Grid>
       </Grid>
     </Box>

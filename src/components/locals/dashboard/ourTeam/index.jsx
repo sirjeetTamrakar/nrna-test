@@ -2,7 +2,7 @@ import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
@@ -11,13 +11,12 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
-import icon from '../../../../../assets/images/nrna.png';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
-const SettingsBanner = () => {
+const OurTeam = () => {
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -32,40 +31,56 @@ const SettingsBanner = () => {
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
     {
-      title: 'Banner Title',
-      minWidth: 250,
-      field: 'title'
-    },
-    {
-      title: 'Subtitle',
-      minWidth: 120,
-      field: 'subtitle'
-    },
-    {
-      title: 'Image',
-      minWidth: 120,
+      title: 'Name',
+      minWidth: 180,
       field: (row) => {
         return (
-          <img
-            src={icon}
-            alt=""
-            style={{
-              width: '30px',
-              height: '30px',
-              objectFit: 'contain'
-            }}
-          />
+          <Box>
+            <Typography variant="body2">{row?.name}</Typography>
+            <Typography variant="subtitle1">{row?.created_at}</Typography>
+          </Box>
+        );
+      }
+    },
+    {
+      title: 'Email/Phone',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">{row?.email}</Typography>
+            <Typography variant="subtitle1">{row?.phone}</Typography>
+          </Box>
         );
       }
     },
 
+    {
+      title: 'Address',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
+        );
+      }
+    },
+    {
+      title: 'Designation',
+      minWidth: 100,
+      field: 'designation'
+    },
+    {
+      title: 'Order',
+      minWidth: 100,
+      field: 'order'
+    },
     {
       title: 'Status',
       minWidth: 100,
       field: (row) => {
         return (
           <Box>
-            {row?.approved_by ? (
+            {row?.status === 'Active' ? (
               <Button variant="contained" color="success" onClick={() => handleStatus(row)}>
                 Active
               </Button>
@@ -78,7 +93,6 @@ const SettingsBanner = () => {
         );
       }
     },
-
     {
       title: 'Actions',
       minWidth: 85,
@@ -86,7 +100,7 @@ const SettingsBanner = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit News </li>
+              <li onClick={() => handleEdit(row)}>Edit Member </li>
               <li onClick={() => handleView(row)}>View Details</li>
               <li onClick={() => handleApprove(row)}>Approve User</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
@@ -98,14 +112,16 @@ const SettingsBanner = () => {
   ];
   const tableData = [
     {
-      title: 'A meteor shower and a satellite train caught on camera',
-      subtitle: 'A meteor shower',
-      slug: 'a_meteor_shower'
-    },
-    {
-      title: 'A meteor shower and a satellite train caught on camera',
-      subtitle: 'A meteor shower',
-      slug: 'a_meteor_shower'
+      name: 'Bishwo Raj Raut',
+      slug: 'brraut',
+      email: 'bishowraut@gmail.com',
+      phone: '9841587582',
+      country_of_residence: 'Nepal',
+      city: 'Kathmandu',
+      created_at: '20-Aug-2023',
+      designation: 'Chairman',
+      order: '1',
+      status: 'Active'
     }
   ];
 
@@ -144,13 +160,13 @@ const SettingsBanner = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>Banner</Box>
+          <Box>Our Teams</Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"
             display="flex"
             onClick={formOpenFunction}>
-            Add Banner
+            Add Our Team
           </Button>
         </Box>
         <CustomTable
@@ -165,7 +181,7 @@ const SettingsBanner = () => {
         <CustomModal
           open={openForm}
           handleClose={formOpenFunction}
-          modalTitle="Create News"
+          modalTitle="Create Our Team"
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
@@ -174,7 +190,7 @@ const SettingsBanner = () => {
         <CustomModal
           open={openEdit}
           handleClose={editOpenFunction}
-          modalTitle={`Update News`}
+          modalTitle={`Update Our Team`}
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
@@ -201,4 +217,4 @@ const SettingsBanner = () => {
   );
 };
 
-export default SettingsBanner;
+export default OurTeam;

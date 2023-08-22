@@ -1,4 +1,4 @@
-import OurTeam from 'components/locals/dashboard/OurTeam';
+import OurTeam from 'components/locals/dashboard/ourTeam';
 
 const OurTeamPage = () => {
   return (
