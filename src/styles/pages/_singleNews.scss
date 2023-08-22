@@ -3,9 +3,6 @@
   justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
-  // .sliderWrapper{
-  // width: 400px;
-  // }
 
   &_content {
     margin-right: 60px;
@@ -28,12 +25,13 @@
     width: 240px;
   }
   &_title {
-    font-size: 26px;
-    color: $primary-color;
+    font-size: 36px;
+    color: #474849;
     font-weight: bold;
   }
   &_date {
-    font-size: 14px;
+    font-size: 12px;
+    margin-top: 10px;
     color: $secondary-light-text;
   }
   &_short,
@@ -50,13 +48,12 @@
       background-color: #3f7dbf;
       padding: 8px 10px;
       text-align: center;
-      margin-top: 30px;
     }
     &_item {
-      box-shadow: 0px 2px 10px #cecece;
-      border-radius: 4px;
+      box-shadow: 0px 2px 10px #e7e7e7;
+      border-radius: 3px;
       overflow: hidden;
-      margin: 15px 0;
+      margin: 25px 0;
 
       display: block;
       &:hover {
@@ -77,12 +74,13 @@
       .item_content {
         padding: 10px 15px;
         &_title {
-          font-size: 16px;
-          color: $primary-color;
-          font-weight: bold;
+          font-size: 12px;
+          color: #242424;
+          font-weight: 500;
+          line-height: 18px;
         }
         &_date {
-          font-size: 13px;
+         font-size: 14px;
           color: $secondary-light-text;
         }
       }
@@ -93,55 +91,5 @@
       margin-bottom: 45px;
     }
   }
-  .singleNewsSlider {
-    margin: 0 auto 0 60px;
-    .slider_imgwrapper {
-      height: 160px;
-      width: 200px;
-      img {
-        height: inherit;
-        width: inherit;
-        object-fit: cover;
-        overflow: hidden;
-      }
-    }
-    .slick-track {
-      overflow-y: unset;
-    }
-    .slick-list {
-      padding-top: 80px !important;
-      overflow-y: unset;
-    }
-    .slick-prev {
-      background-color: $secondary-background;
-      height: 36px;
-      border-radius: 30px;
-      width: 36px;
-      line-height: 56px;
-      left: -60px;
-      &::before{
-        color: $primary-color;
-      }
-    }
-    .slick-next {
-      background-color: $secondary-background;
-      height: 36px;
-      border-radius: 30px;
-      width: 36px;
-      line-height: 56px;
-      &::before{
-        color: $primary-color;
-      }
-    }
-    .slick-center {
-      .slider_imgwrapper {
-        height: 240px;
-        // @include transition;
-        width: 360px;
-        position: relative;
-        top: -40px;
-        left: -80px;
-      }
-    }
-  }
+
 }

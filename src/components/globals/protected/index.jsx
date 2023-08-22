@@ -7,7 +7,7 @@ const Protected = ({ children }) => {
   if (isLoggedIn()) {
     return children;
   }
-  return <Navigate to="/login" replace />;
+  return <Navigate to="/" replace />;
 };
 
 export default Protected;

@@ -1,5 +1,6 @@
 import { ScheduleSharp } from '@mui/icons-material';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
+import HomeIcon from '@mui/icons-material/Home';
 import Logout from '@mui/icons-material/Logout';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import Settings from '@mui/icons-material/Settings';
@@ -17,6 +18,7 @@ import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { logout } from 'redux/auth/actions';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -36,13 +38,19 @@ export default function AccountMenu() {
   };
 
   const handleLogout = () => {
+    logout();
     navigate(`/`);
+  };
+
+  const goToHome = () => {
+    navigate('/');
   };
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <IconTooltip data={{ title: 'Notification', icon: <NotificationsOutlinedIcon /> }} />
         <IconTooltip data={{ title: 'Help', icon: <HelpOutlineOutlinedIcon /> }} />
+        <IconTooltip data={{ title: 'Go to Home', icon: <HomeIcon onClick={goToHome} /> }} />
 
         {/* <input type="color" onChange={(e) => handleColorChange(e)} /> */}
 

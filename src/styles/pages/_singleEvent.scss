@@ -3,10 +3,41 @@
   justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
-  // .sliderWrapper{
-  // width: 400px;
-  // }
+  .event_list_wrapper{
+    background-color: #f1f0f0;
+    padding: 15px 45px;
+    display: flex;
+    width: fit-content;
+    justify-content: space-between;
+    column-gap: 90px;
+    margin: 0 auto;
+    margin-top: 30px;
+    border-radius: 4px;
+    
+  }
+  .map-container{
+    display: flex;
+    justify-content: space-between;
+    column-gap: 60px;
+    margin-top: 45px;
+  }
 
+  .event_list{
+    list-style:none;
+    margin: 0;
+    padding: 0;
+    li{
+      display: flex;
+      
+    }
+    .title{
+      font-size: 15px;
+      width: 100px;
+    }
+     .value{
+      font-size: 15px;
+    }
+  }
   &_content {
     margin-right: 60px;
     flex: 1;
@@ -28,8 +59,8 @@
     width: 240px;
   }
   &_title {
-    font-size: 26px;
-    color: $primary-color;
+    font-size: 36px;
+    color: #474849;
     font-weight: bold;
   }
   &_date {
@@ -50,13 +81,12 @@
       background-color: #3f7dbf;
       padding: 8px 10px;
       text-align: center;
-      margin-top: 30px;
     }
     &_item {
-      box-shadow: 0px 2px 10px #cecece;
-      border-radius: 4px;
+      box-shadow: 0px 2px 10px #e7e7e7;
+      border-radius: 3px;
       overflow: hidden;
-      margin: 15px 0;
+      margin: 25px 0;
 
       display: block;
       &:hover {
@@ -77,12 +107,13 @@
       .item_content {
         padding: 10px 15px;
         &_title {
-          font-size: 16px;
-          color: $primary-color;
-          font-weight: bold;
+          font-size: 12px;
+          color: #242424;
+          font-weight: 500;
+          line-height: 18px;
         }
         &_date {
-          font-size: 13px;
+         font-size: 14px;
           color: $secondary-light-text;
         }
       }

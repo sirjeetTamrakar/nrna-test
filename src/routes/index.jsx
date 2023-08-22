@@ -7,6 +7,7 @@ import { candidateRoute } from './authRoutes/CandidateRoute';
 import { nbnsRoutes } from './authRoutes/NBNSRoute';
 import { nccRoute } from './authRoutes/NCCRoute';
 // import { candidateRoute } from './authRoutes/CandidateRoute';
+import Protected from 'components/globals/protected';
 import DashboardRoutes from './dashboardRoutes';
 
 const RouteList = () => {
@@ -17,7 +18,14 @@ const RouteList = () => {
       {routeList.map(({ path, component }) => {
         return <Route key={path} path={path} element={component} />;
       })}
-      <Route path="/dashboard" element={<MainLayout />}>
+
+      <Route
+        path="/dashboard"
+        element={
+          <Protected>
+            <MainLayout />
+          </Protected>
+        }>
         <Route index element={<Dashboard />} />
         {DashboardRoutes.map(({ path, component }) => {
           return <Route key={path} path={path} element={component} />;

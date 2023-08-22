@@ -27,7 +27,7 @@ const OurTeam = () => {
           <div className="row">
             {candidates.length > 0 ? (
               candidates.map((candidate) => (
-                <div key={candidate.id} className="col-md-4">
+                <div key={candidate.id} className="col-xl-3 col-md-4 col-sm-6 col-12">
                   <OurTeamCard candidate={candidate} />
                 </div>
               ))

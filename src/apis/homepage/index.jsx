@@ -26,6 +26,6 @@ export const getSingleEventApi = (slug) => {
 };
 
 // send contact us
-export const contactUsApi = () => {
-  return axiosInstance().post(`/api/contact-us`);
+export const contactUsApi = (data) => {
+  return axiosInstance().post(`/api/contact-us`, data);
 };
