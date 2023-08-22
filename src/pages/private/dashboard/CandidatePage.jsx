@@ -1,4 +1,4 @@
-import Candidate from 'components/locals/dashboard/Candidate';
+import Candidate from 'components/locals/dashboard/candidate';
 
 const CandidatePage = () => {
   return (

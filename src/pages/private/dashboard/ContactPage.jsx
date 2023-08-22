@@ -1,4 +1,4 @@
-import Contacts from 'components/locals/dashboard/Contact';
+import Contacts from 'components/locals/dashboard/contact/Contact';
 
 const ContactPage = () => {
   return (

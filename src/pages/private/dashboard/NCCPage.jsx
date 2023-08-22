@@ -1,4 +1,4 @@
-import NCC from 'components/locals/dashboard/NCC';
+import NCC from 'components/locals/dashboard/ncc';
 
 const NCCPage = () => {
   return (

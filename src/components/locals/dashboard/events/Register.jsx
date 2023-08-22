@@ -3,7 +3,7 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import MemberForm from './Form';
+import EventForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
@@ -20,9 +20,9 @@ const Register = () => {
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
-          <MemberForm />
+          <EventForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Member" loading={false} />
+            <CustomButton buttonName="Create Event" loading={false} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

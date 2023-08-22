@@ -1,4 +1,6 @@
-import SiteSettings from 'components/locals/dashboard/settings/SiteSettings';
+// import SiteSettings from 'components/locals/dashboard/settings/siteSettings';
+
+import SiteSettings from 'components/locals/dashboard/settings/siteSettings';
 
 const SiteSettingsPage = () => {
   return (

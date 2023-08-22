@@ -1,8 +1,16 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import { Box, Typography } from '@mui/material';
+import { Box } from '@mui/material';
+import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import useToggle from 'hooks/useToggle';
+import { useState } from 'react';
+import { useStyles } from './styles';
 const Advice = () => {
+  const [openDelete, deleteOpenFunction] = useToggle(false);
+  const [detail, setDetail] = useState();
+  const classes = useStyles();
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -37,10 +45,9 @@ const Advice = () => {
       field: (row) => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
-            <Box padding={2}>
-              <Typography>View Message</Typography>
-              <Typography>Delete</Typography>
-            </Box>
+            <ul className={classes.listWrapper}>
+              <li onClick={() => handleDelete(row)}>Delete</li>
+            </ul>
           </CustomPopover>
         );
       }
@@ -58,6 +65,11 @@ const Advice = () => {
     }
   ];
 
+  const handleDelete = (row) => {
+    setDetail(row);
+    deleteOpenFunction();
+  };
+
   return (
     <>
       <Box>
@@ -71,6 +83,7 @@ const Advice = () => {
           <Box>Advice</Box>
         </Box>
         <CustomTable tableHeads={tableHeads} tableData={tableData} />
+        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
       </Box>
     </>
   );

@@ -1,4 +1,4 @@
-import Advice from 'components/locals/dashboard/Advice';
+import Advice from 'components/locals/dashboard/advice/Advice';
 
 const AdvicePage = () => {
   return (
