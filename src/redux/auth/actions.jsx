@@ -31,7 +31,7 @@ export const loginUser = (data, handleSuccess) => (dispatch) => {
       handleSuccess && handleSuccess();
     })
     .catch((error) => {
-      errorToast(error);
+      // errorToast(error);
       dispatch({ type: actions.LOGIN_ERROR });
     });
 };

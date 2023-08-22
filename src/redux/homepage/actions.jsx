@@ -69,12 +69,13 @@ export const getSingleEvent = (slug) => (dispatch) => {
     });
 };
 
-export const contactUs = () => (dispatch) => {
+export const contactUs = (data, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.POST_CONTACT_BEGIN });
-  contactUsApi()
+  contactUsApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_CONTACT_SUCCESS });
       successToast('Your message sent successfully');
+      handleSuccess && handleSuccess();
     })
     .catch((error) => {
       errorToast(error);

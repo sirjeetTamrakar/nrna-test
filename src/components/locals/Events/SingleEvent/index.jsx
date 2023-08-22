@@ -56,6 +56,37 @@ const SingleEvent = () => {
             <div className="single_event_page_imgwrap">
               <img src={event?.featureImage} alt={event?.title} />
             </div>
+            <div className="event_list_wrapper">
+              <ul className="event_list">
+                <li>
+                  <div className="title">Location :</div>
+                  <div className="value">Kathmandu</div>
+                </li>
+                <li>
+                  <div className="title">Venue :</div>
+                  <div className="value">NCC Hall</div>
+                </li>
+                <li>
+                  <div className="title">Date :</div>
+                  <div className="value">20-Aug-2023</div>
+                </li>
+              </ul>
+              <ul className="event_list">
+                <li>
+                  <div className="title">Time :</div>
+                  <div className="value">8 AM</div>
+                </li>
+                <li>
+                  <div className="title">Contact :</div>
+                  <div className="value">9841587582</div>
+                </li>
+                <li>
+                  <div className="title">Email :</div>
+                  <div className="value">bishowraut@gmail.com</div>
+                </li>
+              </ul>
+            </div>
+
             <div className="single_event_page_short">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
               has been the industry's standard dummy text ever since the 1500s, when an unknown
@@ -88,18 +119,26 @@ const SingleEvent = () => {
               industry's standard dummy text ever since the 1500s, when an unknown printer took a
               galley of type and scrambled it to make a type specimen book.
             </div>
-            {event?.youtube_url && (
-              <div className="single_event_page_long">
+            <div className="map-container">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.4571106444496!2d85.3242159761745!3d27.703169425674513!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb198f7d83c9d3%3A0x42ca0be2874cae9f!2sScodus%20Innovations!5e0!3m2!1sen!2snp!4v1692692607814!5m2!1sen!2snp"
+                width="50%"
+                height="280"
+                style={{ border: 0 }}
+                allowFullScreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"></iframe>
+              {event?.youtube_url && (
                 <iframe
-                  width="100%"
+                  width="50%"
                   height="400"
                   src={`https://www.youtube.com/embed/${event?.youtube_url}`}
                   title="Event Video"
                   frameBorder="0"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen></iframe>
-              </div>
-            )}
+              )}
+            </div>
           </div>
           <div className="single_event_page_sidebar">
             <div className="recent_events">

@@ -1,5 +1,12 @@
+import EmailIcon from '@mui/icons-material/Email';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import Banner from 'assets/images/banner.png';
 import CandidateImage1 from 'assets/images/candidate1.png';
+
 const CandidateSite = () => {
   const candidateImages = {
     profileBannerImage: Banner,
@@ -38,27 +45,27 @@ const CandidateSite = () => {
             <div className="candidate_page_sidebar">
               <ul className="contact_list">
                 <li>
-                  <i className="fa fa-map-marker-alt"></i>
+                  <LocationOnIcon />
                   <span className="contact_list_item">{candidateData?.address ?? ''}</span>
                 </li>
                 <li>
-                  <i className="fa fa-phone"></i>
+                  <PhoneIcon />
                   <span className="contact_list_item">{candidateData?.phone ?? ''}</span>
                 </li>
                 <li>
-                  <i className="fa fa-envelope"></i>
+                  <EmailIcon />
                   <span className="contact_list_item">{candidateData?.email ?? ''}</span>
                 </li>
               </ul>
               <div className="social_links">
                 <a href={candidateData?.facebook ?? '#'} target="_blank" rel="noreferrer">
-                  <i className="fab fa-facebook"></i>
+                  <FacebookIcon />
                 </a>
                 <a href={candidateData?.instagram ?? '#'} target="_blank" rel="noreferrer">
-                  <i className="fab fa-instagram"></i>
+                  <InstagramIcon />
                 </a>
                 <a href={candidateData?.twitter ?? '#'} target="_blank" rel="noreferrer">
-                  <i className="fab fa-twitter"></i>
+                  <TwitterIcon />
                 </a>
               </div>
             </div>

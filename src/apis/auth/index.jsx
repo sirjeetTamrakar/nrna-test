@@ -2,7 +2,7 @@ import { axiosInstance } from 'apis/_axios';
 
 // login data format {email: "", password: ""}
 export const loginApi = (data) => {
-  return axiosInstance().post('/api/accounting/login', data);
+  return axiosInstance().post('/api/login', data);
 };
 
 // register user

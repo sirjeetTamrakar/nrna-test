@@ -1,3 +1,4 @@
+import Protected from 'components/globals/protected';
 import Events from 'components/locals/dashboard/Events';
 import AdvicePage from 'pages/private/dashboard/Advice';
 import BannerPage from 'pages/private/dashboard/BannerPage';
@@ -17,115 +18,115 @@ const DashboardRoutes = [
   {
     path: 'events',
     component: (
-      // <Protected>
-      <Events />
-      // </Protected>
+      <Protected>
+        <Events />
+      </Protected>
     )
   },
 
   {
     path: 'news',
     component: (
-      // <Protected>
-      <NewsPage />
-      // </Protected>
+      <Protected>
+        <NewsPage />
+      </Protected>
     )
   },
   {
     path: 'contact',
     component: (
-      // <Protected>
-      <ContactPage />
-      // </Protected>
+      <Protected>
+        <ContactPage />
+      </Protected>
     )
   },
   {
     path: 'profile',
     component: (
-      // <Protected>
-      <ProfilePage />
-      // </Protected>
+      <Protected>
+        <ProfilePage />
+      </Protected>
     )
   },
   {
     path: 'advice',
     component: (
-      // <Protected>
-      <AdvicePage />
-      // </Protected>
+      <Protected>
+        <AdvicePage />
+      </Protected>
     )
   },
   {
     path: 'ncc',
     component: (
-      // <Protected>
-      <NCCPage />
-      // </Protected>
+      <Protected>
+        <NCCPage />
+      </Protected>
     )
   },
   {
     path: 'our-team',
     component: (
-      // <Protected>
-      <OurTeamPage />
-      // </Protected>
+      <Protected>
+        <OurTeamPage />
+      </Protected>
     )
   },
   {
     path: 'candidate',
     component: (
-      // <Protected>
-      <CandidatePage />
-      // </Protected>
+      <Protected>
+        <CandidatePage />
+      </Protected>
     )
   },
   {
     path: 'survey/site',
     component: (
-      // <Protected>
-      <QuestionsPage />
-      // </Protected>
+      <Protected>
+        <QuestionsPage />
+      </Protected>
     )
   },
   {
     path: 'survey/result',
     component: (
-      // <Protected>
-      <ResultsPage />
-      // </Protected>
+      <Protected>
+        <ResultsPage />
+      </Protected>
     )
   },
   {
     path: 'survey/participants',
     component: (
-      // <Protected>
-      <ParticipantsPage />
-      // </Protected>
+      <Protected>
+        <ParticipantsPage />
+      </Protected>
     )
   },
 
   {
     path: 'settings/site',
     component: (
-      // <Protected>
-      <SiteSettingsPage />
-      // </Protected>
+      <Protected>
+        <SiteSettingsPage />
+      </Protected>
     )
   },
   {
     path: 'settings/banner',
     component: (
-      // <Protected>
-      <BannerPage />
-      // </Protected>
+      <Protected>
+        <BannerPage />
+      </Protected>
     )
   },
   {
     path: 'user-management/member',
     component: (
-      // <Protected>
-      <MemberPage />
-      // </Protected>
+      <Protected>
+        <MemberPage />
+      </Protected>
     )
   }
 ];

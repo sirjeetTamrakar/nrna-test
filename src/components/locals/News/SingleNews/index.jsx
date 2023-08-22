@@ -10,6 +10,8 @@ const SingleNews = () => {
     featureImage: Banner,
     name: 'John Doe',
     slug: 'first_news_slug',
+    created_at: '20-Aug-2023',
+    author: 'Yogen Bahadur Chhetri',
     title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
     excerpt:
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
@@ -52,9 +54,12 @@ const SingleNews = () => {
         <div className="single_news_page">
           <div className="single_news_page_content">
             <div className="single_news_page_title">{news?.title}</div>
-            <div className="single_news_page_date">{news?.created_date}</div>
+
             <div className="single_news_page_imgwrap">
               <img src={news?.featureImage} alt={news?.title} />
+            </div>
+            <div className="single_news_page_date">
+              {news?.created_at} | {news?.author}
             </div>
             <div className="single_news_page_short">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
@@ -94,7 +99,7 @@ const SingleNews = () => {
               <div className="recent_news_title">Recent News</div>
               {recentNews?.length > 0 ? (
                 recentNews.map((recent) => (
-                  <Link key={recent.id} to={`/news/${recent?.slug}`} className="recent_newss_item">
+                  <Link key={recent.id} to={`/news/${recent?.slug}`} className="recent_news_item">
                     <div className="img_wrapper">
                       <img src={recent?.image} alt="" />
                     </div>
