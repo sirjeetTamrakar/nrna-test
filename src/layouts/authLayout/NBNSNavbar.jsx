@@ -47,9 +47,6 @@ function NBNSNavbar({ isHomePage, currentUser, sticky }) {
                 <Link to="/nbns/support">Support Us</Link>
               </li>
 
-              <li className="d-none d-lg-block">
-                <Link to="/nbns/contact">Contact</Link>
-              </li>
               <li>
                 <button className="btn-md" onClick={openFunction}>
                   Sign In
