@@ -3,6 +3,7 @@
 /* Third party libraries */
 import { Report } from '@mui/icons-material';
 import { InputLabel, Skeleton, TextField, Tooltip, Typography } from '@mui/material';
+import MenuItem from '@mui/material/MenuItem';
 import { makeStyles } from '@mui/styles';
 import { Box } from '@mui/system';
 import { Controller, useFormContext } from 'react-hook-form';
@@ -29,7 +30,9 @@ const CustomInput = ({
   disabled,
   inputProps = {},
   required,
-  rows = 1
+  rows = 1,
+  data = [],
+  select = ''
 }) => {
   const classes = useStyles();
   const {
@@ -37,6 +40,15 @@ const CustomInput = ({
     formState: { errors }
   } = useFormContext();
   const fieldError = errors[name]?.message;
+  const styles = {
+    menuItems: {
+      color: '#999999',
+      fontSize: {
+        xs: '15px !important',
+        md: '13px !important'
+      }
+    }
+  };
   return (
     <Box>
       <Box display="flex" alignItems="center" columnGap={0.5}>
@@ -70,8 +82,17 @@ const CustomInput = ({
               helperText={fieldError}
               inputProps={inputProps}
               type={type}
-              onWheel={(e) => e.target.blur()}
-            />
+              select={select}
+              onWheel={(e) => e.target.blur()}>
+              {data?.map((option) => (
+                <MenuItem
+                  sx={styles.menuItems}
+                  key={option?.value || option?.id}
+                  value={option?.value || option?.id}>
+                  {option?.label || option.table_readable_name}
+                </MenuItem>
+              ))}
+            </TextField>
           )}
         />
       )}

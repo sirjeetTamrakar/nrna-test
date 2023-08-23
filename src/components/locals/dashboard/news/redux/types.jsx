@@ -1,0 +1,7 @@
+export const POST_NEWS_BEGIN = 'POST_NEWS_BEGIN';
+export const POST_NEWS_SUCCESS = 'POST_NEWS_SUCCESS';
+export const POST_NEWS_ERROR = 'POST_NEWS_ERROR';
+
+export const GET_NEWS_BEGIN = 'GET_NEWS_BEGIN';
+export const GET_NEWS_SUCCESS = 'GET_NEWS_SUCCESS';
+export const GET_NEWS_ERROR = 'GET_NEWS_ERROR';
