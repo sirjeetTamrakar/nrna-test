@@ -3,7 +3,9 @@ const defaultState = {
   user: null,
   login_loading: false,
   loading: false,
-  register_loading: false
+  register_loading: false,
+  get_users_loading: false,
+  usersData: []
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -39,6 +41,18 @@ const authReducer = (state = defaultState, action) => {
     case actions.RESET_PASSWORD_ERROR:
     case actions.RESET_PASSWORD_SUCCESS:
       return { ...state, loading: false };
+
+    case actions.GET_USERS_BEGIN:
+      return {
+        ...state,
+        get_users_loading: true
+      };
+
+    case actions.GET_USERS_SUCCESS:
+      return { ...state, get_users_loading: false, usersData: action.payload };
+
+    case actions.GET_USERS_ERROR:
+      return { ...state, get_users_loading: false };
 
     default:
       return state;

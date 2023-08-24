@@ -3,9 +3,9 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import MemberForm from './Form';
-import { validationSchema } from './ValidationSchema';
+import OurTeamForm from './Form';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const EditForm = () => {
   const classes = useStyles();
@@ -15,7 +15,7 @@ const EditForm = () => {
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <MemberForm />
+      <OurTeamForm />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={false} />
       </Box>

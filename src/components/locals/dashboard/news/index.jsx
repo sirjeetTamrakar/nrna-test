@@ -14,12 +14,13 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
+import { deleteNews, getNews } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
 const News = () => {
-  const dispatch = useDispatch;
+  const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -30,6 +31,7 @@ const News = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
+  console.log('detailssssss', { detail });
 
   const { newsData, get_news_loading } = useSelector((state) => state.news);
   console.log({ newsData });
@@ -139,6 +141,15 @@ const News = () => {
   //   }
   // ];
 
+  const refetch = () => {
+    dispatch(getNews());
+  };
+
+  const handleConfirm = (slug) => {
+    dispatch(deleteNews(slug, refetch));
+    deleteOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -191,6 +202,7 @@ const News = () => {
           page={page}
           setPage={setPage}
           total={30}
+          loading={get_news_loading ? true : false}
         />
         <CustomModal
           open={openForm}
@@ -199,7 +211,8 @@ const News = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
+          {/* <Modalll /> */}
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -208,18 +221,23 @@ const News = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.name}`}
+          // modalTitle={`${detail?.title}`}
           modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirm}
+          slug={detail?.slug}
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+        />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}

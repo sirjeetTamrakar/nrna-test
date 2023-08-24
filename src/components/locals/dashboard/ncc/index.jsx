@@ -11,6 +11,8 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
@@ -114,6 +116,17 @@ const NCC = () => {
     }
   ];
 
+  const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
+  const finalData = nccData?.map((data) => ({
+    ...data,
+    created_at: changeDateFormat(data?.created_at),
+    created_by: data?.created_by?.name ?? '-',
+    country: data?.country_name ?? '-'
+    // approved_by: data?.created_by?.name ?? '-'
+  }));
+
+  console.log({ finalData, nccData });
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -160,7 +173,7 @@ const NCC = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={finalData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
@@ -174,7 +187,7 @@ const NCC = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}

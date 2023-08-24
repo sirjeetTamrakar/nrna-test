@@ -26,7 +26,7 @@ const SettingsDataForm = () => {
     watch,
     clearErrors
   } = useFormContext({ defaultValues });
-  console.log('watch', watch());
+  console.log('watchcccccc', watch());
   const { site_settings } = useSelector((state) => state.settings);
 
   useEffect(() => {
@@ -73,7 +73,7 @@ const SettingsDataForm = () => {
           </Grid>
           <Grid item sm={12}>
             <FileUploader
-              title="Banner Image"
+              title="Site Logo"
               // control={control}
               name="region_logo"
               label="Select Photo"

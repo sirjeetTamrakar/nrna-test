@@ -11,14 +11,16 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
+import { deleteEvents, getEvents } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
 const Events = () => {
+  const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -30,7 +32,7 @@ const Events = () => {
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
 
-  const { eventsData } = useSelector((state) => state.events);
+  const { eventsData, get_events_loading } = useSelector((state) => state.events);
   console.log({ eventsData });
 
   const tableHeads = [
@@ -147,6 +149,15 @@ const Events = () => {
     }
   ];
 
+  const refetch = () => {
+    dispatch(getEvents());
+  };
+
+  const handleConfirm = (slug) => {
+    dispatch(deleteEvents(slug, refetch));
+    deleteOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -199,6 +210,7 @@ const Events = () => {
           page={page}
           setPage={setPage}
           total={30}
+          loading={get_events_loading ? true : false}
         />
         <CustomModal
           open={openForm}
@@ -207,7 +219,7 @@ const Events = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -216,18 +228,23 @@ const Events = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.name}`}
+          modalTitle={`${detail?.title}`}
           modalSubtitle="Get full detail "
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirm}
+          slug={detail?.slug}
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+        />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
