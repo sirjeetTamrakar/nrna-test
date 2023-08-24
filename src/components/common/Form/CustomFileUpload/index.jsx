@@ -15,7 +15,8 @@ const FileUploader = ({
   classnames = '',
   clearErrors,
   imageLink,
-  required
+  required,
+  widthFull
 }) => {
   const [imagePreview, setImagePreview] = useState(imageLink || '');
 
@@ -72,7 +73,7 @@ const FileUploader = ({
               </Box>
             )}
             <div
-              className={`${classes.inputFileWrap} ${
+              className={`${widthFull ? classes.inputFileWrapFull : classes.inputFileWrap} ${
                 isDragActive ? 'drag-active' : ''
                 //   imagePreview ? 'image-preview' : ''
               } `}

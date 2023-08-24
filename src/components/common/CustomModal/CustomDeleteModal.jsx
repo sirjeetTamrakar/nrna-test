@@ -2,13 +2,14 @@ import { Delete, DeleteOutline } from '@mui/icons-material';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
-const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
+const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug }) => {
+  console.log('cccccccccccccccc', { slug });
   return (
     <>
       <CustomModal
         open={open}
         width={'500px'}
-        height={'230px'}
+        height={'300px'}
         icon={<Delete />}
         handleClose={handleClose}>
         <Box>
@@ -67,7 +68,7 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
               marginTop: '30px'
             }}>
             <Button
-              onClick={() => handleConfirm()}
+              onClick={() => handleConfirm(slug)}
               disabled={isLoading}
               style={{ backgroundColor: '#F10056', color: 'white' }}>
               {isLoading ? (
@@ -81,7 +82,7 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading }) => {
             </Button>
             <Button
               variant="outlined"
-              onClick={() => handleClose()}
+              onClick={handleClose}
               style={{ color: '#F10056', borderColor: '#F10056' }}>
               Cancel
             </Button>

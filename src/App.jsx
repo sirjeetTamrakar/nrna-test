@@ -1,11 +1,13 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { getEvents } from 'components/locals/dashboard/events/redux/actions';
+import { getNCC } from 'components/locals/dashboard/ncc/redux/actions';
 import { getNews } from 'components/locals/dashboard/news/redux/actions';
 import 'index.scss';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { getUsers } from 'redux/auth/actions';
 import { getSiteSettings } from 'redux/homepage/actions';
 import RouteList from 'routes';
 import theme from 'themes';
@@ -18,6 +20,8 @@ export default function App() {
     dispatch(getSiteSettings());
     dispatch(getNews());
     dispatch(getEvents());
+    dispatch(getUsers());
+    dispatch(getNCC());
   }, []);
 
   return (

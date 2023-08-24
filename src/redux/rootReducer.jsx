@@ -1,5 +1,6 @@
 /* eslint-disable */
 import eventsReducer from 'components/locals/dashboard/events/redux/reducers';
+import nccReducer from 'components/locals/dashboard/ncc/redux/reducers';
 import newsReducer from 'components/locals/dashboard/news/redux/reducers';
 import settingsReducer from 'components/locals/dashboard/settings/redux/reducers';
 import { combineReducers } from 'redux';
@@ -11,5 +12,6 @@ export default combineReducers({
   homepage: homepageReducer,
   settings: settingsReducer,
   news: newsReducer,
-  events: eventsReducer
+  events: eventsReducer,
+  ncc: nccReducer
 });
