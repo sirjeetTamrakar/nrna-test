@@ -12,12 +12,12 @@ export const registerApi = (data) => {
 
 // signup data format = { email: string}
 export const forgotPasswordApi = (data) => {
-  return axiosInstance().post('/api/accounting/password-reset', data);
+  return axiosInstance().post('/api/forgot-password', data);
 };
 
 // reset password or verify email
 export const resetPasswordApi = (data) => {
-  return axiosInstance().post('/api/accounting/password-reset/change', data);
+  return axiosInstance().post('/api/reset-password', data);
 };
 
 // // verify email

@@ -75,7 +75,7 @@ const AuthRoutes = [
   },
 
   { path: '/forgot-password', component: <Forgot /> },
-  { path: '/reset-password', component: <ResetPassword /> },
+  { path: '/password-reset', component: <ResetPassword /> },
   { path: '/verify-mail', component: <VerifyEmail /> }
 ];
 

@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
@@ -6,6 +6,7 @@ import CustomInput from 'components/common/Form/CustomInput';
 import CustomPasswordInput from 'components/common/Form/CustomPasswordInput';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { loginUser } from 'redux/auth/actions';
 import * as Yup from 'yup';
 const Login = ({ registerOpen, handleClose }) => {
@@ -43,6 +44,11 @@ const Login = ({ registerOpen, handleClose }) => {
           <div className="link">
             Don't have an account. <span onClick={handleRegisterOpen}>Register</span>
           </div>
+          <Link to="/forgot-password">
+            <Typography variant="subtitle1" textAlign="center">
+              Forgot Password?
+            </Typography>
+          </Link>
         </div>
       </CustomForm>
     </CustomFormProvider>

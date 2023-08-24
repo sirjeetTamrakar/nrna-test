@@ -13,18 +13,25 @@ import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeDateFormat } from 'utils/dateUtils';
+import { changeApproval, changeStatus, getAllUsers } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
 import View from './View';
 import { useStyles } from './styles';
 const Member = () => {
+  const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
+  const { users, users_loading, user_status_loading, approve_user_loading } = useSelector(
+    (state) => state.user
+  );
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
@@ -39,7 +46,7 @@ const Member = () => {
         return (
           <Box>
             <Typography variant="body2">{row?.name}</Typography>
-            <Typography variant="subtitle1">{row?.created_at}</Typography>
+            <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
           </Box>
         );
       }
@@ -78,12 +85,12 @@ const Member = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.approved_by ? (
+            {row?.approval_status === 'approved' ? (
               <Box display="flex" columnGap={0.5}>
                 <TaskAltIcon sx={{ color: 'green' }} />
                 <Typography color={'green'}>Approved</Typography>
               </Box>
-            ) : row?.rejected_by ? (
+            ) : row?.approval_status === 'rejected' ? (
               <Box display="flex" columnGap={0.5}>
                 <CancelIcon sx={{ color: 'red' }} />
                 <Typography color={'red'}>Rejected</Typography>
@@ -104,7 +111,7 @@ const Member = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === 1 ? (
               <Button
                 variant="contained"
                 color="success"
@@ -144,48 +151,6 @@ const Member = () => {
     }
   ];
 
-  const tableData = [
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      approved_by: 'Yogen Bahadur Chhetri',
-      rejected_by: '',
-      role: 'Super Admin',
-      status: 'Active'
-    },
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      approved_by: '',
-      rejected_by: 'Yogen Bahadur Chhetri',
-      role: 'Super Admin',
-      status: 'Active'
-    },
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      approved_by: '',
-      rejected_by: '',
-      role: 'Super Admin',
-      status: 'Inactive'
-    }
-  ];
-
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -211,6 +176,21 @@ const Member = () => {
     viewOpenFunction();
   };
 
+  const handleChangeStatus = () => {
+    dispatch(
+      changeStatus(detail?.username, { status: detail?.status == 1 ? 0 : 1 }, statusOpenFunction)
+    );
+  };
+
+  const handleApproveStatus = (value) => {
+    const status = value === 'approved' ? 'approved' : 'rejected';
+    dispatch(changeApproval(detail?.username, { approval_status: status }, approveOpenFunction));
+  };
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
+
   return (
     <>
       <Box>
@@ -232,10 +212,11 @@ const Member = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={users}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
+          loading={users_loading}
           setPage={setPage}
           total={30}
         />
@@ -246,7 +227,7 @@ const Member = () => {
           modalSubtitle="Become a member of NRNA Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -269,10 +250,19 @@ const Member = () => {
         <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
         <CustomStatusModal
           open={openStatus}
+          handleConfirm={handleChangeStatus}
           handleClose={statusOpenFunction}
-          status={detail?.status}
+          status={detail?.status == 1 ? 'Active' : 'Inactive'}
+          isLoading={user_status_loading}
         />
-        <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
+        <CustomApproveModal
+          open={openApprove}
+          handleClose={approveOpenFunction}
+          row={detail}
+          isLoading={approve_user_loading}
+          handleApprove={() => handleApproveStatus('approved')}
+          handleReject={() => handleApproveStatus('rejected')}
+        />
       </Box>
     </>
   );

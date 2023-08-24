@@ -3,14 +3,7 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
-const CustomApproveModal = ({
-  open,
-  handleClose,
-  handleApprove,
-  handleReject,
-  isLoading,
-  status
-}) => {
+const CustomApproveModal = ({ open, handleClose, handleApprove, handleReject, isLoading }) => {
   return (
     <>
       <CustomModal
