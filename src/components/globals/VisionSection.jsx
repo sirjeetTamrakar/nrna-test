@@ -6,7 +6,7 @@ const VisionSection = ({ siteSettingImages, linkUrl, vision }) => {
     ? siteSettingImages.vision_image.path
     : VisionImg;
   return (
-    <section className="about" id="about_main">
+    <section className="vision" id="vision_main">
       <div className="container">
         <div className="row">
           <div className="col-lg-5 col-xl-5">
@@ -14,9 +14,12 @@ const VisionSection = ({ siteSettingImages, linkUrl, vision }) => {
               <img src={visionImage} alt="" />
             </div>
           </div>
-          <div className="col-lg-7 col-xl-7" id="about-section">
-            <div className="about_title">Vision</div>
-            <div className="about_description" dangerouslySetInnerHTML={{ __html: vision || '' }} />
+          <div className="col-lg-7 col-xl-7" id="vision-section">
+            <div className="vision_title">Vision</div>
+            <div
+              className="vision_description"
+              dangerouslySetInnerHTML={{ __html: vision || '' }}
+            />
 
             <Link to={linkUrl || `/vision`} className="view_more">
               View More

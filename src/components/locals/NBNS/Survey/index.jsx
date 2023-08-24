@@ -1,8 +1,14 @@
 import { Box, Button, Container, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import useStyles from './styles';
 
 const Survey = () => {
   const classes = useStyles();
+  const navigate = useNavigate();
+
+  const startSurvey = () => {
+    navigate(`/nbns/survey/questions`);
+  };
   return (
     <Container>
       <Box className={classes.root}>
@@ -16,7 +22,9 @@ const Survey = () => {
             </Typography>
           </Box>
           <Box textAlign="center" marginTop={4}>
-            <Button variant="contained">Start Making a Difference</Button>
+            <Button variant="contained" onClick={startSurvey}>
+              Start Making a Difference
+            </Button>
           </Box>
           <Box marginTop={4}>
             <Typography className={classes.description}>

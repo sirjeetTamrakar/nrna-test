@@ -7,13 +7,13 @@ const MissionSection = ({ siteSettingImages, linkUrl, mission }) => {
     : MissionImg;
 
   return (
-    <section className="about" id="about_main">
+    <section className="mission" id="mission_main">
       <div className="container">
         <div className="row">
-          <div className="col-lg-7 col-xl-7" id="about-section">
-            <div className="about_title">Mission</div>
+          <div className="col-lg-7 col-xl-7" id="mission-section">
+            <div className="mission_title">Mission</div>
             <div
-              className="about_description"
+              className="mission_description"
               dangerouslySetInnerHTML={{ __html: mission || '' }}
             />
 
