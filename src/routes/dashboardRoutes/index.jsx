@@ -1,9 +1,9 @@
 import Protected from 'components/globals/protected';
-import Events from 'components/locals/dashboard/Events';
 import AdvicePage from 'pages/private/dashboard/Advice';
 import BannerPage from 'pages/private/dashboard/BannerPage';
 import CandidatePage from 'pages/private/dashboard/CandidatePage';
 import ContactPage from 'pages/private/dashboard/ContactPage';
+import EventsPage from 'pages/private/dashboard/EventsPage';
 import MemberPage from 'pages/private/dashboard/MemberPage';
 import NCCPage from 'pages/private/dashboard/NCCPage';
 import NewsPage from 'pages/private/dashboard/NewsPage';
@@ -19,7 +19,7 @@ const DashboardRoutes = [
     path: 'events',
     component: (
       <Protected>
-        <Events />
+        <EventsPage />
       </Protected>
     )
   },
