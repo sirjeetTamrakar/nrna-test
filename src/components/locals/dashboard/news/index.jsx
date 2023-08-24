@@ -11,12 +11,15 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
 const News = () => {
+  const dispatch = useDispatch;
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -27,6 +30,13 @@ const News = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
+
+  const { newsData, get_news_loading } = useSelector((state) => state.news);
+  console.log({ newsData });
+  // useEffect(() => {
+  //   dispatch(getNews());
+  // }, []);
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -92,22 +102,42 @@ const News = () => {
       }
     }
   ];
-  const tableData = [
-    {
-      title: 'A meteor shower and a satellite train caught on camera',
-      slug: 'a_meteor_shower',
-      created_by: 'Bishwo Raj Raut',
-      created_at: '20-Aug-2023',
-      approved_by: 'Yogen Bahadur Chhetri'
-    },
-    {
-      title: 'A meteor shower and a satellite train caught on camera',
-      slug: 'a_meteor_shower',
-      created_by: 'Bishwo Raj Raut',
-      created_at: '20-Aug-2023',
-      approved_by: ''
-    }
-  ];
+
+  // const finalData = [
+  //   {
+  //     title: newsData?.map((item) => item?.title)
+  //     // slug: 'a_meteor_shower',
+  //     // created_by: 'Bishwo Raj Raut',
+  //     // created_at: '20-Aug-2023',
+  //     // approved_by: 'Yogen Bahadur Chhetri'
+  //   }
+  // ];
+
+  const finalData = newsData?.map((data) => ({
+    ...data,
+    created_at: changeDateFormat(data?.created_at),
+    created_by: data?.created_by?.name ?? '-'
+    // approved_by: data?.created_by?.name ?? '-'
+  }));
+
+  console.log({ finalData, newsData });
+
+  // const tableData = [
+  //   {
+  //     title: 'A meteor shower and a satellite train caught on camera',
+  //     slug: 'a_meteor_shower',
+  //     created_by: 'Bishwo Raj Raut',
+  //     created_at: '20-Aug-2023',
+  //     approved_by: 'Yogen Bahadur Chhetri'
+  //   },
+  //   {
+  //     title: 'A meteor shower and a satellite train caught on camera',
+  //     slug: 'a_meteor_shower',
+  //     created_by: 'Bishwo Raj Raut',
+  //     created_at: '20-Aug-2023',
+  //     approved_by: ''
+  //   }
+  // ];
 
   const handleEdit = (row) => {
     setDetail(row);
@@ -155,7 +185,7 @@ const News = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={finalData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

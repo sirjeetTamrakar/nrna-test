@@ -11,6 +11,8 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
@@ -27,6 +29,10 @@ const Events = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
+
+  const { eventsData } = useSelector((state) => state.events);
+  console.log({ eventsData });
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -110,6 +116,16 @@ const Events = () => {
       }
     }
   ];
+
+  const finalData = eventsData?.map((data) => ({
+    ...data,
+    created_at: changeDateFormat(data?.created_at),
+    created_by: data?.created_by?.name ?? '-'
+    // approved_by: data?.created_by?.name ?? '-'
+  }));
+
+  console.log({ finalData });
+
   const tableData = [
     {
       title: 'Conference on Sustainable Economic growth of Nepal',
@@ -177,7 +193,7 @@ const Events = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={finalData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

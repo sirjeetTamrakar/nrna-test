@@ -1,4 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { getEvents } from 'components/locals/dashboard/events/redux/actions';
+import { getNews } from 'components/locals/dashboard/news/redux/actions';
 import 'index.scss';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -14,6 +16,8 @@ export default function App() {
 
   useEffect(() => {
     dispatch(getSiteSettings());
+    dispatch(getNews());
+    dispatch(getEvents());
   }, []);
 
   return (
