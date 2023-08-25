@@ -2,8 +2,6 @@
 
 import Events from 'components/locals/dashboard/events';
 
-// import Events from 'components/locals/dashboard/events';
-
 const EventsPage = () => {
   return (
     <div>

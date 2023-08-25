@@ -11,7 +11,7 @@ const Form = () => {
     <CustomForm onSubmit={onSubmit}>
       <Grid container spacing={3}>
         <Grid item sm={6}>
-          <CustomInput name="name" label="Label" required />
+          <CustomInput name="name" label="Full Name" required />
         </Grid>
         <Grid item sm={6}>
           <CustomInput name="country_of_residence" label="Country of Residence" required />

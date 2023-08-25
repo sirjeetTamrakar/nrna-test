@@ -1,5 +1,5 @@
 import useStyles from '../../styles';
-import BasicTabs from './tabs';
+import BasicTabs from './Tabs';
 
 const SiteSettings = () => {
   const classes = useStyles();

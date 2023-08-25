@@ -3,7 +3,6 @@ import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
 const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug }) => {
-  console.log('cccccccccccccccc', { slug });
   return (
     <>
       <CustomModal

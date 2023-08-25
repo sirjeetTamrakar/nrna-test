@@ -1,4 +1,4 @@
-import Banner from 'components/locals/dashboard/settings/Banner';
+import Banner from 'components/locals/dashboard/settings/banner';
 
 const BannerPage = () => {
   return (

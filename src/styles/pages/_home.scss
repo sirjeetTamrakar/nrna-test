@@ -71,6 +71,123 @@
     }
   }
 }
+.vision{
+  padding: 90px 0px;
+  .img_container{
+    padding: 45px;
+    img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: 45px;
+    border-radius: 15px;
+    transform: rotate(-9deg);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #8a9ac7;
+    }
+  }
+  &_title{
+    font-size: 36px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 30px;
+    &::after{
+      position: absolute;
+      content: "";
+      width: 50px;
+      border-bottom: 3px solid $primary-color;
+      left: 0;
+      bottom: 0px;
+    }
+  }
+  &_description{
+    font-size: 15px;
+    color: $secondary-light-text;
+  }
+  .view_more{
+    color: #ffffff;
+    font-size: 13px;
+    display: inline-block;
+    background: #1565a4;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: all 0.2s linear;
+    &:hover{
+      background: #084270;
+    }
+  }
+}
+.mission{
+  padding: 90px 0px;
+  background-color: #f0f7fd;
+  .img_container{
+    padding: 45px;
+    img{
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 15px;
+    }
+    &::before{
+      content: "";
+      position: absolute;
+    top: 0;
+    bottom: 0;
+    margin: 45px;
+    border-radius: 15px;
+    transform: rotate(-9deg);
+    left: 0;
+    right: 0;
+    z-index: -1;
+    background-color: #8a9ac7;
+    }
+  }
+  &_title{
+    font-size: 36px;
+    font-weight: bold;
+    position: relative;
+    margin-bottom: 30px;
+    &::after{
+      position: absolute;
+      content: "";
+      width: 50px;
+      border-bottom: 3px solid $primary-color;
+      left: 0;
+      bottom: 0px;
+    }
+  }
+  &_description{
+    font-size: 15px;
+    color: $secondary-light-text;
+  }
+  .view_more{
+    color: #ffffff;
+    font-size: 13px;
+    display: inline-block;
+    background: #1565a4;
+    padding: 8px 20px;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    margin-top: 10px;
+    transition: all 0.2s linear;
+    &:hover{
+      background: #084270;
+    }
+  }
+}
 .political{
   padding: 90px 0;
   background-color: $primary-background;

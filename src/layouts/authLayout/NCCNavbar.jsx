@@ -4,10 +4,12 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { isLoggedIn } from 'utils';
 
 function NCCNavbar({ isHomePage, currentUser, sticky }) {
   const params = useParams();
+  const navigate = useNavigate();
 
   const openNav = () => {
     // Implement openNav logic here
@@ -19,6 +21,10 @@ function NCCNavbar({ isHomePage, currentUser, sticky }) {
   const { ncc } = useParams();
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
+
+  const goToDashboard = () => {
+    navigate('/dashboard');
+  };
 
   return (
     <>
@@ -56,9 +62,15 @@ function NCCNavbar({ isHomePage, currentUser, sticky }) {
                 <Link to={`/ncc/${params?.ncc}/contact`}>Contact</Link>
               </li>
               <li>
-                <button className="btn-md" onClick={openFunction}>
-                  Sign In
-                </button>
+                {isLoggedIn() ? (
+                  <button className="btn-md" onClick={goToDashboard}>
+                    Dashboard
+                  </button>
+                ) : (
+                  <button className="btn-md" onClick={openFunction}>
+                    Login
+                  </button>
+                )}
               </li>
               <li>
                 <Link to="/" className="home-btn d-none d-lg-block">

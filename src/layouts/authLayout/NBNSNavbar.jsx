@@ -4,9 +4,11 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { isLoggedIn } from 'utils';
 
 function NBNSNavbar({ isHomePage, currentUser, sticky }) {
+  const navigate = useNavigate();
   const openNav = () => {
     // Implement openNav logic here
   };
@@ -16,6 +18,9 @@ function NBNSNavbar({ isHomePage, currentUser, sticky }) {
   };
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
+  const goToDashboard = () => {
+    navigate('/dashboard');
+  };
 
   return (
     <>
@@ -48,9 +53,15 @@ function NBNSNavbar({ isHomePage, currentUser, sticky }) {
               </li>
 
               <li>
-                <button className="btn-md" onClick={openFunction}>
-                  Sign In
-                </button>
+                {isLoggedIn() ? (
+                  <button className="btn-md" onClick={goToDashboard}>
+                    Dashboard
+                  </button>
+                ) : (
+                  <button className="btn-md" onClick={openFunction}>
+                    Login
+                  </button>
+                )}
               </li>
               <li>
                 <Link to="/" className="home-btn d-none d-lg-block">

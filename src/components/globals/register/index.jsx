@@ -19,12 +19,12 @@ const Register = ({ loginOpen, handleClose }) => {
     name: Yup.string().required('Name is Required'),
     email: Yup.string().email().required('Email is required'),
     country_of_residence: Yup.string().required('Country of Residence'),
-    new_password: Yup.string()
+    password: Yup.string()
       .required('Please enter your password')
       .min(8, ' Your password is too short (Min 8 Character)'),
-    confirm_password: Yup.string()
+    password_confirmation: Yup.string()
       .required('Please retype your password.')
-      .oneOf([Yup.ref('new_password')], 'Your passwords do not match.')
+      .oneOf([Yup.ref('password')], 'Your passwords do not match.')
   });
 
   const handleChange = (e) => {
@@ -62,8 +62,8 @@ const Register = ({ loginOpen, handleClose }) => {
               label="Country of Residence"
               options={countries}
             />
-            <CustomPasswordInput name="new_password" label="New Password" />
-            <CustomPasswordInput name="confirm_password" label="Confirm Password" />
+            <CustomPasswordInput name="password" label="New Password" />
+            <CustomPasswordInput name="password_confirmation" label="Confirm Password" />
           </Box>
           <Box className="agree">
             <input type="checkbox" onChange={handleChange} /> <p>I agree to terms & condition.</p>
