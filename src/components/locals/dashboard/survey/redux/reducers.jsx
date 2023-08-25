@@ -5,7 +5,8 @@ const defaultState = {
   create_question_loading: false,
   update_question_loading: false,
   delete_question_loading: false,
-  question_status_loading: false
+  question_status_loading: false,
+  post_question_front_loading: false
 };
 
 const questionReducer = (state = defaultState, action) => {
@@ -61,6 +62,18 @@ const questionReducer = (state = defaultState, action) => {
     case actions.CHANGE_QUESTION_STATUS_SUCCESS:
     case actions.CHANGE_QUESTION_STATUS_ERROR:
       return { ...state, question_status_loading: false };
+
+    // post questions front ------------------->
+    case actions.POST_QUESTION_FRONT_BEGIN:
+      return {
+        ...state,
+        post_question_front_loading: true
+      };
+
+    case actions.POST_QUESTION_FRONT_SUCCESS:
+    case actions.POST_QUESTION_FRONT_ERROR:
+      return { ...state, post_question_front_loading: false };
+
     default:
       return state;
   }

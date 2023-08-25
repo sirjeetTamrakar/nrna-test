@@ -3,9 +3,10 @@ import {
   createQuestionApi,
   deleteQuestionApi,
   getAllQuestionsApi,
+  postQuestionFrontApi,
   updateQuestionApi
 } from 'apis/dashboard/survey';
-import { errorToast } from 'utils/toast';
+import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
 export const getAllQuestions = () => (dispatch) => {
@@ -27,6 +28,7 @@ export const createQuestion = (data, handleSuccess) => (dispatch) => {
   createQuestionApi(data)
     .then((res) => {
       dispatch({ type: actions.CREATE_QUESTION_SUCCESS });
+      successToast('Question created successfully');
       handleSuccess && handleSuccess();
       dispatch(getAllQuestions());
     })
@@ -41,6 +43,8 @@ export const updateQuestion = (id, data, handleSuccess) => (dispatch) => {
   updateQuestionApi(id, data)
     .then((res) => {
       dispatch({ type: actions.UPDATE_QUESTION_SUCCESS });
+      successToast('Question created successfully');
+
       handleSuccess && handleSuccess();
       dispatch(getAllQuestions());
     })
@@ -50,9 +54,9 @@ export const updateQuestion = (id, data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const changeStatus = (slug, data, handleSuccess) => (dispatch) => {
+export const changeStatus = (data, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.CHANGE_QUESTION_STATUS_BEGIN });
-  changeStatusApi(slug, data)
+  changeStatusApi(data)
     .then((res) => {
       dispatch({ type: actions.CHANGE_QUESTION_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
@@ -69,11 +73,31 @@ export const deleteQuestion = (id, handleSuccess) => (dispatch) => {
   deleteQuestionApi(id)
     .then((res) => {
       dispatch({ type: actions.DELETE_QUESTION_SUCCESS });
+      successToast('Question deleted successfully');
+
       handleSuccess && handleSuccess();
       dispatch(getAllQuestions());
     })
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.DELETE_QUESTION_ERROR });
+    });
+};
+
+// post questions front ------------->
+
+export const postQuestionFront = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_QUESTION_FRONT_BEGIN });
+
+  postQuestionFrontApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_QUESTION_FRONT_SUCCESS });
+      successToast('Question posted successfully');
+      handleSuccess && handleSuccess();
+      dispatch(getAllQuestions());
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_QUESTION_FRONT_ERROR });
     });
 };

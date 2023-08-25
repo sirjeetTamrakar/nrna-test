@@ -3,14 +3,23 @@ import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
-const CustomStatusModal = ({ open, handleClose, handleConfirm, isLoading, status }) => {
+const CustomStatusModal = ({
+  open,
+  handleClose,
+  handleConfirm,
+  isLoading,
+  status,
+  modalTitle,
+  id
+}) => {
   return (
     <>
       <CustomModal
         open={open}
         width={'500px'}
-        height={'230px'}
+        height={'300px'}
         icon={<Delete />}
+        modalTitle={modalTitle}
         handleClose={handleClose}>
         <Box>
           <Box>
@@ -82,7 +91,7 @@ const CustomStatusModal = ({ open, handleClose, handleConfirm, isLoading, status
             }}>
             <Button
               variant="contained"
-              onClick={() => handleConfirm()}
+              onClick={() => handleConfirm(id)}
               disabled={isLoading}
               color="primary">
               {isLoading ? (

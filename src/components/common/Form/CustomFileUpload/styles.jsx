@@ -3,10 +3,10 @@ import { makeStyles } from '@mui/styles';
 const styles = makeStyles((theme) => ({
   inputFileWrap: {
     border: '1px solid #cacaca',
-    padding: '25px',
+    padding: '15px',
     // width: "350px",
-    width: '40%',
-    height: '250px',
+    width: '350px',
+    height: '350px',
     background: '#fff',
     borderRadius: '4px',
     textAlign: 'center',
@@ -62,7 +62,7 @@ const styles = makeStyles((theme) => ({
       '& img': {
         width: '100%',
         // height: "120px",
-        height: '162px',
+        height: '330px',
         objectFit: 'cover'
         // aspectRatio: "4/3",
       }
@@ -70,10 +70,10 @@ const styles = makeStyles((theme) => ({
   },
   inputFileWrapFull: {
     border: '1px solid #cacaca',
-    padding: '25px',
+    padding: '15px',
     // width: "350px",
     width: '100%',
-    height: '250px',
+    height: '300px',
     background: '#fff',
     borderRadius: '4px',
     textAlign: 'center',
@@ -129,7 +129,7 @@ const styles = makeStyles((theme) => ({
       '& img': {
         width: '100%',
         // height: "120px",
-        height: '162px',
+        height: '280px',
         objectFit: 'cover'
         // aspectRatio: "4/3",
       }

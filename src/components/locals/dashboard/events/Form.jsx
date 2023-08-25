@@ -1,4 +1,5 @@
 import { Box, Grid } from '@mui/material';
+import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
@@ -64,17 +65,18 @@ const EventForm = () => {
           <CustomInput name="event_date" label="Dateandtime" type="datetime-local" />
         </Grid>
         <Grid item sm={6}>
-          <CustomInput
+          <CustomAutoComplete
             select
             placeholder="Level"
             name="status"
-            label="status"
-            data={dropData ?? []}
+            label="Status"
+            options={dropData ?? []}
           />
         </Grid>
         <Grid item sm={12}>
           <FileUploader
-            title="Banner Image"
+            title="Event Image"
+            imageText="Resolution: height: 1024 x width: 768"
             // control={control}
             name="feature_image"
             label="Select Photo"
@@ -83,7 +85,7 @@ const EventForm = () => {
             // errors={errors}
             // clearErrors={clearErrors}
             // required={true}
-            imageLink={watch('image') || ''}
+            imageLink={watch('feature_image') || ''}
           />
         </Grid>
         <Grid item sm={12}>

@@ -60,8 +60,9 @@ const MissionForm = () => {
         <Grid container spacing={2}>
           <Grid item sm={12}>
             <FileUploader
-              title="Banner Image"
+              title="Mission Image"
               // control={control}
+              imageText="Resolution: height: 525 x width: 500"
               name="mission_image"
               label="Select Photo"
               setValue={setValue}

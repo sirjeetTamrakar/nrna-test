@@ -24,7 +24,9 @@ const CustomButton = ({
             {buttonName || 'Save'}
           </Box>
         ) : (
-          buttonName || 'Save'
+          <Box display={'flex'} alignItems={'center'} gap={'10px'}>
+            {buttonName || 'Save'}
+          </Box>
         )}
       </Button>{' '}
     </Box>

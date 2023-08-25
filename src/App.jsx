@@ -2,6 +2,7 @@ import { CssBaseline, ThemeProvider } from '@mui/material';
 import { getEvents } from 'components/locals/dashboard/events/redux/actions';
 import { getNCC } from 'components/locals/dashboard/ncc/redux/actions';
 import { getNews } from 'components/locals/dashboard/news/redux/actions';
+import { getAllQuestions } from 'components/locals/dashboard/survey/redux/actions';
 import 'index.scss';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
@@ -22,6 +23,7 @@ export default function App() {
     dispatch(getEvents());
     dispatch(getUsers());
     dispatch(getNCC());
+    dispatch(getAllQuestions());
   }, []);
 
   return (

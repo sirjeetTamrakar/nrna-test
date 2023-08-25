@@ -26,7 +26,9 @@ const AboutForm = () => {
   } = useFormContext({ defaultValues });
   console.log('watch', watch());
 
-  const { site_settings } = useSelector((state) => state.settings);
+  const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
+
+  console.log('site_loading', { site_settings_loading });
 
   useEffect(() => {
     dispatch(getSiteSettings());
@@ -60,8 +62,9 @@ const AboutForm = () => {
         <Grid container spacing={2}>
           <Grid item sm={12}>
             <FileUploader
-              title="About Banner Image"
+              title="About Image"
               // control={control}
+              imageText="Resolution: height: 525 x width: 500"
               name="about_image"
               label="Select Photo"
               setValue={setValue}
@@ -76,7 +79,7 @@ const AboutForm = () => {
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
-              <CustomButton buttonName="Submit" loading={false} />
+              <CustomButton loading={site_settings_loading ? true : false} buttonName="Submit" />
             </Box>
           </Grid>
         </Grid>

@@ -60,8 +60,9 @@ const VisionForm = () => {
         <Grid container spacing={2}>
           <Grid item sm={12}>
             <FileUploader
-              title="Vision Banner Image"
+              title="Vision Image"
               // control={control}
+              imageText="Resolution: height: 525 x width: 500"
               name="vision_image"
               label="Select Photo"
               setValue={setValue}

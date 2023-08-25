@@ -63,15 +63,6 @@ const SettingsDataForm = () => {
       <CustomForm onSubmit={submitHandler}>
         <Grid container spacing={2}>
           <Grid item sm={12}>
-            <CustomInput name="address" label="Address" required />
-          </Grid>
-          <Grid item sm={12}>
-            <CustomInput name="email" label="Email" type="email" required />
-          </Grid>
-          <Grid item sm={12}>
-            <CustomInput name="phone" label="Phone" required />
-          </Grid>
-          <Grid item sm={12}>
             <FileUploader
               title="Site Logo"
               // control={control}
@@ -83,6 +74,15 @@ const SettingsDataForm = () => {
               // required={true}
               imageLink={watch('region_logo') || ''}
             />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="address" label="Address" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="email" label="Email" type="email" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="phone" label="Phone" required />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

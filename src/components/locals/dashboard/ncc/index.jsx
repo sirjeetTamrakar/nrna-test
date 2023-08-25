@@ -11,14 +11,16 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
+import { deleteNCC, getNCC } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
 const NCC = () => {
+  const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -127,6 +129,15 @@ const NCC = () => {
 
   console.log({ finalData, nccData });
 
+  const refetch = () => {
+    dispatch(getNCC());
+  };
+
+  const handleConfirm = (slug) => {
+    dispatch(deleteNCC(slug, refetch));
+    deleteOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -179,6 +190,7 @@ const NCC = () => {
           page={page}
           setPage={setPage}
           total={30}
+          loading={get_ncc_loading ? true : false}
         />
         <CustomModal
           open={openForm}
@@ -196,7 +208,7 @@ const NCC = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
@@ -207,7 +219,13 @@ const NCC = () => {
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirm}
+          slug={detail?.slug}
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+          modalTitle="Delete"
+        />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}

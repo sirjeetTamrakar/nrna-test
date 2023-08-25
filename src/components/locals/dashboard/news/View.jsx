@@ -21,22 +21,26 @@ const View = ({ data }) => {
         }
 
         return (
-          <li style={{ padding: '5px 0', textTransform: 'capitalize' }} key={index}>
+          <li style={{ padding: '5px 0' }} key={index}>
             {key + ' : ' + value}
           </li>
         );
       })}
       {data?.feature_image && (
-        <li style={{ padding: '5px 0', textTransform: 'capitalize' }}>
+        <li style={{ padding: '5px 0' }}>
           <div>
-            Featue Image:
-            <div>
-              <img src={data?.feature_image} alt="" />
+            featue Image:
+            <div style={{ width: '100px', height: '100px' }}>
+              <img
+                src={data?.feature_image}
+                alt=""
+                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
+              />
             </div>
           </div>
         </li>
       )}
-      <li style={{ padding: '5px 0', textTransform: 'capitalize' }}>
+      <li style={{ padding: '5px 0' }}>
         <div style={{ display: 'flex' }}>
           <span style={{ marginRight: '5px' }}>Description:</span>
           <div dangerouslySetInnerHTML={{ __html: data?.description }} />

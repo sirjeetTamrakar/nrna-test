@@ -5,7 +5,7 @@ export const getAllQuestionsApi = () => {
   return axiosInstance().get('/api/questions');
 };
 
-// create users
+// create question
 export const createQuestionApi = (data) => {
   return axiosInstance().post('/api/questions', data);
 };
@@ -16,11 +16,16 @@ export const updateQuestionApi = (id, data) => {
 };
 
 // change status
-export const changeStatusApi = (id, data) => {
-  return axiosInstance().post(`/api/questions/${id}/status`, data);
+export const changeStatusApi = (data) => {
+  return axiosInstance().post(`/api/questions/${data?.slug}/status`, data);
 };
 
 // delete question
 export const deleteQuestionApi = (id) => {
   return axiosInstance().delete(`/api/questions/${id}`);
+};
+
+// post question front -------->
+export const postQuestionFrontApi = (data) => {
+  return axiosInstance().post('/api/surveys/answer', data);
 };

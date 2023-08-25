@@ -1,9 +1,13 @@
 import { Box, Grid } from '@mui/material';
 import CustomInput from 'components/common/Form/CustomInput';
+import { useFormContext } from 'react-hook-form';
 import { useStyles } from './styles';
 
-const MemberForm = () => {
+const QuestionForm = () => {
   const classes = useStyles();
+  const { watch } = useFormContext();
+  console.log('watch', watch());
+
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
@@ -13,7 +17,7 @@ const MemberForm = () => {
         {[...Array(4)?.keys()]?.map((list) => (
           <Grid item sm={12} key={list}>
             <CustomInput
-              name={`option${list + 1}`}
+              name={`options.${list}`}
               label={`Option ${list + 1}`}
               required={list < 2}
             />
@@ -24,4 +28,4 @@ const MemberForm = () => {
   );
 };
 
-export default MemberForm;
+export default QuestionForm;

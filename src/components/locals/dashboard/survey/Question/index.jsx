@@ -9,10 +9,13 @@ import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { changeStatus, deleteQuestion, getAllQuestions } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
 const Questions = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
@@ -37,7 +40,7 @@ const Questions = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === '1' ? (
               <Button
                 variant="contained"
                 color="success"
@@ -85,6 +88,30 @@ const Questions = () => {
     }
   ];
 
+  const { questions, questions_loading } = useSelector((state) => state.question);
+
+  console.log({ questions });
+
+  const refetch = () => {
+    dispatch(getAllQuestions());
+  };
+
+  const handleConfirm = (slug) => {
+    dispatch(deleteQuestion(slug, refetch));
+    deleteOpenFunction();
+  };
+
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status === '0' ? true : false,
+      // status: true,
+      _method: 'PATCH'
+    };
+    dispatch(changeStatus(finalData, refetch));
+    statusOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -121,13 +148,14 @@ const Questions = () => {
         </Box>
         <CollapseTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={questions}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
           total={30}
           ChildComponent={ChildComponent}
+          loading={questions_loading ? true : false}
         />
 
         <CustomModal
@@ -137,7 +165,7 @@ const Questions = () => {
           modalSubtitle="Add question and options for the survey"
           icon={<PsychologyAltIcon />}
           width={`50rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -146,14 +174,23 @@ const Questions = () => {
           modalSubtitle="Use update to make survey accurate"
           icon={<PsychologyAltIcon />}
           width={`50rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
 
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirm}
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+          slug={detail?.id}
+          modalTitle="Delete Question"
+        />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
-          status={detail?.status}
+          status={detail?.status === '1' ? 'Active' : 'Inactive'}
+          modalTitle="Change status"
+          id={detail?.id}
+          handleConfirm={handleStatusConfirm}
         />
       </Box>
     </>
@@ -164,13 +201,20 @@ export default Questions;
 
 const ChildComponent = ({ row }) => {
   const classes = useStyles();
+  console.log('cxcxcxcxcxccxc', { row });
   return (
     <Box className={classes.childRoot}>
-      {[...Array(4)?.keys()]?.map((list, index) => (
+      {row?.options?.map((item, index) => (
         <Box className={classes.childList} key={index}>
-          {row?.[`option${list + 1}`]}
+          {item?.option}
         </Box>
       ))}
+
+      {/* {[...Array(4)?.keys()]?.map((list, index) => (
+        <Box className={classes.childList} key={index}>
+          {row?.options?.[`option${list}`]}
+        </Box>
+      ))} */}
     </Box>
   );
 };

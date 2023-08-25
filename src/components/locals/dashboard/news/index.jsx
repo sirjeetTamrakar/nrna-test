@@ -66,13 +66,13 @@ const News = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.approved_by ? (
+            {row?.status === 'Active' ? (
               <Button variant="contained" color="success" onClick={() => handleStatus(row)}>
-                Approved
+                Active
               </Button>
             ) : (
               <Button variant="contained" color="error" onClick={() => handleStatus(row)}>
-                Rejected
+                Inactive
               </Button>
             )}
           </Box>
@@ -226,8 +226,8 @@ const News = () => {
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          // modalTitle={`${detail?.title}`}
-          modalSubtitle="Get full detail"
+          modalTitle="News Details"
+          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
@@ -237,6 +237,7 @@ const News = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
+          modalTitle="Delete News"
         />
         <CustomStatusModal
           open={openStatus}

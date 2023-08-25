@@ -2,7 +2,7 @@ import { Delete, DeleteOutline } from '@mui/icons-material';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
 import CustomModal from './CustomModal';
 
-const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug }) => {
+const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug, modalTitle }) => {
   return (
     <>
       <CustomModal
@@ -10,6 +10,7 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug }
         width={'500px'}
         height={'300px'}
         icon={<Delete />}
+        modalTitle={modalTitle}
         handleClose={handleClose}>
         <Box>
           <Box>

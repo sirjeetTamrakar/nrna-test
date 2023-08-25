@@ -79,13 +79,13 @@ const Events = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.approved_by ? (
+            {row?.status === 'Active' ? (
               <Button variant="contained" color="success" onClick={() => handleStatus(row)}>
-                Approved
+                Active
               </Button>
             ) : (
               <Button variant="contained" color="error" onClick={() => handleStatus(row)}>
-                Rejected
+                Inactive
               </Button>
             )}
           </Box>
@@ -233,8 +233,8 @@ const Events = () => {
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.title}`}
-          modalSubtitle="Get full detail "
+          modalTitle="Events Details"
+          // modalSubtitle="Get full detail "
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
@@ -244,6 +244,7 @@ const Events = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
+          modalTitle="Delete Events"
         />
         <CustomStatusModal
           open={openStatus}

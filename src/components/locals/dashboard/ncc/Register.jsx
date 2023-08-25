@@ -23,7 +23,7 @@ const Register = ({ handleClose }) => {
     formdata.append('country_name', data?.country_name);
 
     if (data?.logo?.length > 0) {
-      formdata.append('logo', data?.logo?.[0]);
+      formdata.append('logo', data?.logo[0]);
     }
     console.log({ data });
     dispatch(postNCC(formdata, refetch));

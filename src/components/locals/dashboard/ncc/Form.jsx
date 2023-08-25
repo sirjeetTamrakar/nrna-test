@@ -36,19 +36,18 @@ const NCCForm = () => {
             required
           />{' '}
         </Grid>
-
         <Grid item sm={12}>
           <FileUploader
             title="NCC Logo"
             // control={control}
             name="logo"
-            label="Select NCC logo"
+            label="Select Logo"
             setValue={setValue}
             widthFull
             // errors={errors}
             // clearErrors={clearErrors}
             // required={true}
-            imageLink={watch('feature_image') || ''}
+            imageLink={watch('logo') || ''}
           />
         </Grid>
       </Grid>

@@ -2,10 +2,12 @@ import { Box, Typography } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import { useFormContext } from 'react-hook-form';
+import { useSelector } from 'react-redux';
 import useStyles from './styles';
 
 const Form = () => {
   const classes = useStyles();
+  const { questions } = useSelector((state) => state.question);
   const onSubmit = (data) => {
     console.log(data);
   };
@@ -13,7 +15,31 @@ const Form = () => {
   return (
     <CustomForm onSubmit={onSubmit}>
       <Box className={classes.questionSection}>
-        {[...Array(10)?.keys()]?.map((question, index) => (
+        {questions?.map((item, index) => {
+          return (
+            <Box className={classes.questionWrapper} key={index}>
+              <Typography variant="h6" className={classes.question}>
+                {index + 1}. {item?.question} ?
+              </Typography>
+              <ul className={classes.answerWrapper}>
+                {item?.options?.map((item, index) => {
+                  return (
+                    <li key={index}>
+                      <input
+                        type="radio"
+                        value={1}
+                        id={item?.id}
+                        // {...register(`name${index}`)}
+                      />
+                      <label htmlFor={'1' + index}> {item?.option}</label>
+                    </li>
+                  );
+                })}
+              </ul>
+            </Box>
+          );
+        })}
+        {/* {[...Array(10)?.keys()]?.map((question, index) => (
           <Box className={classes.questionWrapper} key={index}>
             <Typography variant="h6" className={classes.question}>
               {index + 1}. How often do you exercise?
@@ -37,7 +63,7 @@ const Form = () => {
               </li>
             </ul>
           </Box>
-        ))}
+        ))} */}
         <Box marginTop={8}>
           <CustomButton
             justifyContent="center"
