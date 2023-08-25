@@ -73,3 +73,9 @@ export const getSiteSettingsApi = () => {
 export const postSiteSettingsApi = (data) => {
   return axiosInstance().post(`/api/site-settings`, data);
 };
+
+// COUNTRIES LIST
+// get countries list
+export const getCountriesApi = () => {
+  return axiosInstance().get(`/api/countries`);
+};

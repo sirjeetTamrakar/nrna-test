@@ -244,7 +244,7 @@ const Events = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
-          modalTitle="Delete Events"
+          // modalTitle="Delete Events"
         />
         <CustomStatusModal
           open={openStatus}

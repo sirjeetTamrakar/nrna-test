@@ -2,6 +2,8 @@ import * as actions from './types';
 const defaultState = {
   ncc_loading: false,
   get_ncc_loading: false,
+  get_country_list_loading: false,
+  countries_list: [],
   nccData: [],
   delete_ncc_loading: false,
   update_ncc_loading: false
@@ -44,6 +46,19 @@ const nccReducer = (state = defaultState, action) => {
     case actions.UPDATE_NCC_SUCCESS:
     case actions.UPDATE_NCC_ERROR:
       return { ...state, update_ncc_loading: false };
+
+    // get countries
+    case actions.GET_COUNTRIES_LIST_BEGIN:
+      return {
+        ...state,
+        get_countries_list_loading: true
+      };
+
+    case actions.GET_COUNTRIES_LIST_SUCCESS:
+      return { ...state, get_countries_list_loading: false, countries_list: action.payload };
+
+    case actions.GET_COUNTRIES_LIST_ERROR:
+      return { ...state, get_countries_list_loading: false };
 
     default:
       return state;

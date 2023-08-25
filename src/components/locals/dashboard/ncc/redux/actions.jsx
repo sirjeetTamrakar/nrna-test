@@ -1,4 +1,4 @@
-import { deleteNCCApi, getNCCApi, postNCCApi, updateNCCApi } from 'apis/dashboard';
+import { deleteNCCApi, getCountriesApi, getNCCApi, postNCCApi, updateNCCApi } from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -72,3 +72,16 @@ export const updateNCC =
       errorToast(error);
     }
   };
+
+// get counties list
+export const getCountries = () => (dispatch) => {
+  dispatch({ type: actions.GET_COUNTRIES_LIST_BEGIN });
+  getCountriesApi()
+    .then((res) => {
+      dispatch({ type: actions.GET_COUNTRIES_LIST_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_COUNTRIES_LIST_ERROR });
+    });
+};

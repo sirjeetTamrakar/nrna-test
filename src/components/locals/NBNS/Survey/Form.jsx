@@ -2,15 +2,19 @@ import { Box, Typography } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import { useFormContext } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
 
 const Form = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { questions } = useSelector((state) => state.question);
+  console.log({ questions });
+
   const onSubmit = (data) => {
-    console.log(data);
+    // dispatch(postQuestionFront())
   };
+
   const { register } = useFormContext();
   return (
     <CustomForm onSubmit={onSubmit}>

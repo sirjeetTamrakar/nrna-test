@@ -41,20 +41,22 @@ function CustomModal({
       closeAfterTransition>
       <Fade in={open}>
         <div style={{ ...modalStyle, ...modalStyles }} className={classes.paper}>
-          {/* {modalTitle && ( */}
-          <Box className={classes.modalHeader}>
-            <Box className={classes.modalTitleWrapper}>
-              {icon && <Box className={classes.iconDanger}>{icon}</Box>}
-              <Box>
-                <Typography className={classes.modalTitle}>{modalTitle?.toUpperCase()}</Typography>
-                <Typography className={classes.modalSubtitle}>{modalSubtitle}</Typography>
+          {modalTitle && (
+            <Box className={classes.modalHeader}>
+              <Box className={classes.modalTitleWrapper}>
+                {icon && <Box className={classes.iconDanger}>{icon}</Box>}
+                <Box>
+                  <Typography className={classes.modalTitle}>
+                    {modalTitle?.toUpperCase()}
+                  </Typography>
+                  <Typography className={classes.modalSubtitle}>{modalSubtitle}</Typography>
+                </Box>
               </Box>
+              <IconButton variant="subtitle1" className={classes.rotate} onClick={handleClose}>
+                <Clear />
+              </IconButton>
             </Box>
-            <IconButton variant="subtitle1" className={classes.rotate} onClick={handleClose}>
-              <Clear />
-            </IconButton>
-          </Box>
-          {/* )} */}
+          )}
           <Box>
             <Box>{children}</Box>
           </Box>

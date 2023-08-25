@@ -8,7 +8,7 @@ const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug, 
       <CustomModal
         open={open}
         width={'500px'}
-        height={'300px'}
+        height={'216px'}
         icon={<Delete />}
         modalTitle={modalTitle}
         handleClose={handleClose}>

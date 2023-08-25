@@ -182,7 +182,7 @@ const Questions = () => {
           open={openDelete}
           handleClose={deleteOpenFunction}
           slug={detail?.id}
-          modalTitle="Delete Question"
+          // modalTitle="Delete Question"
         />
         <CustomStatusModal
           open={openStatus}

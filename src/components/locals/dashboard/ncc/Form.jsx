@@ -17,12 +17,12 @@ const NCCForm = () => {
   } = useForm({});
   console.log('watch', watch());
 
-  const { nccData } = useSelector((state) => state.ncc);
-  console.log({ nccData });
+  const { nccData, countries_list } = useSelector((state) => state.ncc);
+  console.log({ nccData, countries_list });
 
-  const countryList = nccData?.map((item) => ({
-    label: item?.country_name,
-    value: item?.id
+  const countryList = countries_list?.map((item, index) => ({
+    label: item,
+    value: index
   }));
   return (
     <Box className={classes.root}>

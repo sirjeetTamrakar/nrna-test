@@ -1,6 +1,6 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
 import { getEvents } from 'components/locals/dashboard/events/redux/actions';
-import { getNCC } from 'components/locals/dashboard/ncc/redux/actions';
+import { getCountries, getNCC } from 'components/locals/dashboard/ncc/redux/actions';
 import { getNews } from 'components/locals/dashboard/news/redux/actions';
 import { getAllQuestions } from 'components/locals/dashboard/survey/redux/actions';
 import 'index.scss';
@@ -24,6 +24,7 @@ export default function App() {
     dispatch(getUsers());
     dispatch(getNCC());
     dispatch(getAllQuestions());
+    dispatch(getCountries());
   }, []);
 
   return (

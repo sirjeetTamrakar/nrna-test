@@ -224,7 +224,7 @@ const NCC = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
-          modalTitle="Delete"
+          // modalTitle="Delete"
         />
         <CustomStatusModal
           open={openStatus}

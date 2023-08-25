@@ -237,7 +237,7 @@ const News = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
-          modalTitle="Delete News"
+          // modalTitle="Delete News"
         />
         <CustomStatusModal
           open={openStatus}
