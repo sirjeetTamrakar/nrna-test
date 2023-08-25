@@ -16,7 +16,8 @@ const FileUploader = ({
   clearErrors,
   imageLink,
   required,
-  widthFull
+  widthFull,
+  imageText
 }) => {
   const [imagePreview, setImagePreview] = useState(imageLink || '');
 
@@ -68,7 +69,18 @@ const FileUploader = ({
           <>
             {title && (
               <Box sx={{ display: 'flex', columnGap: '0.1rem', mb: '5px' }}>
-                <InputLabel className={classes.labels}>{title}</InputLabel>
+                <Box sx={{ display: 'flex', alignItems: 'center' }}>
+                  <InputLabel className={classes.labels}>{title}</InputLabel>
+                  <InputLabel
+                    sx={{
+                      color: 'red',
+                      fontSize: '10px',
+                      marginLeft: '10px',
+                      marginBottom: '-1px'
+                    }}>
+                    {imageText && imageText}
+                  </InputLabel>
+                </Box>
                 <InputLabel style={{ color: 'red' }}>{required && ' *'}</InputLabel>
               </Box>
             )}

@@ -67,6 +67,7 @@ const NewsForm = () => {
         <Grid item sm={12}>
           <FileUploader
             title="Banner Image"
+            imageText="Resolution: height: 564 x width: 562"
             // control={control}
             name="feature_image"
             label="Select Photo"
