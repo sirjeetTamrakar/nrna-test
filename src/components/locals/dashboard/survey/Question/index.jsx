@@ -103,9 +103,9 @@ const Questions = () => {
 
   const handleStatusConfirm = (slug) => {
     const finalData = {
-      slug: slug,
+      question_id: slug,
       status: detail?.status === '0' ? true : false,
-      // status: true,
+      // status: false,
       _method: 'PATCH'
     };
     dispatch(changeStatus(finalData, refetch));

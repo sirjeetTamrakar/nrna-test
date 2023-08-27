@@ -3,6 +3,7 @@ import {
   createQuestionApi,
   deleteQuestionApi,
   getAllQuestionsApi,
+  postQuestionCheckFrontApi,
   postQuestionFrontApi,
   updateQuestionApi
 } from 'apis/dashboard/survey';
@@ -61,6 +62,7 @@ export const changeStatus = (data, handleSuccess) => (dispatch) => {
       dispatch({ type: actions.CHANGE_QUESTION_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
       dispatch(getAllQuestions());
+      successToast('Status has been changed');
     })
     .catch((error) => {
       errorToast(error);
@@ -99,5 +101,19 @@ export const postQuestionFront = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_QUESTION_FRONT_ERROR });
+    });
+};
+
+// check user has taken survey or not
+export const postQuestionCheckFront = (data) => (dispatch) => {
+  dispatch({ type: actions.POST_QUESTION_CHECK_FRONT_BEGIN });
+
+  postQuestionCheckFrontApi(data)
+    .then(({ res }) => {
+      dispatch({ type: actions.POST_QUESTION_CHECK_FRONT_SUCCESS });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_QUESTION_CHECK_FRONT_ERROR });
     });
 };

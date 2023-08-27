@@ -27,7 +27,7 @@ const SettingsDataForm = () => {
     clearErrors
   } = useFormContext({ defaultValues });
   console.log('watchcccccc', watch());
-  const { site_settings } = useSelector((state) => state.settings);
+  const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
   useEffect(() => {
     dispatch(getSiteSettings());
@@ -86,7 +86,7 @@ const SettingsDataForm = () => {
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
-              <CustomButton buttonName="Submit" loading={false} />
+              <CustomButton buttonName="Submit" loading={site_settings_loading} />
             </Box>
           </Grid>
         </Grid>

@@ -45,6 +45,16 @@ const eventsReducer = (state = defaultState, action) => {
     case actions.UPDATE_EVENTS_ERROR:
       return { ...state, update_events_loading: false };
 
+    case actions.CHANGE_EVENTS_STATUS_BEGIN:
+      return {
+        ...state,
+        events_status_loading: true
+      };
+
+    case actions.CHANGE_EVENTS_STATUS_SUCCESS:
+    case actions.CHANGE_EVENTS_STATUS_ERROR:
+      return { ...state, events_status_loading: false };
+
     default:
       return state;
   }

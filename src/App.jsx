@@ -1,4 +1,5 @@
 import { CssBaseline, ThemeProvider } from '@mui/material';
+import { getAdvice } from 'components/locals/dashboard/advice/redux/actions';
 import { getEvents } from 'components/locals/dashboard/events/redux/actions';
 import { getCountries, getNCC } from 'components/locals/dashboard/ncc/redux/actions';
 import { getNews } from 'components/locals/dashboard/news/redux/actions';
@@ -8,8 +9,8 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getUsers } from 'redux/auth/actions';
-import { getSiteSettings } from 'redux/homepage/actions';
+import { getUsers, setGlobalUser } from 'redux/auth/actions';
+import { getContact, getSiteSettings } from 'redux/homepage/actions';
 import RouteList from 'routes';
 import theme from 'themes';
 import './styles/main.scss';
@@ -25,6 +26,9 @@ export default function App() {
     dispatch(getNCC());
     dispatch(getAllQuestions());
     dispatch(getCountries());
+    dispatch(getAdvice());
+    dispatch(getContact());
+    dispatch(setGlobalUser());
   }, []);
 
   return (

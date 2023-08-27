@@ -79,7 +79,7 @@ const AboutForm = () => {
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
-              <CustomButton loading={site_settings_loading ? true : false} buttonName="Submit" />
+              <CustomButton loading={site_settings_loading} buttonName="Submit" />
             </Box>
           </Grid>
         </Grid>

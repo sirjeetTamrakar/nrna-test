@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { deleteEvents, getEvents } from './redux/actions';
+import { changeEventsStatus, deleteEvents, getEvents } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
@@ -52,7 +52,7 @@ const Events = () => {
         return (
           <Box>
             <Typography variant="body2">{row?.location}</Typography>
-            <Typography variant="subtitle1">{`${row?.start_date}, ${row?.time}`}</Typography>
+            <Typography variant="subtitle1">{`${row?.start_date} ${row?.event_time}`}</Typography>
           </Box>
         );
       }
@@ -122,7 +122,10 @@ const Events = () => {
   const finalData = eventsData?.map((data) => ({
     ...data,
     created_at: changeDateFormat(data?.created_at),
-    created_by: data?.created_by?.name ?? '-'
+    created_by: data?.created_by?.name ?? '-',
+    location: data?.location ?? '-',
+    start_date: data?.start_date ?? '',
+    event_time: data?.event_time ?? ''
     // approved_by: data?.created_by?.name ?? '-'
   }));
 
@@ -156,6 +159,17 @@ const Events = () => {
   const handleConfirm = (slug) => {
     dispatch(deleteEvents(slug, refetch));
     deleteOpenFunction();
+  };
+
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status === 'Active' ? 'inactive' : 'active',
+      // status: true,
+      _method: 'PATCH'
+    };
+    dispatch(changeEventsStatus(finalData, refetch));
+    statusOpenFunction();
   };
 
   const handleEdit = (row) => {
@@ -250,6 +264,9 @@ const Events = () => {
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status}
+          status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
+          id={detail?.slug}
+          handleConfirm={handleStatusConfirm}
         />
         <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
       </Box>

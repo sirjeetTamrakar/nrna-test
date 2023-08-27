@@ -29,3 +29,8 @@ export const getSingleEventApi = (slug) => {
 export const contactUsApi = (data) => {
   return axiosInstance().post(`/api/contact-us`, data);
 };
+
+// get contact us
+export const getContactUsApi = () => {
+  return axiosInstance().get(`/api/contact-us`);
+};

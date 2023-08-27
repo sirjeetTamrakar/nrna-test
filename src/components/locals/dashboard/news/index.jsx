@@ -14,7 +14,7 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { deleteNews, getNews } from './redux/actions';
+import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
@@ -150,6 +150,17 @@ const News = () => {
     deleteOpenFunction();
   };
 
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status === 'Active' ? 'inactive' : 'active',
+      // status: true,
+      _method: 'PATCH'
+    };
+    dispatch(changeNewsStatus(finalData, refetch));
+    statusOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -243,6 +254,9 @@ const News = () => {
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status}
+          status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
+          id={detail?.slug}
+          handleConfirm={handleStatusConfirm}
         />
         <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
       </Box>

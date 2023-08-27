@@ -17,7 +17,7 @@ export const updateQuestionApi = (id, data) => {
 
 // change status
 export const changeStatusApi = (data) => {
-  return axiosInstance().post(`/api/questions/${data?.slug}/status`, data);
+  return axiosInstance().post(`/api/questions/${data?.question_id}/status`, data);
 };
 
 // delete question
@@ -28,4 +28,8 @@ export const deleteQuestionApi = (id) => {
 // post question front -------->
 export const postQuestionFrontApi = (data) => {
   return axiosInstance().post('/api/surveys/answer', data);
+};
+
+export const postQuestionCheckFrontApi = (data) => {
+  return axiosInstance().post('/api/surveys/has-already-taken', data);
 };

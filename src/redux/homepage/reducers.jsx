@@ -10,7 +10,8 @@ const defaultState = {
   events_loading: false,
   single_event: null,
   single_event_loading: false,
-  contact_loading: false
+  contact_loading: false,
+  contact: []
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -78,6 +79,18 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_SINGLE_NEWS_ERROR:
       return { ...state, single_news_loading: false };
+
+    case actions.FETCH_CONTACT_BEGIN:
+      return {
+        ...state,
+        contact_loading: true
+      };
+
+    case actions.FETCH_CONTACT_SUCCESS:
+      return { ...state, contact_loading: false, contact: action.payload };
+
+    case actions.FETCH_CONTACT_ERROR:
+      return { ...state, contact_loading: false };
 
     default:
       return state;

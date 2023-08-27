@@ -1,5 +1,4 @@
 import { Box, Grid } from '@mui/material';
-import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
@@ -10,14 +9,14 @@ import { useStyles } from './styles';
 const EventForm = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  const dropData = [
-    { value: 'active', label: 'Active' },
-    { value: 'Inactive', label: 'Inactive' }
-  ];
+  // const dropData = [
+  //   { value: 'active', label: 'Active' },
+  //   { value: 'Inactive', label: 'Inactive' }
+  // ];
 
-  const defaultValues = {
-    status: dropData?.[0]?.value
-  };
+  // const defaultValues = {
+  //   status: dropData?.[0]?.value
+  // };
   const {
     handleSubmit,
     formState: { errors },
@@ -25,7 +24,7 @@ const EventForm = () => {
     setValue,
     watch,
     clearErrors
-  } = useFormContext({ defaultValues });
+  } = useFormContext();
 
   console.log('watch', watch());
 
@@ -62,9 +61,13 @@ const EventForm = () => {
           <CustomInput name="map_url" label="Map Url" />
         </Grid>
         <Grid item sm={6}>
-          <CustomInput name="event_date" label="Dateandtime" type="datetime-local" />
+          <CustomInput name="event_date" label="Event date" type="date" />
         </Grid>
         <Grid item sm={6}>
+          <CustomInput name="event_time" label="Event time" type="time" />
+        </Grid>
+
+        {/* <Grid item sm={12}>
           <CustomAutoComplete
             select
             placeholder="Level"
@@ -72,7 +75,7 @@ const EventForm = () => {
             label="Status"
             options={dropData ?? []}
           />
-        </Grid>
+        </Grid> */}
         <Grid item sm={12}>
           <FileUploader
             title="Event Image"

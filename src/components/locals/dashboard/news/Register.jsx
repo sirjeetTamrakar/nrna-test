@@ -48,7 +48,7 @@ const Register = ({ handleClose }) => {
 
     formdata.append('title', data?.title);
     formdata.append('description', data?.description);
-    formdata.append('status', data?.status);
+    formdata.append('status', 'active');
     formdata.append('created_by', data?.created_by);
 
     if (data?.feature_image?.length > 0) {

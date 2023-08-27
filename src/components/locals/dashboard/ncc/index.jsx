@@ -213,8 +213,8 @@ const NCC = () => {
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.name}`}
-          modalSubtitle="Get full detail"
+          modalTitle={`NCC Details`}
+          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />

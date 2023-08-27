@@ -25,7 +25,7 @@ const Register = ({ handleClose }) => {
 
     formdata.append('title', data?.title);
     formdata.append('description', data?.description);
-    formdata.append('status', data?.status);
+    formdata.append('status', 'active');
     formdata.append('location', data?.location);
     formdata.append('venue', data?.venue);
     formdata.append('event_date', data?.event_date);

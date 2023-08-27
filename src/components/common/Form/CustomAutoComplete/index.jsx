@@ -45,7 +45,7 @@ const CustomAutoComplete = ({
         alignItems="center"
         justifyContent="space-between"
         columnGap={0.5}
-        sx={{ paddingBottom: '4px' }}>
+        sx={{ paddingBottom: '0px' }}>
         <InputLabel>
           {label}
           {required && <span style={{ color: 'red' }}> * </span>}

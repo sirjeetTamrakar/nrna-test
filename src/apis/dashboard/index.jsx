@@ -21,6 +21,11 @@ export const deleteNewsApi = (data) => {
   return axiosInstance().delete(`/api/news/${data}`);
 };
 
+// change news status
+export const changeNewsStatusApi = (data) => {
+  return axiosInstance().post(`/api/news/${data?.slug}/status`, data);
+};
+
 // EVENTS------------------>
 // get events
 export const getEventsApi = () => {
@@ -40,6 +45,11 @@ export const updateEventsApi = (data, slug) => {
 // delete events
 export const deleteEventsApi = (data) => {
   return axiosInstance().delete(`/api/events/${data}`);
+};
+
+// change events status
+export const changeEventsStatusApi = (data) => {
+  return axiosInstance().post(`/api/events/${data?.slug}/status`, data);
 };
 
 // NCC------------------>
@@ -78,4 +88,20 @@ export const postSiteSettingsApi = (data) => {
 // get countries list
 export const getCountriesApi = () => {
   return axiosInstance().get(`/api/countries`);
+};
+
+// ADVICE---------------->
+// get advice
+export const getAdviceApi = () => {
+  return axiosInstance().get('/api/advices');
+};
+
+// post advice
+export const postAdviceApi = (data) => {
+  return axiosInstance().post('/api/advices', data);
+};
+
+// delete advice
+export const deleteAdviceApi = (data) => {
+  return axiosInstance().delete(`/api/advices/${data}`);
 };

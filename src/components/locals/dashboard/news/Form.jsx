@@ -17,14 +17,14 @@ const NewsForm = () => {
     value: item?.id
   }));
 
-  const dropData = [
-    { value: 'active', label: 'Active' },
-    { value: 'inactive', label: 'Inactive' }
-  ];
+  // const dropData = [
+  //   { value: 'active', label: 'Active' },
+  //   { value: 'inactive', label: 'Inactive' }
+  // ];
 
-  const defaultValues = {
-    status: dropData?.[0]?.value
-  };
+  // const defaultValues = {
+  //   status: dropData?.[0]?.value
+  // };
   const {
     handleSubmit,
     formState: { errors },
@@ -32,7 +32,7 @@ const NewsForm = () => {
     setValue,
     watch,
     clearErrors
-  } = useFormContext({ defaultValues });
+  } = useFormContext();
   console.log('watch', watch());
 
   // const { site_settings } = useSelector((state) => state.settings);
@@ -55,7 +55,7 @@ const NewsForm = () => {
         <Grid item sm={12}>
           <CustomInput name="title" label="Title" required />
         </Grid>
-        <Grid item sm={12}>
+        {/* <Grid item sm={12}>
           <CustomAutoComplete
             placeholder="Level"
             name="status"
@@ -63,7 +63,7 @@ const NewsForm = () => {
             options={dropData ?? []}
             required
           />
-        </Grid>
+        </Grid> */}
         <Grid item sm={12}>
           <FileUploader
             title="News Image"
