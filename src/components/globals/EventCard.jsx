@@ -1,5 +1,5 @@
-import CandidateImage1 from 'assets/images/candidate1.png';
 import { Link } from 'react-router-dom';
+import { changeDateFormat } from 'utils/dateUtils';
 
 const EventCard = ({ event, linkUrl }) => {
   return (
@@ -10,27 +10,27 @@ const EventCard = ({ event, linkUrl }) => {
           <ul className="event_card_list">
             <li>
               <div className="title">Location :</div>
-              <div className="value">Kathmandu</div>
+              <div className="value">{event?.location}</div>
             </li>
             <li>
               <div className="title">Venue :</div>
-              <div className="value">NCC Hall</div>
+              <div className="value">{event?.venue}</div>
             </li>
             <li>
               <div className="title">Date :</div>
-              <div className="value">20-Aug-2023</div>
+              <div className="value">{changeDateFormat(event?.event_date)}</div>
             </li>
             <li>
               <div className="title">Time :</div>
-              <div className="value">8 AM</div>
+              <div className="value">{changeDateFormat(event?.time, 'hh:MM A')}</div>
             </li>
             <li>
               <div className="title">Contact :</div>
-              <div className="value">9841587582</div>
+              <div className="value">{event?.contact_phone}</div>
             </li>
             <li>
               <div className="title">Email</div>
-              <div className="value">info@nrnaglobal.com</div>
+              <div className="value">{event?.contact_email}</div>
             </li>
           </ul>
           <Link className="btn-sm" to={linkUrl}>
@@ -38,7 +38,7 @@ const EventCard = ({ event, linkUrl }) => {
           </Link>
         </div>
         <div className="img_wrapper">
-          <img src={event?.featureImage || CandidateImage1} alt="" />
+          <img src={event?.feature_image} alt="" />
         </div>
       </div>
     </div>
