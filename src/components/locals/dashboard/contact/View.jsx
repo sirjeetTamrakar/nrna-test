@@ -13,12 +13,12 @@ const View = ({ data }) => {
   //   };
 
   return (
-    <ol style={{ paddingTop: '8px', paddingBottom: '8px' }}>
-      {Object.entries(data).map((entry, index) => {
+    <ol style={{ paddingTop: '8px', paddingBottom: '8px', listStyle: 'none' }}>
+      {/* {Object.entries(data).map((entry, index) => {
         const [key, value] = entry;
 
         // Exclude property
-        if (key === 'logo' || key === 'updated_at') {
+        if (key === 'description' || key === 'feature_image') {
           return null;
         }
 
@@ -27,25 +27,54 @@ const View = ({ data }) => {
             {key + ' : ' + value}
           </li>
         );
-      })}
-      {data?.feature_image && (
-        <li style={{ padding: '5px 0' }}>
-          <div>
-            Ncc Logo:
-            <div style={{ width: '100px', height: '100px' }}>
-              <img
-                src={data?.logo}
-                alt=""
-                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-              />
-            </div>
-          </div>
-        </li>
-      )}
+      })} */}
       <li style={{ padding: '5px 0' }}>
         <div style={{ display: 'flex' }}>
-          updated_at:
-          <div style={{ marginLeft: '5px' }}>{changeDateFormat(data?.updated_at)}</div>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>Name:</span>
+          <div style={{ fontSize: '16px' }}>{data?.name ? data?.name : '-'}</div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>Email:</span>
+          <div style={{ fontSize: '16px' }}>{data?.email ? data?.email : '-'}</div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>Phone:</span>
+          <div style={{ fontSize: '16px' }}>{data?.phone ? data?.phone : '-'}</div>
+        </div>
+      </li>
+
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
+            Created at:
+          </span>
+          <div style={{ fontSize: '16px' }}>{data?.created_at ? data?.created_at : '-'}</div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
+            Updated at:
+          </span>
+          <div style={{ fontSize: '16px' }}>
+            {data?.updated_at ? changeDateFormat(data?.updated_at) : '-'}
+          </div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>Subject:</span>
+          <div style={{ fontSize: '16px' }}>{data?.subject ? data?.subject : '-'}</div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>Message:</span>
+          <div style={{ fontSize: '16px' }}>{data?.message ? data?.message : '-'}</div>
         </div>
       </li>
     </ol>

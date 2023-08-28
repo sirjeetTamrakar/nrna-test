@@ -8,12 +8,13 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeStatus, deleteQuestion, getAllQuestions } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
+
 const Questions = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -24,6 +25,11 @@ const Questions = () => {
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
+
+  useEffect(() => {
+    dispatch(getAllQuestions());
+  }, []);
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 

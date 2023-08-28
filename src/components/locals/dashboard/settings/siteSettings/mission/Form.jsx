@@ -34,7 +34,7 @@ const MissionForm = () => {
 
   useEffect(() => {
     if (site_settings) {
-      setValue('mission_image', site_settings?.mission_image);
+      // setValue('mission_image', site_settings?.mission_image);
       setValue('mission', site_settings?.mission);
     }
     // setValue("phone", profileState?.userData?.image);
@@ -46,9 +46,14 @@ const MissionForm = () => {
     console.log('formdata', formdata);
 
     formdata.append('mission', data?.mission);
-    if (data?.mission_image?.length > 0) {
-      formdata.append('mission_image', data?.mission_image?.[0]);
+    if (watch('mission_image')) {
+      if (data?.mission_image?.length > 0) {
+        formdata.append('mission_image', data?.mission_image?.[0]);
+      }
     }
+    // if (data?.mission_image?.length > 0) {
+    //   formdata.append('mission_image', data?.mission_image?.[0]);
+    // }
     console.log({ data });
     dispatch(postSiteSettings(formdata));
     // dispatch(postSiteSettings(data));
@@ -69,7 +74,7 @@ const MissionForm = () => {
               // errors={errors}
               // clearErrors={clearErrors}
               // required={true}
-              imageLink={watch('mission_image') || ''}
+              imageLink={watch('mission_image') || site_settings?.mission_image}
             />
           </Grid>
           <Grid item sm={12}>

@@ -3,6 +3,7 @@ import adviceReducer from 'components/locals/dashboard/advice/redux/reducers';
 import eventsReducer from 'components/locals/dashboard/events/redux/reducers';
 import nccReducer from 'components/locals/dashboard/ncc/redux/reducers';
 import newsReducer from 'components/locals/dashboard/news/redux/reducers';
+import teamsReducer from 'components/locals/dashboard/ourTeam/redux/reducers';
 import settingsReducer from 'components/locals/dashboard/settings/redux/reducers';
 import questionReducer from 'components/locals/dashboard/survey/redux/reducers';
 import userReducer from 'components/locals/dashboard/userManagement/redux/reducers';
@@ -19,5 +20,6 @@ export default combineReducers({
   user: userReducer,
   ncc: nccReducer,
   question: questionReducer,
-  advice: adviceReducer
+  advice: adviceReducer,
+  teams: teamsReducer
 });

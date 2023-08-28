@@ -38,10 +38,12 @@ const SettingsDataForm = () => {
       setValue('address', site_settings?.address);
       setValue('email', site_settings?.email);
       setValue('phone', site_settings?.phone);
-      setValue('region_logo', site_settings?.region_logo);
+      // setValue('region_logo', site_settings?.region_logo);
     }
     // setValue("phone", profileState?.userData?.image);
   }, [site_settings]);
+
+  // console.log({watch:})
 
   const submitHandler = (data) => {
     console.log('dssssssata', data);
@@ -51,9 +53,13 @@ const SettingsDataForm = () => {
     formdata.append('address', data?.address);
     formdata.append('phone', data?.phone);
     formdata.append('email', data?.email);
-    if (data?.region_logo?.length > 0) {
-      formdata.append('region_logo', data?.region_logo?.[0]);
+
+    if (watch('region_logo')) {
+      if (data?.region_logo?.length > 0) {
+        formdata.append('region_logo', data?.region_logo?.[0]);
+      }
     }
+
     console.log({ data });
     dispatch(postSiteSettings(formdata));
     // dispatch(postSiteSettings(data));
@@ -72,7 +78,7 @@ const SettingsDataForm = () => {
               // errors={errors}
               // clearErrors={clearErrors}
               // required={true}
-              imageLink={watch('region_logo') || ''}
+              imageLink={watch('region_logo') || site_settings?.region_logo}
             />
           </Grid>
           <Grid item sm={12}>

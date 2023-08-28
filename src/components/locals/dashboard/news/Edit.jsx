@@ -25,6 +25,7 @@ const EditForm = ({ slug, handleClose }) => {
     formdata.append('description', data?.description);
     formdata.append('status', data?.status);
     formdata.append('created_by', data?.created_by);
+    formdata.append('status', 'active');
     formdata.append('_method', 'PUT');
     if (data?.feature_image?.length > 0) {
       formdata.append('feature_image', data?.feature_image?.[0]);

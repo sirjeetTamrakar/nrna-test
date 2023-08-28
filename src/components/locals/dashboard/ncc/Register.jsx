@@ -16,7 +16,7 @@ const Register = ({ handleClose }) => {
     dispatch(getNCC());
   };
   const onSubmit = (data) => {
-    console.log('dssssssata', data);
+    console.log('data', data);
     const formdata = new FormData();
     console.log('formdata', formdata);
 

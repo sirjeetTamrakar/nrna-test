@@ -10,7 +10,7 @@ import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
@@ -34,6 +34,10 @@ const Events = () => {
 
   const { eventsData, get_events_loading } = useSelector((state) => state.events);
   console.log({ eventsData });
+
+  useEffect(() => {
+    dispatch(getEvents());
+  }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },

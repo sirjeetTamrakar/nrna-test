@@ -6,8 +6,9 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import { useStyles } from './styles';
 import View from './View';
@@ -19,6 +20,10 @@ const Contact = () => {
 
   const [detail, setDetail] = useState();
   const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(getContact());
+  }, []);
 
   const { contact, contact_loading } = useSelector((state) => state.homepage);
 

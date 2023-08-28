@@ -1,12 +1,15 @@
 import { Box, Grid } from '@mui/material';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCountries } from './redux/actions';
 import { useStyles } from './styles';
 
 const NCCForm = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const {
     handleSubmit,
     formState: { errors },
@@ -16,6 +19,10 @@ const NCCForm = () => {
     clearErrors
   } = useForm({});
   console.log('watch', watch());
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
 
   const { nccData, countries_list } = useSelector((state) => state.ncc);
   console.log({ nccData, countries_list });

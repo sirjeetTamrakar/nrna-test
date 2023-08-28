@@ -30,6 +30,8 @@ const EditForm = ({ slug, handleClose }) => {
     formdata.append('contact_email', data?.contact_email);
     formdata.append('contact_phone', data?.contact_phone);
     formdata.append('map_url', data?.map_url);
+    formdata.append('status', 'active');
+
     formdata.append('_method', 'PUT');
 
     if (data?.feature_image?.length > 0) {

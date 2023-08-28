@@ -36,7 +36,7 @@ const AboutForm = () => {
 
   useEffect(() => {
     if (site_settings) {
-      setValue('about_image', site_settings?.about_image);
+      // setValue('about_image', site_settings?.about_image);
       setValue('about', site_settings?.about);
     }
     // setValue("phone", profileState?.userData?.image);
@@ -48,9 +48,14 @@ const AboutForm = () => {
     console.log('formdata', formdata);
 
     formdata.append('about', data?.about);
-    if (data?.about_image?.length > 0) {
-      formdata.append('about_image', data?.about_image?.[0]);
+    if (watch('about_image')) {
+      if (data?.about_image?.length > 0) {
+        formdata.append('about_image', data?.about_image?.[0]);
+      }
     }
+    // if (data?.about_image?.length > 0) {
+    //   formdata.append('about_image', data?.about_image?.[0]);
+    // }
     console.log({ data });
     dispatch(postSiteSettings(formdata));
     // dispatch(postSiteSettings(data));
@@ -71,7 +76,7 @@ const AboutForm = () => {
               // errors={errors}
               // clearErrors={clearErrors}
               // required={true}
-              imageLink={watch('about_image') || ''}
+              imageLink={watch('about_image') || site_settings?.about_image}
             />
           </Grid>
           <Grid item sm={12}>

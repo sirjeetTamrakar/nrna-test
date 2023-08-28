@@ -2,7 +2,8 @@ import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
@@ -10,13 +11,16 @@ import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
+import { deleteTeams, getTeams } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
 const OurTeam = () => {
+  const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -27,6 +31,13 @@ const OurTeam = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(getTeams());
+  }, []);
+
+  const { teamsData, get_teams_loading } = useSelector((state) => state.teams);
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -36,34 +47,34 @@ const OurTeam = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.name}</Typography>
-            <Typography variant="subtitle1">{row?.created_at}</Typography>
+            <Typography variant="body2">{row?.member?.name}</Typography>
+            {/* <Typography variant="subtitle1">{row?.created_at}</Typography> */}
           </Box>
         );
       }
     },
-    {
-      title: 'Email/Phone',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <Box>
-            <Typography variant="body2">{row?.email}</Typography>
-            <Typography variant="subtitle1">{row?.phone}</Typography>
-          </Box>
-        );
-      }
-    },
+    // {
+    //   title: 'Email/Phone',
+    //   minWidth: 100,
+    //   field: (row) => {
+    //     return (
+    //       <Box>
+    //         <Typography variant="body2">{row?.email}</Typography>
+    //         <Typography variant="subtitle1">{row?.phone}</Typography>
+    //       </Box>
+    //     );
+    //   }
+    // },
 
-    {
-      title: 'Address',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
-        );
-      }
-    },
+    // {
+    //   title: 'Address',
+    //   minWidth: 100,
+    //   field: (row) => {
+    //     return (
+    //       <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
+    //     );
+    //   }
+    // },
     {
       title: 'Designation',
       minWidth: 100,
@@ -125,6 +136,15 @@ const OurTeam = () => {
     }
   ];
 
+  const refetch = () => {
+    dispatch(getTeams());
+  };
+
+  const handleConfirm = (slug) => {
+    dispatch(deleteTeams(slug, refetch));
+    deleteOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -171,12 +191,13 @@ const OurTeam = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={teamsData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
           total={30}
+          loading={get_teams_loading}
         />
         <CustomModal
           open={openForm}
@@ -185,7 +206,7 @@ const OurTeam = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -194,18 +215,23 @@ const OurTeam = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.name}`}
-          modalSubtitle="Get full detail"
+          modalTitle="Get Teams detail"
+          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirm}
+          slug={detail?.id}
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+        />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}

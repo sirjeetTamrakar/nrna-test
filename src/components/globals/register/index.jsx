@@ -5,11 +5,13 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomPasswordInput from 'components/common/Form/CustomPasswordInput';
+import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from 'redux/auth/actions';
 import * as Yup from 'yup';
+
 const Register = ({ loginOpen, handleClose }) => {
   const defaultValues = {};
   const dispatch = useDispatch();
@@ -39,13 +41,25 @@ const Register = ({ loginOpen, handleClose }) => {
     loginOpen();
     handleClose();
   };
-  const countries = [
-    {
-      label: 'Nepal',
-      value: 'nepal'
-    },
-    { label: 'United Kingdom', value: 'uk' }
-  ];
+  // const countries = [
+  //   {
+  //     label: 'Nepal',
+  //     value: 'nepal'
+  //   },
+  //   { label: 'United Kingdom', value: 'uk' }
+  // ];
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
+
+  const { nccData, countries_list } = useSelector((state) => state.ncc);
+  console.log({ nccData, countries_list });
+
+  const countryList = countries_list?.map((item, index) => ({
+    label: item,
+    value: index
+  }));
   return (
     <CustomFormProvider
       defaultValues={defaultValues}
@@ -60,7 +74,7 @@ const Register = ({ loginOpen, handleClose }) => {
             <CustomAutoComplete
               name="country_of_residence"
               label="Country of Residence"
-              options={countries}
+              options={countryList}
             />
             <CustomPasswordInput name="password" label="New Password" />
             <CustomPasswordInput name="password_confirmation" label="Confirm Password" />

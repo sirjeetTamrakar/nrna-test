@@ -6,7 +6,7 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import { deleteAdvice, getAdvice } from './redux/actions';
@@ -20,6 +20,10 @@ const Advice = () => {
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(getAdvice());
+  }, []);
 
   const { adviceData, get_advice_loading } = useSelector((state) => state.advice);
 

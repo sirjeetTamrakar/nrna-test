@@ -44,7 +44,7 @@ export const updateQuestion = (id, data, handleSuccess) => (dispatch) => {
   updateQuestionApi(id, data)
     .then((res) => {
       dispatch({ type: actions.UPDATE_QUESTION_SUCCESS });
-      successToast('Question created successfully');
+      successToast('Question updated successfully');
 
       handleSuccess && handleSuccess();
       dispatch(getAllQuestions());

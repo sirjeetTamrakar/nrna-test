@@ -2,11 +2,11 @@ import { Box, Button, Container, Typography } from '@mui/material';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
-import { postQuestionCheckFront } from 'components/locals/dashboard/survey/redux/actions';
 import useToggle from 'hooks/useToggle';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import { setGlobalUser } from 'redux/auth/actions';
 import { isLoggedIn } from 'utils';
 import useStyles from './styles';
 
@@ -24,15 +24,9 @@ const Survey = () => {
   const { user } = useSelector((state) => state.auth);
   console.log('userrrr', { user });
 
-  const data = {
-    user_id: user?.id
-  };
-
   useEffect(() => {
-    if (data?.user_id) {
-      dispatch(postQuestionCheckFront(data));
-    }
-  }, [data?.user_id]);
+    dispatch(setGlobalUser());
+  }, []);
 
   return (
     <>
@@ -41,7 +35,7 @@ const Survey = () => {
           <Box>
             <Box className={classes.headerWrapper}>
               <Typography className={classes.title}>
-                Elevate Your Voice: Join Our Survey Today!{user?.name}
+                Elevate Your Voice: Join Our Survey Today!
               </Typography>
               <Typography className={classes.subtitle}>
                 Nepali Lineage Citizenship Association
@@ -49,13 +43,21 @@ const Survey = () => {
             </Box>
             <Box textAlign="center" marginTop={4}>
               {isLoggedIn() ? (
-                <Button variant="contained" onClick={startSurvey}>
+                <Button
+                  disabled={user?.has_taken_survey ? true : false}
+                  variant="contained"
+                  onClick={startSurvey}>
                   Start Making a Differences
                 </Button>
               ) : (
                 <Button variant="contained" onClick={openFunction}>
                   Login to take survey
                 </Button>
+              )}
+              {user?.has_taken_survey && (
+                <Typography sx={{ marginTop: '20px', fontSize: '20px' }}>
+                  You have already taken the survey.
+                </Typography>
               )}
             </Box>
             <Box marginTop={4}>
