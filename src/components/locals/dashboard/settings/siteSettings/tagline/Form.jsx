@@ -26,7 +26,7 @@ const TaglineForm = () => {
   } = useFormContext({ defaultValues });
   console.log('watch', watch());
 
-  const { site_settings } = useSelector((state) => state.settings);
+  const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
   useEffect(() => {
     dispatch(getSiteSettings());
@@ -67,7 +67,7 @@ const TaglineForm = () => {
           </Box> */}
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
-              <CustomButton buttonName="Submit" loading={false} />
+              <CustomButton buttonName="Submit" loading={site_settings_loading} />
             </Box>
           </Grid>
         </Grid>

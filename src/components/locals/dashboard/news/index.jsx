@@ -10,11 +10,11 @@ import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { deleteNews, getNews } from './redux/actions';
+import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
@@ -35,9 +35,10 @@ const News = () => {
 
   const { newsData, get_news_loading } = useSelector((state) => state.news);
   console.log({ newsData });
-  // useEffect(() => {
-  //   dispatch(getNews());
-  // }, []);
+
+  useEffect(() => {
+    dispatch(getNews());
+  }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -150,6 +151,17 @@ const News = () => {
     deleteOpenFunction();
   };
 
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status === 'Active' ? 'inactive' : 'active',
+      // status: true,
+      _method: 'PATCH'
+    };
+    dispatch(changeNewsStatus(finalData, refetch));
+    statusOpenFunction();
+  };
+
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
@@ -243,6 +255,9 @@ const News = () => {
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status}
+          status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
+          id={detail?.slug}
+          handleConfirm={handleStatusConfirm}
         />
         <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
       </Box>

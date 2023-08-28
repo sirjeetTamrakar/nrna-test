@@ -4,7 +4,8 @@ const defaultState = {
   get_news_loading: false,
   newsData: [],
   delete_news_loading: false,
-  update_news_loading: false
+  update_news_loading: false,
+  news_status_loading: false
 };
 
 const newsReducer = (state = defaultState, action) => {
@@ -44,6 +45,16 @@ const newsReducer = (state = defaultState, action) => {
     case actions.UPDATE_NEWS_SUCCESS:
     case actions.UPDATE_NEWS_ERROR:
       return { ...state, update_news_loading: false };
+
+    case actions.CHANGE_NEWS_STATUS_BEGIN:
+      return {
+        ...state,
+        news_status_loading: true
+      };
+
+    case actions.CHANGE_NEWS_STATUS_SUCCESS:
+    case actions.CHANGE_NEWS_STATUS_ERROR:
+      return { ...state, news_status_loading: false };
 
     default:
       return state;

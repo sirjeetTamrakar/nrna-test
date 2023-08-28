@@ -4,8 +4,8 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import MemberForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const EditForm = () => {
   const classes = useStyles();

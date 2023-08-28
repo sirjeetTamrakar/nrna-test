@@ -2,15 +2,23 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch } from 'react-redux';
 import OurTeamForm from './Form';
+import { getTeams, updateTeams } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
-const EditForm = () => {
+const EditForm = ({ id, handleClose }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const refetch = () => {
+    dispatch(getTeams());
+  };
+
   const onSubmit = (data) => {
-    console.log(data);
+    console.log('data', data);
+    dispatch(updateTeams({ ...data, _method: 'PUT' }, data?.id, refetch));
+    handleClose();
   };
 
   return (
@@ -22,15 +30,16 @@ const EditForm = () => {
     </CustomForm>
   );
 };
-const Edit = ({ data }) => {
+const Edit = ({ data, handleClose }) => {
   const defaultValues = { ...data };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        resolver={useYupValidationResolver(validationSchema)}>
-        <EditForm />
+        // resolver={useYupValidationResolver(validationSchema)}
+      >
+        <EditForm id={data?.id} handleClose={handleClose} />
       </CustomFormProvider>
     </>
   );

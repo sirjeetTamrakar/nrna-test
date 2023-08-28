@@ -26,7 +26,7 @@ const VisionForm = () => {
   } = useFormContext({ defaultValues });
   console.log('watch', watch());
 
-  const { site_settings } = useSelector((state) => state.settings);
+  const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
   useEffect(() => {
     dispatch(getSiteSettings());
@@ -34,7 +34,7 @@ const VisionForm = () => {
 
   useEffect(() => {
     if (site_settings) {
-      setValue('vision_image', site_settings?.vision_image);
+      // setValue('vision_image', site_settings?.vision_image);
       setValue('vision', site_settings?.vision);
     }
     // setValue("phone", profileState?.userData?.image);
@@ -46,9 +46,14 @@ const VisionForm = () => {
     console.log('formdata', formdata);
 
     formdata.append('vision', data?.vision);
-    if (data?.vision_image?.length > 0) {
-      formdata.append('vision_image', data?.vision_image?.[0]);
+    if (watch('vision_image')) {
+      if (data?.vision_image?.length > 0) {
+        formdata.append('vision_image', data?.vision_image?.[0]);
+      }
     }
+    // if (data?.vision_image?.length > 0) {
+    //   formdata.append('vision_image', data?.vision_image?.[0]);
+    // }
     console.log({ data });
     dispatch(postSiteSettings(formdata));
     // dispatch(postSiteSettings(data));
@@ -77,7 +82,7 @@ const VisionForm = () => {
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
-              <CustomButton buttonName="Submit" loading={false} />
+              <CustomButton buttonName="Submit" loading={site_settings_loading} />
             </Box>
           </Grid>
         </Grid>

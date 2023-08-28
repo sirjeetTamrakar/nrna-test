@@ -1,6 +1,6 @@
 import { Box, Container, Typography } from '@mui/material';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import Form from './Form';
+import FormTwo from './FormTwo';
 import useStyles from './styles';
 
 const SurveyQuestions = () => {
@@ -17,7 +17,8 @@ const SurveyQuestions = () => {
           defaultValues={defaultValues}
           // resolver={useYupValidationResolver(validationSchema)}
         >
-          <Form />
+          {/* <Form /> */}
+          <FormTwo />
         </CustomFormProvider>
       </Box>
     </Container>

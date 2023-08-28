@@ -2,6 +2,7 @@ import {
   contactUsApi,
   getAllEventsApi,
   getAllNewsApi,
+  getContactUsApi,
   getSingleEventApi,
   getSingleNewsApi,
   getSiteSettingsApi
@@ -80,5 +81,17 @@ export const contactUs = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_CONTACT_ERROR });
+    });
+};
+
+export const getContact = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_CONTACT_BEGIN });
+  getContactUsApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_CONTACT_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_CONTACT_ERROR });
     });
 };

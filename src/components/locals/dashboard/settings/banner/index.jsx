@@ -28,6 +28,7 @@ const SettingsBanner = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 

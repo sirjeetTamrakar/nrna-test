@@ -1,4 +1,10 @@
-import { deleteNewsApi, getNewsApi, postNewsApi, updateNewsApi } from 'apis/dashboard';
+import {
+  changeNewsStatusApi,
+  deleteNewsApi,
+  getNewsApi,
+  postNewsApi,
+  updateNewsApi
+} from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -72,3 +78,18 @@ export const updateNews =
       errorToast(error);
     }
   };
+
+export const changeNewsStatus = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_NEWS_STATUS_BEGIN });
+  changeNewsStatusApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_NEWS_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getNews());
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CHANGE_NEWS_STATUS_ERROR });
+    });
+};

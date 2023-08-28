@@ -11,12 +11,12 @@ const View = ({ data }) => {
   //   };
 
   return (
-    <ol style={{ paddingTop: '8px', paddingBottom: '8px' }}>
-      {Object.entries(data).map((entry, index) => {
+    <ol style={{ paddingTop: '8px', paddingBottom: '8px', listStyle: 'none' }}>
+      {/* {Object.entries(data).map((entry, index) => {
         const [key, value] = entry;
 
         // Exclude property
-        if (key === 'logo') {
+        if (key === 'description' || key === 'feature_image') {
           return null;
         }
 
@@ -25,21 +25,23 @@ const View = ({ data }) => {
             {key + ' : ' + value}
           </li>
         );
-      })}
-      {data?.feature_image && (
-        <li style={{ padding: '5px 0' }}>
-          <div>
-            Ncc Logo:
-            <div style={{ width: '100px', height: '100px' }}>
-              <img
-                src={data?.logo}
-                alt=""
-                style={{ height: '100%', width: '100%', objectFit: 'cover' }}
-              />
-            </div>
-          </div>
-        </li>
-      )}
+      })} */}
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
+            Cuntry of residence:
+          </span>
+          <div style={{ fontSize: '16px' }}>{data?.country_name ? data?.country_name : '-'}</div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
+            Created at:
+          </span>
+          <div style={{ fontSize: '16px' }}>{data?.created_at ? data?.created_at : '-'}</div>
+        </div>
+      </li>
     </ol>
   );
 };
