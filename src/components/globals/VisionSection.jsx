@@ -1,17 +1,13 @@
-import VisionImg from 'assets/images/about.png';
 import { Link } from 'react-router-dom';
 
-const VisionSection = ({ siteSettingImages, linkUrl, vision }) => {
-  const visionImage = siteSettingImages?.vision_image?.path
-    ? siteSettingImages.vision_image.path
-    : VisionImg;
+const VisionSection = ({ image, linkUrl, vision }) => {
   return (
     <section className="vision" id="vision_main">
       <div className="container">
         <div className="row">
           <div className="col-lg-5 col-xl-5">
             <div className="img_container text-center">
-              <img src={visionImage} alt="" />
+              <img src={image} alt="" />
             </div>
           </div>
           <div className="col-lg-7 col-xl-7" id="vision-section">

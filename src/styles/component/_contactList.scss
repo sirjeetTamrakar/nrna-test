@@ -4,9 +4,10 @@
   list-style: none;
   li{
     margin: 15px  0;
-    i{
+    svg{
       width: 26px;
       color: $primary-color;
+      margin-right: 5px;
     }
   }
   &_item{
