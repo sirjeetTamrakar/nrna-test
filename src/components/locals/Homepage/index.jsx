@@ -10,10 +10,13 @@ const Homepage = () => {
   return (
     <>
       <BannerSection />
-      <TaglineSection tagline={settings?.tagline} taglineAuthor={settings?.tagline_author} />
-      <AboutSection about={settings?.about} />
-      <MissionSection mission={settings?.mission} />
-      <VisionSection vision={settings?.vision} />
+      <TaglineSection
+        tagline={settings?.tagline_description}
+        taglineAuthor={settings?.tagline_author}
+      />
+      <AboutSection about={settings?.about} image={settings?.about_image} />
+      <MissionSection mission={settings?.mission} image={settings?.mission_image} />
+      <VisionSection vision={settings?.vision} image={settings?.vision_image} />
     </>
   );
 };

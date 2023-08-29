@@ -1,18 +1,13 @@
-import About from 'assets/images/about.png';
 import { Link } from 'react-router-dom';
 
-const AboutSection = ({ siteSettingImages, linkUrl, title = 'About', about }) => {
-  const aboutImage = siteSettingImages?.about_image?.path
-    ? siteSettingImages.about_image.path
-    : About;
-
+const AboutSection = ({ image, linkUrl, title = 'About', about }) => {
   return (
     <section className="about" id="about_main">
       <div className="container">
         <div className="row">
           <div className="col-lg-5 col-xl-5">
             <div className="img_container text-center">
-              <img src={aboutImage} alt="" />
+              <img src={image} alt="" />
             </div>
           </div>
           <div className="col-lg-7 col-xl-7" id="about-section">

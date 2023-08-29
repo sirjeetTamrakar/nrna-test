@@ -1,11 +1,6 @@
-import MissionImg from 'assets/images/about.png';
 import { Link } from 'react-router-dom';
 
-const MissionSection = ({ siteSettingImages, linkUrl, mission }) => {
-  const missionImage = siteSettingImages?.mission_image?.path
-    ? siteSettingImages.mission_image.path
-    : MissionImg;
-
+const MissionSection = ({ image, linkUrl, mission }) => {
   return (
     <section className="mission" id="mission_main">
       <div className="container">
@@ -23,7 +18,7 @@ const MissionSection = ({ siteSettingImages, linkUrl, mission }) => {
           </div>
           <div className="col-lg-5 col-xl-5">
             <div className="img_container text-center">
-              <img src={missionImage} alt="" />
+              <img src={image} alt="" />
             </div>
           </div>
         </div>

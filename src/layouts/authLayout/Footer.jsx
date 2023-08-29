@@ -7,6 +7,7 @@ const Footer = () => {
           <div className="designed_by">
             Designed By
             <a target="_blank" href="https://scodus.com" rel="noreferrer">
+              {' '}
               Scodus Inovations Pvt Ltd
             </a>
           </div>
