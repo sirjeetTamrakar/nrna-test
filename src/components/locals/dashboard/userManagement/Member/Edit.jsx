@@ -2,35 +2,43 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch } from 'react-redux';
+import { getAllUsers, updateUsers } from '../redux/actions';
 import MemberForm from './Form';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
-const EditForm = () => {
+const EditForm = ({ handleClose }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+
+  const refetch = () => {
+    dispatch(getAllUsers());
+  };
+
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(updateUsers({ ...data, _method: 'PUT' }, data?.username, refetch));
+    handleClose();
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <MemberForm />
+      <MemberForm disabled />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={false} />
       </Box>
     </CustomForm>
   );
 };
-const Edit = ({ data }) => {
+const Edit = ({ data, handleClose }) => {
   const defaultValues = { ...data };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        resolver={useYupValidationResolver(validationSchema)}>
-        <EditForm />
+        // resolver={useYupValidationResolver(validationSchema)}
+      >
+        <EditForm handleClose={handleClose} />
       </CustomFormProvider>
     </>
   );

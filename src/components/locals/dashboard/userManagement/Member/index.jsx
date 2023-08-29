@@ -9,6 +9,7 @@ import { Box, Button, Typography } from '@mui/material';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
+import CustomRoleChangeModal from 'components/common/CustomModal/CustomRoleChnageModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
@@ -19,13 +20,14 @@ import { changeDateFormat } from 'utils/dateUtils';
 import { changeApproval, changeStatus, getAllUsers } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import View from './View';
 import { useStyles } from './styles';
+import View from './View';
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
+  const [openRole, roleOpenFunction] = useToggle(false);
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
@@ -142,6 +144,7 @@ const Member = () => {
             <ul className={classes.listWrapper}>
               <li onClick={() => handleEdit(row)}>Edit Member </li>
               <li onClick={() => handleView(row)}>View Details</li>
+              <li onClick={() => handleRole(row)}>Change role</li>
               <li onClick={() => handleApprove(row)}>Approve User</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
@@ -154,6 +157,11 @@ const Member = () => {
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
+  };
+
+  const handleRole = (row) => {
+    setDetail(row);
+    roleOpenFunction();
   };
 
   const handleDelete = (row) => {
@@ -236,17 +244,24 @@ const Member = () => {
           modalSubtitle="Become a member of NRNA Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.name}`}
-          modalSubtitle="Get full detail of the member"
+          modalTitle="Get full detail of the member"
+          // modalSubtitle="Get full detail of the member"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
+        <CustomRoleChangeModal
+          open={openRole}
+          // handleConfirm={handleChangeStatus}
+          handleClose={roleOpenFunction}
+          // status={detail?.status == 1 ? 'Active' : 'Inactive'}
+          isLoading={user_status_loading}
+        />
         <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
         <CustomStatusModal
           open={openStatus}

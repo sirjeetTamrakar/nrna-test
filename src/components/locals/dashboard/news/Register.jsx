@@ -12,37 +12,12 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
 
-  // const {
-  //   handleSubmit,
-  //   formState: { errors },
-  //   control,
-  //   setValue,
-  //   watch,
-  //   clearErrors
-  // } = useFormContext({ defaultValues });
-  // console.log('watch', watch());
   const refetch = () => {
     dispatch(getNews());
   };
-  // const onSubmit = (data) => {
-  //   console.log('dssssssata', data);
-  //   const formdata = new FormData();
-  //   console.log('formdata', formdata);
-
-  //   formdata.append('title', data?.title);
-  //   formdata.append('description', data?.description);
-  //   formdata.append('status', data?.status);
-  //   formdata.append('created_by', data?.created_by);
-  //   if (data?.feature_image?.length > 0) {
-  //     formdata.append('feature_image', data?.feature_image?.[0]);
-  //   }
-  //   console.log({ data });
-  //   dispatch(postNews(formdata, refetch));
-  //   handleClose();
-  // };
 
   const onSubmit = (data) => {
-    console.log('data', data);
+    console.log('dataiiii', data);
     const formdata = new FormData();
     console.log('formdata', formdata);
 

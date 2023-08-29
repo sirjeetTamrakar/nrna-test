@@ -1,4 +1,4 @@
-import { Box, Grid } from '@mui/material';
+import { Box, Grid, Typography } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CustomButton from 'components/common/CustomButton/CustomButton';
@@ -66,62 +66,54 @@ const ProfileForm = () => {
     <Box className={classes.root}>
       <CustomForm onSubmit={submitHandler}>
         <Grid container spacing={2}>
-          {/* <Grid item sm={12}>
-            <FileUploader
-              title="Profile picture"
-              // control={control}
-              name="profile_image"
-              label="Select Photo"
-              setValue={setValue}
-              // errors={errors}
-              // clearErrors={clearErrors}
-              // required={true}
-              imageLink={watch('region_logo') || ''}
-            />
-          </Grid> */}
-          <Box
-            sx={{
-              maxWidth: '150px',
-              maxHeight: '150px',
-              position: 'relative',
-              marginBottom: '20px',
-              marginLeft: '15px'
-            }}>
-            {/* <Typography>Profile picture</Typography> */}
-            <Avatar
-              src={image && URL.createObjectURL(image)}
-              variant="square"
-              style={{
-                width: '150px',
-                height: '150px',
-                marginTop: '10px'
-              }}
-            />
+          <Grid item sm={3}>
+            <Typography sx={{ fontSize: '13px', color: '#666', marginLeft: '15px' }}>
+              Profile Image
+            </Typography>
             <Box
-              style={{
-                position: 'absolute',
-                // right: "-10px",
-                bottom: '-10px'
+              sx={{
+                maxWidth: '150px',
+                maxHeight: '150px',
+                position: 'relative',
+                marginBottom: '20px',
+                marginLeft: '15px'
               }}>
-              <Button
+              {/* <Typography>Profile picture</Typography> */}
+              <Avatar
+                src={image && URL.createObjectURL(image)}
+                variant="square"
                 style={{
-                  backgroundColor: '#2B6DF8',
-                  color: '#fff',
-                  width: '150px'
+                  width: '150px',
+                  height: '150px',
+                  marginTop: '10px'
                 }}
-                onClick={() => imageRef.current.click()}>
-                Upload image
-              </Button>
+              />
+              <Box
+                style={{
+                  position: 'absolute',
+                  // right: "-10px",
+                  bottom: '-10px'
+                }}>
+                <Button
+                  style={{
+                    backgroundColor: '#2B6DF8',
+                    color: '#fff',
+                    width: '150px'
+                  }}
+                  onClick={() => imageRef.current.click()}>
+                  Upload image
+                </Button>
+              </Box>
             </Box>
-          </Box>
-          <Box marginTop={'10px'} display={'none'}>
-            <input
-              type="file"
-              onChange={(e) => setImage(e.target.files && e.target.files?.[0])}
-              ref={imageRef}
-            />
-          </Box>
-          <Grid item sm={12}>
+            <Box marginTop={'10px'} display={'none'}>
+              <input
+                type="file"
+                onChange={(e) => setImage(e.target.files && e.target.files?.[0])}
+                ref={imageRef}
+              />
+            </Box>
+          </Grid>
+          <Grid item sm={9}>
             <FileUploader
               title="Profile banner image"
               // control={control}

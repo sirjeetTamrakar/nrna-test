@@ -4,7 +4,8 @@ const defaultState = {
   users_loading: false,
   create_user_loading: false,
   approve_user_loading: false,
-  user_status_loading: false
+  user_status_loading: false,
+  update_user_loading: false
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -50,6 +51,14 @@ const userReducer = (state = defaultState, action) => {
     case actions.CHANGE_USER_STATUS_SUCCESS:
     case actions.CHANGE_USER_STATUS_ERROR:
       return { ...state, user_status_loading: false };
+
+    case actions.UPDATE_USER_BEGIN:
+      return { ...state, update_user_loading: true };
+
+    case actions.UPDATE_USER_SUCCESS:
+    case actions.UPDATE_USER_ERROR:
+      return { ...state, update_user_loading: false };
+
     default:
       return state;
   }
