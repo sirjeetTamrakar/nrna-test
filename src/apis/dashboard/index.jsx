@@ -158,3 +158,24 @@ export const getProfileApi = () => {
 export const postProfileApi = (data) => {
   return axiosInstance().post(`/api/profile`, data);
 };
+
+// BANNER---------------->
+// get banner
+export const getBannerApi = () => {
+  return axiosInstance().get('/api/banners');
+};
+
+// post banner
+export const postBannerApi = (data) => {
+  return axiosInstance().post('/api/banners', data);
+};
+
+// update banner
+export const updateBannerApi = (data, slug) => {
+  return axiosInstance().post(`/api/banners/${slug}`, data);
+};
+
+// delete banner
+export const deleteBannerApi = (data) => {
+  return axiosInstance().delete(`/api/banners/${data}`);
+};

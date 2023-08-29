@@ -230,7 +230,7 @@ const News = () => {
           modalTitle="Create News"
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
+          width={`60rem`}>
           <Register handleClose={formOpenFunction} />
           {/* <Modalll /> */}
         </CustomModal>
@@ -240,7 +240,7 @@ const News = () => {
           modalTitle={`Update News`}
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
+          width={`60rem`}>
           <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal

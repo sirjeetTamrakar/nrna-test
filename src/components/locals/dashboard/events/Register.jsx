@@ -3,9 +3,9 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
-import { getEvents, postEvents } from './redux/actions';
+import { postEvents } from './redux/actions';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
@@ -13,10 +13,11 @@ const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
+  const { events_loading } = useSelector((state) => state.events);
 
-  const refetch = () => {
-    dispatch(getEvents());
-  };
+  // const refetch = () => {
+  //   dispatch(getEvents());
+  // };
 
   const onSubmit = (data) => {
     console.log('dssssssata', data);
@@ -38,8 +39,8 @@ const Register = ({ handleClose }) => {
       formdata.append('feature_image', data?.feature_image?.[0]);
     }
     console.log({ data });
-    dispatch(postEvents(formdata, refetch));
-    handleClose();
+    dispatch(postEvents(formdata, handleClose));
+
     // alert('dsads');
     // dispatch(postSiteSettings(data));
   };
@@ -52,7 +53,7 @@ const Register = ({ handleClose }) => {
         <CustomForm onSubmit={onSubmit}>
           <EventForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={false} />
+            <CustomButton buttonName="Submit" loading={events_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

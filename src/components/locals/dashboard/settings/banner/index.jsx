@@ -166,19 +166,19 @@ const SettingsBanner = () => {
         <CustomModal
           open={openForm}
           handleClose={formOpenFunction}
-          modalTitle="Create News"
+          modalTitle="Create Banner"
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
-          <Register />
+          width={`60rem`}>
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}
           handleClose={editOpenFunction}
-          modalTitle={`Update News`}
+          modalTitle={`Update Banner`}
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
+          width={`60rem`}>
           <Edit data={detail} />
         </CustomModal>
         <CustomModal

@@ -2,9 +2,9 @@ import Box from '@mui/material/Box';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { getNews, postNews } from './redux/actions';
+import { postNews } from './redux/actions';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
@@ -12,9 +12,11 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
 
-  const refetch = () => {
-    dispatch(getNews());
-  };
+  const { news_loading } = useSelector((state) => state.news);
+
+  // const refetch = () => {
+  //   dispatch(getNews());
+  // };
 
   const onSubmit = (data) => {
     console.log('dataiiii', data);
@@ -30,8 +32,7 @@ const Register = ({ handleClose }) => {
       formdata.append('feature_image', data?.feature_image?.[0]);
     }
 
-    dispatch(postNews(formdata, refetch));
-    handleClose();
+    dispatch(postNews(formdata, handleClose));
   };
 
   return (
@@ -43,7 +44,7 @@ const Register = ({ handleClose }) => {
         <CustomForm onSubmit={onSubmit}>
           <NewsForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={false} />
+            <CustomButton buttonName="Submit" loading={news_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>
