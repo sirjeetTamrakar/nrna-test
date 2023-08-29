@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getCountries } from '../../ncc/redux/actions';
 import { useStyles } from './styles';
 
-const MemberForm = () => {
+const MemberForm = ({ disabled }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   // const countries = [
@@ -35,7 +35,13 @@ const MemberForm = () => {
           <CustomInput name="name" label="Name" required />
         </Grid>
         <Grid item sm={6}>
-          <CustomInput name="email" type="email" label="Email" required />
+          <CustomInput
+            disabled={disabled ? true : false}
+            name="email"
+            type="email"
+            label="Email"
+            required
+          />
         </Grid>
         <Grid item sm={6}>
           <CustomInput name="phone" label="Phone" type="number" />

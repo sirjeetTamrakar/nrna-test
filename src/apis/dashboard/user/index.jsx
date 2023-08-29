@@ -19,3 +19,8 @@ export const changeApprovalApi = (slug, data) => {
 export const changeStatusApi = (slug, data) => {
   return axiosInstance().patch(`/api/users/${slug}/status`, data);
 };
+
+// update users
+export const updateUsersApi = (data, slug) => {
+  return axiosInstance().post(`/api/users/${slug}/admin`, data);
+};

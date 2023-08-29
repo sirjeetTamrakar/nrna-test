@@ -2,9 +2,10 @@ import {
   changeApprovalApi,
   changeStatusApi,
   createUserApi,
-  getAllUsersApi
+  getAllUsersApi,
+  updateUsersApi
 } from 'apis/dashboard/user';
-import { errorToast } from 'utils/toast';
+import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
 export const getAllUsers = () => (dispatch) => {
@@ -28,6 +29,7 @@ export const createUser = (data, handleSuccess) => (dispatch) => {
       dispatch({ type: actions.CREATE_USER_SUCCESS });
       handleSuccess && handleSuccess();
       dispatch(getAllUsers());
+      successToast('User has been created');
     })
     .catch((error) => {
       errorToast(error);
@@ -56,9 +58,31 @@ export const changeStatus = (slug, data, handleSuccess) => (dispatch) => {
       dispatch({ type: actions.CHANGE_USER_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
       dispatch(getAllUsers());
+      successToast('User status has been changed');
     })
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.CHANGE_USER_STATUS_ERROR });
     });
 };
+
+export const updateUsers =
+  (Data, slug, refetch = () => {}) =>
+  async (dispatch) => {
+    dispatch({ type: actions.UPDATE_USER_BEGIN });
+
+    try {
+      await updateUsersApi(Data, slug);
+      refetch && refetch();
+      console.log('dataaasssssssssssss', Data);
+      dispatch({
+        type: actions.UPDATE_USER_SUCCESS,
+        payload: ''
+      });
+      successToast('User has been updated');
+    } catch (error) {
+      dispatch({ type: actions.UPDATE_USER_ERROR });
+      console.log({ error });
+      errorToast(error);
+    }
+  };

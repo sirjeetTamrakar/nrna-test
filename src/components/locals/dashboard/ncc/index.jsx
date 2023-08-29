@@ -77,11 +77,19 @@ const NCC = () => {
         return (
           <Box>
             {row?.status === 'Active' ? (
-              <Button variant="contained" color="success" onClick={() => handleStatus(row)}>
+              <Button
+                sx={{ width: '100px' }}
+                variant="contained"
+                color="success"
+                onClick={() => handleStatus(row)}>
                 Active
               </Button>
             ) : (
-              <Button variant="contained" color="error" onClick={() => handleStatus(row)}>
+              <Button
+                sx={{ width: '100px' }}
+                variant="contained"
+                color="error"
+                onClick={() => handleStatus(row)}>
                 Inactive
               </Button>
             )}

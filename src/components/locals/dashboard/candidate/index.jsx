@@ -10,13 +10,16 @@ import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
+import { deleteCandidate, getCandidate } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
 const Candidate = () => {
+  const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -27,6 +30,13 @@ const Candidate = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
+
+  useEffect(() => {
+    dispatch(getCandidate());
+  }, []);
+
+  const { candidateData, get_candidate_loading } = useSelector((state) => state.candidate);
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -36,34 +46,34 @@ const Candidate = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.name}</Typography>
-            <Typography variant="subtitle1">{row?.created_at}</Typography>
+            <Typography variant="body2">{row?.member?.name}</Typography>
+            {/* <Typography variant="subtitle1">{row?.created_at}</Typography> */}
           </Box>
         );
       }
     },
-    {
-      title: 'Email/Phone',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <Box>
-            <Typography variant="body2">{row?.email}</Typography>
-            <Typography variant="subtitle1">{row?.phone}</Typography>
-          </Box>
-        );
-      }
-    },
+    // {
+    //   title: 'Email/Phone',
+    //   minWidth: 100,
+    //   field: (row) => {
+    //     return (
+    //       <Box>
+    //         <Typography variant="body2">{row?.email}</Typography>
+    //         <Typography variant="subtitle1">{row?.phone}</Typography>
+    //       </Box>
+    //     );
+    //   }
+    // },
 
-    {
-      title: 'Address',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
-        );
-      }
-    },
+    // {
+    //   title: 'Address',
+    //   minWidth: 100,
+    //   field: (row) => {
+    //     return (
+    //       <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
+    //     );
+    //   }
+    // },
     {
       title: 'Designation',
       minWidth: 100,
@@ -81,11 +91,19 @@ const Candidate = () => {
         return (
           <Box>
             {row?.status === 'Active' ? (
-              <Button variant="contained" color="success" onClick={() => handleStatus(row)}>
+              <Button
+                sx={{ width: '100px' }}
+                variant="contained"
+                color="success"
+                onClick={() => handleStatus(row)}>
                 Active
               </Button>
             ) : (
-              <Button variant="contained" color="error" onClick={() => handleStatus(row)}>
+              <Button
+                sx={{ width: '100px' }}
+                variant="contained"
+                color="error"
+                onClick={() => handleStatus(row)}>
                 Inactive
               </Button>
             )}
@@ -124,6 +142,15 @@ const Candidate = () => {
       status: 'Active'
     }
   ];
+
+  const refetch = () => {
+    dispatch(getCandidate());
+  };
+
+  const handleConfirm = (slug) => {
+    dispatch(deleteCandidate(slug, refetch));
+    deleteOpenFunction();
+  };
 
   const handleEdit = (row) => {
     setDetail(row);
@@ -171,12 +198,13 @@ const Candidate = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={candidateData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
           total={30}
+          loading={get_candidate_loading}
         />
         <CustomModal
           open={openForm}
@@ -185,7 +213,7 @@ const Candidate = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register />
+          <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -194,7 +222,7 @@ const Candidate = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
@@ -205,7 +233,12 @@ const Candidate = () => {
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirm}
+          slug={detail?.id}
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+        />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}

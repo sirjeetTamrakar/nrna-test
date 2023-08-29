@@ -130,20 +130,31 @@ export const deleteTeamsApi = (data) => {
 // CANDIDATE---------------->
 // get candidate
 export const getCandidateApi = () => {
-  return axiosInstance().get('/api/candidate');
+  return axiosInstance().get('/api/ncc-candidates');
 };
 
 // post candidate
 export const postCandidateApi = (data) => {
-  return axiosInstance().post('/api/candidate', data);
+  return axiosInstance().post('/api/ncc-candidates', data);
 };
 
 // update candidate
 export const updateCandidateApi = (data, slug) => {
-  return axiosInstance().post(`/api/candidate/${slug}`, data);
+  return axiosInstance().post(`/api/ncc-candidates/${slug}`, data);
 };
 
 // delete candidate
 export const deleteCandidateApi = (data) => {
-  return axiosInstance().delete(`/api/candidate/${data}`);
+  return axiosInstance().delete(`/api/ncc-candidates/${data}`);
+};
+
+// PROFILE------------------>
+// get profile
+export const getProfileApi = () => {
+  return axiosInstance().get('/api/profile');
+};
+
+// post profile
+export const postProfileApi = (data) => {
+  return axiosInstance().post(`/api/profile`, data);
 };
