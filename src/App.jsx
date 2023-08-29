@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { getUsers } from 'redux/auth/actions';
+import { getSiteSettings } from 'redux/homepage/actions';
 import RouteList from 'routes';
 import theme from 'themes';
 import './styles/main.scss';
@@ -13,8 +13,7 @@ export default function App() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(getUsers());
-    // dispatch(setGlobalUser());
+    dispatch(getSiteSettings());
   }, []);
 
   return (

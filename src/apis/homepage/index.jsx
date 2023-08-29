@@ -34,3 +34,8 @@ export const contactUsApi = (data) => {
 export const getContactUsApi = () => {
   return axiosInstance().get(`/api/contact-us`);
 };
+
+// get banner
+export const getBannerApi = () => {
+  return axiosInstance().get('/api/banners');
+};

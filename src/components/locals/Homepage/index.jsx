@@ -3,13 +3,19 @@ import BannerSection from 'components/globals/Banner';
 import MissionSection from 'components/globals/MissionSection';
 import TaglineSection from 'components/globals/TaglineSection';
 import VisionSection from 'components/globals/VisionSection';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBanner } from 'redux/homepage/actions';
 
 const Homepage = () => {
-  const { settings } = useSelector((state) => state.homepage);
+  const dispatch = useDispatch();
+  const { settings, banners } = useSelector((state) => state.homepage);
+  useEffect(() => {
+    dispatch(getBanner());
+  }, []);
   return (
     <>
-      <BannerSection />
+      <BannerSection banners={banners} />
       <TaglineSection
         tagline={settings?.tagline_description}
         taglineAuthor={settings?.tagline_author}

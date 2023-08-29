@@ -2,6 +2,7 @@ import {
   contactUsApi,
   getAllEventsApi,
   getAllNewsApi,
+  getBannerApi,
   getContactUsApi,
   getSingleEventApi,
   getSingleNewsApi,
@@ -93,5 +94,17 @@ export const getContact = () => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_CONTACT_ERROR });
+    });
+};
+
+export const getBanner = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_BANNER_BEGIN });
+  getBannerApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_BANNER_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_BANNER_ERROR });
     });
 };

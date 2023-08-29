@@ -11,7 +11,9 @@ const defaultState = {
   single_event: null,
   single_event_loading: false,
   contact_loading: false,
-  contact: []
+  contact: [],
+  banners: [],
+  banner_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -91,6 +93,15 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_CONTACT_ERROR:
       return { ...state, contact_loading: false };
+
+    case actions.FETCH_BANNER_BEGIN:
+      return { ...state, banner_loading: true };
+
+    case actions.FETCH_BANNER_SUCCESS:
+      return { ...state, banner_loading: false, banners: action.payload };
+
+    case actions.FETCH_BANNER_ERROR:
+      return { ...state, banner_loading: false };
 
     default:
       return state;
