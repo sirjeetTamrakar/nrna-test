@@ -2,19 +2,34 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useDispatch } from 'react-redux';
+import { useFormContext } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { getNews, updateNews } from './redux/actions';
+import { updateNews } from './redux/actions';
 import { useStyles } from './styles';
 
 const EditForm = ({ slug, handleClose }) => {
   console.log('sluggggxxx', { slug });
+
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const refetch = () => {
-    dispatch(getNews());
-  };
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    setValue,
+    watch,
+    clearErrors
+  } = useFormContext();
+
+  console.log('watchnnnnni', watch());
+
+  const { update_news_loading } = useSelector((state) => state.news);
+
+  // const refetch = () => {
+  //   dispatch(getNews());
+  // };
 
   const onSubmit = (data) => {
     console.log('dssssssataxxxx', data);
@@ -27,20 +42,22 @@ const EditForm = ({ slug, handleClose }) => {
     formdata.append('created_by', data?.created_by);
     formdata.append('status', 'active');
     formdata.append('_method', 'PUT');
-    if (data?.feature_image?.length > 0) {
-      formdata.append('feature_image', data?.feature_image?.[0]);
+    if (watch('feature_image') && typeof watch('feature_image') === 'object') {
+      console.log({ filetype: typeof watch('feature_image') });
+      if (data?.feature_image?.length > 0) {
+        formdata.append('feature_image', data?.feature_image?.[0]);
+      }
     }
     console.log({ data });
     // dispatch(updateNews({ ...formdata, _method: 'PUT' }, data?.slug));
-    dispatch(updateNews(formdata, data?.slug, refetch));
-    handleClose();
+    dispatch(updateNews(formdata, data?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
       <NewsForm />
       <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={false} />
+        <CustomButton buttonName="Update" loading={update_news_loading} />
       </Box>
     </CustomForm>
   );

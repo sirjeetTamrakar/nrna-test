@@ -120,7 +120,7 @@ const Events = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit Member </li>
+              <li onClick={() => handleEdit(row)}>Edit Event </li>
               <li onClick={() => handleView(row)}>View Details</li>
               <li onClick={() => handleApprove(row)}>Approve User</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
@@ -244,7 +244,7 @@ const Events = () => {
           modalTitle="Create Event"
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
+          width={`60rem`}>
           <Register handleClose={formOpenFunction} />
         </CustomModal>
         <CustomModal
@@ -253,7 +253,7 @@ const Events = () => {
           modalTitle={`Update Event`}
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
+          width={`60rem`}>
           <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal

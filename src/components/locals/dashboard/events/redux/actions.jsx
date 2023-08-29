@@ -20,22 +20,20 @@ export const getEvents = () => (dispatch) => {
     });
 };
 
-export const postEvents =
-  (data, handleSuccess, refetch = () => {}) =>
-  (dispatch) => {
-    dispatch({ type: actions.POST_EVENTS_BEGIN });
-    postEventsApi(data)
-      .then((res) => {
-        dispatch({ type: actions.POST_EVENTS_SUCCESS });
-        successToast('Your message sent successfully');
-        handleSuccess && handleSuccess();
-        refetch && refetch();
-      })
-      .catch((error) => {
-        errorToast(error);
-        dispatch({ type: actions.POST_EVENTS_ERROR });
-      });
-  };
+export const postEvents = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_EVENTS_BEGIN });
+  postEventsApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_EVENTS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getEvents());
+      successToast('Your message sent successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_EVENTS_ERROR });
+    });
+};
 
 export const deleteEvents =
   (Data, refetch = () => {}) =>
@@ -58,26 +56,25 @@ export const deleteEvents =
     }
   };
 
-export const updateEvents =
-  (Data, slug, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.UPDATE_EVENTS_BEGIN });
+export const updateEvents = (Data, slug, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.UPDATE_EVENTS_BEGIN });
 
-    try {
-      await updateEventsApi(Data, slug);
-      refetch && refetch();
-      console.log('dataaasssssssssssss', Data);
-      dispatch({
-        type: actions.UPDATE_EVENTS_SUCCESS,
-        payload: ''
-      });
-      successToast('Event has been updated');
-    } catch (error) {
-      dispatch({ type: actions.UPDATE_EVENTS_ERROR });
-      console.log({ error });
-      errorToast(error);
-    }
-  };
+  try {
+    await updateEventsApi(Data, slug);
+    console.log('dataaasssssssssssss', Data);
+    dispatch({
+      type: actions.UPDATE_EVENTS_SUCCESS,
+      payload: ''
+    });
+    handleSuccess && handleSuccess();
+    dispatch(getEvents());
+    successToast('Event has been updated');
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_EVENTS_ERROR });
+    console.log({ error });
+    errorToast(error);
+  }
+};
 
 export const changeEventsStatus = (data, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.CHANGE_EVENTS_STATUS_BEGIN });

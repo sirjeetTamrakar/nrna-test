@@ -12,7 +12,8 @@ function CustomModal({
   modalTitle,
   modalSubtitle,
   modalStyles = {},
-  icon
+  icon,
+  widthFull
 }) {
   const classes = styles();
   function getModalStyle(height, width) {

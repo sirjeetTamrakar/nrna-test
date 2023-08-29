@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 const style = makeStyles((theme) => ({
   richTextEditor: {
     '& .ck-editor__main > .ck-editor__editable': {
-      height: '141px'
+      height: '300px'
     }
   },
   descriptionLable: {

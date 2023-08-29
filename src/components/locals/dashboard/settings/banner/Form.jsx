@@ -26,14 +26,14 @@ const BannerForm = () => {
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item sm={6}>
+        <Grid item sm={12}>
           <CustomInput name="title" label="Banner Title" required />
         </Grid>
-        <Grid item sm={6}>
+        <Grid item sm={12}>
           <CustomInput name="subtitle" label="Subtitle" required />
         </Grid>
         <Grid item sm={12}>
-          <CustomTextArea name="description" label="Description" />
+          <CustomInput name="link" label="Link" required />
         </Grid>
         <Grid item sm={12}>
           <FileUploader
@@ -42,11 +42,15 @@ const BannerForm = () => {
             name="image"
             label="Select Photo"
             setValue={setValue}
+            widthFull
             // errors={errors}
             // clearErrors={clearErrors}
             // required={true}
             imageLink={watch('image') || ''}
           />
+        </Grid>
+        <Grid item sm={12}>
+          <CustomTextArea name="description" label="Description" />
         </Grid>
       </Grid>
     </Box>

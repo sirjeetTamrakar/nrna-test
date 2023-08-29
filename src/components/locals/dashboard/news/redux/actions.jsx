@@ -20,22 +20,20 @@ export const getNews = () => (dispatch) => {
     });
 };
 
-export const postNews =
-  (data, handleSuccess, refetch = () => {}) =>
-  (dispatch) => {
-    dispatch({ type: actions.POST_NEWS_BEGIN });
-    postNewsApi(data)
-      .then((res) => {
-        dispatch({ type: actions.POST_NEWS_SUCCESS });
-        successToast('Your message sent successfully');
-        handleSuccess && handleSuccess();
-        refetch && refetch();
-      })
-      .catch((error) => {
-        errorToast(error);
-        dispatch({ type: actions.POST_NEWS_ERROR });
-      });
-  };
+export const postNews = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_NEWS_BEGIN });
+  postNewsApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_NEWS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getNews());
+      successToast('Your message sent successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_NEWS_ERROR });
+    });
+};
 
 export const deleteNews =
   (Data, refetch = () => {}) =>
@@ -58,26 +56,25 @@ export const deleteNews =
     }
   };
 
-export const updateNews =
-  (Data, slug, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.UPDATE_NEWS_BEGIN });
+export const updateNews = (Data, slug, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.UPDATE_NEWS_BEGIN });
 
-    try {
-      await updateNewsApi(Data, slug);
-      refetch && refetch();
-      console.log('dataaasssssssssssss', Data);
-      dispatch({
-        type: actions.UPDATE_NEWS_SUCCESS,
-        payload: ''
-      });
-      successToast('News has been updated');
-    } catch (error) {
-      dispatch({ type: actions.UPDATE_NEWS_ERROR });
-      console.log({ error });
-      errorToast(error);
-    }
-  };
+  try {
+    await updateNewsApi(Data, slug);
+    console.log('dataaasssssssssssss', Data);
+    dispatch({
+      type: actions.UPDATE_NEWS_SUCCESS,
+      payload: ''
+    });
+    dispatch(getNews());
+    handleSuccess && handleSuccess();
+    successToast('News has been updated');
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_NEWS_ERROR });
+    console.log({ error });
+    errorToast(error);
+  }
+};
 
 export const changeNewsStatus = (data, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.CHANGE_NEWS_STATUS_BEGIN });

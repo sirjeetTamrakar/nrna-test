@@ -2,18 +2,32 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useDispatch } from 'react-redux';
+import { useFormContext } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
-import { getEvents, updateEvents } from './redux/actions';
+import { updateEvents } from './redux/actions';
 import { useStyles } from './styles';
 
 const EditForm = ({ slug, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
 
-  const refetch = () => {
-    dispatch(getEvents());
-  };
+  const {
+    handleSubmit,
+    formState: { errors },
+    control,
+    setValue,
+    watch,
+    clearErrors
+  } = useFormContext();
+
+  console.log('watchnnnnni', watch());
+
+  const { update_events_loading } = useSelector((state) => state.events);
+
+  // const refetch = () => {
+  //   dispatch(getEvents());
+  // };
 
   const onSubmit = (data) => {
     console.log('dssssssata', data);
@@ -34,21 +48,21 @@ const EditForm = ({ slug, handleClose }) => {
 
     formdata.append('_method', 'PUT');
 
-    if (data?.feature_image?.length > 0) {
-      formdata.append('feature_image', data?.feature_image?.[0]);
+    if (watch('feature_image') && typeof watch('feature_image') === 'object') {
+      console.log({ filetype: typeof watch('feature_image') });
+      if (data?.feature_image?.length > 0) {
+        formdata.append('feature_image', data?.feature_image?.[0]);
+      }
     }
     console.log({ data });
-    dispatch(updateEvents(formdata, data?.slug, refetch));
-    handleClose();
-    // alert('dsads');
-    // dispatch(postSiteSettings(data));
+    dispatch(updateEvents(formdata, data?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
       <EventForm />
       <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={false} />
+        <CustomButton buttonName="Update" loading={update_events_loading} />
       </Box>
     </CustomForm>
   );
