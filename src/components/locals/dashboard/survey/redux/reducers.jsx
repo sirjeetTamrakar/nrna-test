@@ -7,7 +7,13 @@ const defaultState = {
   delete_question_loading: false,
   question_status_loading: false,
   post_question_front_loading: false,
-  post_question_check_front_loading: false
+  post_question_check_front_loading: false,
+  result: [],
+  result_loading: false,
+  participants: [],
+  participants_loading: false,
+  participant_result: [],
+  participant_result_loading: false
 };
 
 const questionReducer = (state = defaultState, action) => {
@@ -91,6 +97,63 @@ const questionReducer = (state = defaultState, action) => {
       return {
         ...state,
         post_question_check_front_loading: false
+      };
+
+    case actions.FETCH_SURVEY_RESULT_BEGIN:
+      return {
+        ...state,
+        result_loading: true
+      };
+
+    case actions.FETCH_SURVEY_RESULT_SUCCESS:
+      return {
+        ...state,
+        result_loading: false,
+        result: action.payload
+      };
+
+    case actions.FETCH_SURVEY_RESULT_ERROR:
+      return {
+        ...state,
+        result_loading: false
+      };
+
+    case actions.FETCH_PARTICIPANT_BEGIN:
+      return {
+        ...state,
+        participants_loading: true
+      };
+
+    case actions.FETCH_PARTICIPANT_SUCCESS:
+      return {
+        ...state,
+        participants_loading: false,
+        participants: action.payload
+      };
+
+    case actions.FETCH_PARTICIPANT_ERROR:
+      return {
+        ...state,
+        participants_loading: false
+      };
+
+    case actions.FETCH_PARTICIPANT_RESULT_BEGIN:
+      return {
+        ...state,
+        participant_result_loading: true
+      };
+
+    case actions.FETCH_PARTICIPANT_RESULT_SUCCESS:
+      return {
+        ...state,
+        participant_result_loading: false,
+        participant_result: action.payload
+      };
+
+    case actions.FETCH_PARTICIPANT_RESULT_ERROR:
+      return {
+        ...state,
+        participant_result_loading: false
       };
 
     default:

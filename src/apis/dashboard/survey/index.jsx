@@ -33,3 +33,16 @@ export const postQuestionFrontApi = (data) => {
 export const postQuestionCheckFrontApi = (data) => {
   return axiosInstance().post('/api/surveys/has-already-taken', data);
 };
+
+// get survey report
+export const getSurveyResultApi = () => {
+  return axiosInstance().get(`/api/surveys/result-by-question`);
+};
+
+export const getParticipantsApi = () => {
+  return axiosInstance().get(`/api/surveys/result-user-list`);
+};
+
+export const getParticipantResultApi = (user_id) => {
+  return axiosInstance().get(`/api/surveys/${user_id}/result-detail`);
+};

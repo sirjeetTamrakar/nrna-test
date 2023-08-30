@@ -1,9 +1,16 @@
 import { Box, Button, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { changeDateFormat } from 'utils/dateUtils';
+import { getParticipants } from '../redux/actions';
 const Participants = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
+  const { participants, participants_loading } = useSelector((state) => state.question);
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -11,12 +18,7 @@ const Participants = () => {
       title: 'Name',
       minWidth: 150,
       field: (row) => {
-        return (
-          <Box>
-            <Typography variant="body2">{row?.name}</Typography>
-            <Typography variant="subtitle1">{row?.created_at}</Typography>
-          </Box>
-        );
+        return <Typography variant="body2">{row?.name}</Typography>;
       }
     },
     {
@@ -43,9 +45,11 @@ const Participants = () => {
     },
 
     {
-      title: 'Date',
+      title: 'Participated Date',
       minWidth: 120,
-      field: 'created_at'
+      field: (row) => {
+        return <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>;
+      }
     },
     {
       title: 'Survey',
@@ -53,7 +57,11 @@ const Participants = () => {
       field: (row) => {
         return (
           <Box>
-            <Button variant="contained" color="success" sx={{ width: '100px' }}>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ width: '100px' }}
+              onClick={() => navigate(`/dashboard/survey/participants/${row?.id}`)}>
               View
             </Button>
           </Box>
@@ -62,47 +70,9 @@ const Participants = () => {
     }
   ];
 
-  const tableData = [
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      approved_by: 'Yogen Bahadur Chhetri',
-      rejected_by: '',
-      role: 'Super Admin',
-      status: 'Active'
-    },
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      approved_by: '',
-      rejected_by: 'Yogen Bahadur Chhetri',
-      role: 'Super Admin',
-      status: 'Active'
-    },
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      approved_by: '',
-      rejected_by: '',
-      role: 'Super Admin',
-      status: 'Inactive'
-    }
-  ];
+  useEffect(() => {
+    dispatch(getParticipants());
+  }, []);
 
   return (
     <>
@@ -118,11 +88,12 @@ const Participants = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={tableData}
+          tableData={participants}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
+          loading={participants_loading}
           total={30}
         />
       </Box>

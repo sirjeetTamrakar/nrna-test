@@ -1,11 +1,17 @@
 import { Box, Typography } from '@mui/material';
 import CollapseTable from 'components/common/CollapseableTable';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSurveyResult } from '../redux/actions';
 import OverallResult from './OverallResult';
 import { useStyles } from './styles';
 const Results = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
+  const { result, result_loading } = useSelector((state) => state.question);
+  const dispatch = useDispatch();
+  const [tableData, setTableData] = useState();
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -28,29 +34,20 @@ const Results = () => {
     }
   ];
 
-  const tableData = [
-    {
-      question: 'Canada wildfires: The past 2 days in 75 seconds',
-      options: [
-        { title: 'Choice 1', count: 263 },
-        { title: 'Choice 2', count: 237 },
-        { title: 'Choice 3', count: 318 },
-        { title: 'Choice 4', count: 120 }
-      ],
-      total: 938
-    },
-    {
-      question:
-        'Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds',
-      options: [
-        { title: 'Choice 1', count: 263 },
-        { title: 'Choice 2', count: 237 },
-        { title: 'Choice 3', count: 318 },
-        { title: 'Choice 4', count: 120 }
-      ],
-      total: 938
-    }
-  ];
+  useEffect(() => {
+    dispatch(getSurveyResult());
+  }, []);
+
+  useEffect(() => {
+    const arrangedData = result?.map((list) => {
+      const value = list?.options?.reduce(
+        (acc, value) => acc + Number(value?.survey_answers_count),
+        0
+      );
+      return { ...list, total: value || 0 };
+    });
+    setTableData(arrangedData);
+  }, [result]);
 
   return (
     <>
@@ -61,6 +58,7 @@ const Results = () => {
           tableData={tableData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
+          loading={result_loading}
           page={page}
           setPage={setPage}
           total={30}
@@ -85,15 +83,15 @@ const ChildComponent = ({ row }) => {
           className={classes.childList}
           style={{
             background: `linear-gradient(90deg, #a9e2ff ${getPercentage(
-              list?.count
-            )}%, transparent ${getPercentage(list?.count)}% )`
+              list?.survey_answers_count
+            )}%, transparent ${getPercentage(list?.survey_answers_count)}% )`
           }}
           key={index}>
           <Box display="flex" alignItems="center" columnGap="15px">
-            <Box className={classes.count}>{list?.count}</Box>
-            {list?.title}
+            <Box className={classes.count}>{list?.survey_answers_count}</Box>
+            {list?.option}
           </Box>
-          <Box className={classes.count}>{getPercentage(list?.count)} %</Box>
+          <Box className={classes.count}>{getPercentage(list?.survey_answers_count)} %</Box>
         </Box>
       ))}
     </Box>

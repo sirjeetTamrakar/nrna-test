@@ -3,6 +3,9 @@ import {
   createQuestionApi,
   deleteQuestionApi,
   getAllQuestionsApi,
+  getParticipantResultApi,
+  getParticipantsApi,
+  getSurveyResultApi,
   postQuestionCheckFrontApi,
   postQuestionFrontApi,
   updateQuestionApi
@@ -115,5 +118,41 @@ export const postQuestionCheckFront = (data) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_QUESTION_CHECK_FRONT_ERROR });
+    });
+};
+
+// get survey result
+export const getSurveyResult = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_SURVEY_RESULT_BEGIN });
+  getSurveyResultApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SURVEY_RESULT_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      dispatch({ type: actions.FETCH_SURVEY_RESULT_ERROR });
+    });
+};
+
+// get participants
+export const getParticipants = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_PARTICIPANT_BEGIN });
+  getParticipantsApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_PARTICIPANT_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      dispatch({ type: actions.FETCH_PARTICIPANT_ERROR });
+    });
+};
+
+// get participants result
+export const getParticipantsResult = (user_id) => (dispatch) => {
+  dispatch({ type: actions.FETCH_PARTICIPANT_RESULT_BEGIN });
+  getParticipantResultApi(user_id)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_PARTICIPANT_RESULT_SUCCESS, payload: res.data.data });
+    })
+    .catch(() => {
+      dispatch({ type: actions.FETCH_PARTICIPANT_RESULT_ERROR });
     });
 };

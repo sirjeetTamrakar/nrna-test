@@ -83,20 +83,7 @@ const Questions = () => {
     }
   ];
 
-  const tableData = [
-    {
-      question: 'Canada wildfires: The past 2 days in 75 seconds',
-      option1: 'Option 1',
-      option2: 'Option 2',
-      option3: 'Option 3',
-      option4: 'Option 4',
-      status: 'Active'
-    }
-  ];
-
   const { questions, questions_loading } = useSelector((state) => state.question);
-
-  console.log({ questions });
 
   const refetch = () => {
     dispatch(getAllQuestions());
@@ -207,7 +194,6 @@ export default Questions;
 
 const ChildComponent = ({ row }) => {
   const classes = useStyles();
-  console.log('cxcxcxcxcxccxc', { row });
   return (
     <Box className={classes.childRoot}>
       {row?.options?.map((item, index) => (
@@ -215,12 +201,6 @@ const ChildComponent = ({ row }) => {
           {item?.option}
         </Box>
       ))}
-
-      {/* {[...Array(4)?.keys()]?.map((list, index) => (
-        <Box className={classes.childList} key={index}>
-          {row?.options?.[`option${list}`]}
-        </Box>
-      ))} */}
     </Box>
   );
 };
