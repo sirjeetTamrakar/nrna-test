@@ -2,7 +2,7 @@
 
 /* Third party libraries */
 import { Report } from '@mui/icons-material';
-import { InputLabel, Skeleton, TextareaAutosize, Tooltip, Typography } from '@mui/material';
+import { InputLabel, Skeleton, TextField, Tooltip, Typography } from '@mui/material';
 import { Box } from '@mui/system';
 import { Controller, useFormContext } from 'react-hook-form';
 
@@ -12,13 +12,23 @@ const CustomTextArea = ({
   placeholder = '',
   tooltipLabel = '',
   loading = false,
-  rows = 4
+  rows = 4,
+  required
 }) => {
-  const { control } = useFormContext();
+  const {
+    control,
+    formState: { errors }
+  } = useFormContext();
+  const fieldError = errors[name]?.message;
+
+  console.log(fieldError);
+
   return (
     <>
-      <Box display="flex" alignItems="center" columnGap={0.5} sx={{ paddingBottom: '4px' }}>
-        <InputLabel>{label}</InputLabel>
+      <Box display="flex" alignItems="center" columnGap={0.5}>
+        <InputLabel>
+          {label} {required && <span style={{ color: 'red' }}>*</span>}
+        </InputLabel>
         {tooltipLabel && (
           <Tooltip title={<Typography variant="body1">{tooltipLabel}</Typography>}>
             <Report sx={{ color: '#9D9CAF' }} />
@@ -32,9 +42,11 @@ const CustomTextArea = ({
           name={name}
           control={control}
           render={({ field: { onChange, value } }) => (
-            <TextareaAutosize
-              minRows={rows}
-              // className={classes.inputField}
+            <TextField
+              rows={rows}
+              multiline
+              error={fieldError ? true : false}
+              helperText={fieldError}
               style={{ width: '100%', border: '1px solid #bdbdbd' }}
               onChange={onChange}
               value={value}

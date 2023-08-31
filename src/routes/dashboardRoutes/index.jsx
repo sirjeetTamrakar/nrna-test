@@ -1,19 +1,22 @@
 import Protected from 'components/globals/protected';
-import AdvicePage from 'pages/private/dashboard/Advice';
-import BannerPage from 'pages/private/dashboard/BannerPage';
-import CandidatePage from 'pages/private/dashboard/CandidatePage';
-import ContactPage from 'pages/private/dashboard/ContactPage';
-import EventsPage from 'pages/private/dashboard/EventsPage';
-import MemberPage from 'pages/private/dashboard/MemberPage';
-import NCCPage from 'pages/private/dashboard/NCCPage';
-import NewsPage from 'pages/private/dashboard/NewsPage';
-import OurTeamPage from 'pages/private/dashboard/OurTeamPage';
-import ParticipantResultPage from 'pages/private/dashboard/ParticipantResult';
-import ParticipantsPage from 'pages/private/dashboard/Participants';
-import ProfilePage from 'pages/private/dashboard/ProfilePage';
-import QuestionsPage from 'pages/private/dashboard/Questions';
-import ResultsPage from 'pages/private/dashboard/ResultsPage';
-import SiteSettingsPage from 'pages/private/dashboard/SiteSettings';
+import AdvicePage from 'pages/private/Advice';
+import BannerPage from 'pages/private/BannerPage';
+import CandidatePage from 'pages/private/CandidatePage';
+import ContactPage from 'pages/private/ContactPage';
+import EventsPage from 'pages/private/EventsPage';
+import MemberPage from 'pages/private/MemberPage';
+import NCCPage from 'pages/private/NCCPage';
+import NewsPage from 'pages/private/NewsPage';
+import OurTeamPage from 'pages/private/OurTeamPage';
+import ParticipantResultPage from 'pages/private/ParticipantResult';
+import ParticipantsPage from 'pages/private/Participants';
+import ProfilePage from 'pages/private/ProfilePage';
+import QuestionsPage from 'pages/private/Questions';
+import ResultsPage from 'pages/private/ResultsPage';
+import SiteSettingsPage from 'pages/private/SiteSettings';
+import BusinessPage from 'pages/private/business';
+import BusinessProfilePage from 'pages/private/business/BusinessProfile';
+import CategoryPage from 'pages/private/business/Category';
 
 const DashboardRoutes = [
   {
@@ -110,6 +113,31 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <ParticipantResultPage />
+      </Protected>
+    )
+  },
+
+  {
+    path: 'business/category',
+    component: (
+      <Protected>
+        <CategoryPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'business',
+    component: (
+      <Protected>
+        <BusinessPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'business/:business_id',
+    component: (
+      <Protected>
+        <BusinessProfilePage />
       </Protected>
     )
   },

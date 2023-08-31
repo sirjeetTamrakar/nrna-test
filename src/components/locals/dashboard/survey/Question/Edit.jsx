@@ -2,9 +2,11 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateQuestion } from '../redux/actions';
 import QuestionForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
 
 const EditForm = ({ handleClose, id }) => {
@@ -35,8 +37,7 @@ const Edit = ({ data, handleClose }) => {
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
+        resolver={useYupValidationResolver(validationSchema)}>
         <EditForm handleClose={handleClose} id={data?.id} />
       </CustomFormProvider>
     </>

@@ -1,17 +1,16 @@
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import AboutForm from './Form';
-import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = () => {
   const defaultValues = {};
-  const classes = useStyles();
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
+        resolver={useYupValidationResolver(validationSchema)}>
         <AboutForm />
       </CustomFormProvider>
     </>

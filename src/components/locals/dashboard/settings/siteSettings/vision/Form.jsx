@@ -16,15 +16,7 @@ const VisionForm = () => {
     vision: '',
     vision_image: ''
   };
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext({ defaultValues });
-  console.log('watch', watch());
+  const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
@@ -34,29 +26,17 @@ const VisionForm = () => {
 
   useEffect(() => {
     if (site_settings) {
-      // setValue('vision_image', site_settings?.vision_image);
       setValue('vision', site_settings?.vision);
     }
-    // setValue("phone", profileState?.userData?.image);
   }, [site_settings]);
 
   const submitHandler = (data) => {
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
-
-    formdata.append('vision', data?.vision);
-    if (watch('vision_image')) {
-      if (data?.vision_image?.length > 0) {
-        formdata.append('vision_image', data?.vision_image?.[0]);
-      }
+    const formData = new FormData();
+    formData.append('vision', data?.vision);
+    if (data?.vision_image?.length > 0) {
+      formData.append('vision_image', data?.vision_image?.[0]);
     }
-    // if (data?.vision_image?.length > 0) {
-    //   formdata.append('vision_image', data?.vision_image?.[0]);
-    // }
-    console.log({ data });
-    dispatch(postSiteSettings(formdata));
-    // dispatch(postSiteSettings(data));
+    dispatch(postSiteSettings(formData));
   };
 
   return (
@@ -66,19 +46,14 @@ const VisionForm = () => {
           <Grid item sm={12}>
             <FileUploader
               title="Vision Image"
-              // control={control}
               imageText="Resolution: height: 525 x width: 500"
               name="vision_image"
               label="Select Photo"
-              setValue={setValue}
-              // errors={errors}
-              // clearErrors={clearErrors}
-              // required={true}
-              imageLink={watch('vision_image') || site_settings?.vision_image}
+              image={site_settings?.vision_image}
             />
           </Grid>
           <Grid item sm={12}>
-            <CustomTextArea name="vision" label="Vision Description" required rows={6} />
+            <CustomTextArea name="vision" label="Vision Description" required rows={15} />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

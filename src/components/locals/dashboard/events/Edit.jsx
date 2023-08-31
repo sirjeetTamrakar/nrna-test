@@ -2,65 +2,41 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useFormContext } from 'react-hook-form';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { updateEvents } from './redux/actions';
 import { useStyles } from './styles';
 
-const EditForm = ({ slug, handleClose }) => {
+const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext();
-
-  console.log('watchnnnnni', watch());
-
   const { update_events_loading } = useSelector((state) => state.events);
 
-  // const refetch = () => {
-  //   dispatch(getEvents());
-  // };
-
   const onSubmit = (data) => {
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
-
-    formdata.append('title', data?.title);
-    formdata.append('description', data?.description);
-    formdata.append('status', data?.status);
-    formdata.append('location', data?.location);
-    formdata.append('venue', data?.venue);
-    formdata.append('event_date', data?.event_date);
-    formdata.append('event_time', data?.event_time);
-    formdata.append('contact_email', data?.contact_email);
-    formdata.append('contact_phone', data?.contact_phone);
-    formdata.append('map_url', data?.map_url);
-    formdata.append('status', 'active');
-
-    formdata.append('_method', 'PUT');
-
-    if (watch('feature_image') && typeof watch('feature_image') === 'object') {
-      console.log({ filetype: typeof watch('feature_image') });
-      if (data?.feature_image?.length > 0) {
-        formdata.append('feature_image', data?.feature_image?.[0]);
-      }
+    const formData = new FormData();
+    formData.append('title', data?.title);
+    formData.append('description', data?.description);
+    formData.append('status', data?.status);
+    formData.append('location', data?.location);
+    formData.append('venue', data?.venue);
+    formData.append('event_date', data?.event_date);
+    formData.append('event_time', data?.event_time);
+    formData.append('contact_email', data?.contact_email);
+    formData.append('contact_phone', data?.contact_phone);
+    formData.append('map_url', data?.map_url);
+    formData.append('status', 'active');
+    formData.append('_method', 'PUT');
+    if (data?.feature_image?.length > 0) {
+      formData.append('feature_image', data?.feature_image?.[0]);
     }
-    console.log({ data });
-    dispatch(updateEvents(formdata, data?.slug, handleClose));
+    dispatch(updateEvents(formData, detail?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <EventForm />
+      <EventForm image={detail?.feature_image} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={update_events_loading} />
       </Box>
@@ -68,15 +44,14 @@ const EditForm = ({ slug, handleClose }) => {
   );
 };
 const Edit = ({ data, handleClose }) => {
-  const defaultValues = { ...data };
+  const defaultValues = { ...data, feature_image: '' };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
-        <EditForm slug={data?.slug} handleClose={handleClose} />
+        resolver={useYupValidationResolver(validationSchema)}>
+        <EditForm detail={data} handleClose={handleClose} />
       </CustomFormProvider>
     </>
   );

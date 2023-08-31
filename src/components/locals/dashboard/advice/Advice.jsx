@@ -9,9 +9,9 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
+import View from './View';
 import { deleteAdvice, getAdvice } from './redux/actions';
 import { useStyles } from './styles';
-import View from './View';
 
 const Advice = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,9 @@ const Advice = () => {
     dispatch(getAdvice());
   }, []);
 
-  const { adviceData, get_advice_loading } = useSelector((state) => state.advice);
+  const { adviceData, get_advice_loading, delete_advice_loading } = useSelector(
+    (state) => state.advice
+  );
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -52,7 +54,9 @@ const Advice = () => {
       title: 'Date',
       minWidth: 100,
 
-      field: 'created_at'
+      field: (row) => {
+        return changeDateFormat(row?.created_at);
+      }
     },
 
     {
@@ -71,24 +75,6 @@ const Advice = () => {
     }
   ];
 
-  const tableData = [
-    {
-      subject: 'Canada wildfires: The past 2 days in 75 seconds',
-      name: 'Bishwo Raj Raut',
-      email: 'bishowraut@gmail.com',
-      message:
-        'Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds',
-      created_at: '20-Aug-2023'
-    }
-  ];
-
-  const finalData = adviceData?.map((data) => ({
-    ...data,
-    created_at: changeDateFormat(data?.created_at)
-  }));
-
-  console.log({ finalData });
-
   const handleView = (row) => {
     setDetail(row);
     viewOpenFunction();
@@ -99,13 +85,8 @@ const Advice = () => {
     deleteOpenFunction();
   };
 
-  const refetch = () => {
-    dispatch(getAdvice());
-  };
-
   const handleConfirm = (slug) => {
-    dispatch(deleteAdvice(slug, refetch));
-    deleteOpenFunction();
+    dispatch(deleteAdvice(slug, deleteOpenFunction));
   };
 
   return (
@@ -122,7 +103,7 @@ const Advice = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={finalData}
+          tableData={adviceData}
           loading={get_advice_loading ? true : false}
         />
         <CustomModal
@@ -139,6 +120,7 @@ const Advice = () => {
           handleClose={deleteOpenFunction}
           handleConfirm={handleConfirm}
           slug={detail?.id}
+          isLoading={delete_advice_loading}
         />
       </Box>
     </>

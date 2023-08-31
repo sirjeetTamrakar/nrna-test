@@ -1,9 +1,17 @@
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object({
-  name: Yup.string().required('Please enter name'),
-  email: Yup.string().email().required('Please enter email'),
-  country_of_residence: Yup.string().required('Please enter your country of Residence'),
-  city: Yup.string(),
-  phone: Yup.number()
+  title: Yup.string().required('Please enter title'),
+  feature_image: Yup.mixed()
+    .transform((v) => (!v ? undefined : v))
+    .nullable()
+    .required('Image is required'),
+  description: Yup.string().required('Please enter description'),
+  created_by: Yup.string().required('Please select author')
+});
+
+export const editValidationSchema = Yup.object({
+  title: Yup.string().required('Please enter title'),
+  description: Yup.string().required('Please enter description'),
+  created_by: Yup.string().required('Please select author')
 });

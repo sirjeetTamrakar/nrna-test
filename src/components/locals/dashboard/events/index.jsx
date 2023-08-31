@@ -14,10 +14,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeEventsStatus, deleteEvents, getEvents } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeEventsStatus, deleteEvents, getEvents } from './redux/actions';
+import { useStyles } from './styles';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -32,8 +32,8 @@ const Events = () => {
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
 
-  const { eventsData, get_events_loading } = useSelector((state) => state.events);
-  console.log({ eventsData });
+  const { eventsData, get_events_loading, events_status_loading, delete_events_loading } =
+    useSelector((state) => state.events);
 
   useEffect(() => {
     dispatch(getEvents());
@@ -56,21 +56,21 @@ const Events = () => {
         return (
           <Box>
             <Typography variant="body2">{row?.location}</Typography>
-            <Typography variant="subtitle1">{`${row?.start_date} ${row?.event_time}`}</Typography>
+            <Typography variant="subtitle1">{`${row?.event_date} ${row?.event_time}`}</Typography>
           </Box>
         );
       }
     },
 
     {
-      title: 'Created by',
+      title: 'Created at',
       minWidth: 150,
 
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.created_by}</Typography>
-            <Typography variant="subtitle1">{row?.created_at}</Typography>
+            <Typography variant="body2">{row?.created_by?.name}</Typography>
+            <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
           </Box>
         );
       }
@@ -131,57 +131,21 @@ const Events = () => {
     }
   ];
 
-  const finalData = eventsData?.map((data) => ({
-    ...data,
-    created_at: changeDateFormat(data?.created_at),
-    created_by: data?.created_by?.name ?? '-',
-    location: data?.location ?? '-',
-    start_date: data?.start_date ?? '',
-    event_time: data?.event_time ?? ''
-    // approved_by: data?.created_by?.name ?? '-'
-  }));
-
-  console.log({ finalData });
-
-  const tableData = [
-    {
-      title: 'Conference on Sustainable Economic growth of Nepal',
-      start_date: '20-Aug-2023',
-      location: 'NCC Hall, Dillibazar',
-      time: '12 PM',
-      created_by: 'Ramesh Kharel',
-      created_at: '20-Aug-2023',
-      approved_by: 'Yogen Bahadur Chhetri'
-    },
-    {
-      title: 'Conference on Sustainable Economic growth of Nepal',
-      start_date: '20-Aug-2023',
-      location: 'NCC Hall, Dillibazar',
-      time: '12 PM',
-      created_by: 'Ramesh Kharel',
-      created_at: '20-Aug-2023',
-      approved_by: ''
-    }
-  ];
-
   const refetch = () => {
     dispatch(getEvents());
   };
 
   const handleConfirm = (slug) => {
-    dispatch(deleteEvents(slug, refetch));
-    deleteOpenFunction();
+    dispatch(deleteEvents(slug, deleteOpenFunction));
   };
 
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
       status: detail?.status === 'Active' ? 'inactive' : 'active',
-      // status: true,
       _method: 'PATCH'
     };
-    dispatch(changeEventsStatus(finalData, refetch));
-    statusOpenFunction();
+    dispatch(changeEventsStatus(finalData, statusOpenFunction));
   };
 
   const handleEdit = (row) => {
@@ -230,7 +194,7 @@ const Events = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={finalData}
+          tableData={eventsData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
@@ -270,14 +234,14 @@ const Events = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
-          // modalTitle="Delete Events"
+          isLoading={delete_events_loading}
         />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
-          status={detail?.status}
           status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
           id={detail?.slug}
+          isLoading={events_status_loading}
           handleConfirm={handleStatusConfirm}
         />
         <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />

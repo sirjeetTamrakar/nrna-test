@@ -2,60 +2,36 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useFormContext } from 'react-hook-form';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
+import { editValidationSchema } from './ValidationSchema';
 import { updateNews } from './redux/actions';
 import { useStyles } from './styles';
 
-const EditForm = ({ slug, handleClose }) => {
-  console.log('sluggggxxx', { slug });
-
+const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext();
-
-  console.log('watchnnnnni', watch());
-
   const { update_news_loading } = useSelector((state) => state.news);
 
-  // const refetch = () => {
-  //   dispatch(getNews());
-  // };
-
   const onSubmit = (data) => {
-    console.log('dssssssataxxxx', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
-
-    formdata.append('title', data?.title);
-    formdata.append('description', data?.description);
-    formdata.append('status', data?.status);
-    formdata.append('created_by', data?.created_by);
-    formdata.append('status', 'active');
-    formdata.append('_method', 'PUT');
-    if (watch('feature_image') && typeof watch('feature_image') === 'object') {
-      console.log({ filetype: typeof watch('feature_image') });
-      if (data?.feature_image?.length > 0) {
-        formdata.append('feature_image', data?.feature_image?.[0]);
-      }
+    const formData = new FormData();
+    formData.append('title', data?.title);
+    formData.append('description', data?.description);
+    formData.append('status', data?.status);
+    formData.append('created_by', data?.created_by);
+    formData.append('status', 'active');
+    formData.append('_method', 'PUT');
+    if (data?.feature_image?.length > 0) {
+      formData.append('feature_image', data?.feature_image?.[0]);
     }
-    console.log({ data });
-    // dispatch(updateNews({ ...formdata, _method: 'PUT' }, data?.slug));
-    dispatch(updateNews(formdata, data?.slug, handleClose));
+    dispatch(updateNews(formData, detail?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <NewsForm />
+      <NewsForm featureImage={detail?.feature_image} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={update_news_loading} />
       </Box>
@@ -63,16 +39,18 @@ const EditForm = ({ slug, handleClose }) => {
   );
 };
 const Edit = ({ data, handleClose }) => {
-  const defaultValues = { ...data };
-  console.log('dataaaaaaa', { data });
+  const defaultValues = {
+    title: data?.title,
+    created_by: data?.created_by?.id,
+    description: data?.description
+  };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
-        <EditForm slug={data?.slug} handleClose={handleClose} />
+        resolver={useYupValidationResolver(editValidationSchema)}>
+        <EditForm detail={data} handleClose={handleClose} />
       </CustomFormProvider>
     </>
   );

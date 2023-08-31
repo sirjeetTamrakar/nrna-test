@@ -1,9 +1,9 @@
-import { ScheduleSharp } from '@mui/icons-material';
 import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import Logout from '@mui/icons-material/Logout';
 import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import Settings from '@mui/icons-material/Settings';
+import { Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
@@ -13,23 +13,15 @@ import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import IconTooltip from 'components/common/CustomTooltips/IconTooltip';
-import moment from 'moment';
 import * as React from 'react';
-import { useEffect, useState } from 'react';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { logout } from 'redux/auth/actions';
 
 export default function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const handleColorChange = (e) => {
-    localStorage.setItem('themeColor', e.target.value);
-    // window.location.reload();
-  };
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -50,7 +42,6 @@ export default function AccountMenu() {
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
         <IconTooltip data={{ title: 'Notification', icon: <NotificationsOutlinedIcon /> }} />
         <IconTooltip data={{ title: 'Help', icon: <HelpOutlineOutlinedIcon /> }} />
-        <IconTooltip data={{ title: 'Go to Home', icon: <HomeIcon onClick={goToHome} /> }} />
 
         {/* <input type="color" onChange={(e) => handleColorChange(e)} /> */}
 
@@ -72,6 +63,12 @@ export default function AccountMenu() {
             </Avatar>
           </IconButton>
         </Tooltip>
+        <Button
+          onClick={goToHome}
+          variant="outlined"
+          sx={{ minWidth: '30px !important', padding: '20px 13px !important' }}>
+          <HomeIcon />
+        </Button>
       </Box>
       <Menu
         anchorEl={anchorEl}
@@ -127,25 +124,3 @@ export default function AccountMenu() {
     </React.Fragment>
   );
 }
-
-const TimeComponent = () => {
-  const [dateState, setDateState] = useState();
-  useEffect(() => {
-    const interval = setInterval(() => setDateState(new Date()), 1000);
-    return () => clearInterval(interval);
-  }, []);
-
-  return (
-    <Box
-      style={{
-        width: '85px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        gap: '2px'
-      }}>
-      <ScheduleSharp fontSize="small" style={{ color: '#484848' }} />
-      <span style={{ fontSize: '12px' }}>{moment(dateState).format('hh:mm A')}</span>
-    </Box>
-  );
-};

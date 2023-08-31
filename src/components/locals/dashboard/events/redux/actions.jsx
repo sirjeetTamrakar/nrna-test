@@ -35,26 +35,24 @@ export const postEvents = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteEvents =
-  (Data, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.DELETE_EVENTS_BEGIN });
+export const deleteEvents = (Data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_EVENTS_BEGIN });
 
-    try {
-      await deleteEventsApi(Data);
-      console.log('dataaa', Data);
-      refetch && refetch();
-      dispatch({
-        type: actions.DELETE_EVENTS_SUCCESS,
-        payload: ''
-      });
-      successToast('Event has been deleted');
-    } catch (error) {
-      dispatch({ type: actions.DELETE_EVENTS_ERROR });
-      console.log(error);
-      errorToast(error);
-    }
-  };
+  try {
+    await deleteEventsApi(Data);
+    dispatch({
+      type: actions.DELETE_EVENTS_SUCCESS,
+      payload: ''
+    });
+    handleSuccess && handleSuccess();
+    dispatch(getEvents());
+    successToast('Event has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_EVENTS_ERROR });
+    console.log(error);
+    errorToast(error);
+  }
+};
 
 export const updateEvents = (Data, slug, handleSuccess) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_EVENTS_BEGIN });

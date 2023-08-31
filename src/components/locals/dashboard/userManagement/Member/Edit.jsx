@@ -13,11 +13,11 @@ const EditForm = ({ handleClose }) => {
 
   const refetch = () => {
     dispatch(getAllUsers());
+    handleClose();
   };
 
   const onSubmit = (data) => {
     dispatch(updateUsers({ ...data, _method: 'PUT' }, data?.username, refetch));
-    handleClose();
   };
 
   return (

@@ -66,14 +66,14 @@ const ProfileForm = () => {
     <Box className={classes.root}>
       <CustomForm onSubmit={submitHandler}>
         <Grid container spacing={2}>
-          <Grid item sm={3}>
+          <Grid item sm={4}>
             <Typography sx={{ fontSize: '13px', color: '#666', marginLeft: '15px' }}>
               Profile Image
             </Typography>
             <Box
               sx={{
-                maxWidth: '150px',
-                maxHeight: '150px',
+                maxWidth: '250px',
+                maxHeight: '250px',
                 position: 'relative',
                 marginBottom: '20px',
                 marginLeft: '15px'
@@ -83,8 +83,8 @@ const ProfileForm = () => {
                 src={image && URL.createObjectURL(image)}
                 variant="square"
                 style={{
-                  width: '150px',
-                  height: '150px',
+                  width: '250px',
+                  height: '250px',
                   marginTop: '10px'
                 }}
               />
@@ -92,13 +92,13 @@ const ProfileForm = () => {
                 style={{
                   position: 'absolute',
                   // right: "-10px",
-                  bottom: '-10px'
+                  bottom: '-46px'
                 }}>
                 <Button
                   style={{
                     backgroundColor: '#2B6DF8',
                     color: '#fff',
-                    width: '150px'
+                    width: '250px'
                   }}
                   onClick={() => imageRef.current.click()}>
                   Upload image
@@ -113,7 +113,7 @@ const ProfileForm = () => {
               />
             </Box>
           </Grid>
-          <Grid item sm={9}>
+          <Grid item sm={8}>
             <FileUploader
               title="Profile banner image"
               // control={control}

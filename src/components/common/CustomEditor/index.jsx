@@ -1,14 +1,17 @@
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
-import { Typography } from '@mui/material';
-// import Error from 'components/UI/Form/Error';
-import { Controller } from 'react-hook-form';
+import { Box, FormHelperText, Typography } from '@mui/material';
+import { Controller, useFormContext } from 'react-hook-form';
 import style from './style';
 
-const CustomEditor = ({ name, control }) => {
+const CustomEditor = ({ name }) => {
   const classes = style();
+  const {
+    control,
+    formState: { errors }
+  } = useFormContext();
   return (
-    <>
+    <Box>
       <Controller
         name={name}
         control={control}
@@ -37,9 +40,14 @@ const CustomEditor = ({ name, control }) => {
           </div>
         )}
       />
-
-      {/* <Error>{errors?.[name]?.message}</Error> */}
-    </>
+      {errors?.[name]?.message && (
+        <FormHelperText
+          // error={true}
+          sx={{ fontSize: '10px', color: 'red', marginTop: '5px' }}>
+          {errors?.[name].message}
+        </FormHelperText>
+      )}
+    </Box>
   );
 };
 

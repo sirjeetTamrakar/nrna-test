@@ -18,15 +18,8 @@ const SettingsDataForm = () => {
     email: '',
     region_logo: ''
   };
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext({ defaultValues });
-  console.log('watchcccccc', watch());
+  const { setValue } = useFormContext({ defaultValues });
+
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
   useEffect(() => {
@@ -38,31 +31,19 @@ const SettingsDataForm = () => {
       setValue('address', site_settings?.address);
       setValue('email', site_settings?.email);
       setValue('phone', site_settings?.phone);
-      // setValue('region_logo', site_settings?.region_logo);
     }
-    // setValue("phone", profileState?.userData?.image);
   }, [site_settings]);
 
-  // console.log({watch:})
-
   const submitHandler = (data) => {
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
+    const formData = new FormData();
+    formData.append('address', data?.address);
+    formData.append('phone', data?.phone);
+    formData.append('email', data?.email);
 
-    formdata.append('address', data?.address);
-    formdata.append('phone', data?.phone);
-    formdata.append('email', data?.email);
-
-    if (watch('region_logo')) {
-      if (data?.region_logo?.length > 0) {
-        formdata.append('region_logo', data?.region_logo?.[0]);
-      }
+    if (data?.region_logo?.length > 0) {
+      formData.append('region_logo', data?.region_logo?.[0]);
     }
-
-    console.log({ data });
-    dispatch(postSiteSettings(formdata));
-    // dispatch(postSiteSettings(data));
+    dispatch(postSiteSettings(formData));
   };
   return (
     <Box className={classes.root}>
@@ -71,14 +52,9 @@ const SettingsDataForm = () => {
           <Grid item sm={12}>
             <FileUploader
               title="Site Logo"
-              // control={control}
               name="region_logo"
               label="Select Photo"
-              setValue={setValue}
-              // errors={errors}
-              // clearErrors={clearErrors}
-              // required={true}
-              imageLink={watch('region_logo') || site_settings?.region_logo}
+              image={site_settings?.region_logo}
             />
           </Grid>
           <Grid item sm={12}>
@@ -88,7 +64,7 @@ const SettingsDataForm = () => {
             <CustomInput name="email" label="Email" type="email" required />
           </Grid>
           <Grid item sm={12}>
-            <CustomInput name="phone" label="Phone" required />
+            <CustomInput name="phone" label="Phone" type="number" required />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

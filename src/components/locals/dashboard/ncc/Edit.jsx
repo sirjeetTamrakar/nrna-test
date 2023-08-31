@@ -5,35 +5,25 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch } from 'react-redux';
 import MemberForm from './Form';
-import { getNCC, updateNCC } from './redux/actions';
+import { editValidationSchema } from './ValidationSchema';
+import { updateNCC } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
-const EditForm = ({ handleClose }) => {
+const EditForm = ({ handleClose, detail }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const refetch = () => {
-    dispatch(getNCC());
-  };
   const onSubmit = (data) => {
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
-
-    formdata.append('country_name', data?.country_name);
-
+    const formData = new FormData();
+    formData.append('country_name', data?.country_name);
     if (data?.logo?.length > 0) {
-      formdata.append('logo', data?.logo[0]);
+      formData.append('logo', data?.logo[0]);
     }
-    console.log({ data });
-    dispatch(updateNCC(formdata, refetch));
-    handleClose();
-    // dispatch(postSiteSettings(data));
+    dispatch(updateNCC(formData, detail?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <MemberForm />
+      <MemberForm logo={detail?.logo} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={false} />
       </Box>
@@ -41,14 +31,14 @@ const EditForm = ({ handleClose }) => {
   );
 };
 const Edit = ({ data, handleClose }) => {
-  const defaultValues = { ...data };
+  const defaultValues = { country_name: data?.country_name };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        resolver={useYupValidationResolver(validationSchema)}>
-        <EditForm handleClose={handleClose} />
+        resolver={useYupValidationResolver(editValidationSchema)}>
+        <EditForm detail={data} handleClose={handleClose} />
       </CustomFormProvider>
     </>
   );

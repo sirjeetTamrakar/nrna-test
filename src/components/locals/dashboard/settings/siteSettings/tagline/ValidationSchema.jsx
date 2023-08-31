@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object({
-  name: Yup.string().required('Please enter name'),
-  email: Yup.string().email().required('Please enter email')
+  tagline_description: Yup.string().required('Please enter tagline'),
+  tagline_author: Yup.string().required('Please enter tagline by')
 });

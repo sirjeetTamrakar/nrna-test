@@ -2,28 +2,33 @@ import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 import { Box, Button, FormHelperText, InputLabel, Tooltip } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDropzone } from 'react-dropzone';
-import { Controller } from 'react-hook-form';
+import { Controller, useFormContext } from 'react-hook-form';
 import styles from './styles';
 
 const FileUploader = ({
   title,
   name,
-  control,
-  errors,
-  setValue,
   defaultValue = '',
   classnames = '',
   clearErrors,
-  imageLink,
   required,
   widthFull,
-  imageText
+  imageText,
+  image
 }) => {
-  const [imagePreview, setImagePreview] = useState(imageLink || '');
-
+  const {
+    watch,
+    setValue,
+    control,
+    formState: { errors }
+  } = useFormContext();
+  const imageLink = watch(name);
+  const [imagePreview, setImagePreview] = useState(image || '');
+  console.log(errors);
   useEffect(() => {
-    if (imageLink) {
-      setImagePreview(imageLink);
+    if (imageLink?.length > 0) {
+      const newImageLink = URL?.createObjectURL(imageLink?.[0]);
+      setImagePreview(newImageLink);
     }
   }, [imageLink]);
 
@@ -52,11 +57,6 @@ const FileUploader = ({
   });
 
   const classes = styles();
-
-  //   const removePreview = () => {
-  //     setImagePreview('');
-  //     setValue(name, '');
-  //   };
 
   return (
     <Box className={`${classnames} file-input`}>
@@ -113,9 +113,7 @@ const FileUploader = ({
         )}></Controller>
 
       {errors?.[name]?.message && (
-        <FormHelperText
-          // error={true}
-          sx={{ fontSize: '10px', color: 'red', marginTop: '5px' }}>
+        <FormHelperText sx={{ fontSize: '10px', color: 'red', marginTop: '5px' }}>
           {errors?.[name].message}
         </FormHelperText>
       )}

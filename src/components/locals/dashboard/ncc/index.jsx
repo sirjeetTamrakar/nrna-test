@@ -3,7 +3,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button } from '@mui/material';
-import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
@@ -14,10 +13,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { deleteNCC, getNCC } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { deleteNCC, getNCC } from './redux/actions';
+import { useStyles } from './styles';
 
 const NCC = () => {
   const dispatch = useDispatch();
@@ -25,7 +24,6 @@ const NCC = () => {
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [openStatus, statusOpenFunction] = useToggle(false);
-  const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
@@ -43,7 +41,7 @@ const NCC = () => {
       title: 'Country',
       minWidth: 100,
 
-      field: 'country'
+      field: 'country_name'
     },
     {
       title: 'Member',
@@ -57,6 +55,7 @@ const NCC = () => {
         );
       }
     },
+
     {
       title: 'Committee',
       minWidth: 100,
@@ -67,6 +66,13 @@ const NCC = () => {
             {row?.committee}
           </Button>
         );
+      }
+    },
+    {
+      title: 'Created At',
+      minWidth: 80,
+      field: (row) => {
+        return changeDateFormat(row?.created_at);
       }
     },
 
@@ -104,9 +110,8 @@ const NCC = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit Member </li>
+              <li onClick={() => handleEdit(row)}>Edit NCC </li>
               <li onClick={() => handleView(row)}>View Details</li>
-              <li onClick={() => handleApprove(row)}>Approve User</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
           </CustomPopover>
@@ -114,33 +119,8 @@ const NCC = () => {
       }
     }
   ];
-  const tableData = [
-    {
-      country: 'Nepal',
-      slug: 'nepal',
-      members: 456,
-      committee: 24,
-      status: 'Active'
-    },
-    {
-      country: 'United Kingdom',
-      slug: 'uk',
-      members: 456,
-      committee: 24,
-      status: 'Inactive'
-    }
-  ];
 
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
-  const finalData = nccData?.map((data) => ({
-    ...data,
-    created_at: changeDateFormat(data?.created_at),
-    created_by: data?.created_by?.name ?? '-',
-    country: data?.country_name ?? '-'
-    // approved_by: data?.created_by?.name ?? '-'
-  }));
-
-  console.log({ finalData, nccData });
 
   const refetch = () => {
     dispatch(getNCC());
@@ -164,11 +144,6 @@ const NCC = () => {
   const handleStatus = (row) => {
     setDetail(row);
     statusOpenFunction();
-  };
-
-  const handleApprove = (row) => {
-    setDetail(row);
-    approveOpenFunction();
   };
 
   const handleView = (row) => {
@@ -197,7 +172,7 @@ const NCC = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={finalData}
+          tableData={nccData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
@@ -227,7 +202,6 @@ const NCC = () => {
           open={openView}
           handleClose={viewOpenFunction}
           modalTitle={`NCC Details`}
-          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
@@ -237,14 +211,12 @@ const NCC = () => {
           slug={detail?.slug}
           open={openDelete}
           handleClose={deleteOpenFunction}
-          // modalTitle="Delete"
         />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status}
         />
-        <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
       </Box>
     </>
   );

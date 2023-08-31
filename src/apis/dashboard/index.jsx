@@ -65,7 +65,7 @@ export const postNCCApi = (data) => {
 
 // update ncc
 export const updateNCCApi = (data, slug) => {
-  return axiosInstance().post(`/api/ncc/${slug}`, data);
+  return axiosInstance().put(`/api/ncc/${slug}`, data);
 };
 
 // delete ncc

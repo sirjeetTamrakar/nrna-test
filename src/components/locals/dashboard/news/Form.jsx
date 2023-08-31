@@ -3,51 +3,17 @@ import CustomEditor from 'components/common/CustomEditor';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useFormContext } from 'react-hook-form';
 import { useSelector } from 'react-redux';
 import { useStyles } from './styles';
 
-const NewsForm = () => {
+const NewsForm = ({ featureImage }) => {
   const classes = useStyles();
   const { usersData } = useSelector((state) => state.auth);
-  console.log({ usersData });
 
   const createdByUsers = usersData?.map((item) => ({
     label: item?.name,
     value: item?.id
   }));
-
-  const dropData = [
-    { value: 'active', label: 'Active' },
-    { value: 'inactive', label: 'Inactive' }
-  ];
-
-  const defaultValues = {
-    status: dropData?.[0]?.value
-  };
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext({ defaultValues });
-  console.log('watch', watch());
-
-  // const { site_settings } = useSelector((state) => state.settings);
-
-  // useEffect(() => {
-  //   dispatch(getNews());
-  // }, []);
-
-  // useEffect(() => {
-  //   if (site_settings) {
-  //     setValue('vision_image', site_settings?.vision_image);
-  //     setValue('vision', site_settings?.vision);
-  //   }
-  //   // setValue("phone", profileState?.userData?.image);
-  // }, [site_settings]);
 
   return (
     <Box className={classes.root}>
@@ -55,40 +21,19 @@ const NewsForm = () => {
         <Grid item sm={12}>
           <CustomInput name="title" label="Title" required />
         </Grid>
-        {/* <Grid item sm={12}>
-          <CustomAutoComplete
-            placeholder="Level"
-            name="status"
-            label="status"
-            options={dropData ?? []}
-            required
-          />
-        </Grid> */}
+
         <Grid item sm={12}>
           <FileUploader
             title="News Image"
             imageText="Resolution: height: 1024 x width: 768"
-            // control={control}
             name="feature_image"
+            image={featureImage}
             label="Select Photo"
-            setValue={setValue}
             widthFull
-            // errors={errors}
-            // clearErrors={clearErrors}
-            // required={true}
-            imageLink={watch('feature_image') || ''}
           />
         </Grid>
         <Grid item sm={12}>
-          {/* <CustomTextArea rows={8} name="description" label="Description" /> */}
-          {/* <CustomTextArea rows={8} name="description" label="Description" /> */}
-          <CustomEditor
-            // watch={watch}
-            setValue={setValue}
-            name="description"
-            // errors={errors}
-            // control={control}
-          />
+          <CustomEditor name="description" />
         </Grid>
         <Grid item sm={12}>
           <CustomAutoComplete

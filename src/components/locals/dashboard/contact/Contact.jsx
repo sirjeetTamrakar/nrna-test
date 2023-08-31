@@ -10,8 +10,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -52,7 +52,9 @@ const Contact = () => {
       title: 'Date',
       minWidth: 100,
 
-      field: 'created_at'
+      field: (row) => {
+        return changeDateFormat(row?.created_at);
+      }
     },
 
     {
@@ -71,22 +73,6 @@ const Contact = () => {
     }
   ];
 
-  const tableData = [
-    {
-      subject: 'Canada wildfires: The past 2 days in 75 seconds',
-      name: 'Bishwo Raj Raut',
-      email: 'bishowraut@gmail.com',
-      message:
-        'Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds Canada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 secondsCanada wildfires: The past 2 days in 75 seconds',
-      created_at: '20-Aug-2023'
-    }
-  ];
-
-  const finalData = contact?.map((data) => ({
-    ...data,
-    created_at: changeDateFormat(data?.created_at)
-  }));
-
   const handleView = (row) => {
     setDetail(row);
     viewOpenFunction();
@@ -96,15 +82,6 @@ const Contact = () => {
     setDetail(row);
     deleteOpenFunction();
   };
-
-  // const refetch = () => {
-  //   dispatch(getContact());
-  // };
-
-  // const handleConfirm = (slug) => {
-  //   dispatch(deleteAdvice(slug, refetch));
-  //   deleteOpenFunction();
-  // };
 
   return (
     <>
@@ -118,12 +95,11 @@ const Contact = () => {
           }}>
           <Box>Contact</Box>
         </Box>
-        <CustomTable tableHeads={tableHeads} tableData={finalData} />
+        <CustomTable tableHeads={tableHeads} tableData={contact} loading={contact_loading} />
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
           modalTitle={`Contact Details`}
-          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />

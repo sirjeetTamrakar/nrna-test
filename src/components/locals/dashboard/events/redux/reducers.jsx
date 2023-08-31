@@ -4,7 +4,8 @@ const defaultState = {
   get_events_loading: false,
   eventsData: [],
   update_events_loading: false,
-  delete_events_loading: false
+  delete_events_loading: false,
+  events_status_loading: false
 };
 
 const eventsReducer = (state = defaultState, action) => {

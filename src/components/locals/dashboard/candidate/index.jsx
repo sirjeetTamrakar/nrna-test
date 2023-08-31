@@ -3,7 +3,6 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button, Typography } from '@mui/material';
-import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
@@ -13,10 +12,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
-import { deleteCandidate, getCandidate } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { deleteCandidate, getCandidate } from './redux/actions';
+import { useStyles } from './styles';
 
 const Candidate = () => {
   const dispatch = useDispatch();
@@ -24,7 +23,6 @@ const Candidate = () => {
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [openStatus, statusOpenFunction] = useToggle(false);
-  const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
@@ -35,7 +33,9 @@ const Candidate = () => {
     dispatch(getCandidate());
   }, []);
 
-  const { candidateData, get_candidate_loading } = useSelector((state) => state.candidate);
+  const { candidateData, get_candidate_loading, delete_candidate_loading } = useSelector(
+    (state) => state.candidate
+  );
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -47,33 +47,30 @@ const Candidate = () => {
         return (
           <Box>
             <Typography variant="body2">{row?.member?.name}</Typography>
-            {/* <Typography variant="subtitle1">{row?.created_at}</Typography> */}
           </Box>
         );
       }
     },
-    // {
-    //   title: 'Email/Phone',
-    //   minWidth: 100,
-    //   field: (row) => {
-    //     return (
-    //       <Box>
-    //         <Typography variant="body2">{row?.email}</Typography>
-    //         <Typography variant="subtitle1">{row?.phone}</Typography>
-    //       </Box>
-    //     );
-    //   }
-    // },
+    {
+      title: 'Email/Phone',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">{row?.member?.email}</Typography>
+            <Typography variant="subtitle1">{row?.member?.phone}</Typography>
+          </Box>
+        );
+      }
+    },
 
-    // {
-    //   title: 'Address',
-    //   minWidth: 100,
-    //   field: (row) => {
-    //     return (
-    //       <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
-    //     );
-    //   }
-    // },
+    {
+      title: 'Address',
+      minWidth: 100,
+      field: (row) => {
+        return <Typography variant="body2">{`${row?.member?.country_of_residence}`}</Typography>;
+      }
+    },
     {
       title: 'Designation',
       minWidth: 100,
@@ -118,9 +115,8 @@ const Candidate = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit Member </li>
+              <li onClick={() => handleEdit(row)}>Edit Candidate </li>
               <li onClick={() => handleView(row)}>View Details</li>
-              <li onClick={() => handleApprove(row)}>Approve User</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
           </CustomPopover>
@@ -128,28 +124,9 @@ const Candidate = () => {
       }
     }
   ];
-  const tableData = [
-    {
-      name: 'Bishwo Raj Raut',
-      slug: 'brraut',
-      email: 'bishowraut@gmail.com',
-      phone: '9841587582',
-      country_of_residence: 'Nepal',
-      city: 'Kathmandu',
-      created_at: '20-Aug-2023',
-      designation: 'Chairman',
-      order: '1',
-      status: 'Active'
-    }
-  ];
-
-  const refetch = () => {
-    dispatch(getCandidate());
-  };
 
   const handleConfirm = (slug) => {
-    dispatch(deleteCandidate(slug, refetch));
-    deleteOpenFunction();
+    dispatch(deleteCandidate(slug, deleteOpenFunction));
   };
 
   const handleEdit = (row) => {
@@ -165,11 +142,6 @@ const Candidate = () => {
   const handleStatus = (row) => {
     setDetail(row);
     statusOpenFunction();
-  };
-
-  const handleApprove = (row) => {
-    setDetail(row);
-    approveOpenFunction();
   };
 
   const handleView = (row) => {
@@ -238,13 +210,13 @@ const Candidate = () => {
           slug={detail?.id}
           open={openDelete}
           handleClose={deleteOpenFunction}
+          isLoading={delete_candidate_loading}
         />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status}
         />
-        <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
       </Box>
     </>
   );

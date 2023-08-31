@@ -35,33 +35,29 @@ export const postNews = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteNews =
-  (Data, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.DELETE_NEWS_BEGIN });
+export const deleteNews = (Data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_NEWS_BEGIN });
 
-    try {
-      await deleteNewsApi(Data);
-      console.log('dataaa', Data);
-      refetch && refetch();
-      dispatch({
-        type: actions.DELETE_NEWS_SUCCESS,
-        payload: ''
-      });
-      successToast('News has been deleted');
-    } catch (error) {
-      dispatch({ type: actions.DELETE_NEWS_ERROR });
-      console.log(error);
-      errorToast(error);
-    }
-  };
+  try {
+    await deleteNewsApi(Data);
+    dispatch({
+      type: actions.DELETE_NEWS_SUCCESS,
+      payload: ''
+    });
+    dispatch(getNews());
+    handleSuccess && handleSuccess();
+    successToast('News has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_NEWS_ERROR });
+    errorToast(error);
+  }
+};
 
 export const updateNews = (Data, slug, handleSuccess) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_NEWS_BEGIN });
 
   try {
     await updateNewsApi(Data, slug);
-    console.log('dataaasssssssssssss', Data);
     dispatch({
       type: actions.UPDATE_NEWS_SUCCESS,
       payload: ''
@@ -71,7 +67,6 @@ export const updateNews = (Data, slug, handleSuccess) => async (dispatch) => {
     successToast('News has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_NEWS_ERROR });
-    console.log({ error });
     errorToast(error);
   }
 };

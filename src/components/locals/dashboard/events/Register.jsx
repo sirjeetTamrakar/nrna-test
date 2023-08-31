@@ -5,9 +5,9 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postEvents } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -15,34 +15,24 @@ const Register = ({ handleClose }) => {
   const classes = useStyles();
   const { events_loading } = useSelector((state) => state.events);
 
-  // const refetch = () => {
-  //   dispatch(getEvents());
-  // };
-
   const onSubmit = (data) => {
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
+    const formData = new FormData();
 
-    formdata.append('title', data?.title);
-    formdata.append('description', data?.description);
-    formdata.append('status', 'active');
-    formdata.append('location', data?.location);
-    formdata.append('venue', data?.venue);
-    formdata.append('event_date', data?.event_date);
-    formdata.append('event_time', data?.event_time);
-    formdata.append('contact_email', data?.contact_email);
-    formdata.append('contact_phone', data?.contact_phone);
-    formdata.append('map_url', data?.map_url);
+    formData.append('title', data?.title);
+    formData.append('description', data?.description);
+    formData.append('status', 'active');
+    formData.append('location', data?.location);
+    formData.append('venue', data?.venue);
+    formData.append('event_date', data?.event_date);
+    formData.append('event_time', data?.event_time);
+    formData.append('contact_email', data?.contact_email);
+    formData.append('contact_phone', data?.contact_phone);
+    formData.append('map_url', data?.map_url);
 
     if (data?.feature_image?.length > 0) {
-      formdata.append('feature_image', data?.feature_image?.[0]);
+      formData.append('feature_image', data?.feature_image?.[0]);
     }
-    console.log({ data });
-    dispatch(postEvents(formdata, handleClose));
-
-    // alert('dsads');
-    // dispatch(postSiteSettings(data));
+    dispatch(postEvents(formData, handleClose));
   };
 
   return (

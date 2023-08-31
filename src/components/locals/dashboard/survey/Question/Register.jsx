@@ -2,36 +2,32 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useDispatch } from 'react-redux';
-import { createQuestion, getAllQuestions } from '../redux/actions';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch, useSelector } from 'react-redux';
+import { createQuestion } from '../redux/actions';
 import QuestionForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
-
-  const refetch = () => {
-    dispatch(getAllQuestions());
-  };
+  const { create_question_loading } = useSelector((state) => state.question);
 
   const onSubmit = (data) => {
-    console.log('datazzxxx', data);
-    dispatch(createQuestion(data, refetch));
-    handleClose();
+    dispatch(createQuestion(data, handleClose));
   };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
+        resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <QuestionForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Question" loading={false} />
+            <CustomButton buttonName="Create Question" loading={create_question_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

@@ -6,7 +6,7 @@ import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSiteSettings, postSiteSettings } from '../../redux/actions';
+import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
 const MissionForm = () => {
@@ -16,47 +16,24 @@ const MissionForm = () => {
     mission: '',
     mission_image: ''
   };
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext({ defaultValues });
-  console.log('watch', watch());
+  const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
   useEffect(() => {
-    dispatch(getSiteSettings());
-  }, []);
-
-  useEffect(() => {
     if (site_settings) {
-      // setValue('mission_image', site_settings?.mission_image);
       setValue('mission', site_settings?.mission);
     }
-    // setValue("phone", profileState?.userData?.image);
   }, [site_settings]);
 
   const submitHandler = (data) => {
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
+    const formData = new FormData();
 
-    formdata.append('mission', data?.mission);
-    if (watch('mission_image')) {
-      if (data?.mission_image?.length > 0) {
-        formdata.append('mission_image', data?.mission_image?.[0]);
-      }
+    formData.append('mission', data?.mission);
+    if (data?.mission_image?.length > 0) {
+      formData.append('mission_image', data?.mission_image?.[0]);
     }
-    // if (data?.mission_image?.length > 0) {
-    //   formdata.append('mission_image', data?.mission_image?.[0]);
-    // }
-    console.log({ data });
-    dispatch(postSiteSettings(formdata));
-    // dispatch(postSiteSettings(data));
+    dispatch(postSiteSettings(formData));
   };
 
   return (
@@ -66,19 +43,14 @@ const MissionForm = () => {
           <Grid item sm={12}>
             <FileUploader
               title="Mission Image"
-              // control={control}
               imageText="Resolution: height: 525 x width: 500"
               name="mission_image"
               label="Select Photo"
-              setValue={setValue}
-              // errors={errors}
-              // clearErrors={clearErrors}
-              // required={true}
-              imageLink={watch('mission_image') || site_settings?.mission_image}
+              image={site_settings?.mission_image}
             />
           </Grid>
           <Grid item sm={12}>
-            <CustomTextArea name="mission" label="Mission Description" required rows={6} />
+            <CustomTextArea name="mission" label="Mission Description" required rows={15} />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

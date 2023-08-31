@@ -1,12 +1,9 @@
 import { Box, Grid } from '@mui/material';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useFormContext } from 'react-hook-form';
 import { useStyles } from './styles';
 
 const QuestionForm = () => {
   const classes = useStyles();
-  const { watch } = useFormContext();
-  console.log('watch', watch());
 
   return (
     <Box className={classes.root}>
@@ -16,11 +13,7 @@ const QuestionForm = () => {
         </Grid>
         {[...Array(4)?.keys()]?.map((list) => (
           <Grid item sm={12} key={list}>
-            <CustomInput
-              name={`options.${list}`}
-              label={`Option ${list + 1}`}
-              required={list < 2}
-            />
+            <CustomInput name={`options.${list}`} label={`Option ${list + 1}`} />
           </Grid>
         ))}
       </Grid>

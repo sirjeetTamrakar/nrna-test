@@ -6,7 +6,7 @@ import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSiteSettings, postSiteSettings } from '../../redux/actions';
+import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
 const TaglineForm = () => {
@@ -16,25 +16,11 @@ const TaglineForm = () => {
     tagline_author: '',
     tagline_description: ''
   };
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext({ defaultValues });
-  console.log('watch', watch());
+  const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
 
-  useEffect(() => {
-    dispatch(getSiteSettings());
-  }, []);
-
   const submitHandler = (data) => {
-    // alert('asdas');
-    console.log({ data });
     dispatch(postSiteSettings(data));
   };
 
@@ -43,7 +29,6 @@ const TaglineForm = () => {
       setValue('tagline_author', site_settings?.tagline_author);
       setValue('tagline_description', site_settings?.tagline_description);
     }
-    // setValue("phone", profileState?.userData?.image);
   }, [site_settings]);
 
   return (
@@ -59,12 +44,9 @@ const TaglineForm = () => {
               name="tagline_description"
               label="Tagline Description"
               required
-              rows={6}
+              rows={2}
             />
           </Grid>
-          {/* <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={false} />
-          </Box> */}
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
               <CustomButton buttonName="Submit" loading={site_settings_loading} />

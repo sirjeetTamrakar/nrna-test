@@ -2,45 +2,37 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useDispatch } from 'react-redux';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch, useSelector } from 'react-redux';
 import NCCForm from './Form';
-import { getNCC, postNCC } from './redux/actions';
+import { validationSchema } from './ValidationSchema';
+import { postNCC } from './redux/actions';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
+  const { ncc_loading } = useSelector((state) => state.ncc);
 
-  const refetch = () => {
-    dispatch(getNCC());
-  };
   const onSubmit = (data) => {
-    console.log('data', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
-
-    formdata.append('country_name', data?.country_name);
-
+    const formData = new FormData();
+    formData.append('country_name', data?.country_name);
     if (data?.logo?.length > 0) {
-      formdata.append('logo', data?.logo[0]);
+      formData.append('logo', data?.logo[0]);
     }
-    console.log({ data });
-    dispatch(postNCC(formdata, refetch));
-    handleClose();
-    // dispatch(postSiteSettings(data));
+    dispatch(postNCC(formData, handleClose));
   };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
+        resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <NCCForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create NCC" loading={false} />
+            <CustomButton buttonName="Create NCC" loading={ncc_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

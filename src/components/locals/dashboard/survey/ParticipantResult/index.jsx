@@ -74,7 +74,10 @@ const ParticipantResult = () => {
               style={{ cursor: 'pointer', color: '#2196f3' }}
               onClick={() => navigate(-1)}
             />
-            Participant Survey Result of {name}
+            Participant Survey Result of{' '}
+            <Typography color="primary" fontWeight="600">
+              {name}
+            </Typography>
           </Box>
         </Box>
         <CustomTable

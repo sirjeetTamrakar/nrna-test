@@ -83,26 +83,20 @@ const Questions = () => {
     }
   ];
 
-  const { questions, questions_loading } = useSelector((state) => state.question);
-
-  const refetch = () => {
-    dispatch(getAllQuestions());
-  };
+  const { questions, questions_loading, question_status_loading, delete_question_loading } =
+    useSelector((state) => state.question);
 
   const handleConfirm = (slug) => {
-    dispatch(deleteQuestion(slug, refetch));
-    deleteOpenFunction();
+    dispatch(deleteQuestion(slug, deleteOpenFunction));
   };
 
   const handleStatusConfirm = (slug) => {
     const finalData = {
       question_id: slug,
       status: detail?.status === '0' ? true : false,
-      // status: false,
       _method: 'PATCH'
     };
-    dispatch(changeStatus(finalData, refetch));
-    statusOpenFunction();
+    dispatch(changeStatus(finalData, statusOpenFunction));
   };
 
   const handleEdit = (row) => {
@@ -175,7 +169,7 @@ const Questions = () => {
           open={openDelete}
           handleClose={deleteOpenFunction}
           slug={detail?.id}
-          // modalTitle="Delete Question"
+          isLoading={delete_question_loading}
         />
         <CustomStatusModal
           open={openStatus}
@@ -183,6 +177,7 @@ const Questions = () => {
           status={detail?.status === '1' ? 'Active' : 'Inactive'}
           modalTitle="Change status"
           id={detail?.id}
+          isLoading={question_status_loading}
           handleConfirm={handleStatusConfirm}
         />
       </Box>

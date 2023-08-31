@@ -1,31 +1,13 @@
 import { Box, Grid } from '@mui/material';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
-import { useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from 'react-redux';
-import { getCountries } from './redux/actions';
+import { useSelector } from 'react-redux';
 import { useStyles } from './styles';
 
-const NCCForm = () => {
+const NCCForm = ({ logo }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useForm({});
-  console.log('watch', watch());
 
-  useEffect(() => {
-    dispatch(getCountries());
-  }, []);
-
-  const { nccData, countries_list } = useSelector((state) => state.ncc);
-  console.log({ nccData, countries_list });
+  const { countries_list } = useSelector((state) => state.ncc);
 
   const countryList = countries_list?.map((item, index) => ({
     label: item,
@@ -41,20 +23,16 @@ const NCCForm = () => {
             label="Country Name"
             options={countryList ?? []}
             required
-          />{' '}
+          />
         </Grid>
         <Grid item sm={12}>
           <FileUploader
             title="NCC Logo"
-            // control={control}
             name="logo"
             label="Select Logo"
-            setValue={setValue}
             widthFull
-            // errors={errors}
-            // clearErrors={clearErrors}
-            // required={true}
-            imageLink={watch('logo') || ''}
+            required
+            image={logo}
           />
         </Grid>
       </Grid>

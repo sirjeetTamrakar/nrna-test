@@ -2,36 +2,32 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { useDispatch } from 'react-redux';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch, useSelector } from 'react-redux';
 import CandidateForm from './Form';
-import { getCandidate, postCandidate } from './redux/actions';
+import { validationSchema } from './ValidationSchema';
+import { postCandidate } from './redux/actions';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
-
-  const refetch = () => {
-    dispatch(getCandidate());
-  };
+  const { candidate_loading } = useSelector((state) => state.candidate);
 
   const onSubmit = (data) => {
-    console.log('data', data);
-    dispatch(postCandidate(data, refetch));
-    handleClose();
+    dispatch(postCandidate(data, handleClose));
   };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // resolver={useYupValidationResolver(validationSchema)}
-      >
+        resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <CandidateForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Candidate" loading={false} />
+            <CustomButton buttonName="Create Candidate" loading={candidate_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

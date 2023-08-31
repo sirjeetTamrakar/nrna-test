@@ -14,10 +14,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
+import { useStyles } from './styles';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -31,10 +31,10 @@ const News = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const classes = useStyles();
-  console.log('detailssssss', { detail });
 
-  const { newsData, get_news_loading } = useSelector((state) => state.news);
-  console.log({ newsData });
+  const { newsData, get_news_loading, news_status_loading, delete_news_loading } = useSelector(
+    (state) => state.news
+  );
 
   useEffect(() => {
     dispatch(getNews());
@@ -54,8 +54,8 @@ const News = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.created_by}</Typography>
-            <Typography variant="subtitle1">{row?.created_at}</Typography>
+            <Typography variant="body2">{row?.created_by?.name}</Typography>
+            <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
           </Box>
         );
       }
@@ -114,60 +114,17 @@ const News = () => {
     }
   ];
 
-  // const finalData = [
-  //   {
-  //     title: newsData?.map((item) => item?.title)
-  //     // slug: 'a_meteor_shower',
-  //     // created_by: 'Bishwo Raj Raut',
-  //     // created_at: '20-Aug-2023',
-  //     // approved_by: 'Yogen Bahadur Chhetri'
-  //   }
-  // ];
-
-  const finalData = newsData?.map((data) => ({
-    ...data,
-    created_at: changeDateFormat(data?.created_at),
-    created_by: data?.created_by?.name ?? '-'
-    // approved_by: data?.created_by?.name ?? '-'
-  }));
-
-  console.log({ finalData, newsData });
-
-  // const tableData = [
-  //   {
-  //     title: 'A meteor shower and a satellite train caught on camera',
-  //     slug: 'a_meteor_shower',
-  //     created_by: 'Bishwo Raj Raut',
-  //     created_at: '20-Aug-2023',
-  //     approved_by: 'Yogen Bahadur Chhetri'
-  //   },
-  //   {
-  //     title: 'A meteor shower and a satellite train caught on camera',
-  //     slug: 'a_meteor_shower',
-  //     created_by: 'Bishwo Raj Raut',
-  //     created_at: '20-Aug-2023',
-  //     approved_by: ''
-  //   }
-  // ];
-
-  const refetch = () => {
-    dispatch(getNews());
-  };
-
   const handleConfirm = (slug) => {
-    dispatch(deleteNews(slug, refetch));
-    deleteOpenFunction();
+    dispatch(deleteNews(slug, deleteOpenFunction));
   };
 
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
       status: detail?.status === 'Active' ? 'inactive' : 'active',
-      // status: true,
       _method: 'PATCH'
     };
-    dispatch(changeNewsStatus(finalData, refetch));
-    statusOpenFunction();
+    dispatch(changeNewsStatus(finalData, statusOpenFunction));
   };
 
   const handleEdit = (row) => {
@@ -216,7 +173,7 @@ const News = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={finalData}
+          tableData={newsData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
@@ -232,7 +189,6 @@ const News = () => {
           icon={<PersonAddIcon />}
           width={`60rem`}>
           <Register handleClose={formOpenFunction} />
-          {/* <Modalll /> */}
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -247,7 +203,6 @@ const News = () => {
           open={openView}
           handleClose={viewOpenFunction}
           modalTitle="News Details"
-          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
@@ -256,13 +211,13 @@ const News = () => {
           handleConfirm={handleConfirm}
           slug={detail?.slug}
           open={openDelete}
+          isLoading={delete_news_loading}
           handleClose={deleteOpenFunction}
-          // modalTitle="Delete News"
         />
         <CustomStatusModal
           open={openStatus}
+          isLoading={news_status_loading}
           handleClose={statusOpenFunction}
-          status={detail?.status}
           status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
           id={detail?.slug}
           handleConfirm={handleStatusConfirm}

@@ -74,7 +74,12 @@ export default Results;
 const ChildComponent = ({ row }) => {
   const classes = useStyles();
   const getPercentage = (count) => {
-    return ((count / row?.total) * 100)?.toFixed(2) ?? 0;
+    if (row?.total) {
+      const calculatedValue = (count / row?.total) * 100;
+      return calculatedValue?.toFixed(2);
+    } else {
+      return 0;
+    }
   };
   return (
     <Box className={classes.childRoot}>

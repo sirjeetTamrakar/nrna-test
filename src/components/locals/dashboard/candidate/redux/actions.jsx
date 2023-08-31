@@ -19,61 +19,53 @@ export const getCandidate = () => (dispatch) => {
     });
 };
 
-export const postCandidate =
-  (data, handleSuccess, refetch = () => {}) =>
-  (dispatch) => {
-    dispatch({ type: actions.POST_CANDIDATE_BEGIN });
-    postCandidateApi(data)
-      .then((res) => {
-        dispatch({ type: actions.POST_CANDIDATE_SUCCESS });
-        successToast('Your message sent successfully');
-        handleSuccess && handleSuccess();
-        refetch && refetch();
-      })
-      .catch((error) => {
-        errorToast(error);
-        dispatch({ type: actions.POST_CANDIDATE_ERROR });
-      });
-  };
-
-export const deleteCandidate =
-  (Data, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.DELETE_CANDIDATE_BEGIN });
-
-    try {
-      await deleteCandidateApi(Data);
-      console.log('dataaa', Data);
-      refetch && refetch();
-      dispatch({
-        type: actions.DELETE_CANDIDATE_SUCCESS,
-        payload: ''
-      });
-      successToast('Candidate has been deleted');
-    } catch (error) {
-      dispatch({ type: actions.DELETE_CANDIDATE_ERROR });
-      console.log(error);
+export const postCandidate = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_CANDIDATE_BEGIN });
+  postCandidateApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_CANDIDATE_SUCCESS });
+      successToast('Your message sent successfully');
+      dispatch(getCandidate());
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
       errorToast(error);
-    }
-  };
+      dispatch({ type: actions.POST_CANDIDATE_ERROR });
+    });
+};
 
-export const updateCandidate =
-  (Data, slug, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.UPDATE_CANDIDATE_BEGIN });
+export const deleteCandidate = (Data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_CANDIDATE_BEGIN });
 
-    try {
-      await updateCandidateApi(Data, slug);
-      refetch && refetch();
-      console.log('dataaasssssssssssss', Data);
-      dispatch({
-        type: actions.UPDATE_CANDIDATE_SUCCESS,
-        payload: ''
-      });
-      successToast('Candidate has been updated');
-    } catch (error) {
-      dispatch({ type: actions.UPDATE_CANDIDATE_ERROR });
-      console.log({ error });
-      errorToast(error);
-    }
-  };
+  try {
+    await deleteCandidateApi(Data);
+    console.log('dataaa', Data);
+    handleSuccess && handleSuccess();
+    dispatch({
+      type: actions.DELETE_CANDIDATE_SUCCESS,
+      payload: ''
+    });
+    dispatch(getCandidate());
+    successToast('Candidate has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_CANDIDATE_ERROR });
+    errorToast(error);
+  }
+};
+
+export const updateCandidate = (Data, slug, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.UPDATE_CANDIDATE_BEGIN });
+
+  try {
+    await updateCandidateApi(Data, slug);
+    handleSuccess && handleSuccess();
+    dispatch({
+      type: actions.UPDATE_CANDIDATE_SUCCESS
+    });
+    dispatch(getCandidate());
+    successToast('Candidate has been updated');
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_CANDIDATE_ERROR });
+    errorToast(error);
+  }
+};

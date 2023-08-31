@@ -1,6 +1,7 @@
 import ActiveDashboardIcon from 'assets/activeIcons/dashboard.svg';
 import ActiveSettingsIcon from 'assets/activeIcons/settings.svg';
 import Advice from 'assets/icon/advice.svg';
+import Business from 'assets/icon/business.svg';
 import Candidate from 'assets/icon/candidate.svg';
 import Contact from 'assets/icon/contact.svg';
 import DashboardIcon from 'assets/icon/dashboard.svg';
@@ -114,6 +115,22 @@ export const SidebarConstants = [
           {
             label: 'Participants',
             url: '/dashboard/survey/participants'
+          }
+        ]
+      },
+      {
+        label: 'Business',
+        url: '/dashboard/business',
+        icon: Business,
+        activeIcon: ActiveSettingsIcon,
+        children: [
+          {
+            label: 'Category',
+            url: '/dashboard/business/category'
+          },
+          {
+            label: 'Business',
+            url: '/dashboard/business'
           }
         ]
       },

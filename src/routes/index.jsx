@@ -1,5 +1,5 @@
 import MainLayout from 'layouts/dashboardLayout';
-import Dashboard from 'pages/private/dashboard';
+import Dashboard from 'pages/private';
 import NotFound from 'pages/public/misc/NotFound';
 import { Route, Routes } from 'react-router-dom';
 import AuthRoutes from './authRoutes';
