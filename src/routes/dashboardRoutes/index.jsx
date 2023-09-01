@@ -15,7 +15,6 @@ import QuestionsPage from 'pages/private/Questions';
 import ResultsPage from 'pages/private/ResultsPage';
 import SiteSettingsPage from 'pages/private/SiteSettings';
 import BusinessPage from 'pages/private/business';
-import BusinessProfilePage from 'pages/private/business/BusinessProfile';
 import CategoryPage from 'pages/private/business/Category';
 
 const DashboardRoutes = [
@@ -130,14 +129,6 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <BusinessPage />
-      </Protected>
-    )
-  },
-  {
-    path: 'business/:business_id',
-    component: (
-      <Protected>
-        <BusinessProfilePage />
       </Protected>
     )
   },

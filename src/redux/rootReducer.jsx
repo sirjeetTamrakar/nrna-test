@@ -1,5 +1,6 @@
 /* eslint-disable */
 import adviceReducer from 'components/locals/dashboard/advice/redux/reducers';
+import businessReducer from 'components/locals/dashboard/business/redux/reducers';
 import candidateReducer from 'components/locals/dashboard/candidate/redux/reducers';
 import eventsReducer from 'components/locals/dashboard/events/redux/reducers';
 import nccReducer from 'components/locals/dashboard/ncc/redux/reducers';
@@ -25,5 +26,6 @@ export default combineReducers({
   advice: adviceReducer,
   teams: teamsReducer,
   candidate: candidateReducer,
-  banner: bannerReducer
+  banner: bannerReducer,
+  business: businessReducer
 });

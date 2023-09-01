@@ -1,9 +1,9 @@
-import Business from 'components/locals/dashboard/business';
+import Profile from 'components/locals/dashboard/business/profile';
 
 const BusinessPage = () => {
   return (
     <>
-      <Business />
+      <Profile />
     </>
   );
 };
