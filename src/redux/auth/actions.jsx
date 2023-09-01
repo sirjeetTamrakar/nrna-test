@@ -1,4 +1,4 @@
-import { forgotPasswordApi, getUsersApi, loginApi, registerApi, resetPasswordApi } from 'apis/auth';
+import { forgotPasswordApi, loginApi, registerApi, resetPasswordApi } from 'apis/auth';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -97,17 +97,5 @@ export const registerUser = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.REGISTER_USER_ERROR });
-    });
-};
-
-export const getUsers = () => (dispatch) => {
-  dispatch({ type: actions.GET_USERS_BEGIN });
-  getUsersApi()
-    .then((res) => {
-      dispatch({ type: actions.GET_USERS_SUCCESS, payload: res.data.data });
-    })
-    .catch((error) => {
-      errorToast(error);
-      dispatch({ type: actions.GET_USERS_ERROR });
     });
 };

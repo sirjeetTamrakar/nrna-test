@@ -16,6 +16,7 @@ import ResultsPage from 'pages/private/ResultsPage';
 import SiteSettingsPage from 'pages/private/SiteSettings';
 import BusinessPage from 'pages/private/business';
 import CategoryPage from 'pages/private/business/Category';
+import BusinessContactPage from 'pages/private/business/Contact';
 
 const DashboardRoutes = [
   {
@@ -129,6 +130,14 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <BusinessPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'business/contact',
+    component: (
+      <Protected>
+        <BusinessContactPage />
       </Protected>
     )
   },

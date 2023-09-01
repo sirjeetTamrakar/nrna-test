@@ -1,9 +1,9 @@
 import { Box, Divider } from '@mui/material';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
+import { getAllUsers } from 'components/locals/dashboard/userManagement/redux/actions';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
-import { getUsers } from 'redux/auth/actions';
 import Navbar from './navbar';
 import Sidebar from './sidebar';
 import useStyles from './styles';
@@ -12,7 +12,7 @@ const MainLayout = () => {
   const classes = useStyles();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getUsers());
+    dispatch(getAllUsers());
     dispatch(getCountries());
   }, []);
   return (

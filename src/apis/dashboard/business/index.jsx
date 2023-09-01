@@ -2,50 +2,55 @@ import { axiosInstance } from 'apis/_axios';
 
 // get category
 export const getCategoryApi = () => {
-  return axiosInstance().get('/api/category');
+  return axiosInstance().get('/admin/category');
 };
 
 // post category
 export const postCategoryApi = (data) => {
-  return axiosInstance().post('/api/category', data);
+  return axiosInstance().post('/admin/category', data);
 };
 
 // update category
 export const updateCategoryApi = (data, slug) => {
-  return axiosInstance().post(`/api/category/${slug}`, data);
+  return axiosInstance().post(`/admin/category/${slug}`, data);
 };
 
 // delete category
 export const deleteCategoryApi = (data) => {
-  return axiosInstance().delete(`/api/category/${data}`);
+  return axiosInstance().delete(`/admin/category/${data}`);
 };
 
 // change category status
 export const changeCategoryStatusApi = (data) => {
-  return axiosInstance().post(`/api/category/${data?.slug}/status`, data);
+  return axiosInstance().post(`/admin/category/${data?.slug}/status`, data);
 };
 
 // get business
 export const getBusinessApi = () => {
-  return axiosInstance().get('/api/business');
+  return axiosInstance().get('/admin/business');
 };
 
 // post business
 export const postBusinessApi = (data) => {
-  return axiosInstance().post('/api/business', data);
+  return axiosInstance().post('/admin/business', data);
 };
 
 // update business
 export const updateBusinessApi = (data, slug) => {
-  return axiosInstance().post(`/api/business/${slug}`, data);
+  return axiosInstance().post(`/admin/business/${slug}`, data);
 };
 
 // delete business
 export const deleteBusinessApi = (data) => {
-  return axiosInstance().delete(`/api/business/${data}`);
+  return axiosInstance().delete(`/admin/business/${data}`);
 };
 
 // change business status
 export const changeBusinessStatusApi = (data) => {
-  return axiosInstance().post(`/api/business/${data?.slug}/status`, data);
+  return axiosInstance().post(`/admin/business/${data?.slug}/status`, data);
+};
+
+// get business contact
+export const getBusinessContactApi = () => {
+  return axiosInstance().get('/admin/business/contact');
 };

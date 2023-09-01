@@ -10,11 +10,6 @@ export const registerApi = (data) => {
   return axiosInstance().post(`/api/users`, data);
 };
 
-// g0et users
-export const getUsersApi = () => {
-  return axiosInstance().get('/api/users');
-};
-
 // signup data format = { email: string}
 export const forgotPasswordApi = (data) => {
   return axiosInstance().post('/api/forgot-password', data);

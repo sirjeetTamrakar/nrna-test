@@ -3,179 +3,179 @@ import { axiosInstance } from 'apis/_axios';
 // NEWS---------------->
 // get news
 export const getNewsApi = () => {
-  return axiosInstance().get('/api/news');
+  return axiosInstance().get('/admin/news');
 };
 
 // post news
 export const postNewsApi = (data) => {
-  return axiosInstance().post('/api/news', data);
+  return axiosInstance().post('/admin/news', data);
 };
 
 // update news
 export const updateNewsApi = (data, slug) => {
-  return axiosInstance().post(`/api/news/${slug}`, data);
+  return axiosInstance().post(`/admin/news/${slug}`, data);
 };
 
 // delete news
 export const deleteNewsApi = (data) => {
-  return axiosInstance().delete(`/api/news/${data}`);
+  return axiosInstance().delete(`/admin/news/${data}`);
 };
 
 // change news status
 export const changeNewsStatusApi = (data) => {
-  return axiosInstance().post(`/api/news/${data?.slug}/status`, data);
+  return axiosInstance().post(`/admin/news/${data?.slug}/status`, data);
 };
 
 // EVENTS------------------>
 // get events
 export const getEventsApi = () => {
-  return axiosInstance().get('/api/events');
+  return axiosInstance().get('/admin/events');
 };
 
 // post events
 export const postEventsApi = (data) => {
-  return axiosInstance().post('/api/events', data);
+  return axiosInstance().post('/admin/events', data);
 };
 
 // update events
 export const updateEventsApi = (data, slug) => {
-  return axiosInstance().post(`/api/events/${slug}`, data);
+  return axiosInstance().post(`/admin/events/${slug}`, data);
 };
 
 // delete events
 export const deleteEventsApi = (data) => {
-  return axiosInstance().delete(`/api/events/${data}`);
+  return axiosInstance().delete(`/admin/events/${data}`);
 };
 
 // change events status
 export const changeEventsStatusApi = (data) => {
-  return axiosInstance().post(`/api/events/${data?.slug}/status`, data);
+  return axiosInstance().post(`/admin/events/${data?.slug}/status`, data);
 };
 
 // NCC------------------>
 // get ncc
 export const getNCCApi = () => {
-  return axiosInstance().get('/api/ncc');
+  return axiosInstance().get('/admin/ncc');
 };
 
 // post ncc
 export const postNCCApi = (data) => {
-  return axiosInstance().post('/api/ncc', data);
+  return axiosInstance().post('/admin/ncc', data);
 };
 
 // update ncc
 export const updateNCCApi = (data, slug) => {
-  return axiosInstance().put(`/api/ncc/${slug}`, data);
+  return axiosInstance().put(`/admin/ncc/${slug}`, data);
 };
 
 // delete ncc
 export const deleteNCCApi = (data) => {
-  return axiosInstance().delete(`/api/ncc/${data}`);
+  return axiosInstance().delete(`/admin/ncc/${data}`);
 };
 
 // SETTINGS------------------>
 // get site settings
 export const getSiteSettingsApi = () => {
-  return axiosInstance().get('/api/site-settings');
+  return axiosInstance().get('/admin/site-settings');
 };
 
 // post site settings
 export const postSiteSettingsApi = (data) => {
-  return axiosInstance().post(`/api/site-settings`, data);
+  return axiosInstance().post(`/admin/site-settings`, data);
 };
 
 // COUNTRIES LIST
 // get countries list
 export const getCountriesApi = () => {
-  return axiosInstance().get(`/api/countries`);
+  return axiosInstance().get(`/admin/countries`);
 };
 
 // ADVICE---------------->
 // get advice
 export const getAdviceApi = () => {
-  return axiosInstance().get('/api/advices');
+  return axiosInstance().get('/admin/advices');
 };
 
 // post advice
 export const postAdviceApi = (data) => {
-  return axiosInstance().post('/api/advices', data);
+  return axiosInstance().post('/admin/advices', data);
 };
 
 // delete advice
 export const deleteAdviceApi = (data) => {
-  return axiosInstance().delete(`/api/advices/${data}`);
+  return axiosInstance().delete(`/admin/advices/${data}`);
 };
 
 // OUR TEAMS---------------->
 // get our teams
 export const getTeamsApi = () => {
-  return axiosInstance().get('/api/our-teams');
+  return axiosInstance().get('/admin/our-teams');
 };
 
 // post our teams
 export const postTeamsApi = (data) => {
-  return axiosInstance().post('/api/our-teams', data);
+  return axiosInstance().post('/admin/our-teams', data);
 };
 
 // update our teams
 export const updateTeamsApi = (data, slug) => {
-  return axiosInstance().post(`/api/our-teams/${slug}`, data);
+  return axiosInstance().post(`/admin/our-teams/${slug}`, data);
 };
 
 // delete our teams
 export const deleteTeamsApi = (data) => {
-  return axiosInstance().delete(`/api/our-teams/${data}`);
+  return axiosInstance().delete(`/admin/our-teams/${data}`);
 };
 
 // CANDIDATE---------------->
 // get candidate
 export const getCandidateApi = () => {
-  return axiosInstance().get('/api/ncc-candidates');
+  return axiosInstance().get('/admin/ncc-candidates');
 };
 
 // post candidate
 export const postCandidateApi = (data) => {
-  return axiosInstance().post('/api/ncc-candidates', data);
+  return axiosInstance().post('/admin/ncc-candidates', data);
 };
 
 // update candidate
 export const updateCandidateApi = (data, slug) => {
-  return axiosInstance().post(`/api/ncc-candidates/${slug}`, data);
+  return axiosInstance().post(`/admin/ncc-candidates/${slug}`, data);
 };
 
 // delete candidate
 export const deleteCandidateApi = (data) => {
-  return axiosInstance().delete(`/api/ncc-candidates/${data}`);
+  return axiosInstance().delete(`/admin/ncc-candidates/${data}`);
 };
 
 // PROFILE------------------>
 // get profile
 export const getProfileApi = () => {
-  return axiosInstance().get('/api/profile');
+  return axiosInstance().get('/admin/profile');
 };
 
 // post profile
 export const postProfileApi = (data) => {
-  return axiosInstance().post(`/api/profile`, data);
+  return axiosInstance().post(`/admin/profile`, data);
 };
 
 // BANNER---------------->
 // get banner
 export const getBannerApi = () => {
-  return axiosInstance().get('/api/banners');
+  return axiosInstance().get('/admin/banners');
 };
 
 // post banner
 export const postBannerApi = (data) => {
-  return axiosInstance().post('/api/banners', data);
+  return axiosInstance().post('/admin/banners', data);
 };
 
 // update banner
 export const updateBannerApi = (data, slug) => {
-  return axiosInstance().post(`/api/banners/${slug}`, data);
+  return axiosInstance().post(`/admin/banners/${slug}`, data);
 };
 
 // delete banner
 export const deleteBannerApi = (data) => {
-  return axiosInstance().delete(`/api/banners/${data}`);
+  return axiosInstance().delete(`/admin/banners/${data}`);
 };

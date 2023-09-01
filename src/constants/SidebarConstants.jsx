@@ -131,6 +131,10 @@ export const SidebarConstants = [
           {
             label: 'Business',
             url: '/dashboard/business'
+          },
+          {
+            label: 'Contact',
+            url: '/dashboard/business/contact'
           }
         ]
       },

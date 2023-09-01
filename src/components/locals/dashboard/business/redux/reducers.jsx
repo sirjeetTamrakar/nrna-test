@@ -11,7 +11,9 @@ const defaultState = {
   businessData: [],
   delete_business_loading: false,
   update_business_loading: false,
-  business_status_loading: false
+  business_status_loading: false,
+  contact: [],
+  contact_loading: false
 };
 
 const businessReducer = (state = defaultState, action) => {
@@ -107,6 +109,15 @@ const businessReducer = (state = defaultState, action) => {
     case actions.CHANGE_BUSINESS_STATUS_SUCCESS:
     case actions.CHANGE_BUSINESS_STATUS_ERROR:
       return { ...state, business_status_loading: false };
+
+    case actions.GET_CONTACT_BEGIN:
+      return { ...state, contact_loading: true };
+
+    case actions.GET_CONTACT_SUCCESS:
+      return { ...state, contact: action.payload, contact_loading: false };
+
+    case actions.GET_CONTACT_ERROR:
+      return { ...state, contact_loading: false };
 
     default:
       return state;

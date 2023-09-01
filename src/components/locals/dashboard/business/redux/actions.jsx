@@ -3,6 +3,7 @@ import {
   changeCategoryStatusApi,
   deleteBusinessApi,
   deleteCategoryApi,
+  getBusinessContactApi,
   getCategoryApi,
   // getBusinessApi,
   postBusinessApi,
@@ -166,5 +167,17 @@ export const changeBusinessStatus = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.CHANGE_BUSINESS_STATUS_ERROR });
+    });
+};
+
+// get business contact
+export const getBusinessContact = () => (dispatch) => {
+  dispatch({ type: actions.GET_CONTACT_BEGIN });
+  getBusinessContactApi()
+    .then((res) => {
+      dispatch({ type: actions.GET_CONTACT_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      dispatch({ type: actions.GET_CONTACT_ERROR });
     });
 };
