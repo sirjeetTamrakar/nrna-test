@@ -1,4 +1,10 @@
-import { deleteBannerApi, getBannerApi, postBannerApi, updateBannerApi } from 'apis/dashboard';
+import {
+  deleteBannerApi,
+  getBannerApi,
+  postBannerApi,
+  updateBannerApi,
+  updateBannerStatusApi
+} from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -29,44 +35,51 @@ export const postBanner = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteBanner =
-  (Data, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.DELETE_BANNER_BEGIN });
+export const deleteBanner = (banner_id, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_BANNER_BEGIN });
 
-    try {
-      await deleteBannerApi(Data);
-      console.log('dataaa', Data);
-      refetch && refetch();
-      dispatch({
-        type: actions.DELETE_BANNER_SUCCESS,
-        payload: ''
-      });
-      successToast('Banner has been deleted');
-    } catch (error) {
-      dispatch({ type: actions.DELETE_BANNER_ERROR });
-      console.log(error);
+  try {
+    await deleteBannerApi(banner_id);
+    handleSuccess && handleSuccess();
+    dispatch({
+      type: actions.DELETE_BANNER_SUCCESS
+    });
+    dispatch(getBanner());
+    successToast('Banner has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_BANNER_ERROR });
+    errorToast(error);
+  }
+};
+
+export const updateBanner = (banner_id, data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.UPDATE_BANNER_BEGIN });
+
+  try {
+    await updateBannerApi(banner_id, data);
+    handleSuccess && handleSuccess();
+    dispatch({
+      type: actions.UPDATE_BANNER_SUCCESS
+    });
+    dispatch(getBanner());
+    successToast('Banner has been updated');
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_BANNER_ERROR });
+    errorToast(error);
+  }
+};
+
+export const updateBannerStatus = (banner_id, data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.UPDATE_BANNER_STATUS_BEGIN });
+  updateBannerStatusApi(banner_id, data)
+    .then((res) => {
+      dispatch({ type: actions.UPDATE_BANNER_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      successToast('Status Updated Successfully');
+      dispatch(getBanner());
+    })
+    .catch((error) => {
+      dispatch({ type: actions.UPDATE_BANNER_STATUS_ERROR });
       errorToast(error);
-    }
-  };
-
-export const updateBanner =
-  (Data, slug, refetch = () => {}) =>
-  async (dispatch) => {
-    dispatch({ type: actions.UPDATE_BANNER_BEGIN });
-
-    try {
-      await updateBannerApi(Data, slug);
-      refetch && refetch();
-      console.log('dataaasssssssssssss', Data);
-      dispatch({
-        type: actions.UPDATE_BANNER_SUCCESS,
-        payload: ''
-      });
-      successToast('Banner has been updated');
-    } catch (error) {
-      dispatch({ type: actions.UPDATE_BANNER_ERROR });
-      console.log({ error });
-      errorToast(error);
-    }
-  };
+    });
+};

@@ -6,6 +6,8 @@ import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { getSiteSettings } from 'redux/homepage/actions';
 import RouteList from 'routes';
+import 'slick-carousel/slick/slick-theme.css';
+import 'slick-carousel/slick/slick.css';
 import theme from 'themes';
 import './styles/main.scss';
 

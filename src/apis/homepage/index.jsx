@@ -32,7 +32,12 @@ export const contactUsApi = (data) => {
 
 // get contact us
 export const getContactUsApi = () => {
-  return axiosInstance().get(`/api/contact-us`);
+  return axiosInstance().get(`/admin/contact-us`);
+};
+
+// get contact
+export const deleteContactApi = (id) => {
+  return axiosInstance().delete(`/admin/contact-us/${id}`);
 };
 
 // get banner

@@ -1,99 +1,58 @@
-import Banner from 'assets/images/banner.png';
-import CandidateImage1 from 'assets/images/candidate1.png';
-import CandidateImage2 from 'assets/images/candidate2.png';
-import CandidateImage3 from 'assets/images/candidate3.png';
-import { Link } from 'react-router-dom';
+import { Box, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useParams } from 'react-router-dom';
+import { getAllNews, getSingleNews } from 'redux/homepage/actions';
+import { changeDateFormat } from 'utils/dateUtils';
 
 const SingleNews = () => {
-  const news = {
-    id: '1',
-    featureImage: Banner,
-    name: 'John Doe',
-    slug: 'first_news_slug',
-    created_at: '20-Aug-2023',
-    author: 'Yogen Bahadur Chhetri',
-    title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-    excerpt:
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-  };
-  const recentNews = [
-    {
-      id: '1',
-      image: CandidateImage1,
-      name: 'John Doe',
-      slug: 'first_news_slug',
-      title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+  const { single_news, news, single_news_loading } = useSelector((state) => state.homepage);
+  const dispatch = useDispatch();
+  const { slug } = useParams();
 
-      excerpt:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    },
-    {
-      id: 2,
-      image: CandidateImage2,
-      name: 'Jason Momoa',
-      slug: 'second_news_slug',
-      title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
+  const recentNews = news?.filter((list) => list?.slug !== slug).slice(0, 4);
 
-      excerpt:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    },
-    {
-      id: 3,
-      image: CandidateImage3,
-      name: 'Chris Bumsterd',
-      slug: 'third_news_slug',
-      title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-
-      excerpt:
-        "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-    }
-  ];
+  useEffect(() => {
+    dispatch(getSingleNews(slug));
+    dispatch(getAllNews());
+  }, [slug]);
   return (
     <div className="main_content">
       <div className="container">
         <div className="single_news_page">
           <div className="single_news_page_content">
-            <div className="single_news_page_title">{news?.title}</div>
+            {single_news_loading ? (
+              <Box
+                display="flex"
+                justifyContent="center"
+                alignItems="center"
+                sx={{ height: '60vh' }}>
+                <CircularProgress size={30} />
+              </Box>
+            ) : (
+              <>
+                <div className="single_news_page_title">{single_news?.title}</div>
 
-            <div className="single_news_page_imgwrap">
-              <img src={news?.featureImage} alt={news?.title} />
-            </div>
-            <div className="single_news_page_date">
-              {news?.created_at} | {news?.author}
-            </div>
-            <div className="single_news_page_short">
+                <div className="single_news_page_imgwrap">
+                  <img src={single_news?.feature_image} alt={single_news?.title} />
+                </div>
+                <div className="single_news_page_date">
+                  {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} |{' '}
+                  {single_news?.created_by?.name}
+                </div>
+                {/* <div className="single_news_page_short">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
               has been the industry's standard dummy text ever since the 1500s, when an unknown
               printer took a galley of type and scrambled it to make a type specimen book.
-            </div>
-            {news?.gallery && news?.gallery?.length > 0 && (
-              <div className="container">
-                <div className="singleNewsSlider">
-                  {news?.gallery.map((image, index) => (
-                    <div key={index}>
-                      <div className="slider_imgwrapper">
-                        <img src={image?.path} alt={`Image`} />
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
+            </div> */}
+
+                <div
+                  className="single_news_page_long"
+                  dangerouslySetInnerHTML={{ __html: single_news?.description }}></div>
+              </>
             )}
-            <div className="single_news_page_long">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book. Lorem
-              Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-              been the industry's standard dummy text ever since the 1500s, when an unknown printer
-              took a galley of type and scrambled it to make a type specimen book. Lorem Ipsum is
-              simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book. Lorem Ipsum is simply
-              dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-              industry's standard dummy text ever since the 1500s, when an unknown printer took a
-              galley of type and scrambled it to make a type specimen book.
-            </div>
           </div>
+
           <div className="single_news_page_sidebar">
             <div className="recent_news">
               <div className="recent_news_title">Recent News</div>
@@ -101,7 +60,7 @@ const SingleNews = () => {
                 recentNews.map((recent) => (
                   <Link key={recent.id} to={`/news/${recent?.slug}`} className="recent_news_item">
                     <div className="img_wrapper">
-                      <img src={recent?.image} alt="" />
+                      <img src={recent?.feature_image} alt="" />
                     </div>
                     <div className="item_content">
                       <div className="item_content_title">{recent?.title}</div>

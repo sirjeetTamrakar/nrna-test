@@ -18,5 +18,13 @@ export const useStyles = makeStyles((theme) => ({
         background: theme.palette.primary.light
       }
     }
+  },
+  example: {
+    fontSize: '12px',
+    display: '-webkit-box',
+    '-webkit-line-clamp': 1,
+    '-webkit-box-orient': 'vertical',
+    overflow: 'hidden',
+    color: 'gray'
   }
 }));

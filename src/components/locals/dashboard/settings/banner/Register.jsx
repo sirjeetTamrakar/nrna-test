@@ -2,8 +2,10 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import BannerForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postBanner } from './redux/actions';
 import { useStyles } from './styles';
 
@@ -15,28 +17,24 @@ const Register = ({ handleClose }) => {
   const { banner_loading } = useSelector((state) => state.banner);
 
   const onSubmit = (data) => {
-    console.log(data);
-    console.log('dssssssata', data);
-    const formdata = new FormData();
-    console.log('formdata', formdata);
-    formdata.append('title', data?.title);
-    formdata.append('subtitle', data?.subtitle);
-    formdata.append('description', data?.description);
-    formdata.append('link', data?.link);
-    formdata.append('status', 'active');
+    const formData = new FormData();
+    formData.append('title', data?.title);
+    formData.append('subtitle', data?.subtitle);
+    formData.append('description', data?.description);
+    formData.append('link', data?.link);
+    formData.append('status', 1);
 
     if (data?.image?.length > 0) {
-      formdata.append('image', data?.image?.[0]);
+      formData.append('image', data?.image?.[0]);
     }
-    dispatch(postBanner(formdata, handleClose));
+    dispatch(postBanner(formData, handleClose));
   };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        // sresolver={useYupValidationResolver(validationSchema)
-      >
+        resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <BannerForm />
           <Box className={classes.footerRoot}>

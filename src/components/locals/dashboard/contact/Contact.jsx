@@ -8,7 +8,7 @@ import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getContact } from 'redux/homepage/actions';
+import { deleteContact, getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import View from './View';
 import { useStyles } from './styles';
@@ -25,32 +25,34 @@ const Contact = () => {
     dispatch(getContact());
   }, []);
 
-  const { contact, contact_loading } = useSelector((state) => state.homepage);
+  const { contact, contact_loading, contact_delete_loading } = useSelector(
+    (state) => state.homepage
+  );
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
     {
       title: 'Subject',
-      minWidth: 250,
+      minWidth: 200,
 
       field: 'subject'
     },
     {
       title: 'Name',
-      minWidth: 100,
+      minWidth: 150,
 
       field: 'name'
     },
     {
       title: 'Email',
-      minWidth: 100,
+      minWidth: 150,
 
       field: 'email'
     },
     {
       title: 'Date',
-      minWidth: 100,
+      minWidth: 150,
 
       field: (row) => {
         return changeDateFormat(row?.created_at);
@@ -83,6 +85,10 @@ const Contact = () => {
     deleteOpenFunction();
   };
 
+  const confirmDelete = () => {
+    dispatch(deleteContact(detail?.id, deleteOpenFunction));
+  };
+
   return (
     <>
       <Box>
@@ -104,7 +110,12 @@ const Contact = () => {
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          open={openDelete}
+          handleClose={deleteOpenFunction}
+          handleConfirm={confirmDelete}
+          isLoading={contact_delete_loading}
+        />
       </Box>
     </>
   );

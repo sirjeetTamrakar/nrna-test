@@ -87,7 +87,7 @@ export const postSiteSettingsApi = (data) => {
 // COUNTRIES LIST
 // get countries list
 export const getCountriesApi = () => {
-  return axiosInstance().get(`/admin/countries`);
+  return axiosInstance().get(`/api/countries`);
 };
 
 // ADVICE---------------->
@@ -171,11 +171,15 @@ export const postBannerApi = (data) => {
 };
 
 // update banner
-export const updateBannerApi = (data, slug) => {
-  return axiosInstance().post(`/admin/banners/${slug}`, data);
+export const updateBannerApi = (banner_id, data) => {
+  return axiosInstance().patch(`/admin/banners/${banner_id}`, data);
 };
 
 // delete banner
-export const deleteBannerApi = (data) => {
-  return axiosInstance().delete(`/admin/banners/${data}`);
+export const deleteBannerApi = (banner_id) => {
+  return axiosInstance().delete(`/admin/banners/${banner_id}`);
+};
+
+export const updateBannerStatusApi = (banner_id, data) => {
+  return axiosInstance().patch(`/admin/banners/${banner_id}/status`, data);
 };

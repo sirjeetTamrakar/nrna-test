@@ -3,34 +3,54 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useDispatch, useSelector } from 'react-redux';
 import MemberForm from './Form';
-import { validationSchema } from './ValidationSchema';
+import { editValidationSchema } from './ValidationSchema';
+import { updateBanner } from './redux/actions';
 import { useStyles } from './styles';
 
-const EditForm = () => {
+const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
+  const { update_banner_loading } = useSelector((state) => state.banner);
   const onSubmit = (data) => {
-    console.log(data);
+    const formData = new FormData();
+    formData.append('title', data?.title);
+    formData.append('subtitle', data?.subtitle);
+    formData.append('description', data?.description);
+    formData.append('link', data?.link);
+    formData.append('status', 1);
+
+    if (data?.image?.length > 0) {
+      formData.append('image', data?.image?.[0]);
+    }
+    dispatch(updateBanner(detail?.id, formData, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <MemberForm />
+      <MemberForm banner_image={detail?.image} />
       <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={false} />
+        <CustomButton buttonName="Update" loading={update_banner_loading} />
       </Box>
     </CustomForm>
   );
 };
-const Edit = ({ data }) => {
-  const defaultValues = { ...data };
+const Edit = ({ data, handleClose }) => {
+  const defaultValues = {
+    title: data?.title,
+    subtitle: data?.subtitle,
+    link: data?.link,
+    description: data?.link,
+    status: data?.status
+  };
 
   return (
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        resolver={useYupValidationResolver(validationSchema)}>
-        <EditForm />
+        resolver={useYupValidationResolver(editValidationSchema)}>
+        <EditForm detail={data} handleClose={handleClose} />
       </CustomFormProvider>
     </>
   );

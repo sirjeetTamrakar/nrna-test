@@ -13,7 +13,8 @@ const defaultState = {
   contact_loading: false,
   contact: [],
   banners: [],
-  banner_loading: false
+  banner_loading: false,
+  contact_delete_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -102,6 +103,13 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_BANNER_ERROR:
       return { ...state, banner_loading: false };
+
+    case actions.DELETE_CONTACT_BEGIN:
+      return { ...state, contact_delete_loading: true };
+
+    case actions.DELETE_CONTACT_SUCCESS:
+    case actions.DELETE_CONTACT_ERROR:
+      return { ...state, contact_delete_loading: false };
 
     default:
       return state;

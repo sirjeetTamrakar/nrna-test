@@ -27,6 +27,17 @@ const EventForm = ({ image }) => {
         </Grid>
         <Grid item sm={12}>
           <CustomInput name="map_url" label="Map Url" />
+          <div className={classes.example}>
+            Eg:
+            https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.4571106444496!2d85.3242159761745!3d27.703169425674513!2m3!1f0!2f0!3f0
+          </div>
+        </Grid>
+        <Grid item sm={12}>
+          <CustomInput name="youtube_url" label="Youtube Url" placeholder="iaUspumK5ZU" />
+          <div className={classes.example}>
+            Eg: https://www.youtube.com/watch?v=
+            <span style={{ color: '#2196F3' }}>iaUspumK5ZU</span> | Add highlighted portion only
+          </div>
         </Grid>
         <Grid item sm={6}>
           <CustomInput name="event_date" label="Event date" type="date" />

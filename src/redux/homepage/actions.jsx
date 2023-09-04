@@ -1,5 +1,6 @@
 import {
   contactUsApi,
+  deleteContactApi,
   getAllEventsApi,
   getAllNewsApi,
   getBannerApi,
@@ -106,5 +107,19 @@ export const getBanner = () => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_BANNER_ERROR });
+    });
+};
+
+export const deleteContact = (id, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.DELETE_CONTACT_BEGIN });
+  deleteContactApi(id)
+    .then((res) => {
+      dispatch({ type: actions.DELETE_CONTACT_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getContact());
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.DELETE_CONTACT_ERROR });
     });
 };

@@ -4,7 +4,8 @@ const defaultState = {
   get_banner_loading: false,
   bannerData: [],
   delete_banner_loading: false,
-  update_banner_loading: false
+  update_banner_loading: false,
+  banner_status_loading: false
 };
 
 const bannerReducer = (state = defaultState, action) => {
@@ -44,6 +45,13 @@ const bannerReducer = (state = defaultState, action) => {
     case actions.UPDATE_BANNER_SUCCESS:
     case actions.UPDATE_BANNER_ERROR:
       return { ...state, update_banner_loading: false };
+
+    case actions.UPDATE_BANNER_STATUS_BEGIN:
+      return { ...state, banner_status_loading: true };
+
+    case actions.UPDATE_BANNER_STATUS_SUCCESS:
+    case actions.UPDATE_BANNER_STATUS_ERROR:
+      return { ...state, banner_status_loading: false };
 
     default:
       return state;
