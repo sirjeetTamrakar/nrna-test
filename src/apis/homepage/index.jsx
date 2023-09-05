@@ -30,11 +30,6 @@ export const contactUsApi = (data) => {
   return axiosInstance().post(`/api/contact-us`, data);
 };
 
-// get contact us
-// export const getContactUsApi = () => {
-//   return axiosInstance().get(`/admin/contact-us`);
-// };
-
 export const getContactUsApi = (data) => {
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
@@ -51,4 +46,19 @@ export const deleteContactApi = (id) => {
 // get banner
 export const getBannerApi = () => {
   return axiosInstance().get('/api/banners');
+};
+
+// get teams
+export const getTeamsApi = () => {
+  return axiosInstance().get(`/api/our-teams`);
+};
+
+// get candidates
+export const getCandidatesApi = () => {
+  return axiosInstance().get(`/api/ncc-candidates`);
+};
+
+// get ncc
+export const getNccApi = () => {
+  return axiosInstance().get(`/api/ncc`);
 };

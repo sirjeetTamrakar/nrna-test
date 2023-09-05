@@ -14,7 +14,13 @@ const defaultState = {
   contact: [],
   banners: [],
   banner_loading: false,
-  contact_delete_loading: false
+  contact_delete_loading: false,
+  teams: [],
+  team_loading: false,
+  candidates: [],
+  candidate_loading: false,
+  ncc: [],
+  ncc_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -110,6 +116,33 @@ const homepageReducer = (state = defaultState, action) => {
     case actions.DELETE_CONTACT_SUCCESS:
     case actions.DELETE_CONTACT_ERROR:
       return { ...state, contact_delete_loading: false };
+
+    case actions.FETCH_NCC_BEGIN:
+      return { ...state, ncc_loading: true };
+
+    case actions.FETCH_NCC_SUCCESS:
+      return { ...state, ncc_loading: false, ncc: action.payload };
+
+    case actions.FETCH_NCC_ERROR:
+      return { ...state, ncc_loading: false };
+
+    case actions.FETCH_OUR_TEAM_BEGIN:
+      return { ...state, team_loading: true };
+
+    case actions.FETCH_OUR_TEAM_SUCCESS:
+      return { ...state, team_loading: false, teams: action.payload };
+
+    case actions.FETCH_OUR_TEAM_ERROR:
+      return { ...state, team_loading: false };
+
+    case actions.FETCH_CANDIDATE_BEGIN:
+      return { ...state, candidate_loading: true };
+
+    case actions.FETCH_CANDIDATE_SUCCESS:
+      return { ...state, candidate_loading: false, candidates: action.payload };
+
+    case actions.FETCH_CANDIDATE_ERROR:
+      return { ...state, candidate_loading: false };
 
     default:
       return state;

@@ -1,42 +1,41 @@
-import CandidateImage1 from 'assets/images/candidate1.png';
-import CandidateImage2 from 'assets/images/candidate2.png';
-import CandidateImage3 from 'assets/images/candidate3.png';
+import { Box, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getNcc } from 'redux/homepage/actions';
 import NCCItem from './NCCItem';
 
 const AllNCCSection = () => {
-  const nccItems = [
-    {
-      id: '1',
-      image: CandidateImage1,
-      name: 'Portugal',
-      username: 'portugal'
-    },
-    {
-      id: 2,
-      image: CandidateImage2,
-      name: 'United States of America',
-      username: 'usa'
-    },
-    { id: 3, image: CandidateImage3, name: 'United Kingdom', username: 'uk' }
-  ];
+  const dispatch = useDispatch();
+  const { ncc, ncc_loading } = useSelector((state) => state.homepage);
+
+  useEffect(() => {
+    dispatch(getNcc());
+  }, []);
+
   return (
     <div className="main_content">
       <section className="all_events">
         <div className="all_events_title">All NCC</div>
         <div className="container">
-          <div className="row">
-            {nccItems.length > 0 ? (
-              nccItems.map((nccItem) => (
-                <div key={nccItem.id} className="col-md-4">
-                  <NCCItem nccItem={nccItem} />
+          {ncc_loading ? (
+            <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
+              <CircularProgress size={24} />
+            </Box>
+          ) : (
+            <div className="row">
+              {ncc?.length > 0 ? (
+                ncc?.map((nccItem) => (
+                  <div key={nccItem.id} className="col-6 col-md-4 col-lg-3 col-xl-2">
+                    <NCCItem nccItem={nccItem} />
+                  </div>
+                ))
+              ) : (
+                <div className="col-md-12 mt-5 mb-5">
+                  <h3 className="text-center">No NCC items available</h3>
                 </div>
-              ))
-            ) : (
-              <div className="col-md-12 mt-5 mb-5">
-                <h3 className="text-center">No NCC items available</h3>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </div>

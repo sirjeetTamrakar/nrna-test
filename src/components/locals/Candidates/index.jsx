@@ -1,42 +1,39 @@
-import CandidateImage1 from 'assets/images/candidate1.png';
-import CandidateImage2 from 'assets/images/candidate2.png';
-import CandidateImage3 from 'assets/images/candidate3.png';
+import { Box, CircularProgress } from '@mui/material';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCandidates } from 'redux/homepage/actions';
 import CandidateItem from './CandidateItem';
 
 const Candidates = () => {
-  const candidates = [
-    {
-      id: '1',
-      image: CandidateImage1,
-      name: 'John Doe',
-      username: 'john'
-    },
-    {
-      id: 2,
-      image: CandidateImage2,
-      name: 'Jason Momoa',
-      username: 'jason'
-    },
-    { id: 3, image: CandidateImage3, name: 'Chris Bumsterd', username: 'chris' }
-  ];
+  const dispatch = useDispatch();
+  const { candidates, candidate_loading } = useSelector((state) => state.homepage);
+  useEffect(() => {
+    dispatch(getCandidates());
+  }, []);
   return (
     <div className="main_content">
       <section className="all_events">
         <div className="all_events_title">All Candidates</div>
         <div className="container">
-          <div className="row">
-            {candidates.length > 0 ? (
-              candidates.map((candidate) => (
-                <div key={candidate.id} className="col-md-4">
-                  <CandidateItem candidate={candidate} />
+          {candidate_loading ? (
+            <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
+              <CircularProgress size={24} />
+            </Box>
+          ) : (
+            <div className="row">
+              {candidates?.length > 0 ? (
+                candidates?.map((candidate) => (
+                  <div key={candidate.id} className="col-md-4">
+                    <CandidateItem candidate={candidate} />
+                  </div>
+                ))
+              ) : (
+                <div className="col-md-12 mt-5 mb-5">
+                  <h3 className="text-center">No candidates available</h3>
                 </div>
-              ))
-            ) : (
-              <div className="col-md-12 mt-5 mb-5">
-                <h3 className="text-center">No candidates available</h3>
-              </div>
-            )}
-          </div>
+              )}
+            </div>
+          )}
         </div>
       </section>
     </div>

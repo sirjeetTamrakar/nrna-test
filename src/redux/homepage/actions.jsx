@@ -1,10 +1,13 @@
+import { getTeamsApi } from 'apis/dashboard';
 import {
   contactUsApi,
   deleteContactApi,
   getAllEventsApi,
   getAllNewsApi,
   getBannerApi,
+  getCandidatesApi,
   getContactUsApi,
+  getNccApi,
   getSingleEventApi,
   getSingleNewsApi,
   getSiteSettingsApi
@@ -121,5 +124,38 @@ export const deleteContact = (id, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.DELETE_CONTACT_ERROR });
+    });
+};
+
+export const getTeams = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_OUR_TEAM_BEGIN });
+  getTeamsApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_OUR_TEAM_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_OUR_TEAM_ERROR });
+    });
+};
+
+export const getCandidates = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_CANDIDATE_BEGIN });
+  getCandidatesApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_CANDIDATE_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_CANDIDATE_ERROR });
+    });
+};
+
+export const getNcc = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_NCC_BEGIN });
+  getNccApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_NCC_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_NCC_ERROR });
     });
 };
