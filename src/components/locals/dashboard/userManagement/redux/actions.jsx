@@ -8,12 +8,12 @@ import {
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getAllUsers = () => (dispatch) => {
+export const getAllUsers = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_USERS_BEGIN });
 
-  getAllUsersApi()
+  getAllUsersApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_USERS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_USERS_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);
@@ -43,7 +43,6 @@ export const changeApproval = (slug, data, handleSuccess) => (dispatch) => {
     .then((res) => {
       dispatch({ type: actions.APPROVE_USER_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getAllUsers());
     })
     .catch((error) => {
       errorToast(error);
@@ -57,7 +56,6 @@ export const changeStatus = (slug, data, handleSuccess) => (dispatch) => {
     .then((res) => {
       dispatch({ type: actions.CHANGE_USER_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getAllUsers());
       successToast('User status has been changed');
     })
     .catch((error) => {

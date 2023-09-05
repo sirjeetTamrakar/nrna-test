@@ -31,8 +31,16 @@ export const contactUsApi = (data) => {
 };
 
 // get contact us
-export const getContactUsApi = () => {
-  return axiosInstance().get(`/admin/contact-us`);
+// export const getContactUsApi = () => {
+//   return axiosInstance().get(`/admin/contact-us`);
+// };
+
+export const getContactUsApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/contact-us${page}${pagination_limit}`);
 };
 
 // get contact

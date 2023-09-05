@@ -9,11 +9,11 @@ import {
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getNCC = () => (dispatch) => {
+export const getNCC = (data) => (dispatch) => {
   dispatch({ type: actions.GET_NCC_BEGIN });
-  getNCCApi()
+  getNCCApi(data)
     .then((res) => {
-      dispatch({ type: actions.GET_NCC_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_NCC_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

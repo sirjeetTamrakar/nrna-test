@@ -86,11 +86,11 @@ export const contactUs = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const getContact = () => (dispatch) => {
+export const getContact = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_CONTACT_BEGIN });
-  getContactUsApi()
+  getContactUsApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_CONTACT_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_CONTACT_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

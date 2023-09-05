@@ -8,11 +8,11 @@ import {
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getBanner = () => (dispatch) => {
+export const getBanner = (data) => (dispatch) => {
   dispatch({ type: actions.GET_BANNER_BEGIN });
-  getBannerApi()
+  getBannerApi(data)
     .then((res) => {
-      dispatch({ type: actions.GET_BANNER_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_BANNER_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

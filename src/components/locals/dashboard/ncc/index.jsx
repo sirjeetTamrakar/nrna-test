@@ -26,13 +26,14 @@ const NCC = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getNCC());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getNCC());
+  // }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -121,10 +122,11 @@ const NCC = () => {
   ];
 
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
+  console.log({ nccData });
 
-  const refetch = () => {
-    dispatch(getNCC());
-  };
+  // const refetch = () => {
+  //   dispatch(getNCC());
+  // };
 
   const handleConfirm = (slug) => {
     dispatch(deleteNCC(slug, refetch));
@@ -160,6 +162,15 @@ const NCC = () => {
     viewOpenFunction();
   };
 
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getNCC(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -181,12 +192,12 @@ const NCC = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={nccData}
+          tableData={nccData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={nccData?.meta?.total}
           loading={get_ncc_loading ? true : false}
         />
         <CustomModal

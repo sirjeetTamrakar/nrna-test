@@ -2,11 +2,11 @@ import { deleteAdviceApi, getAdviceApi, postAdviceApi } from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getAdvice = () => (dispatch) => {
+export const getAdvice = (data) => (dispatch) => {
   dispatch({ type: actions.GET_ADVICE_BEGIN });
-  getAdviceApi()
+  getAdviceApi(data)
     .then((res) => {
-      dispatch({ type: actions.GET_ADVICE_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_ADVICE_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

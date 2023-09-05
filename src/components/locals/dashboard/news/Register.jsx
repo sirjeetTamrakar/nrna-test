@@ -3,7 +3,9 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../userManagement/redux/actions';
 import NewsForm from './Form';
 import { validationSchema } from './ValidationSchema';
 import { postNews } from './redux/actions';
@@ -28,6 +30,10 @@ const Register = ({ handleClose }) => {
 
     dispatch(postNews(formData, handleClose));
   };
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
 
   return (
     <>

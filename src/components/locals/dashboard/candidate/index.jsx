@@ -25,13 +25,13 @@ const Candidate = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getCandidate());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getCandidate());
+  // }, []);
 
   const { candidateData, get_candidate_loading, delete_candidate_loading } = useSelector(
     (state) => state.candidate
@@ -158,6 +158,15 @@ const Candidate = () => {
     viewOpenFunction();
   };
 
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getCandidate(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -179,12 +188,12 @@ const Candidate = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={candidateData}
+          tableData={candidateData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={candidateData?.meta?.total}
           loading={get_candidate_loading}
         />
         <CustomModal

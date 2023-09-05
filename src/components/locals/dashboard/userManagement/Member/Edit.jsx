@@ -3,21 +3,21 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import { useDispatch } from 'react-redux';
-import { getAllUsers, updateUsers } from '../redux/actions';
+import { updateUsers } from '../redux/actions';
 import MemberForm from './Form';
 import { useStyles } from './styles';
 
-const EditForm = ({ handleClose }) => {
+const EditForm = ({ handleClose, refetch }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const refetch = () => {
-    dispatch(getAllUsers());
+  const handleRefetch = () => {
+    refetch();
     handleClose();
   };
 
   const onSubmit = (data) => {
-    dispatch(updateUsers({ ...data, _method: 'PUT' }, data?.username, refetch));
+    dispatch(updateUsers({ ...data, _method: 'PUT' }, data?.username, handleRefetch));
   };
 
   return (
@@ -29,7 +29,7 @@ const EditForm = ({ handleClose }) => {
     </CustomForm>
   );
 };
-const Edit = ({ data, handleClose }) => {
+const Edit = ({ data, handleClose, refetch }) => {
   const defaultValues = { ...data };
 
   return (
@@ -38,7 +38,7 @@ const Edit = ({ data, handleClose }) => {
         defaultValues={defaultValues}
         // resolver={useYupValidationResolver(validationSchema)}
       >
-        <EditForm handleClose={handleClose} />
+        <EditForm handleClose={handleClose} refetch={refetch} />
       </CustomFormProvider>
     </>
   );

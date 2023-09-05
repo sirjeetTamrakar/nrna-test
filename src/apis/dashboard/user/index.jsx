@@ -1,8 +1,12 @@
 import { axiosInstance } from 'apis/_axios';
 
 // get users
-export const getAllUsersApi = () => {
-  return axiosInstance().get(`/admin/users?pagination_limit=5`);
+export const getAllUsersApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/users${page}${pagination_limit}`);
 };
 
 // create users

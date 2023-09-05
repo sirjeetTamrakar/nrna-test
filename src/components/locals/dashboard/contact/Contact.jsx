@@ -10,24 +10,28 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import View from './View';
 import { useStyles } from './styles';
+import View from './View';
 
 const Contact = () => {
   const dispatch = useDispatch();
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const [detail, setDetail] = useState();
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getContact());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getContact());
+  // }, []);
 
   const { contact, contact_loading, contact_delete_loading } = useSelector(
     (state) => state.homepage
   );
+
+  console.log({ contact });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -89,6 +93,15 @@ const Contact = () => {
     dispatch(deleteContact(detail?.id, deleteOpenFunction));
   };
 
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getContact(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -101,7 +114,16 @@ const Contact = () => {
           }}>
           <Box>Contact</Box>
         </Box>
-        <CustomTable tableHeads={tableHeads} tableData={contact} loading={contact_loading} />
+        <CustomTable
+          tableHeads={tableHeads}
+          tableData={contact?.data}
+          loading={contact_loading}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          page={page}
+          setPage={setPage}
+          total={contact?.meta?.total}
+        />
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}

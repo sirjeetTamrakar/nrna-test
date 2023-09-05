@@ -28,16 +28,18 @@ const Events = () => {
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
   const { eventsData, get_events_loading, events_status_loading, delete_events_loading } =
     useSelector((state) => state.events);
 
-  useEffect(() => {
-    dispatch(getEvents());
-  }, []);
+  console.log({ eventsData });
+
+  // useEffect(() => {
+  //   dispatch(getEvents());
+  // }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -131,9 +133,9 @@ const Events = () => {
     }
   ];
 
-  const refetch = () => {
-    dispatch(getEvents());
-  };
+  // const refetch = () => {
+  //   dispatch(getEvents());
+  // };
 
   const handleConfirm = (slug) => {
     dispatch(deleteEvents(slug, deleteOpenFunction));
@@ -173,6 +175,15 @@ const Events = () => {
     viewOpenFunction();
   };
 
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getEvents(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -194,12 +205,12 @@ const Events = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={eventsData}
+          tableData={eventsData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={eventsData?.meta?.total}
           loading={get_events_loading ? true : false}
         />
         <CustomModal

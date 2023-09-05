@@ -26,17 +26,19 @@ const OurTeam = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  useEffect(() => {
-    dispatch(getTeams());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getTeams());
+  // }, []);
 
   const { teamsData, get_teams_loading, delete_teams_loading } = useSelector(
     (state) => state.teams
   );
+
+  console.log({ teamsData });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -159,6 +161,15 @@ const OurTeam = () => {
     viewOpenFunction();
   };
 
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getTeams(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -180,12 +191,12 @@ const OurTeam = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={teamsData}
+          tableData={teamsData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={teamsData?.meta?.total}
           loading={get_teams_loading}
         />
         <CustomModal

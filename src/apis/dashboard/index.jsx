@@ -3,7 +3,11 @@ import { axiosInstance } from 'apis/_axios';
 // NEWS---------------->
 // get news
 export const getNewsApi = (data) => {
-  return axiosInstance().get('/admin/news?pagination_limit=10', data);
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/news${page}${pagination_limit}`);
 };
 
 // post news
@@ -28,8 +32,12 @@ export const changeNewsStatusApi = (data) => {
 
 // EVENTS------------------>
 // get events
-export const getEventsApi = () => {
-  return axiosInstance().get('/admin/events');
+export const getEventsApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/events${page}${pagination_limit}`);
 };
 
 // post events
@@ -54,8 +62,12 @@ export const changeEventsStatusApi = (data) => {
 
 // NCC------------------>
 // get ncc
-export const getNCCApi = () => {
-  return axiosInstance().get('/admin/ncc');
+export const getNCCApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/ncc${page}${pagination_limit}`);
 };
 
 // post ncc
@@ -96,9 +108,13 @@ export const getCountriesApi = () => {
 };
 
 // ADVICE---------------->
-// get advice
-export const getAdviceApi = () => {
-  return axiosInstance().get('/admin/advices');
+// get events
+export const getAdviceApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/advices${page}${pagination_limit}`);
 };
 
 // post advice
@@ -113,8 +129,12 @@ export const deleteAdviceApi = (data) => {
 
 // OUR TEAMS---------------->
 // get our teams
-export const getTeamsApi = () => {
-  return axiosInstance().get('/admin/our-teams');
+export const getTeamsApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}`);
 };
 
 // post our teams
@@ -139,8 +159,12 @@ export const changeTeamsStatusApi = (data) => {
 
 // CANDIDATE---------------->
 // get candidate
-export const getCandidateApi = () => {
-  return axiosInstance().get('/admin/ncc-candidates');
+export const getCandidateApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/ncc-candidates${page}${pagination_limit}`);
 };
 
 // post candidate
@@ -176,8 +200,16 @@ export const postProfileApi = (data) => {
 
 // BANNER---------------->
 // get banner
-export const getBannerApi = () => {
-  return axiosInstance().get('/admin/banners');
+// export const getBannerApi = () => {
+//   return axiosInstance().get('/admin/banners');
+// };
+
+export const getBannerApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/banners${page}${pagination_limit}`);
 };
 
 // post banner

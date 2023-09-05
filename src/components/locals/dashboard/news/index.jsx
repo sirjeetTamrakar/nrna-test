@@ -28,8 +28,8 @@ const News = () => {
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
   const { newsData, get_news_loading, news_status_loading, delete_news_loading } = useSelector(
@@ -38,9 +38,9 @@ const News = () => {
 
   console.log({ newsData });
 
-  useEffect(() => {
-    dispatch(getNews());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getNews());
+  // }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -154,19 +154,14 @@ const News = () => {
     viewOpenFunction();
   };
 
-  const handleChangePage = () => {
-    setPage(newsData?.meta?.current_page + 1);
-    console.log({ changes: newsData?.meta?.current_page, newsData });
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getNews(data));
   };
 
-  console.log({ page });
-
   useEffect(() => {
-    if (page) {
-      const finalData = newsData?.meta?.links?.[page];
-      console.log({ finalData });
-    }
-  }, [page]);
+    refetch();
+  }, [page, rowsPerPage]);
 
   return (
     <>
@@ -194,9 +189,8 @@ const News = () => {
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={newsData?.meta?.total}
           loading={get_news_loading ? true : false}
-          handleChangePage={handleChangePage}
         />
         <CustomModal
           open={openForm}

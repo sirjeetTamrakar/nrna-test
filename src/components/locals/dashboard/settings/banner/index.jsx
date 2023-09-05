@@ -25,8 +25,8 @@ const SettingsBanner = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
   const { bannerData, banner_status_loading, delete_banner_loading, get_banner_loading } =
     useSelector((state) => state.banner);
@@ -129,9 +129,18 @@ const SettingsBanner = () => {
     dispatch(deleteBanner(detail?.id, deleteOpenFunction));
   };
 
+  // useEffect(() => {
+  //   dispatch(getBanner());
+  // }, []);
+
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getBanner(data));
+  };
+
   useEffect(() => {
-    dispatch(getBanner());
-  }, []);
+    refetch();
+  }, [page, rowsPerPage]);
 
   return (
     <>
@@ -154,12 +163,12 @@ const SettingsBanner = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={bannerData}
+          tableData={bannerData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={bannerData?.meta?.total}
           loading={get_banner_loading}
         />
         <CustomModal

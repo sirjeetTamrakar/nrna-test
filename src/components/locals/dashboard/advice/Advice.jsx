@@ -9,9 +9,9 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
-import View from './View';
 import { deleteAdvice, getAdvice } from './redux/actions';
 import { useStyles } from './styles';
+import View from './View';
 
 const Advice = () => {
   const dispatch = useDispatch();
@@ -20,10 +20,12 @@ const Advice = () => {
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const classes = useStyles();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
 
-  useEffect(() => {
-    dispatch(getAdvice());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getAdvice());
+  // }, []);
 
   const { adviceData, get_advice_loading, delete_advice_loading } = useSelector(
     (state) => state.advice
@@ -89,6 +91,15 @@ const Advice = () => {
     dispatch(deleteAdvice(slug, deleteOpenFunction));
   };
 
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getAdvice(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -103,8 +114,13 @@ const Advice = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={adviceData}
+          tableData={adviceData?.data}
           loading={get_advice_loading ? true : false}
+          rowsPerPage={rowsPerPage}
+          setRowsPerPage={setRowsPerPage}
+          page={page}
+          setPage={setPage}
+          total={adviceData?.meta?.total}
         />
         <CustomModal
           open={openView}

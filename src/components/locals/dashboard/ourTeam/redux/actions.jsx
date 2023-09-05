@@ -8,11 +8,11 @@ import {
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getTeams = () => (dispatch) => {
+export const getTeams = (data) => (dispatch) => {
   dispatch({ type: actions.GET_TEAMS_BEGIN });
-  getTeamsApi()
+  getTeamsApi(data)
     .then((res) => {
-      dispatch({ type: actions.GET_TEAMS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_TEAMS_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);
