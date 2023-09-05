@@ -20,8 +20,8 @@ import { changeDateFormat } from 'utils/dateUtils';
 import { changeApproval, changeStatus, getAllUsers } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
@@ -35,8 +35,8 @@ const Member = () => {
     (state) => state.user
   );
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -186,18 +186,31 @@ const Member = () => {
 
   const handleChangeStatus = () => {
     dispatch(
-      changeStatus(detail?.username, { status: detail?.status == 1 ? 0 : 1 }, statusOpenFunction)
+      changeStatus(detail?.username, { status: detail?.status == 1 ? 0 : 1 }, () => {
+        statusOpenFunction();
+        refetch();
+      })
     );
   };
 
   const handleApproveStatus = (value) => {
     const status = value === 'approved' ? 'approved' : 'rejected';
-    dispatch(changeApproval(detail?.username, { approval_status: status }, approveOpenFunction));
+    dispatch(
+      changeApproval(detail?.username, { approval_status: status }, () => {
+        approveOpenFunction();
+        refetch();
+      })
+    );
+  };
+
+  const refetch = () => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getAllUsers(data));
   };
 
   useEffect(() => {
-    dispatch(getAllUsers());
-  }, []);
+    refetch();
+  }, [page, rowsPerPage]);
 
   return (
     <>
@@ -220,13 +233,13 @@ const Member = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={users}
+          tableData={users?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           loading={users_loading}
           setPage={setPage}
-          total={30}
+          total={users?.meta?.total}
         />
         <CustomModal
           open={openForm}
@@ -244,7 +257,7 @@ const Member = () => {
           modalSubtitle="Become a member of NRNA Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} handleClose={editOpenFunction} />
+          <Edit data={detail} handleClose={editOpenFunction} refetch={refetch} />
         </CustomModal>
         <CustomModal
           open={openView}

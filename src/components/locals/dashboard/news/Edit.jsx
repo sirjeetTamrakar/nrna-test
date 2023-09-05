@@ -3,7 +3,9 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../userManagement/redux/actions';
 import NewsForm from './Form';
 import { editValidationSchema } from './ValidationSchema';
 import { updateNews } from './redux/actions';
@@ -28,6 +30,9 @@ const EditForm = ({ detail, handleClose }) => {
     }
     dispatch(updateNews(formData, detail?.slug, handleClose));
   };
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
 
   return (
     <CustomForm onSubmit={onSubmit}>
