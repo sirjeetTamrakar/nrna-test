@@ -3,15 +3,16 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import MemberForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { updateNCC } from './redux/actions';
 import { useStyles } from './styles';
+import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ handleClose, detail }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { update_ncc_loading } = useSelector((state) => state.ncc);
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
@@ -25,7 +26,7 @@ const EditForm = ({ handleClose, detail }) => {
     <CustomForm onSubmit={onSubmit}>
       <MemberForm logo={detail?.logo} />
       <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={false} />
+        <CustomButton buttonName="Update" loading={update_ncc_loading} />
       </Box>
     </CustomForm>
   );

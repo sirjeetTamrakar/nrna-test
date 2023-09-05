@@ -6,7 +6,8 @@ const defaultState = {
   countries_list: [],
   nccData: [],
   delete_ncc_loading: false,
-  update_ncc_loading: false
+  update_ncc_loading: false,
+  ncc_status_loading: false
 };
 
 const nccReducer = (state = defaultState, action) => {
@@ -59,6 +60,16 @@ const nccReducer = (state = defaultState, action) => {
 
     case actions.GET_COUNTRIES_LIST_ERROR:
       return { ...state, get_countries_list_loading: false };
+
+    case actions.CHANGE_NCC_STATUS_BEGIN:
+      return {
+        ...state,
+        ncc_status_loading: true
+      };
+
+    case actions.CHANGE_NCC_STATUS_SUCCESS:
+    case actions.CHANGE_NCC_STATUS_ERROR:
+      return { ...state, ncc_status_loading: false };
 
     default:
       return state;

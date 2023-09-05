@@ -1,4 +1,10 @@
-import { deleteTeamsApi, getTeamsApi, postTeamsApi, updateTeamsApi } from 'apis/dashboard';
+import {
+  changeTeamsStatusApi,
+  deleteTeamsApi,
+  getTeamsApi,
+  postTeamsApi,
+  updateTeamsApi
+} from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -65,4 +71,19 @@ export const updateTeams = (Data, slug, handleSuccess) => async (dispatch) => {
     dispatch({ type: actions.UPDATE_TEAMS_ERROR });
     errorToast(error);
   }
+};
+
+export const changeTeamsStatus = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_TEAMS_STATUS_BEGIN });
+  changeTeamsStatusApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_TEAMS_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getTeams());
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CHANGE_TEAMS_STATUS_ERROR });
+    });
 };

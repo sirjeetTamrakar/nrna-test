@@ -12,10 +12,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { deleteBanner, getBanner, updateBannerStatus } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const SettingsBanner = () => {
   const dispatch = useDispatch();
@@ -183,8 +183,8 @@ const SettingsBanner = () => {
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`${detail?.name}`}
-          modalSubtitle="Get full detail"
+          modalTitle="Banner detail"
+          // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />

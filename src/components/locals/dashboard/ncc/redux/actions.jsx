@@ -1,4 +1,11 @@
-import { deleteNCCApi, getCountriesApi, getNCCApi, postNCCApi, updateNCCApi } from 'apis/dashboard';
+import {
+  changeNCCStatusApi,
+  deleteNCCApi,
+  getCountriesApi,
+  getNCCApi,
+  postNCCApi,
+  updateNCCApi
+} from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -77,5 +84,20 @@ export const getCountries = () => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.GET_COUNTRIES_LIST_ERROR });
+    });
+};
+
+export const changeNCCStatus = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_NCC_STATUS_BEGIN });
+  changeNCCStatusApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_NCC_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getNCC());
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CHANGE_NCC_STATUS_ERROR });
     });
 };

@@ -2,7 +2,7 @@ import { axiosInstance } from 'apis/_axios';
 
 // get users
 export const getAllUsersApi = () => {
-  return axiosInstance().get('/admin/users');
+  return axiosInstance().get(`/admin/users?pagination_limit=5`);
 };
 
 // create users

@@ -1,4 +1,5 @@
 import {
+  changeCandidateStatusApi,
   deleteCandidateApi,
   getCandidateApi,
   postCandidateApi,
@@ -68,4 +69,19 @@ export const updateCandidate = (Data, slug, handleSuccess) => async (dispatch) =
     dispatch({ type: actions.UPDATE_CANDIDATE_ERROR });
     errorToast(error);
   }
+};
+
+export const changeCandidateStatus = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_CANDIDATE_STATUS_BEGIN });
+  changeCandidateStatusApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_CANDIDATE_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getCandidate());
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CHANGE_CANDIDATE_STATUS_ERROR });
+    });
 };

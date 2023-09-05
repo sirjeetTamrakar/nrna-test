@@ -4,7 +4,8 @@ const defaultState = {
   get_teams_loading: false,
   teamsData: [],
   delete_teams_loading: false,
-  update_teams_loading: false
+  update_teams_loading: false,
+  teams_status_loading: false
 };
 
 const teamsReducer = (state = defaultState, action) => {
@@ -44,6 +45,16 @@ const teamsReducer = (state = defaultState, action) => {
     case actions.UPDATE_TEAMS_SUCCESS:
     case actions.UPDATE_TEAMS_ERROR:
       return { ...state, update_teams_loading: false };
+
+    case actions.CHANGE_TEAMS_STATUS_BEGIN:
+      return {
+        ...state,
+        teams_status_loading: true
+      };
+
+    case actions.CHANGE_TEAMS_STATUS_SUCCESS:
+    case actions.CHANGE_TEAMS_STATUS_ERROR:
+      return { ...state, teams_status_loading: false };
 
     default:
       return state;

@@ -2,8 +2,8 @@ import { axiosInstance } from 'apis/_axios';
 
 // NEWS---------------->
 // get news
-export const getNewsApi = () => {
-  return axiosInstance().get('/admin/news');
+export const getNewsApi = (data) => {
+  return axiosInstance().get('/admin/news?pagination_limit=10', data);
 };
 
 // post news
@@ -73,6 +73,11 @@ export const deleteNCCApi = (data) => {
   return axiosInstance().delete(`/admin/ncc/${data}`);
 };
 
+// change ncc status
+export const changeNCCStatusApi = (data) => {
+  return axiosInstance().post(`/admin/ncc/${data?.slug}/status`, data);
+};
+
 // SETTINGS------------------>
 // get site settings
 export const getSiteSettingsApi = () => {
@@ -127,6 +132,11 @@ export const deleteTeamsApi = (data) => {
   return axiosInstance().delete(`/admin/our-teams/${data}`);
 };
 
+// change our teams status
+export const changeTeamsStatusApi = (data) => {
+  return axiosInstance().post(`/admin/our-teams/${data?.slug}/status`, data);
+};
+
 // CANDIDATE---------------->
 // get candidate
 export const getCandidateApi = () => {
@@ -146,6 +156,11 @@ export const updateCandidateApi = (data, slug) => {
 // delete candidate
 export const deleteCandidateApi = (data) => {
   return axiosInstance().delete(`/admin/ncc-candidates/${data}`);
+};
+
+// change candidate status
+export const changeCandidateStatusApi = (data) => {
+  return axiosInstance().post(`/admin/ncc-candidates/${data?.slug}/status`, data);
 };
 
 // PROFILE------------------>

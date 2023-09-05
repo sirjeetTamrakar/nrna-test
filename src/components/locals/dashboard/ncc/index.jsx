@@ -13,10 +13,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
+import { changeNCCStatus, deleteNCC, getNCC } from './redux/actions';
 import Register from './Register';
-import View from './View';
-import { deleteNCC, getNCC } from './redux/actions';
 import { useStyles } from './styles';
+import View from './View';
 
 const NCC = () => {
   const dispatch = useDispatch();
@@ -82,7 +82,7 @@ const NCC = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === '1' ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -134,6 +134,15 @@ const NCC = () => {
   const handleEdit = (row) => {
     setDetail(row);
     editOpenFunction();
+  };
+
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status == 0 ? 1 : 0,
+      _method: 'PATCH'
+    };
+    dispatch(changeNCCStatus(finalData, statusOpenFunction));
   };
 
   const handleDelete = (row) => {
@@ -215,7 +224,9 @@ const NCC = () => {
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
-          status={detail?.status}
+          status={detail?.status === '1' ? 'Active' : 'Inactive'}
+          id={detail?.slug}
+          handleConfirm={handleStatusConfirm}
         />
       </Box>
     </>

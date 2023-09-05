@@ -12,7 +12,7 @@ export const getNews = () => (dispatch) => {
   dispatch({ type: actions.GET_NEWS_BEGIN });
   getNewsApi()
     .then((res) => {
-      dispatch({ type: actions.GET_NEWS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_NEWS_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

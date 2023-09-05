@@ -29,7 +29,8 @@ const CustomTable = ({
   setRowsPerPage,
   page = 0,
   setPage,
-  total = 1
+  total = 1,
+  handleChangePage
 }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -51,9 +52,9 @@ const CustomTable = ({
     onDelete(actionSelectedData);
     handleClose();
   };
-  const handleChangePage = (event, newPage) => {
-    setPage(newPage);
-  };
+  // const handleChangePage = (event, newPage) => {
+  //   setPage(newPage);
+  // };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);

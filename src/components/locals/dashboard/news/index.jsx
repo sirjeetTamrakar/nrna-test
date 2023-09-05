@@ -14,10 +14,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -35,6 +35,8 @@ const News = () => {
   const { newsData, get_news_loading, news_status_loading, delete_news_loading } = useSelector(
     (state) => state.news
   );
+
+  console.log({ newsData });
 
   useEffect(() => {
     dispatch(getNews());
@@ -67,7 +69,7 @@ const News = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === 1 ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -121,7 +123,7 @@ const News = () => {
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
-      status: detail?.status === 'Active' ? 'inactive' : 'active',
+      status: detail?.status === 0 ? 1 : 0,
       _method: 'PATCH'
     };
     dispatch(changeNewsStatus(finalData, statusOpenFunction));
@@ -152,6 +154,20 @@ const News = () => {
     viewOpenFunction();
   };
 
+  const handleChangePage = () => {
+    setPage(newsData?.meta?.current_page + 1);
+    console.log({ changes: newsData?.meta?.current_page, newsData });
+  };
+
+  console.log({ page });
+
+  useEffect(() => {
+    if (page) {
+      const finalData = newsData?.meta?.links?.[page];
+      console.log({ finalData });
+    }
+  }, [page]);
+
   return (
     <>
       <Box>
@@ -173,13 +189,14 @@ const News = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={newsData}
+          tableData={newsData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
           total={30}
           loading={get_news_loading ? true : false}
+          handleChangePage={handleChangePage}
         />
         <CustomModal
           open={openForm}
@@ -218,7 +235,7 @@ const News = () => {
           open={openStatus}
           isLoading={news_status_loading}
           handleClose={statusOpenFunction}
-          status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
+          status={detail?.status == 1 ? 'Active' : 'Inactive'}
           id={detail?.slug}
           handleConfirm={handleStatusConfirm}
         />

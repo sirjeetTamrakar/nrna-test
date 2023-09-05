@@ -40,7 +40,6 @@ const Member = () => {
   const classes = useStyles();
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
-
     {
       title: 'Name',
       minWidth: 150,

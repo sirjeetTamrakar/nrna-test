@@ -12,10 +12,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
+import { changeCandidateStatus, deleteCandidate, getCandidate } from './redux/actions';
 import Register from './Register';
-import View from './View';
-import { deleteCandidate, getCandidate } from './redux/actions';
 import { useStyles } from './styles';
+import View from './View';
 
 const Candidate = () => {
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const Candidate = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === 1 ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -127,6 +127,15 @@ const Candidate = () => {
 
   const handleConfirm = (slug) => {
     dispatch(deleteCandidate(slug, deleteOpenFunction));
+  };
+
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status == 0 ? 1 : 0,
+      _method: 'PATCH'
+    };
+    dispatch(changeCandidateStatus(finalData, statusOpenFunction));
   };
 
   const handleEdit = (row) => {
@@ -216,6 +225,8 @@ const Candidate = () => {
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status}
+          id={detail?.id}
+          handleConfirm={handleStatusConfirm}
         />
       </Box>
     </>

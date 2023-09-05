@@ -13,10 +13,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
+import { changeTeamsStatus, deleteTeams, getTeams } from './redux/actions';
 import Register from './Register';
-import View from './View';
-import { deleteTeams, getTeams } from './redux/actions';
 import { useStyles } from './styles';
+import View from './View';
 
 const OurTeam = () => {
   const dispatch = useDispatch();
@@ -88,7 +88,7 @@ const OurTeam = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === 1 ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -128,6 +128,15 @@ const OurTeam = () => {
 
   const handleConfirm = (slug) => {
     dispatch(deleteTeams(slug, deleteOpenFunction));
+  };
+
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status == 0 ? 1 : 0,
+      _method: 'PATCH'
+    };
+    dispatch(changeTeamsStatus(finalData, statusOpenFunction));
   };
 
   const handleEdit = (row) => {
@@ -215,7 +224,9 @@ const OurTeam = () => {
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
-          status={detail?.status}
+          status={detail?.status == 1 ? 'Active' : 'Inactive'}
+          id={detail?.id}
+          handleConfirm={handleStatusConfirm}
         />
       </Box>
     </>

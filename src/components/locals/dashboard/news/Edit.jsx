@@ -5,9 +5,9 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { updateNews } from './redux/actions';
 import { useStyles } from './styles';
+import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();

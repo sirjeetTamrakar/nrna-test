@@ -21,7 +21,7 @@ export const postProfile =
     postProfileApi(data)
       .then((res) => {
         dispatch({ type: actions.POST_PROFILE_SUCCESS });
-        successToast('Your message sent successfully');
+        successToast('Your profile saved successfully');
         handleSuccess && handleSuccess();
         refetch && refetch();
       })
