@@ -1,6 +1,5 @@
 import { ExpandMore } from '@mui/icons-material';
-import { Collapse, Typography } from '@mui/material';
-import Box from '@mui/material/Box';
+import { Box, Collapse, Typography } from '@mui/material';
 import MuiDrawer from '@mui/material/Drawer';
 import List from '@mui/material/List';
 import ListItem from '@mui/material/ListItem';

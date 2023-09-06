@@ -21,10 +21,12 @@ export default function App() {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <RouteList />
-      <ToastContainer autoClose={4000} limit={3} draggablePercent={50} />
-    </ThemeProvider>
+    <>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouteList />
+        <ToastContainer autoClose={4000} limit={3} draggablePercent={50} />
+      </ThemeProvider>
+    </>
   );
 }
