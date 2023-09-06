@@ -1,6 +1,7 @@
 import {
   changeApprovalApi,
   changeStatusApi,
+  changeUserRoleApi,
   createUserApi,
   getAllUsersApi,
   updateUsersApi
@@ -84,3 +85,16 @@ export const updateUsers =
       errorToast(error);
     }
   };
+
+export const changeUserRole = (slug, data, refetch) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_USER_ROLE_BEGIN });
+  changeUserRoleApi(slug, data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_USER_ROLE_SUCCESS });
+      refetch && refetch();
+    })
+    .catch((error) => {
+      dispatch({ type: actions.CHANGE_USER_ROLE_ERROR });
+      errorToast(error);
+    });
+};

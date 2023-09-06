@@ -1,7 +1,6 @@
 import { Delete } from '@mui/icons-material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
-import { useForm } from 'react-hook-form';
 import CustomAutoComplete from '../Form/CustomAutoComplete';
 import CustomForm from '../Form/CustomForm';
 import CustomFormProvider from '../Form/CustomFormProvider';
@@ -13,12 +12,9 @@ const CustomRoleChangeModal = ({
   handleConfirm,
   isLoading,
   role,
-  modalTitle,
-  id
+  modalTitle
 }) => {
-  const { watch } = useForm();
-  console.log('watch------->', watch());
-  const defaultValues = {};
+  const defaultValues = { role: role };
   const roleData = [
     { value: 'admin', label: 'Admin' },
     { value: 'member', label: 'Member' },
@@ -26,7 +22,7 @@ const CustomRoleChangeModal = ({
     { value: '', label: 'None' }
   ];
   const submitHandler = (data) => {
-    console.log('dssssssata', data);
+    handleConfirm(data?.role);
   };
   return (
     <>
@@ -35,7 +31,6 @@ const CustomRoleChangeModal = ({
         width={'500px'}
         height={'306px'}
         icon={<Delete />}
-        // modalTitle={modalTitle}
         handleClose={handleClose}>
         <Box>
           <Box>
@@ -110,11 +105,7 @@ const CustomRoleChangeModal = ({
                   gap: '10px',
                   marginTop: '30px'
                 }}>
-                <Button
-                  variant="contained"
-                  onClick={() => handleConfirm(id)}
-                  disabled={isLoading}
-                  color="primary">
+                <Button type="submit" variant="contained" disabled={isLoading} color="primary">
                   {isLoading ? (
                     <Box display={'flex'} alignItems={'center'} gap={'10px'}>
                       <CircularProgress size={15} style={{ color: '#fff' }} />

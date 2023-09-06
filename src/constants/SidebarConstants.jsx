@@ -14,6 +14,7 @@ import Team from 'assets/icon/team.svg';
 
 import SettingsIcon from 'assets/icon/settings.svg';
 import UserManagement from 'assets/icon/user-management.svg';
+import { Roles } from './RoleConstant';
 
 export const SidebarConstants = [
   {
@@ -24,6 +25,7 @@ export const SidebarConstants = [
         url: '/dashboard',
         icon: DashboardIcon,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
       },
       {
@@ -31,10 +33,12 @@ export const SidebarConstants = [
         url: '/dashboard/user-management',
         icon: UserManagement,
         activeIcon: ActiveSettingsIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin],
         children: [
           {
             label: 'Member',
-            url: '/dashboard/user-management/member'
+            url: '/dashboard/user-management/member',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           }
           // {
           //   label: 'Permission',
@@ -47,6 +51,7 @@ export const SidebarConstants = [
         url: '/dashboard/news',
         icon: News,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
       },
       {
@@ -54,6 +59,7 @@ export const SidebarConstants = [
         url: '/dashboard/events',
         icon: Events,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: []
       },
       {
@@ -61,6 +67,7 @@ export const SidebarConstants = [
         url: '/dashboard/contact',
         icon: Contact,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
       },
       {
@@ -68,6 +75,7 @@ export const SidebarConstants = [
         url: '/dashboard/profile',
         icon: Profile,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Member],
         children: []
       },
       {
@@ -75,6 +83,7 @@ export const SidebarConstants = [
         url: '/dashboard/advice',
         icon: Advice,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin],
         children: []
       },
       {
@@ -82,6 +91,7 @@ export const SidebarConstants = [
         url: '/dashboard/ncc',
         icon: Country,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin],
         children: []
       },
       {
@@ -89,6 +99,8 @@ export const SidebarConstants = [
         url: '/dashboard/our-team',
         icon: Team,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
+
         children: []
       },
       {
@@ -96,6 +108,7 @@ export const SidebarConstants = [
         url: '/dashboard/candidate',
         icon: Candidate,
         activeIcon: ActiveDashboardIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: []
       },
       {
@@ -103,18 +116,22 @@ export const SidebarConstants = [
         url: '/dashboard/survey',
         icon: Survey,
         activeIcon: ActiveSettingsIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin],
         children: [
           {
             label: 'Questions',
-            url: '/dashboard/survey/site'
+            url: '/dashboard/survey/site',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           },
           {
             label: 'Result',
-            url: '/dashboard/survey/result'
+            url: '/dashboard/survey/result',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           },
           {
             label: 'Participants',
-            url: '/dashboard/survey/participants'
+            url: '/dashboard/survey/participants',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           }
         ]
       },
@@ -123,18 +140,22 @@ export const SidebarConstants = [
         url: '/dashboard/business',
         icon: Business,
         activeIcon: ActiveSettingsIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: [
           {
             label: 'Category',
-            url: '/dashboard/business/category'
+            url: '/dashboard/business/category',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           },
           {
             label: 'Business',
-            url: '/dashboard/business'
+            url: '/dashboard/business',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member]
           },
           {
             label: 'Contact',
-            url: '/dashboard/business/contact'
+            url: '/dashboard/business/contact',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member]
           }
         ]
       },
@@ -143,14 +164,17 @@ export const SidebarConstants = [
         url: '/dashboard/settings',
         icon: SettingsIcon,
         activeIcon: ActiveSettingsIcon,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
             label: 'Site Setting',
-            url: '/dashboard/settings/site'
+            url: '/dashboard/settings/site',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
             label: 'Banner',
-            url: '/dashboard/settings/banner'
+            url: '/dashboard/settings/banner',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           }
         ]
       }
