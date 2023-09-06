@@ -9,6 +9,7 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -35,6 +36,9 @@ const News = () => {
   const { newsData, get_news_loading, news_status_loading, delete_news_loading } = useSelector(
     (state) => state.news
   );
+
+  const { user } = useSelector((state) => state.auth);
+  console.log('userreerr', { user });
 
   console.log({ newsData });
 
@@ -107,7 +111,9 @@ const News = () => {
             <ul className={classes.listWrapper}>
               <li onClick={() => handleEdit(row)}>Edit News </li>
               <li onClick={() => handleView(row)}>View Details</li>
-              <li onClick={() => handleApprove(row)}>Approve User</li>
+              {(user?.role_name === Roles?.SuperAdmin || user?.role_name === Roles?.Admin) && (
+                <li onClick={() => handleApprove(row)}>Approve News</li>
+              )}
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
           </CustomPopover>
