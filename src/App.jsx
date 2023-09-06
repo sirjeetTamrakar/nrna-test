@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { setGlobalUser } from 'redux/auth/actions';
 import { getSiteSettings } from 'redux/homepage/actions';
 import RouteList from 'routes';
 import 'slick-carousel/slick/slick-theme.css';
@@ -16,6 +17,7 @@ export default function App() {
 
   useEffect(() => {
     dispatch(getSiteSettings());
+    dispatch(setGlobalUser());
   }, []);
 
   return (

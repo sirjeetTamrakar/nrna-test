@@ -28,3 +28,9 @@ export const changeStatusApi = (slug, data) => {
 export const updateUsersApi = (data, slug) => {
   return axiosInstance().post(`/admin/users/${slug}/admin`, data);
 };
+
+// change user role
+
+export const changeUserRoleApi = (slug, data) => {
+  return axiosInstance().patch(`/admin/users/${slug}/role`, data);
+};

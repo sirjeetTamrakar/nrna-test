@@ -17,11 +17,11 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
-import { changeApproval, changeStatus, getAllUsers } from '../redux/actions';
+import { changeApproval, changeStatus, changeUserRole, getAllUsers } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
@@ -31,9 +31,8 @@ const Member = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
-  const { users, users_loading, user_status_loading, approve_user_loading } = useSelector(
-    (state) => state.user
-  );
+  const { users, users_loading, user_status_loading, approve_user_loading, change_role_loading } =
+    useSelector((state) => state.user);
   console.log({ users });
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
@@ -79,7 +78,7 @@ const Member = () => {
     {
       title: 'Role',
       minWidth: 100,
-      field: 'role'
+      field: 'role_name'
     },
     {
       title: 'Approved',
@@ -193,6 +192,15 @@ const Member = () => {
     );
   };
 
+  const handleChangeRole = (value) => {
+    dispatch(
+      changeUserRole(detail?.username, { role_name: value }, () => {
+        roleOpenFunction();
+        refetch();
+      })
+    );
+  };
+
   const handleApproveStatus = (value) => {
     const status = value === 'approved' ? 'approved' : 'rejected';
     dispatch(
@@ -270,10 +278,10 @@ const Member = () => {
         </CustomModal>
         <CustomRoleChangeModal
           open={openRole}
-          // handleConfirm={handleChangeStatus}
+          handleConfirm={handleChangeRole}
           handleClose={roleOpenFunction}
-          // status={detail?.status == 1 ? 'Active' : 'Inactive'}
-          isLoading={user_status_loading}
+          role={detail?.role_name}
+          isLoading={change_role_loading}
         />
         <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
         <CustomStatusModal

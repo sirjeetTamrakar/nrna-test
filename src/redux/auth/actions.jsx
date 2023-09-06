@@ -6,7 +6,6 @@ export const setGlobalUser = () => (dispatch) => {
   try {
     const user = localStorage.getItem('NRNA_USER');
     const userObj = JSON.parse(user);
-    console.log({ userObj });
     dispatch({
       type: actions.SET_AUTH_USER,
       payload: userObj
