@@ -200,10 +200,6 @@ export const postProfileApi = (data) => {
 
 // BANNER---------------->
 // get banner
-// export const getBannerApi = () => {
-//   return axiosInstance().get('/admin/banners');
-// };
-
 export const getBannerApi = (data) => {
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit

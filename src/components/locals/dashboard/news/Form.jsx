@@ -8,9 +8,10 @@ import { useStyles } from './styles';
 
 const NewsForm = ({ featureImage }) => {
   const classes = useStyles();
-  const { usersData } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
+  console.log('ssssssss', { users });
 
-  const createdByUsers = usersData?.map((item) => ({
+  const createdByUsers = users?.data?.map((item) => ({
     label: item?.name,
     value: item?.id
   }));

@@ -1,3 +1,6 @@
+import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { changeDateFormat } from 'utils/dateUtils';
 const View = ({ data }) => {
   console.log('xcxxcxxcc', { data });
 
@@ -11,38 +14,36 @@ const View = ({ data }) => {
   //   };
 
   return (
-    <ol style={{ paddingTop: '8px', paddingBottom: '8px', listStyle: 'none' }}>
-      {/* {Object.entries(data).map((entry, index) => {
-        const [key, value] = entry;
+    <div style={{ padding: '10px 20px' }}>
+      {/* <div style={{ padding: '10px 0' }}>
+        <Typography sx={{ fontSize: '20px', fontWeight: '700', color: '#474849' }}>
+          {' '}
+          {data?.country_name}
+        </Typography>
+      </div> */}
 
-        // Exclude property
-        if (key === 'description' || key === 'feature_image') {
-          return null;
-        }
-
-        return (
-          <li style={{ padding: '5px 0' }} key={index}>
-            {key + ' : ' + value}
-          </li>
-        );
-      })} */}
-      <li style={{ padding: '5px 0' }}>
-        <div style={{ display: 'flex' }}>
-          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
-            Cuntry of residence:
-          </span>
-          <div style={{ fontSize: '16px' }}>{data?.country_name ? data?.country_name : '-'}</div>
+      <div style={{ paddingBottom: '10px', display: 'flex', flexDirection: 'column' }}>
+        <div style={{ padding: '10px 0' }}>
+          <div style={{ width: '100%', height: '200px' }}>
+            <img
+              src={data?.logo}
+              alt=""
+              style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px' }}
+            />
+          </div>
         </div>
-      </li>
-      <li style={{ padding: '5px 0' }}>
-        <div style={{ display: 'flex' }}>
-          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
-            Created at:
-          </span>
-          <div style={{ fontSize: '16px' }}>{data?.created_at ? data?.created_at : '-'}</div>
-        </div>
-      </li>
-    </ol>
+        <span style={{ padding: '5px 0px' }}>
+          <AccessTimeOutlinedIcon /> {changeDateFormat(data?.created_at, 'DD-MMM-YYYY HH:MM')}
+        </span>{' '}
+        <span style={{ padding: '5px 0px' }}>
+          {' '}
+          <LocationOnOutlinedIcon /> {data?.country_name && data?.country_name}
+        </span>
+      </div>
+      <div style={{ padding: '10px 0' }}>
+        <div style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{ __html: data?.advice }} />
+      </div>
+    </div>
   );
 };
 
