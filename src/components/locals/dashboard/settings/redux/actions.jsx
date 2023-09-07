@@ -2,9 +2,9 @@ import { getSiteSettingsApi, postSiteSettingsApi } from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getSiteSettings = () => (dispatch) => {
+export const getSiteSettings = (data) => (dispatch) => {
   dispatch({ type: actions.GET_SITE_SETTINGS_BEGIN });
-  getSiteSettingsApi()
+  getSiteSettingsApi(data)
     .then((res) => {
       dispatch({ type: actions.GET_SITE_SETTINGS_SUCCESS, payload: res.data.data });
     })

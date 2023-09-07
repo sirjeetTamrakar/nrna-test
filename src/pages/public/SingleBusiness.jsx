@@ -1,4 +1,5 @@
-import BusinessProfile from 'components/locals/Business/SingleBusiness';
+// import BusinessProfile from 'components/locals/Business/SingleBusiness';
+import BusinessProfile from 'components/locals/Business/SingleBusinesss';
 import AuthLayout from 'layouts/authLayout';
 
 const SingleBusinessPage = () => {

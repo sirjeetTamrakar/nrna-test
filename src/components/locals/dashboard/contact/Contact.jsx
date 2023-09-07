@@ -1,6 +1,6 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
-import { Box } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
@@ -39,8 +39,16 @@ const Contact = () => {
     {
       title: 'Subject',
       minWidth: 200,
-
-      field: 'subject'
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">
+              {row?.subject?.length > 49 ? `${row?.subject?.substring(0, 50)}...` : row?.subject}
+            </Typography>
+          </Box>
+        );
+      }
+      // field: 'subject'
     },
     {
       title: 'Name',

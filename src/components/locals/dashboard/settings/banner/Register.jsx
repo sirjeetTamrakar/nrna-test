@@ -2,12 +2,13 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import BannerForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postBanner } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -15,6 +16,7 @@ const Register = ({ handleClose }) => {
   const classes = useStyles();
 
   const { banner_loading } = useSelector((state) => state.banner);
+  const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -23,6 +25,10 @@ const Register = ({ handleClose }) => {
     formData.append('description', data?.description);
     formData.append('link', data?.link);
     formData.append('status', 1);
+    if (user?.role_name === Roles.NCC) {
+      formData.append('bannerable_type', user?.role_name);
+      formData.append('bannerable_id', user?.id);
+    }
 
     if (data?.image?.length > 0) {
       formData.append('image', data?.image?.[0]);

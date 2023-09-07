@@ -7,9 +7,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../userManagement/redux/actions';
 import NewsForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postNews } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();

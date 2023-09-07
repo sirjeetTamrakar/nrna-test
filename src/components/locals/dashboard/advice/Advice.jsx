@@ -1,6 +1,7 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import { Box } from '@mui/material';
+import Typography from '@mui/material/Typography';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
@@ -37,8 +38,15 @@ const Advice = () => {
     {
       title: 'Advice',
       minWidth: 250,
-
-      field: 'advice'
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">
+              {row?.advice?.length > 79 ? `${row?.advice?.substring(0, 80)}...` : row?.advice}
+            </Typography>
+          </Box>
+        );
+      }
     },
     {
       title: 'Name',

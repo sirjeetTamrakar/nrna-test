@@ -1,60 +1,68 @@
 import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
+import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
-import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
-import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { postSiteSettings } from '../../redux/actions';
+import { getSiteSettings, postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
-const TaglineForm = () => {
+const MissionForm = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const defaultValues = {
-    tagline_author: '',
-    tagline_description: ''
+    mission: '',
+    mission_image: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
-
-  const submitHandler = (data) => {
-    const formData = new FormData();
-    formData.append('tagline_author', data?.tagline_author);
-    formData.append('tagline_description', data?.tagline_description);
-    if (user?.role_name === Roles.NCC) {
-      formData.append('settingable_type', user?.role_name);
-      formData.append('settingable_id', user?.id);
+  useEffect(() => {
+    if (site_settings) {
+      setValue('mission', site_settings?.mission);
     }
-    dispatch(postSiteSettings(formData));
+  }, [site_settings]);
+
+  const refetch = () => {
+    const data = { settingable_type: 'nbns', settingable_id: user?.id };
+    dispatch(getSiteSettings(data));
   };
 
   useEffect(() => {
-    if (site_settings) {
-      setValue('tagline_author', site_settings?.tagline_author);
-      setValue('tagline_description', site_settings?.tagline_description);
+    refetch();
+  }, [user]);
+
+  const submitHandler = (data) => {
+    const formData = new FormData();
+
+    formData.append('mission', data?.mission);
+    formData.append('settingable_type', 'nbns');
+    formData.append('settingable_id', user?.id);
+
+    if (data?.mission_image?.length > 0) {
+      formData.append('mission_image', data?.mission_image?.[0]);
     }
-  }, [site_settings]);
+    dispatch(postSiteSettings(formData));
+  };
 
   return (
     <Box className={classes.root}>
       <CustomForm onSubmit={submitHandler}>
         <Grid container spacing={2}>
           <Grid item sm={12}>
-            <CustomInput name="tagline_author" label="Tagline Author" required />
-          </Grid>
-
-          <Grid item sm={12}>
-            <CustomTextArea
-              name="tagline_description"
-              label="Tagline Description"
-              required
-              rows={2}
+            <FileUploader
+              title="Mission Image"
+              imageText="Resolution: height: 525 x width: 500"
+              name="mission_image"
+              label="Select Photo"
+              image={site_settings?.mission_image}
             />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomTextArea name="mission" label="Mission Description" required rows={15} />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
@@ -67,4 +75,4 @@ const TaglineForm = () => {
   );
 };
 
-export default TaglineForm;
+export default MissionForm;

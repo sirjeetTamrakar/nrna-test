@@ -2,12 +2,13 @@ import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,6 +31,7 @@ const SettingsBanner = () => {
   const classes = useStyles();
   const { bannerData, banner_status_loading, delete_banner_loading, get_banner_loading } =
     useSelector((state) => state.banner);
+  const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -42,7 +44,16 @@ const SettingsBanner = () => {
     {
       title: 'Subtitle',
       minWidth: 250,
-      field: 'subtitle'
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">
+              {row?.subtitle?.length > 59 ? `${row?.subtitle?.substring(0, 60)}...` : row?.subtitle}
+            </Typography>
+          </Box>
+        );
+      }
+      // field: 'subtitle'
     },
     {
       title: 'Image',
@@ -134,7 +145,12 @@ const SettingsBanner = () => {
   // }, []);
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    const data = {
+      page: page + 1,
+      pagination_limit: rowsPerPage,
+      bannerable_type: user?.role_name === Roles.NCC ? Roles.NCC : '',
+      bannerable_id: user?.id
+    };
     dispatch(getBanner(data));
   };
 

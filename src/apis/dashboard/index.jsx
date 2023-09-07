@@ -92,8 +92,12 @@ export const changeNCCStatusApi = (data) => {
 
 // SETTINGS------------------>
 // get site settings
-export const getSiteSettingsApi = () => {
-  return axiosInstance().get('/admin/site-settings');
+export const getSiteSettingsApi = (data) => {
+  const settingable_type = data?.settingable_type
+    ? `?settingable_type=${data?.settingable_type}`
+    : '';
+  const settingable_id = data?.settingable_id ? `&settingable_id=${data?.settingable_id}` : '';
+  return axiosInstance().get(`/admin/site-settings${settingable_type}${settingable_id}`);
 };
 
 // post site settings
@@ -205,7 +209,11 @@ export const getBannerApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/banners${page}${pagination_limit}`);
+  const bannerable_type = data?.bannerable_type ? `&bannerable_type=${data?.bannerable_type}` : '';
+  const bannerable_id = data?.bannerable_id ? `&bannerable_id=${data?.bannerable_id}` : '';
+  return axiosInstance().get(
+    `/admin/banners${page}${pagination_limit}${bannerable_type}${bannerable_id}`
+  );
 };
 
 // post banner

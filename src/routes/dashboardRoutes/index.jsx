@@ -1,10 +1,14 @@
 import Protected from 'components/globals/protected';
 import AdvicePage from 'pages/private/Advice';
 import BannerPage from 'pages/private/BannerPage';
+import BusinessPage from 'pages/private/business';
+import CategoryPage from 'pages/private/business/Category';
+import BusinessContactPage from 'pages/private/business/Contact';
 import CandidatePage from 'pages/private/CandidatePage';
 import ContactPage from 'pages/private/ContactPage';
 import EventsPage from 'pages/private/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
+import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
 import NewsPage from 'pages/private/NewsPage';
 import OurTeamPage from 'pages/private/OurTeamPage';
@@ -14,9 +18,6 @@ import ProfilePage from 'pages/private/ProfilePage';
 import QuestionsPage from 'pages/private/Questions';
 import ResultsPage from 'pages/private/ResultsPage';
 import SiteSettingsPage from 'pages/private/SiteSettings';
-import BusinessPage from 'pages/private/business';
-import CategoryPage from 'pages/private/business/Category';
-import BusinessContactPage from 'pages/private/business/Contact';
 
 const DashboardRoutes = [
   {
@@ -147,6 +148,14 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <SiteSettingsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'settings/nbns',
+    component: (
+      <Protected>
+        <NBNSPage />
       </Protected>
     )
   },

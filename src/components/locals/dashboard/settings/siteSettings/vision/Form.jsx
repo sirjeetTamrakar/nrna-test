@@ -3,6 +3,7 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
+import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,7 +20,7 @@ const VisionForm = () => {
   const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
-
+  const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     dispatch(getSiteSettings());
   }, []);
@@ -33,6 +34,10 @@ const VisionForm = () => {
   const submitHandler = (data) => {
     const formData = new FormData();
     formData.append('vision', data?.vision);
+    if (user?.role_name === Roles.NCC) {
+      formData.append('settingable_type', user?.role_name);
+      formData.append('settingable_id', user?.id);
+    }
     if (data?.vision_image?.length > 0) {
       formData.append('vision_image', data?.vision_image?.[0]);
     }

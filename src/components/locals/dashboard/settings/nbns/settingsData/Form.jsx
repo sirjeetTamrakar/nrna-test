@@ -3,7 +3,6 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
-import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -23,9 +22,9 @@ const SettingsDataForm = () => {
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
-  useEffect(() => {
-    dispatch(getSiteSettings());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getSiteSettings());
+  // }, []);
 
   useEffect(() => {
     if (site_settings) {
@@ -35,15 +34,22 @@ const SettingsDataForm = () => {
     }
   }, [site_settings]);
 
+  const refetch = () => {
+    const data = { settingable_type: 'nbns', settingable_id: user?.id };
+    dispatch(getSiteSettings(data));
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [user]);
+
   const submitHandler = (data) => {
     const formData = new FormData();
     formData.append('address', data?.address);
     formData.append('phone', data?.phone);
     formData.append('email', data?.email);
-    if (user?.role_name !== Roles.NCC) {
-      formData.append('settingable_type', user?.role_name);
-      formData.append('settingable_id', user?.id);
-    }
+    formData.append('settingable_type', 'nbns');
+    formData.append('settingable_id', user?.id);
 
     if (data?.region_logo?.length > 0) {
       formData.append('region_logo', data?.region_logo?.[0]);

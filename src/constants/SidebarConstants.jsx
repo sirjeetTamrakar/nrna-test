@@ -172,6 +172,11 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
+            label: 'NBNS',
+            url: '/dashboard/settings/nbns',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
             label: 'Banner',
             url: '/dashboard/settings/banner',
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
