@@ -1,4 +1,7 @@
+import PersonIcon from '@mui/icons-material/Person';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SegmentIcon from '@mui/icons-material/Segment';
+import { Box } from '@mui/material';
 import Logo from 'assets/images/nrna.png';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
@@ -25,7 +28,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
 
   return (
     <>
-      <div className={`Navbar ${sticky ? 'navbar_sticky' : ''}`} id="nav">
+      <div className={`Navbar navbar_sticky`} id="nav">
         <div className="container">
           <div className="Navbar_wrapper">
             <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
@@ -34,9 +37,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                   <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
                 </div>
                 <div className="main-name">
-                  <h4 style={{ mixBlendMode: 'difference' }}>
-                    {currentUser ? currentUser.name : 'NRNA'}
-                  </h4>
+                  <h4>{currentUser ? currentUser.name : 'NRNA'}</h4>
                 </div>
               </div>
             </Link>
@@ -51,9 +52,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
               <li className="d-none d-lg-block">
                 <Link to="/our-team">Our Team</Link>
               </li>
-              <li className="d-none d-lg-block">
-                <Link to="/candidates">Candidates</Link>
-              </li>
+
               <li className="d-none d-lg-block">
                 <Link to="/business">Business</Link>
               </li>
@@ -75,9 +74,14 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                     Dashboard
                   </button>
                 ) : (
-                  <button className="btn-md" onClick={openFunction}>
-                    Login
-                  </button>
+                  <Box display="flex" justifyContent="flex-start" columnGap="10px">
+                    <button className="btn-md" onClick={openFunction}>
+                      <PersonIcon /> Login
+                    </button>
+                    <button className="btn-md-contained" onClick={openFunctionRegister}>
+                      <PersonAddIcon /> Join Us
+                    </button>
+                  </Box>
                 )}
               </li>
 

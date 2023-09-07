@@ -42,6 +42,7 @@
   }
   .all_events{
     margin-top: 60px;
+    min-height: calc(100vh - 200px);
     background-color: $primary-background;
   }
 }

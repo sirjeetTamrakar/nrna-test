@@ -1,4 +1,7 @@
 import HomeIcon from '@mui/icons-material/Home';
+import PersonIcon from '@mui/icons-material/Person';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import { Box } from '@mui/material';
 import Logo from 'assets/images/nrna.png';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
@@ -27,7 +30,7 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
 
   return (
     <>
-      <div className={`Navbar ${sticky ? 'navbar_sticky' : ''}`} id="nav">
+      <div className={`Navbar navbar_sticky`} id="nav">
         <div className="container">
           <div className="Navbar_wrapper">
             <Link to={`/${candidate}`} style={{ textDecoration: 'none', color: 'white' }}>
@@ -36,9 +39,7 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
                   <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
                 </div>
                 <div className="main-name">
-                  <h4 style={{ mixBlendMode: 'difference' }}>
-                    {currentUser ? currentUser.name : params?.candidate}
-                  </h4>
+                  <h4>{currentUser ? currentUser.name : params?.candidate}</h4>
                 </div>
               </div>
             </Link>
@@ -60,14 +61,19 @@ function CandidateNavbar({ isHomePage, currentUser, sticky }) {
                     Dashboard
                   </button>
                 ) : (
-                  <button className="btn-md" onClick={openFunction}>
-                    Login
-                  </button>
+                  <Box display="flex" justifyContent="flex-start" columnGap="10px">
+                    <button className="btn-md" onClick={openFunction}>
+                      <PersonIcon /> Login
+                    </button>
+                    <button className="btn-md-contained" onClick={openFunctionRegister}>
+                      <PersonAddIcon /> Join Us
+                    </button>
+                  </Box>
                 )}
               </li>
-              <li>
-                <Link to="/" className="home-btn d-none d-lg-block">
-                  <HomeIcon />
+              <li className="d-none d-lg-block">
+                <Link to="/" className="home-btn ">
+                  <HomeIcon /> Back to Home
                 </Link>
               </li>
               <li className="d-block d-lg-none">

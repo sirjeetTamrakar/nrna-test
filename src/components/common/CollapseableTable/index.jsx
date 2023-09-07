@@ -126,6 +126,9 @@ const CollapseTable = ({
               })
             : [...Array(8).keys()].map((index) => (
                 <TableRow key={index}>
+                  <TableCell>
+                    <Skeleton height={30} />
+                  </TableCell>
                   {tableHeads?.map((item, list) => (
                     <TableCell key={list} sx={{ minWidth: item?.minWidth }} align={item?.align}>
                       <Skeleton height={30} />

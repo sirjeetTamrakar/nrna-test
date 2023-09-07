@@ -1,7 +1,9 @@
 import CandidateImage1 from 'assets/images/candidate1.png';
 import CandidateImage2 from 'assets/images/candidate2.png';
 import CandidateImage3 from 'assets/images/candidate3.png';
+import { useState } from 'react';
 import NCCItem from './BusinessItem';
+import SecondaryNav from './SecondaryNav';
 
 const Business = () => {
   const nccItems = [
@@ -25,10 +27,41 @@ const Business = () => {
       username: 'usa'
     }
   ];
+  const category = [
+    {
+      title: 'Tech & IT',
+      slug: 'advisory_board'
+    },
+    {
+      title: 'Consultancy',
+      slug: 'board_of_directors'
+    },
+    {
+      title: 'Construction',
+      slug: 'general_members'
+    },
+    {
+      title: 'Restaurant',
+      slug: 'task_force'
+    },
+    {
+      title: 'Travel & Tours',
+      slug: 'travel'
+    },
+    {
+      title: 'Education',
+      slug: 'education'
+    },
+    {
+      title: 'Entertainment',
+      slug: 'entertainment'
+    }
+  ];
+  const [selected, setSelected] = useState(category?.[0]?.slug);
   return (
-    <div className="main_content">
+    <>
+      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
       <section className="all_events">
-        <div className="all_events_title">Business</div>
         <div className="container">
           <div className="row">
             {nccItems.length > 0 ? (
@@ -45,7 +78,7 @@ const Business = () => {
           </div>
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

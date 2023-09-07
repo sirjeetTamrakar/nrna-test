@@ -3,7 +3,7 @@ import { makeStyles } from '@mui/styles';
 const useStyles = makeStyles((theme) => ({
   root: {
     padding: '60px 0',
-    height: 'calc(100vh - 60px)'
+    minHeight: 'calc(100vh - 60px)'
   },
   headerWrapper: {
     marginTop: '30px',

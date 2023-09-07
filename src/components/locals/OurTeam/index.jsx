@@ -1,38 +1,58 @@
 import { Box, CircularProgress } from '@mui/material';
-import CandidateImage1 from 'assets/images/candidate1.png';
-import CandidateImage2 from 'assets/images/candidate2.png';
-import CandidateImage3 from 'assets/images/candidate3.png';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeams } from 'redux/homepage/actions';
 import OurTeamCard from './OurTeamCard';
+import SecondaryNav from './SecondaryNav';
 
 const OurTeam = () => {
   const dispatch = useDispatch();
   const { teams, team_loading } = useSelector((state) => state.homepage);
-  const candidates = [
+  const [filteredTeam, setFilteredTeam] = useState();
+
+  const departments = [
     {
-      id: '1',
-      image: CandidateImage1,
-      name: 'John Doe',
-      username: 'john'
+      title: 'Advisory Board',
+      slug: 'advisory_board'
     },
     {
-      id: 2,
-      image: CandidateImage2,
-      name: 'Jason Momoa',
-      username: 'jason'
+      title: 'Board of Directors',
+      slug: 'board_of_directors'
     },
-    { id: 3, image: CandidateImage3, name: 'Chris Bumsterd', username: 'chris' }
+    {
+      title: 'General Members',
+      slug: 'general_members'
+    },
+    {
+      title: 'Task Force',
+      slug: 'task_force'
+    }
   ];
+  const [selected, setSelected] = useState(departments?.[0]?.slug);
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     dispatch(getTeams());
   }, []);
+
+  useEffect(() => {
+    if (teams) {
+      const newTeam = teams?.filter((list) =>
+        list?.member?.name?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      setFilteredTeam(newTeam);
+    }
+  }, [search, teams]);
+
   return (
-    <div className="main_content">
+    <>
+      <SecondaryNav
+        departments={departments}
+        selected={selected}
+        setSelected={setSelected}
+        setSearch={setSearch}
+      />
       <section className="all_events">
-        <div className="all_events_title">Our Team</div>
         <div className="container">
           {team_loading ? (
             <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
@@ -40,8 +60,8 @@ const OurTeam = () => {
             </Box>
           ) : (
             <div className="row">
-              {teams?.length > 0 ? (
-                teams?.map((candidate) => (
+              {filteredTeam?.length > 0 ? (
+                filteredTeam?.map((candidate) => (
                   <div key={candidate.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
                     <OurTeamCard candidate={candidate} />
                   </div>
@@ -55,7 +75,7 @@ const OurTeam = () => {
           )}
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

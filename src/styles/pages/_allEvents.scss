@@ -1,5 +1,6 @@
 .all_events{
   padding: 30px 0px;
+  min-height: calc(100vh - 200px);
   &_title{
     font-size: 28px;
     font-weight: bold;

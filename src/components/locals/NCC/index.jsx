@@ -1,8 +1,9 @@
 import { Box, CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNcc } from 'redux/homepage/actions';
 import NCCItem from './NCCItem';
+import SecondaryNav from './SecondaryNav';
 
 const AllNCCSection = () => {
   const dispatch = useDispatch();
@@ -12,10 +13,38 @@ const AllNCCSection = () => {
     dispatch(getNcc());
   }, []);
 
+  const category = [
+    {
+      title: 'Asia',
+      slug: 'advisory_board'
+    },
+    {
+      title: 'Europe',
+      slug: 'board_of_directors'
+    },
+    {
+      title: 'North America',
+      slug: 'general_members'
+    },
+    {
+      title: 'South America',
+      slug: 'task_force'
+    },
+    {
+      title: 'Africa',
+      slug: 'travel'
+    },
+    {
+      title: 'Australia',
+      slug: 'education'
+    }
+  ];
+  const [selected, setSelected] = useState(category?.[0]?.slug);
+
   return (
-    <div className="main_content">
+    <>
+      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
       <section className="all_events">
-        <div className="all_events_title">All NCC</div>
         <div className="container">
           {ncc_loading ? (
             <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
@@ -38,7 +67,7 @@ const AllNCCSection = () => {
           )}
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

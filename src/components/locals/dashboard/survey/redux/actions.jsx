@@ -126,7 +126,7 @@ export const getSurveyResult = () => (dispatch) => {
   dispatch({ type: actions.FETCH_SURVEY_RESULT_BEGIN });
   getSurveyResultApi()
     .then((res) => {
-      dispatch({ type: actions.FETCH_SURVEY_RESULT_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_SURVEY_RESULT_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       dispatch({ type: actions.FETCH_SURVEY_RESULT_ERROR });

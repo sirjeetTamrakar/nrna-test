@@ -46,7 +46,7 @@ const Questions = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === '1' ? (
+            {row?.status == '1' ? (
               <Button
                 variant="contained"
                 color="success"
@@ -93,7 +93,7 @@ const Questions = () => {
   const handleStatusConfirm = (slug) => {
     const finalData = {
       question_id: slug,
-      status: detail?.status === '0' ? true : false,
+      status: detail?.status == '0' ? true : false,
       _method: 'PATCH'
     };
     dispatch(changeStatus(finalData, statusOpenFunction));
@@ -174,7 +174,7 @@ const Questions = () => {
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
-          status={detail?.status === '1' ? 'Active' : 'Inactive'}
+          status={detail?.status == '1' ? 'Active' : 'Inactive'}
           modalTitle="Change status"
           id={detail?.id}
           isLoading={question_status_loading}

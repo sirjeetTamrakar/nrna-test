@@ -1,5 +1,5 @@
+import EastIcon from '@mui/icons-material/East';
 import Slider from 'react-slick';
-
 const BannerSection = ({ banners }) => {
   var settings = {
     dots: true,
@@ -36,7 +36,8 @@ const BannerSection = ({ banners }) => {
                               target="_blank"
                               className="btn-lg"
                               rel="noreferrer">
-                              View
+                              View More
+                              <EastIcon />
                             </a>
                           </div>
                         )}

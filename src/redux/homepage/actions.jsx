@@ -1,4 +1,3 @@
-import { getTeamsApi } from 'apis/dashboard';
 import {
   contactUsApi,
   deleteContactApi,
@@ -10,7 +9,8 @@ import {
   getNccApi,
   getSingleEventApi,
   getSingleNewsApi,
-  getSiteSettingsApi
+  getSiteSettingsApi,
+  getTeamsApi
 } from 'apis/homepage';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
