@@ -6,8 +6,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { postCategory } from '../redux/actions';
 import CategoryForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -18,8 +18,8 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
-    if (data?.feature_image?.length > 0) {
-      formData.append('feature_image', data?.feature_image?.[0]);
+    if (data?.image?.length > 0) {
+      formData.append('image', data?.image?.[0]);
     }
     dispatch(postCategory(formData, handleClose));
   };

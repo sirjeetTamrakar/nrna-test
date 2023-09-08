@@ -49,7 +49,7 @@ const Services = () => {
                 <p
                   style={{
                     fontSize: '12px',
-                    fontWeight: '500',
+                    fontWeight: '600',
                     marginTop: '13px',
                     marginBottom: '4px'
                   }}>

@@ -29,6 +29,7 @@ const Category = () => {
 
   const { categoryData, get_category_loading, category_status_loading, delete_category_loading } =
     useSelector((state) => state.business);
+  console.log({ categoryData });
 
   useEffect(() => {
     dispatch(getCategory());
@@ -154,7 +155,7 @@ const Category = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={category}
+          tableData={categoryData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

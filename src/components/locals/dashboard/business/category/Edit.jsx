@@ -6,8 +6,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateCategory } from '../redux/actions';
 import NewsForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
+import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
@@ -18,16 +18,17 @@ const EditForm = ({ detail, handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
+    formData.append('_method', 'PUT');
 
-    if (data?.feature_image?.length > 0) {
-      formData.append('feature_image', data?.feature_image?.[0]);
+    if (data?.image?.length > 0) {
+      formData.append('image', data?.image?.[0]);
     }
     dispatch(updateCategory(formData, detail?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <NewsForm featureImage={detail?.feature_image} />
+      <NewsForm featureImage={detail?.image} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={update_category_loading} />
       </Box>

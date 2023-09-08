@@ -1,6 +1,5 @@
-import DescriptionIcon from '@mui/icons-material/Description';
 import GroupsIcon from '@mui/icons-material/Groups';
-import SettingsIcon from '@mui/icons-material/Settings';
+import WorkIcon from '@mui/icons-material/Work';
 import { Box } from '@mui/material';
 import Tab from '@mui/material/Tab';
 import Tabs from '@mui/material/Tabs';
@@ -8,8 +7,7 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './About';
-import Form from './Form';
-import Services from './Services';
+import Business from './Business';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,7 +41,7 @@ function a11yProps(index) {
   };
 }
 
-const BusinessTabs = () => {
+const CandidateTabs = () => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -54,29 +52,20 @@ const BusinessTabs = () => {
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab icon={<SettingsIcon />} iconPosition="start" label="Services" {...a11yProps(0)} />
+          <Tab icon={<WorkIcon />} iconPosition="start" label="Business" {...a11yProps(0)} />
           <Tab icon={<GroupsIcon />} iconPosition="start" label="About Us" {...a11yProps(1)} />
-          <Tab
-            icon={<DescriptionIcon />}
-            iconPosition="start"
-            label="Contact Us"
-            {...a11yProps(2)}
-          />
         </Tabs>
       </Box>
       <Box sx={{ backgroundColor: '#F9F9FB', marginTop: '20px' }}>
         <CustomTabPanel value={value} index={0}>
-          <Services />
+          <Business />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
           <About />
-        </CustomTabPanel>
-        <CustomTabPanel value={value} index={2}>
-          <Form />
         </CustomTabPanel>
       </Box>
     </Box>
   );
 };
 
-export default BusinessTabs;
+export default CandidateTabs;
