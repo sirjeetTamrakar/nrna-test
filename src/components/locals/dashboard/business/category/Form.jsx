@@ -17,7 +17,7 @@ const NewsForm = ({ featureImage }) => {
           <FileUploader
             title="Category Image"
             imageText="Resolution: height: 400 x width: 400"
-            name="feature_image"
+            name="image"
             image={featureImage}
             label="Select Photo"
             widthFull
