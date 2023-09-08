@@ -3,29 +3,21 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getDepartment } from '../department/redux/actions';
-import { getAllUsers } from '../userManagement/redux/actions';
 import OurTeamForm from './Form';
 import { validationSchema } from './ValidationSchema';
-import { postTeams } from './redux/actions';
+import { postDepartment } from './redux/actions';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
-  const { teams_loading } = useSelector((state) => state.teams);
+  const { department_loading } = useSelector((state) => state.department);
 
   const onSubmit = (data) => {
-    dispatch(postTeams(data, handleClose));
+    dispatch(postDepartment(data, handleClose));
   };
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-    dispatch(getDepartment());
-  }, []);
 
   return (
     <>
@@ -35,7 +27,7 @@ const Register = ({ handleClose }) => {
         <CustomForm onSubmit={onSubmit}>
           <OurTeamForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Team" loading={teams_loading} />
+            <CustomButton buttonName="Create Department" loading={department_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

@@ -3,16 +3,19 @@ import { axiosInstance } from 'apis/_axios';
 // NEWS---------------->
 // get news
 export const getNewsApi = (data) => {
+  console.log(data, 'dddd');
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/news${page}${pagination_limit}`);
+  const type = data?.type ? `&newsable_type=${data?.type}&newsable_id=${data?.id}` : '';
+  return axiosInstance().get(`/admin/news${page}${pagination_limit}${type}`);
 };
 
 // post news
-export const postNewsApi = (data) => {
-  return axiosInstance().post('/admin/news', data);
+export const postNewsApi = (data, typeData) => {
+  const type = typeData?.type ? `?newsable_type=${typeData?.type}&newsable_id=${typeData?.id}` : '';
+  return axiosInstance().post(`/admin/news${type}`, data);
 };
 
 // update news
@@ -233,4 +236,32 @@ export const deleteBannerApi = (banner_id) => {
 
 export const updateBannerStatusApi = (banner_id, data) => {
   return axiosInstance().patch(`/admin/banners/${banner_id}/status`, data);
+};
+
+// Department
+// get department
+export const getDepartmentApi = (data) => {
+  const id = data?.id ? `?ncc_id=${data?.id}` : '';
+
+  return axiosInstance().get(`/admin/our-team-categories${id}`);
+};
+
+// post department
+export const postDepartmentApi = (data) => {
+  return axiosInstance().post('/admin/our-team-categories', data);
+};
+
+// update department
+export const updateDepartmentApi = (data, slug) => {
+  return axiosInstance().post(`/admin/our-team-categories/${slug}`, data);
+};
+
+// delete department
+export const deleteDepartmentApi = (data) => {
+  return axiosInstance().delete(`/admin/our-team-categories/${data}`);
+};
+
+// change department status
+export const changeDepartmentStatusApi = (data) => {
+  return axiosInstance().post(`/admin/our-team-categories/${data?.slug}/status`, data);
 };

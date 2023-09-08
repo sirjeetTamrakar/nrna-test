@@ -3,15 +3,12 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
-import { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { setGlobalUser } from 'redux/auth/actions';
 import { isLoggedIn } from 'utils';
 import useStyles from './styles';
 
 const Survey = () => {
-  const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
   const [open, openFunction] = useToggle(false);
@@ -22,11 +19,6 @@ const Survey = () => {
   };
 
   const { user } = useSelector((state) => state.auth);
-  console.log('userrrr', { user });
-
-  useEffect(() => {
-    dispatch(setGlobalUser());
-  }, []);
 
   return (
     <>

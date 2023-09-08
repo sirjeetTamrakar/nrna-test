@@ -6,7 +6,8 @@ const defaultState = {
   approve_user_loading: false,
   user_status_loading: false,
   update_user_loading: false,
-  change_role_loading: false
+  change_role_loading: false,
+  profile_update_loading: false
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -69,6 +70,13 @@ const userReducer = (state = defaultState, action) => {
     case actions.CHANGE_USER_ROLE_SUCCESS:
     case actions.CHANGE_USER_ROLE_ERROR:
       return { ...state, change_role_loading: false };
+
+    case actions.UPDATE_PROFILE_BEGIN:
+      return { ...state, profile_update_loading: true };
+
+    case actions.UPDATE_PROFILE_SUCCESS:
+    case actions.UPDATE_PROFILE_ERROR:
+      return { ...state, profile_update_loading: false };
     default:
       return state;
   }

@@ -15,6 +15,13 @@ export const setGlobalUser = () => (dispatch) => {
   }
 };
 
+export const updateSurveyTaken = () => (dispatch) => {
+  const user = localStorage.getItem('NRNA_USER');
+  const userObj = JSON.parse(user);
+  localStorage.setItem('NRNA_USER', JSON.stringify({ ...userObj, has_taken_survey: true }));
+  dispatch({ type: actions.UPDATE_SURVEY_TAKEN });
+};
+
 // login user
 export const loginUser = (data, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.LOGIN_BEGIN });
@@ -97,4 +104,13 @@ export const registerUser = (data, handleSuccess) => (dispatch) => {
       errorToast(error);
       dispatch({ type: actions.REGISTER_USER_ERROR });
     });
+};
+
+// update after profile save
+export const updateGlobalUser = (user) => (dispatch) => {
+  localStorage.setItem('NRNA_USER', JSON.stringify(user));
+  dispatch({
+    type: actions.SET_AUTH_USER,
+    payload: user
+  });
 };

@@ -125,13 +125,13 @@ export const getBanner = (data) => (dispatch) => {
     });
 };
 
-export const deleteContact = (id, handleSuccess) => (dispatch) => {
+export const deleteContact = (id, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.DELETE_CONTACT_BEGIN });
   deleteContactApi(id)
     .then((res) => {
       dispatch({ type: actions.DELETE_CONTACT_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getContact());
+      dispatch(getContact(typeData));
     })
     .catch((error) => {
       errorToast(error);

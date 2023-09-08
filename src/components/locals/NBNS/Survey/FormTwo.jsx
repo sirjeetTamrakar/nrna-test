@@ -4,13 +4,16 @@ import CustomForm from 'components/common/Form/CustomForm';
 import { postQuestionFront } from 'components/locals/dashboard/survey/redux/actions';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import { updateSurveyTaken } from 'redux/auth/actions';
 import useStyles from './styles';
 
 const FormTwo = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
-
-  const { questions } = useSelector((state) => state.question);
+  const navigate = useNavigate();
+  const { questions, post_question_front_loading } = useSelector((state) => state.question);
+  const { user } = useSelector((state) => state.auth);
 
   const [answers, setAnswers] = useState([]);
 
@@ -20,17 +23,20 @@ const FormTwo = () => {
     setAnswers(updatedAnswers);
   };
 
+  const handleSuccess = () => {
+    navigate('/nbns/survey');
+    dispatch(updateSurveyTaken());
+  };
+
   const onSubmit = () => {
     const finalData = {
-      user_id: 2,
+      user_id: user?.id,
       question_answers: answers.map((answer) => ({
         question_id: answer.questionId,
         option_id: answer.selectedOptionId
       }))
     };
-
-    dispatch(postQuestionFront(finalData));
-    setAnswers([]);
+    dispatch(postQuestionFront(finalData, handleSuccess));
   };
 
   return (
@@ -44,10 +50,10 @@ const FormTwo = () => {
             <ul className={classes.answerWrapper}>
               {questionData.options.map((option) => (
                 <li key={option.id}>
-                  {/* <label> */}
                   <input
                     type="radio"
                     name={`question-${index}`}
+                    id={option?.id}
                     value={option.id}
                     onChange={() => handleOptionChange(questionData.id, option.id)}
                     checked={
@@ -55,8 +61,7 @@ const FormTwo = () => {
                         ?.selectedOptionId === option.id
                     }
                   />
-                  {option.option}
-                  {/* </label> */}
+                  <label htmlFor={option?.id}> {option?.option}</label>
                 </li>
               ))}
             </ul>
@@ -68,6 +73,7 @@ const FormTwo = () => {
             variant="contained"
             type="submit"
             buttonName="Submit"
+            loading={post_question_front_loading}
           />
         </Box>
       </Box>

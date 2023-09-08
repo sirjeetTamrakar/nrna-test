@@ -4,8 +4,10 @@ import {
   changeUserRoleApi,
   createUserApi,
   getAllUsersApi,
+  updateProfileApi,
   updateUsersApi
 } from 'apis/dashboard/user';
+import { updateGlobalUser } from 'redux/auth/actions';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -95,6 +97,20 @@ export const changeUserRole = (slug, data, refetch) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: actions.CHANGE_USER_ROLE_ERROR });
+      errorToast(error);
+    });
+};
+
+export const updateProfile = (slug, data) => (dispatch) => {
+  dispatch({ type: actions.UPDATE_PROFILE_BEGIN });
+  updateProfileApi(slug, data)
+    .then((res) => {
+      dispatch({ type: actions.UPDATE_PROFILE_SUCCESS });
+      dispatch(updateGlobalUser(res.data.data));
+      successToast('Profile Updated Successfully');
+    })
+    .catch((error) => {
+      dispatch({ type: actions.UPDATE_PROFILE_ERROR });
       errorToast(error);
     });
 };

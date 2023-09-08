@@ -2,6 +2,7 @@
 import adviceReducer from 'components/locals/dashboard/advice/redux/reducers';
 import businessReducer from 'components/locals/dashboard/business/redux/reducers';
 import candidateReducer from 'components/locals/dashboard/candidate/redux/reducers';
+import departmentReducer from 'components/locals/dashboard/department/redux/reducers';
 import eventsReducer from 'components/locals/dashboard/events/redux/reducers';
 import nccReducer from 'components/locals/dashboard/ncc/redux/reducers';
 import newsReducer from 'components/locals/dashboard/news/redux/reducers';
@@ -29,5 +30,6 @@ export default combineReducers({
   candidate: candidateReducer,
   banner: bannerReducer,
   business: businessReducer,
-  nbnsBanner: nbnsBannerReducer
+  nbnsBanner: nbnsBannerReducer,
+  department: departmentReducer
 });

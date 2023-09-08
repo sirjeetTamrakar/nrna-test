@@ -6,12 +6,13 @@ import CustomInput from 'components/common/Form/CustomInput';
 import CustomPasswordInput from 'components/common/Form/CustomPasswordInput';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { loginUser } from 'redux/auth/actions';
 import * as Yup from 'yup';
 const Login = ({ registerOpen, handleClose }) => {
   const defaultValues = {};
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { login_loading } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
     email: Yup.string().email().required('Please enter your email'),
@@ -25,6 +26,11 @@ const Login = ({ registerOpen, handleClose }) => {
   const handleRegisterOpen = () => {
     registerOpen();
     handleClose();
+  };
+
+  const handleForgotPassword = () => {
+    handleClose();
+    navigate('/forgot-password');
   };
 
   return (
@@ -44,11 +50,11 @@ const Login = ({ registerOpen, handleClose }) => {
           <div className="link">
             Don't have an account. <span onClick={handleRegisterOpen}>Register</span>
           </div>
-          <Link to="/forgot-password">
+          <Box onClick={handleForgotPassword} sx={{ cursor: 'pointer', color: '#1b6ab7' }}>
             <Typography variant="subtitle1" textAlign="center">
               Forgot Password?
             </Typography>
-          </Link>
+          </Box>
         </div>
       </CustomForm>
     </CustomFormProvider>

@@ -37,7 +37,8 @@ export const getContactUsApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/contact-us${page}${pagination_limit}`);
+  const type = data?.type ? `&contactable_type=${data?.type}&contactable_id=${data?.id}` : '';
+  return axiosInstance().get(`/admin/contact-us${page}${pagination_limit}${type}`);
 };
 
 // get contact

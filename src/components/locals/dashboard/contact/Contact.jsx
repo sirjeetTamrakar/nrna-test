@@ -5,13 +5,14 @@ import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -22,11 +23,7 @@ const Contact = () => {
 
   const [detail, setDetail] = useState();
   const classes = useStyles();
-
-  // useEffect(() => {
-  //   dispatch(getContact());
-  // }, []);
-
+  const { user } = useSelector((state) => state.auth);
   const { contact, contact_loading, contact_delete_loading } = useSelector(
     (state) => state.homepage
   );
@@ -98,11 +95,24 @@ const Contact = () => {
   };
 
   const confirmDelete = () => {
-    dispatch(deleteContact(detail?.id, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.Member) {
+      typeData = { type: 'member', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(deleteContact(detail?.id, deleteOpenFunction, typeData));
   };
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    let data;
+    if (user?.role_name == Roles?.Member) {
+      data = { type: 'member', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.NCC) {
+      data = { type: 'ncc', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      data = { page: page + 1, pagination_limit: rowsPerPage };
+    }
     dispatch(getContact(data));
   };
 

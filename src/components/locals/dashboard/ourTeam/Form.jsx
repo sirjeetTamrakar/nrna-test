@@ -7,21 +7,34 @@ import { useStyles } from './styles';
 const OurTeamForm = () => {
   const classes = useStyles();
 
-  const { usersData } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
+  const { departmentData } = useSelector((state) => state.department);
 
-  const createdByUsers = usersData?.map((item) => ({
+  const createdByUsers = users?.data?.map((item) => ({
     label: item?.name,
+    value: item?.id
+  }));
+  const department = departmentData?.data?.map((item) => ({
+    label: item?.title,
     value: item?.id
   }));
 
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item sm={12}>
+        <Grid item sm={6}>
           <CustomAutoComplete
             name="member_id"
             label="Member"
             options={createdByUsers || []}
+            required
+          />
+        </Grid>
+        <Grid item sm={6}>
+          <CustomAutoComplete
+            name="our_team_category_id"
+            label="Department"
+            options={department || []}
             required
           />
         </Grid>

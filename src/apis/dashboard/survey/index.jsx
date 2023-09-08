@@ -27,7 +27,7 @@ export const deleteQuestionApi = (id) => {
 
 // post question front -------->
 export const postQuestionFrontApi = (data) => {
-  return axiosInstance().post('/admin/surveys/answer', data);
+  return axiosInstance().post('/api/surveys/answer', data);
 };
 
 export const postQuestionCheckFrontApi = (data) => {

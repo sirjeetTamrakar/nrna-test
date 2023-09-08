@@ -97,9 +97,8 @@ export const postQuestionFront = (data, handleSuccess) => (dispatch) => {
   postQuestionFrontApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_QUESTION_FRONT_SUCCESS });
-      successToast('Question posted successfully');
+      successToast('Survey submitted successfully');
       handleSuccess && handleSuccess();
-      dispatch(getAllQuestions());
     })
     .catch((error) => {
       errorToast(error);

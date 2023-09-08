@@ -2,38 +2,39 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../userManagement/redux/actions';
 import NewsForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postNews } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
   const { news_loading } = useSelector((state) => state.news);
+  const { user } = useSelector((state) => state.auth);
+  const [typeData, setTypeData] = useState();
 
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
     formData.append('description', data?.description);
-    formData.append('status', 'active');
     formData.append('created_by', data?.created_by);
 
     if (data?.feature_image?.length > 0) {
       formData.append('feature_image', data?.feature_image?.[0]);
     }
-
-    dispatch(postNews(formData, handleClose));
+    if (user?.role_name == Roles?.Member) {
+      setTypeData({ type: 'member', id: user?.id });
+    } else if (user?.role_name == Roles?.NCC) {
+      setTypeData({ type: 'ncc', id: user?.id });
+    }
+    dispatch(postNews(formData, handleClose, typeData));
   };
-
-  useEffect(() => {
-    dispatch(getAllUsers());
-  }, []);
 
   return (
     <>

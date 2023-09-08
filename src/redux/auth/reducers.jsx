@@ -9,6 +9,9 @@ const defaultState = {
 
 const authReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case actions.UPDATE_SURVEY_TAKEN:
+      return { ...state, user: { ...state.user, has_taken_survey: true } };
+
     case actions.LOGIN_BEGIN:
       return { ...state, login_loading: true };
 

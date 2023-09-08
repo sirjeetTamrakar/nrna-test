@@ -15,10 +15,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
+import { useStyles } from './styles';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -38,13 +38,6 @@ const News = () => {
   );
 
   const { user } = useSelector((state) => state.auth);
-  console.log('userreerr', { user });
-
-  console.log({ newsData });
-
-  // useEffect(() => {
-  //   dispatch(getNews());
-  // }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -111,7 +104,8 @@ const News = () => {
             <ul className={classes.listWrapper}>
               <li onClick={() => handleEdit(row)}>Edit News </li>
               <li onClick={() => handleView(row)}>View Details</li>
-              {(user?.role_name === Roles?.SuperAdmin || user?.role_name === Roles?.Admin) && (
+              {(user?.role_name === Roles?.member?.SuperAdmin ||
+                user?.role_name === Roles?.member?.Admin) && (
                 <li onClick={() => handleApprove(row)}>Approve News</li>
               )}
               <li onClick={() => handleDelete(row)}>Delete</li>
@@ -123,7 +117,13 @@ const News = () => {
   ];
 
   const handleConfirm = (slug) => {
-    dispatch(deleteNews(slug, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.Member) {
+      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(deleteNews(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
@@ -132,7 +132,13 @@ const News = () => {
       status: detail?.status === 0 ? 1 : 0,
       _method: 'PATCH'
     };
-    dispatch(changeNewsStatus(finalData, statusOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.Member) {
+      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {
@@ -161,13 +167,21 @@ const News = () => {
   };
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getNews(data));
+    if (user?.role_name == Roles?.Member) {
+      const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'member', id: user?.id };
+      dispatch(getNews(data));
+    } else if (user?.role_name == Roles?.NCC) {
+      const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'ncc', id: user?.id };
+      dispatch(getNews(data));
+    } else {
+      const data = { page: page + 1, pagination_limit: rowsPerPage };
+      dispatch(getNews(data));
+    }
   };
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
+    user && refetch();
+  }, [page, rowsPerPage, user]);
 
   return (
     <>

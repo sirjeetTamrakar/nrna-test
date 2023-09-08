@@ -12,10 +12,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
-import { changeCandidateStatus, deleteCandidate, getCandidate } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeCandidateStatus, deleteCandidate, getCandidate } from './redux/actions';
+import { useStyles } from './styles';
 
 const Candidate = () => {
   const dispatch = useDispatch();
@@ -87,7 +87,7 @@ const Candidate = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 1 ? (
+            {row?.status == 1 ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"

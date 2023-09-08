@@ -20,9 +20,9 @@ export const getNews = (data) => (dispatch) => {
     });
 };
 
-export const postNews = (data, handleSuccess) => (dispatch) => {
+export const postNews = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.POST_NEWS_BEGIN });
-  postNewsApi(data)
+  postNewsApi(data, typeData)
     .then((res) => {
       dispatch({ type: actions.POST_NEWS_SUCCESS });
       handleSuccess && handleSuccess();
@@ -35,7 +35,7 @@ export const postNews = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteNews = (Data, handleSuccess) => async (dispatch) => {
+export const deleteNews = (Data, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.DELETE_NEWS_BEGIN });
 
   try {
@@ -44,7 +44,7 @@ export const deleteNews = (Data, handleSuccess) => async (dispatch) => {
       type: actions.DELETE_NEWS_SUCCESS,
       payload: ''
     });
-    dispatch(getNews());
+    dispatch(getNews(typeData));
     handleSuccess && handleSuccess();
     successToast('News has been deleted');
   } catch (error) {
@@ -53,7 +53,7 @@ export const deleteNews = (Data, handleSuccess) => async (dispatch) => {
   }
 };
 
-export const updateNews = (Data, slug, handleSuccess) => async (dispatch) => {
+export const updateNews = (Data, slug, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_NEWS_BEGIN });
 
   try {
@@ -62,7 +62,7 @@ export const updateNews = (Data, slug, handleSuccess) => async (dispatch) => {
       type: actions.UPDATE_NEWS_SUCCESS,
       payload: ''
     });
-    dispatch(getNews());
+    dispatch(getNews(typeData));
     handleSuccess && handleSuccess();
     successToast('News has been updated');
   } catch (error) {
@@ -71,13 +71,13 @@ export const updateNews = (Data, slug, handleSuccess) => async (dispatch) => {
   }
 };
 
-export const changeNewsStatus = (data, handleSuccess) => (dispatch) => {
+export const changeNewsStatus = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.CHANGE_NEWS_STATUS_BEGIN });
   changeNewsStatusApi(data)
     .then((res) => {
       dispatch({ type: actions.CHANGE_NEWS_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getNews());
+      dispatch(getNews(typeData));
       successToast('Status has been changed');
     })
     .catch((error) => {

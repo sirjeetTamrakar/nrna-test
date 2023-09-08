@@ -1,6 +1,7 @@
 import { Box, Typography } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
+import { postQuestionFront } from 'components/locals/dashboard/survey/redux/actions';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import useStyles from './styles';
@@ -12,10 +13,11 @@ const Form = () => {
   console.log({ questions });
 
   const onSubmit = (data) => {
-    // dispatch(postQuestionFront())
+    dispatch(postQuestionFront());
   };
 
   const { register } = useFormContext();
+
   return (
     <CustomForm onSubmit={onSubmit}>
       <Box className={classes.questionSection}>
@@ -29,12 +31,7 @@ const Form = () => {
                 {item?.options?.map((item, index) => {
                   return (
                     <li key={index}>
-                      <input
-                        type="radio"
-                        value={1}
-                        id={item?.id}
-                        // {...register(`name${index}`)}
-                      />
+                      <input type="radio" value={1} id={item?.id} {...register(`name${index}`)} />
                       <label htmlFor={'1' + index}> {item?.option}</label>
                     </li>
                   );

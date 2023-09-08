@@ -1,26 +1,7 @@
 import { Box, Paper, Typography } from '@mui/material';
-import { useForm } from 'react-hook-form';
 import Register from './Register';
 
 export default function Profile() {
-  const defaultValues = {
-    deals_name: '',
-    deals_description: '',
-    deals_image: ''
-  };
-  const methods = useForm({
-    defaultValues
-  });
-
-  const {
-    //  handleSubmit,
-    //  formState: { errors },
-    //  control,
-    watch,
-    setValue
-    //  clearErrors
-  } = methods;
-
   return (
     <>
       <Paper sx={{ padding: '20px', marginInline: '-20px' }}>

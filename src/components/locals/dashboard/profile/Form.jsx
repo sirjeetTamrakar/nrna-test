@@ -1,159 +1,88 @@
-import { Box, Grid, Typography } from '@mui/material';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
+import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomEditor from 'components/common/CustomEditor';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useRef, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { updateProfile } from '../userManagement/redux/actions';
 import { useStyles } from './styles';
 
 const ProfileForm = () => {
-  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { profile_update_loading } = useSelector((state) => state.user);
   const classes = useStyles();
-  const defaultValues = {
-    address: '',
-    phone: '',
-    email: '',
-    region_logo: ''
-  };
-  const {
-    handleSubmit,
-    formState: { errors },
-    control,
-    setValue,
-    watch,
-    clearErrors
-  } = useFormContext({ defaultValues });
-  console.log('watchcccccc', watch());
-
-  // useEffect(() => {
-  //   if (site_settings) {
-  //     setValue('address', site_settings?.address);
-  //     setValue('email', site_settings?.email);
-  //     setValue('phone', site_settings?.phone);
-  //     // setValue('region_logo', site_settings?.region_logo);
-  //   }
-  //   // setValue("phone", profileState?.userData?.image);
-  // }, [site_settings]);
-
-  // console.log({watch:})
+  const dispatch = useDispatch();
 
   const submitHandler = (data) => {
-    // console.log('dssssssata', data);
-    // const formdata = new FormData();
-    // console.log('formdata', formdata);
-    // formdata.append('address', data?.address);
-    // formdata.append('phone', data?.phone);
-    // formdata.append('email', data?.email);
-    // if (watch('region_logo')) {
-    //   if (data?.region_logo?.length > 0) {
-    //     formdata.append('region_logo', data?.region_logo?.[0]);
-    //   }
-    // }
-    // console.log({ data });
-    // dispatch(postSiteSettings(formdata));
-    // dispatch(postSiteSettings(data));
-  };
+    const formData = new FormData();
+    formData.append('name', data?.name);
+    formData.append('address', data?.address);
+    formData.append('phone', data?.phone);
+    formData.append('facebook_url', data?.facebook_url);
+    formData.append('youtube_url', data?.youtube_url);
+    formData.append('instagram_url', data?.instagram_url);
+    formData.append('twitter_url', data?.twitter_url);
+    formData.append('description', data?.description);
 
-  const [image, setImage] = useState();
-  const imageRef = useRef();
+    if (data?.profile_image?.length > 0) {
+      formData.append('profile_image', data?.profile_image?.[0]);
+    }
+    if (data?.banner_image?.length > 0) {
+      formData.append(`banner_image`, data?.banner_image);
+    }
+    dispatch(updateProfile(user?.username, formData));
+  };
 
   return (
     <Box className={classes.root}>
       <CustomForm onSubmit={submitHandler}>
         <Grid container spacing={2}>
           <Grid item sm={4}>
-            <Typography sx={{ fontSize: '13px', color: '#666', marginLeft: '15px' }}>
-              Profile Image
-            </Typography>
-            <Box
-              sx={{
-                maxWidth: '250px',
-                maxHeight: '250px',
-                position: 'relative',
-                marginBottom: '20px',
-                marginLeft: '15px'
-              }}>
-              {/* <Typography>Profile picture</Typography> */}
-              <Avatar
-                src={image && URL.createObjectURL(image)}
-                variant="square"
-                style={{
-                  width: '250px',
-                  height: '250px',
-                  marginTop: '10px'
-                }}
-              />
-              <Box
-                style={{
-                  position: 'absolute',
-                  // right: "-10px",
-                  bottom: '-46px'
-                }}>
-                <Button
-                  style={{
-                    backgroundColor: '#2B6DF8',
-                    color: '#fff',
-                    width: '250px'
-                  }}
-                  onClick={() => imageRef.current.click()}>
-                  Upload image
-                </Button>
-              </Box>
-            </Box>
-            <Box marginTop={'10px'} display={'none'}>
-              <input
-                type="file"
-                onChange={(e) => setImage(e.target.files && e.target.files?.[0])}
-                ref={imageRef}
-              />
-            </Box>
+            <FileUploader
+              title="Profile Image"
+              name="profile_image"
+              label="Select Photo"
+              widthFull
+              image={user?.profile_image}
+            />
           </Grid>
           <Grid item sm={8}>
             <FileUploader
-              title="Profile banner image"
-              // control={control}
-              name="profile_image"
+              title="Banner image"
+              name="banner_image"
               label="Select Photo"
-              setValue={setValue}
+              image={user?.banner_image}
               widthFull
-              // errors={errors}
-              // clearErrors={clearErrors}
-              // required={true}
-              imageLink={watch('region_logo') || ''}
             />
           </Grid>
-          <Grid item sm={6}>
-            <CustomInput name="name" label="Fullname" required />
-          </Grid>
-          <Grid item sm={6}>
-            <CustomInput name="email" label="Email" type="email" required />
-          </Grid>
-          <Grid item sm={6}>
-            <CustomInput name="phone" label="Phone" required />
-          </Grid>
-          <Grid item sm={6}>
-            <CustomInput name="address" label="Address" required />
+          <Grid item sm={4}>
+            <CustomInput name="name" label="Name" required />
           </Grid>
           <Grid item sm={4}>
-            <CustomInput name="fb_link" label="Facebook url" required />
+            <CustomInput name="phone" label="Phone" />
           </Grid>
           <Grid item sm={4}>
-            <CustomInput name="insta_link" label="Instagram url" required />
+            <CustomInput name="address" label="Address" />
           </Grid>
-          <Grid item sm={4}>
-            <CustomInput name="twitter_link" label="Twitter url" required />
+          <Grid item sm={6}>
+            <CustomInput name="facebook_url" label="Facebook url" />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="instagram_url" label="Instagram url" />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="twitter_url" label="Twitter url" />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="youtube_url" label="Twitter url" />
           </Grid>
           <Grid item sm={12}>
-            <CustomEditor setValue={setValue} name="description" />
+            <CustomEditor name="description" />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
-              <CustomButton buttonName="Submit" />
+              <CustomButton buttonName="Submit" loading={profile_update_loading} />
             </Box>
           </Grid>
         </Grid>

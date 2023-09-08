@@ -6,6 +6,7 @@ import CategoryPage from 'pages/private/business/Category';
 import BusinessContactPage from 'pages/private/business/Contact';
 import CandidatePage from 'pages/private/CandidatePage';
 import ContactPage from 'pages/private/ContactPage';
+import DepartmentPage from 'pages/private/Department';
 import EventsPage from 'pages/private/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
 import NBNSBannerPage from 'pages/private/NBNSBanner';
@@ -71,6 +72,14 @@ const DashboardRoutes = [
     )
   },
   {
+    path: 'our-team/department',
+    component: (
+      <Protected>
+        <DepartmentPage />
+      </Protected>
+    )
+  },
+  {
     path: 'our-team',
     component: (
       <Protected>
@@ -78,6 +87,7 @@ const DashboardRoutes = [
       </Protected>
     )
   },
+
   {
     path: 'candidate',
     component: (
