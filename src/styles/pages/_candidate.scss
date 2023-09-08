@@ -2,6 +2,9 @@
   padding-top: 15px;
   width: 100%;
   margin: 0 auto;
+  &_wrapper {
+    margin-bottom: ;
+  }
   &_banner {
     height: 250px;
     border-top-right-radius: 5px;
@@ -27,8 +30,9 @@
         align-items: center;
       }
     }
+
     .candidate_name_box {
-      margin-left: 20px;
+      margin-left: 50px;
     }
 
     .text {
@@ -72,11 +76,41 @@
   &_content {
     flex: 1;
   }
+  .candidate_social {
+    position: absolute;
+    top: 0px;
+    width: 150px;
+    right: 0;
+    &_wrapper_box {
+      // height: 150px;
+      margin-top: 40px;
+    }
+    &_wrapper {
+      display: flex;
+      justify-content: space-between;
+    }
+    &_icons {
+      font-size: 30px;
+      cursor: pointer;
+    }
+  }
 
   .contact_list {
     padding: 10px 25px;
     border: 1px solid #d6d4d4;
     margin-bottom: 15px;
+    border-radius: 10px;
+    width: 400px;
+    &_title_box {
+      align-items: center;
+    }
+    &_title {
+      font-size: 20px;
+      font-weight: 500;
+    }
+    &_subtitle {
+      font-weight: 500;
+    }
   }
   .social_links {
     display: flex;

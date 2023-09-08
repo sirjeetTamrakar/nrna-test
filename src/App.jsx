@@ -1,4 +1,5 @@
-import { CssBaseline, ThemeProvider } from '@mui/material';
+import { ThemeProvider } from '@mui/material';
+import CssBaseline from '@mui/material/CssBaseline';
 import 'index.scss';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
