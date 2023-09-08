@@ -100,8 +100,18 @@ export const SidebarConstants = [
         icon: Team,
         activeIcon: ActiveDashboardIcon,
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
-
-        children: []
+        children: [
+          {
+            label: 'Team',
+            url: '/dashboard/our-team',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          },
+          {
+            label: 'Department',
+            url: '/dashboard/our-team/department',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          }
+        ]
       },
       {
         label: 'Candidate',
