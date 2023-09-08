@@ -4,6 +4,8 @@ import CustomEditor from 'components/common/CustomEditor';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateProfile } from '../userManagement/redux/actions';
 import { useStyles } from './styles';
@@ -13,6 +15,7 @@ const ProfileForm = () => {
   const { profile_update_loading } = useSelector((state) => state.user);
   const classes = useStyles();
   const dispatch = useDispatch();
+  const { setValue } = useFormContext();
 
   const submitHandler = (data) => {
     const formData = new FormData();
@@ -29,10 +32,23 @@ const ProfileForm = () => {
       formData.append('profile_image', data?.profile_image?.[0]);
     }
     if (data?.banner_image?.length > 0) {
-      formData.append(`banner_image`, data?.banner_image);
+      formData.append(`banner_image`, data?.banner_image?.[0]);
     }
     dispatch(updateProfile(user?.username, formData));
   };
+
+  useEffect(() => {
+    if (user) {
+      setValue('name', user?.name);
+      setValue('address', user?.address);
+      setValue('phone', user?.phone);
+      setValue('facebook_url', user?.facebook_url);
+      setValue('instagram_url', user?.instagram_url);
+      setValue('youtube_url', user?.facebook_url);
+      setValue('twitter_url', user?.twitter_url);
+      setValue('description', user?.description ?? '');
+    }
+  }, [user]);
 
   return (
     <Box className={classes.root}>

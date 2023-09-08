@@ -55,7 +55,6 @@ export const deleteNews = (Data, handleSuccess, typeData) => async (dispatch) =>
 
 export const updateNews = (Data, slug, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_NEWS_BEGIN });
-
   try {
     await updateNewsApi(Data, slug);
     dispatch({
