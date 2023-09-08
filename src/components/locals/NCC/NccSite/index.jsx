@@ -3,17 +3,41 @@ import BannerSection from 'components/globals/Banner';
 import MissionSection from 'components/globals/MissionSection';
 import TaglineSection from 'components/globals/TaglineSection';
 import VisionSection from 'components/globals/VisionSection';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import { getBanner } from 'redux/homepage/actions';
 
 const NccSite = () => {
-  const { ncc } = useParams();
+  const { ncc: slug } = useParams();
+  const dispatch = useDispatch();
+  const { settings, banners, ncc } = useSelector((state) => state.homepage);
+  useEffect(() => {
+    const single = ncc?.find((list) => list?.slug == slug);
+    single?.id && dispatch(getBanner({ type: 'ncc', id: single?.id }));
+  }, [ncc]);
   return (
     <>
-      <BannerSection />
-      <TaglineSection />
-      <AboutSection linkUrl={`/ncc/${ncc}/about`} />
-      <MissionSection linkUrl={`/ncc/${ncc}/mission`} />
-      <VisionSection linkUrl={`/ncc/${ncc}/vision`} />
+      <BannerSection banners={banners} />
+      <TaglineSection
+        tagline={settings?.tagline_description}
+        taglineAuthor={settings?.tagline_author}
+      />
+      <AboutSection
+        about={settings?.about}
+        image={settings?.about_image}
+        linkUrl={`/ncc/${slug}/about`}
+      />
+      <MissionSection
+        mission={settings?.mission}
+        image={settings?.mission_image}
+        linkUrl={`/ncc/${slug}/mission`}
+      />
+      <VisionSection
+        vision={settings?.vision}
+        image={settings?.vision_image}
+        linkUrl={`/ncc/${slug}/vision`}
+      />
     </>
   );
 };

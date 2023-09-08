@@ -1,12 +1,7 @@
 import About from 'components/locals/NCC/NccSite/About';
-import AuthLayout from 'layouts/authLayout';
 
 const AboutPage = () => {
-  return (
-    <AuthLayout userType="ncc" sticky={true}>
-      <About title="Who we are" />
-    </AuthLayout>
-  );
+  return <About title="Who we are" />;
 };
 
 export default AboutPage;

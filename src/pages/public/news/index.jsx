@@ -1,12 +1,7 @@
 import News from 'components/locals/News';
-import AuthLayout from 'layouts/authLayout';
 
 const NewsPage = () => {
-  return (
-    <AuthLayout sticky={true}>
-      <News />
-    </AuthLayout>
-  );
+  return <News />;
 };
 
 export default NewsPage;

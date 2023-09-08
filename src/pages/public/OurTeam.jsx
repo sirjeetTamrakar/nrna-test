@@ -1,12 +1,7 @@
 import OurTeam from 'components/locals/OurTeam';
-import AuthLayout from 'layouts/authLayout';
 
 const OurTeamPage = () => {
-  return (
-    <AuthLayout sticky={true}>
-      <OurTeam />
-    </AuthLayout>
-  );
+  return <OurTeam />;
 };
 
 export default OurTeamPage;

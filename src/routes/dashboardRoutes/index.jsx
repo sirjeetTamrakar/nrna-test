@@ -8,6 +8,7 @@ import CandidatePage from 'pages/private/CandidatePage';
 import ContactPage from 'pages/private/ContactPage';
 import EventsPage from 'pages/private/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
+import NBNSBannerPage from 'pages/private/NBNSBanner';
 import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
 import NewsPage from 'pages/private/NewsPage';
@@ -164,6 +165,14 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <BannerPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'settings/nbns-banner',
+    component: (
+      <Protected>
+        <NBNSBannerPage />
       </Protected>
     )
   },

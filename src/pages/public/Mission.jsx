@@ -2,11 +2,7 @@ import Mission from 'components/locals/Mission';
 import AuthLayout from 'layouts/authLayout';
 
 const MissionPage = () => {
-  return (
-    <AuthLayout sticky={true}>
-      <Mission />
-    </AuthLayout>
-  );
+  return <Mission />;
 };
 
 export default MissionPage;

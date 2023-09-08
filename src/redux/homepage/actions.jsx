@@ -15,15 +15,27 @@ import {
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getSiteSettings = () => (dispatch) => {
+export const getSiteSettings = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_SITE_SETTING_BEGIN });
-  getSiteSettingsApi()
+  getSiteSettingsApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_SITE_SETTING_SUCCESS, payload: res.data.data });
     })
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_SITE_SETTING_ERROR });
+    });
+};
+
+export const getNbnsSettings = (data) => (dispatch) => {
+  dispatch({ type: actions.FETCH_NBNS_SETTING_BEGIN });
+  getSiteSettingsApi(data)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_NBNS_SETTING_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_NBNS_SETTING_ERROR });
     });
 };
 
@@ -101,9 +113,9 @@ export const getContact = (data) => (dispatch) => {
     });
 };
 
-export const getBanner = () => (dispatch) => {
+export const getBanner = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_BANNER_BEGIN });
-  getBannerApi()
+  getBannerApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_BANNER_SUCCESS, payload: res.data.data });
     })

@@ -1,8 +1,10 @@
 import { axiosInstance } from 'apis/_axios';
 
 // get site settings
-export const getSiteSettingsApi = () => {
-  return axiosInstance().get('/api/site-settings');
+export const getSiteSettingsApi = (data) => {
+  const type = data?.type ? `?settingable_type=${data?.type}` : '';
+  const id = data?.id ? `&settingable_id=${data?.id}` : '';
+  return axiosInstance().get(`/api/site-settings${type}${id}`);
 };
 
 // get all news
@@ -44,8 +46,10 @@ export const deleteContactApi = (id) => {
 };
 
 // get banner
-export const getBannerApi = () => {
-  return axiosInstance().get('/api/banners');
+export const getBannerApi = (data) => {
+  const type = data?.type ? `?bannerable_type=${data?.type}` : '';
+  const id = data?.id ? `&bannerable_id=${data?.id}` : '';
+  return axiosInstance().get(`/api/banners${type}${id}`);
 };
 
 // get teams

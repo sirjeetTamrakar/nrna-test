@@ -1,12 +1,7 @@
 import Contact from 'components/locals/Candidates/CandidateSite/Contact';
-import AuthLayout from 'layouts/authLayout';
 
 const ContactPage = () => {
-  return (
-    <AuthLayout userType="candidate" sticky={true}>
-      <Contact />
-    </AuthLayout>
-  );
+  return <Contact />;
 };
 
 export default ContactPage;

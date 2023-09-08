@@ -2,6 +2,8 @@ import * as actions from './types';
 const defaultState = {
   settings: null,
   settings_loading: false,
+  nbns_settings: null,
+  nbns_setting_loading: false,
   news: [],
   news_loading: false,
   single_news: null,
@@ -102,7 +104,7 @@ const homepageReducer = (state = defaultState, action) => {
       return { ...state, contact_loading: false };
 
     case actions.FETCH_BANNER_BEGIN:
-      return { ...state, banner_loading: true };
+      return { ...state, banner_loading: true, banners: [] };
 
     case actions.FETCH_BANNER_SUCCESS:
       return { ...state, banner_loading: false, banners: action.payload };
@@ -143,6 +145,15 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_CANDIDATE_ERROR:
       return { ...state, candidate_loading: false };
+
+    case actions.FETCH_NBNS_SETTING_BEGIN:
+      return { ...state, nbns_setting_loading: true };
+
+    case actions.FETCH_NBNS_SETTING_SUCCESS:
+      return { ...state, nbns_setting_loading: false, nbns_settings: action.payload };
+
+    case actions.FETCH_NBNS_SETTING_ERROR:
+      return { ...state, nbns_setting_loading: false };
 
     default:
       return state;
