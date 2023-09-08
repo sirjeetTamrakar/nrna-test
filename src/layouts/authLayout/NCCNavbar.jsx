@@ -51,7 +51,7 @@ function NCCNavbar({ isHomePage, currentUser, sticky }) {
               </li>
 
               <li className="d-none d-lg-block">
-                <Link to={`/ncc/${params?.ncc}/committee`}>Committee</Link>
+                <Link to={`/ncc/${params?.ncc}/committee`}>Our Team</Link>
               </li>
               <li className="d-none d-lg-block">
                 <Link to={`/ncc/${params?.ncc}/news`}>News</Link>

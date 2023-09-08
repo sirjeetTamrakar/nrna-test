@@ -100,8 +100,18 @@ export const SidebarConstants = [
         icon: Team,
         activeIcon: ActiveDashboardIcon,
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
-
-        children: []
+        children: [
+          {
+            label: 'Team',
+            url: '/dashboard/our-team',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          },
+          {
+            label: 'Department',
+            url: '/dashboard/our-team/department',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          }
+        ]
       },
       {
         label: 'Candidate',
@@ -172,14 +182,19 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
+            label: 'Banner',
+            url: '/dashboard/settings/banner',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          },
+          {
             label: 'NBNS',
             url: '/dashboard/settings/nbns',
             roles: [Roles.Admin, Roles.SuperAdmin]
           },
           {
-            label: 'Banner',
-            url: '/dashboard/settings/banner',
-            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+            label: 'NBNS Banner',
+            url: '/dashboard/settings/nbns-banner',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           }
         ]
       }

@@ -7,6 +7,7 @@ import nccReducer from 'components/locals/dashboard/ncc/redux/reducers';
 import newsReducer from 'components/locals/dashboard/news/redux/reducers';
 import teamsReducer from 'components/locals/dashboard/ourTeam/redux/reducers';
 import bannerReducer from 'components/locals/dashboard/settings/banner/redux/reducers';
+import nbnsBannerReducer from 'components/locals/dashboard/settings/nbnsBanner/redux/reducers';
 import settingsReducer from 'components/locals/dashboard/settings/redux/reducers';
 import questionReducer from 'components/locals/dashboard/survey/redux/reducers';
 import userReducer from 'components/locals/dashboard/userManagement/redux/reducers';
@@ -27,5 +28,6 @@ export default combineReducers({
   teams: teamsReducer,
   candidate: candidateReducer,
   banner: bannerReducer,
-  business: businessReducer
+  business: businessReducer,
+  nbnsBanner: nbnsBannerReducer
 });

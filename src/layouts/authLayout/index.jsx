@@ -1,24 +1,24 @@
 import { Box } from '@mui/system';
 import PropTypes from 'prop-types';
-import CandidateNavbar from './CandidateNavbar';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Outlet } from 'react-router-dom';
+import { getSiteSettings } from 'redux/homepage/actions';
 import Footer from './Footer';
-import NBNSNavbar from './NBNSNavbar';
-import NCCNavbar from './NCCNavbar';
 import Navbar from './Navbar';
 
-const AuthLayout = ({ children, heading, isSignIn, sticky = false, userType }) => {
+const AuthLayout = () => {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getSiteSettings());
+  }, []);
   return (
     <Box>
-      {userType === 'candidate' ? (
-        <CandidateNavbar sticky={sticky} />
-      ) : userType === 'ncc' ? (
-        <NCCNavbar sticky={sticky} />
-      ) : userType === 'nbns' ? (
-        <NBNSNavbar sticky={sticky} />
-      ) : (
-        <Navbar sticky={sticky} />
-      )}
-      <Box>{children}</Box>
+      <Navbar />
+
+      <Box>
+        <Outlet />
+      </Box>
       <Footer />
     </Box>
   );
