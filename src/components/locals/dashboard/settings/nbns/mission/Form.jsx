@@ -6,7 +6,7 @@ import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSiteSettings, postSiteSettings } from '../../redux/actions';
+import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
 const MissionForm = () => {
@@ -26,26 +26,17 @@ const MissionForm = () => {
     }
   }, [site_settings]);
 
-  const refetch = () => {
-    const data = { settingable_type: 'nbns', settingable_id: user?.id };
-    dispatch(getSiteSettings(data));
-  };
-
-  useEffect(() => {
-    refetch();
-  }, [user]);
-
   const submitHandler = (data) => {
     const formData = new FormData();
 
     formData.append('mission', data?.mission);
     formData.append('settingable_type', 'nbns');
-    formData.append('settingable_id', user?.id);
+    formData.append('settingable_id', 1);
 
     if (data?.mission_image?.length > 0) {
       formData.append('mission_image', data?.mission_image?.[0]);
     }
-    dispatch(postSiteSettings(formData));
+    dispatch(postSiteSettings(formData, { settingable_type: 'nbns', settingable_id: 1 }));
   };
 
   return (

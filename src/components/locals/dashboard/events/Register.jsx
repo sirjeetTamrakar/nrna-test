@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
@@ -14,13 +15,13 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { events_loading } = useSelector((state) => state.events);
+  const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
 
     formData.append('title', data?.title);
     formData.append('description', data?.description);
-    formData.append('status', 'active');
     formData.append('location', data?.location);
     formData.append('venue', data?.venue);
     formData.append('event_date', data?.event_date);
@@ -32,7 +33,14 @@ const Register = ({ handleClose }) => {
     if (data?.feature_image?.length > 0) {
       formData.append('feature_image', data?.feature_image?.[0]);
     }
-    dispatch(postEvents(formData, handleClose));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
+      formData.append('ncc_id', user?.id);
+    } else {
+      typeData = { page: 1, pagination_limit: 10 };
+    }
+    dispatch(postEvents(formData, handleClose, typeData));
   };
 
   return (

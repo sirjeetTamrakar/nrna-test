@@ -9,6 +9,7 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -30,15 +31,10 @@ const OurTeam = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   dispatch(getTeams());
-  // }, []);
-
   const { teamsData, get_teams_loading, delete_teams_loading } = useSelector(
     (state) => state.teams
   );
-
-  console.log({ teamsData });
+  const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -129,7 +125,13 @@ const OurTeam = () => {
   ];
 
   const handleConfirm = (slug) => {
-    dispatch(deleteTeams(slug, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(deleteTeams(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
@@ -138,7 +140,13 @@ const OurTeam = () => {
       status: detail?.status == 0 ? 1 : 0,
       _method: 'PATCH'
     };
-    dispatch(changeTeamsStatus(finalData, statusOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(changeTeamsStatus(finalData, statusOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {
@@ -162,13 +170,18 @@ const OurTeam = () => {
   };
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getTeams(data));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(getTeams(typeData));
   };
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
+    user && refetch();
+  }, [page, rowsPerPage, user]);
 
   return (
     <>

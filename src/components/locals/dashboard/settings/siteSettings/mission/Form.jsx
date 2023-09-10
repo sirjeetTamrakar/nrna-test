@@ -29,16 +29,17 @@ const MissionForm = () => {
 
   const submitHandler = (data) => {
     const formData = new FormData();
-
+    let typeData;
     formData.append('mission', data?.mission);
     if (user?.role_name === Roles.NCC) {
       formData.append('settingable_type', user?.role_name);
       formData.append('settingable_id', user?.id);
+      typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
     }
     if (data?.mission_image?.length > 0) {
       formData.append('mission_image', data?.mission_image?.[0]);
     }
-    dispatch(postSiteSettings(formData));
+    dispatch(postSiteSettings(formData, typeData));
   };
 
   return (

@@ -45,11 +45,11 @@ const EditForm = ({ detail, handleClose }) => {
 };
 const Edit = ({ data, handleClose }) => {
   const defaultValues = {
-    title: data?.title,
-    subtitle: data?.subtitle,
-    link: data?.link,
-    description: data?.link,
-    status: data?.status
+    title: data?.title ?? '',
+    subtitle: data?.subtitle ?? '',
+    link: data?.link ?? '',
+    description: data?.link ?? '',
+    status: data?.status ?? ''
   };
 
   return (

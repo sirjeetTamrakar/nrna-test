@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import CandidateForm from './Form';
@@ -14,9 +15,17 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { candidate_loading } = useSelector((state) => state.candidate);
+  const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
-    dispatch(postCandidate(data, handleClose));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
+      dispatch(postCandidate({ ...data, ncc_id: user?.id }, handleClose, typeData));
+    } else {
+      typeData = { page: 1, pagination_limit: 10 };
+      dispatch(postCandidate(data, handleClose, typeData));
+    }
   };
 
   return (

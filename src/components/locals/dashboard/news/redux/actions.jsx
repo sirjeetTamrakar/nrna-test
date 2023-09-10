@@ -26,7 +26,7 @@ export const postNews = (data, handleSuccess, typeData) => (dispatch) => {
     .then((res) => {
       dispatch({ type: actions.POST_NEWS_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getNews());
+      dispatch(getNews(typeData));
       successToast('Your message sent successfully');
     })
     .catch((error) => {

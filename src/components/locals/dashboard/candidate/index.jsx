@@ -8,6 +8,7 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -36,6 +37,7 @@ const Candidate = () => {
   const { candidateData, get_candidate_loading, delete_candidate_loading } = useSelector(
     (state) => state.candidate
   );
+  const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -126,7 +128,13 @@ const Candidate = () => {
   ];
 
   const handleConfirm = (slug) => {
-    dispatch(deleteCandidate(slug, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(deleteCandidate(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
@@ -135,7 +143,13 @@ const Candidate = () => {
       status: detail?.status == 0 ? 1 : 0,
       _method: 'PATCH'
     };
-    dispatch(changeCandidateStatus(finalData, statusOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(changeCandidateStatus(finalData, statusOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {
@@ -159,13 +173,18 @@ const Candidate = () => {
   };
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getCandidate(data));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(getCandidate(typeData));
   };
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
+    user && refetch();
+  }, [page, rowsPerPage, user]);
 
   return (
     <>

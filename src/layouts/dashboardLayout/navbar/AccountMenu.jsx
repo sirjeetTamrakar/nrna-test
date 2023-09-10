@@ -5,7 +5,6 @@ import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined
 import Settings from '@mui/icons-material/Settings';
 import { Box, Button } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
-import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
@@ -103,15 +102,11 @@ export default function AccountMenu() {
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-        <MenuItem onClick={handleClose}>Profile</MenuItem>
-        <MenuItem onClick={handleClose}>My account</MenuItem>
-        <Divider />
-
         <MenuItem onClick={handleClose}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>
-          Settings
+          Change Password
         </MenuItem>
         <MenuItem onClick={() => handleLogout()}>
           <ListItemIcon>

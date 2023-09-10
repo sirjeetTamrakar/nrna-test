@@ -2,8 +2,9 @@ import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    // background: '#276fc4'
+    background: '#276fc4'
   },
+  contactRoot: {},
   title: {
     fontSize: '24px !important',
     color: '#fff',

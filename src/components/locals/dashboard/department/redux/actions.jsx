@@ -20,14 +20,14 @@ export const getDepartment = (data) => (dispatch) => {
     });
 };
 
-export const postDepartment = (data, handleSuccess) => (dispatch) => {
+export const postDepartment = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.POST_DEPARTMENT_BEGIN });
   postDepartmentApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_DEPARTMENT_SUCCESS });
       successToast('Team member added successfully');
       handleSuccess && handleSuccess();
-      dispatch(getDepartment());
+      dispatch(getDepartment(typeData));
     })
     .catch((error) => {
       errorToast(error);
@@ -35,7 +35,7 @@ export const postDepartment = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteDepartment = (Data, handleSuccess) => async (dispatch) => {
+export const deleteDepartment = (Data, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.DELETE_DEPARTMENT_BEGIN });
 
   try {
@@ -43,10 +43,9 @@ export const deleteDepartment = (Data, handleSuccess) => async (dispatch) => {
     console.log('dataaa', Data);
     handleSuccess && handleSuccess();
     dispatch({
-      type: actions.DELETE_DEPARTMENT_SUCCESS,
-      payload: ''
+      type: actions.DELETE_DEPARTMENT_SUCCESS
     });
-    dispatch(getDepartment());
+    dispatch(getDepartment(typeData));
     successToast('Team member has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_DEPARTMENT_ERROR });
@@ -55,17 +54,16 @@ export const deleteDepartment = (Data, handleSuccess) => async (dispatch) => {
   }
 };
 
-export const updateDepartment = (Data, slug, handleSuccess) => async (dispatch) => {
+export const updateDepartment = (Data, slug, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_DEPARTMENT_BEGIN });
 
   try {
     await updateDepartmentApi(Data, slug);
     handleSuccess && handleSuccess();
     dispatch({
-      type: actions.UPDATE_DEPARTMENT_SUCCESS,
-      payload: ''
+      type: actions.UPDATE_DEPARTMENT_SUCCESS
     });
-    dispatch(getDepartment());
+    dispatch(getDepartment(typeData));
     successToast('Department has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_DEPARTMENT_ERROR });

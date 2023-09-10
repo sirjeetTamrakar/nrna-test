@@ -3,12 +3,14 @@ import CustomEditor from 'components/common/CustomEditor';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
+import { Roles } from 'constants/RoleConstant';
 import { useSelector } from 'react-redux';
 import { useStyles } from './styles';
 
 const NewsForm = ({ featureImage }) => {
   const classes = useStyles();
   const { users } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.auth);
   console.log('ssssssss', { users });
 
   const createdByUsers = users?.data?.map((item) => ({
@@ -36,15 +38,17 @@ const NewsForm = ({ featureImage }) => {
         <Grid item sm={12}>
           <CustomEditor name="description" />
         </Grid>
-        <Grid item sm={12}>
-          <CustomAutoComplete
-            placeholder="Created By"
-            name="created_by"
-            label="Created By"
-            options={createdByUsers ?? []}
-            required
-          />
-        </Grid>
+        {user?.role_name != Roles.Member && (
+          <Grid item sm={12}>
+            <CustomAutoComplete
+              placeholder="Created By"
+              name="created_by"
+              label="Created By"
+              options={createdByUsers ?? []}
+              required
+            />
+          </Grid>
+        )}
       </Grid>
     </Box>
   );

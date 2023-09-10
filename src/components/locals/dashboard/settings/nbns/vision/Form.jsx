@@ -6,7 +6,7 @@ import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSiteSettings, postSiteSettings } from '../../redux/actions';
+import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
 const VisionForm = () => {
@@ -19,16 +19,6 @@ const VisionForm = () => {
   const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
-  const { user } = useSelector((state) => state.auth);
-
-  const refetch = () => {
-    const data = { settingable_type: 'nbns', settingable_id: user?.id };
-    dispatch(getSiteSettings(data));
-  };
-
-  useEffect(() => {
-    refetch();
-  }, [user]);
 
   useEffect(() => {
     if (site_settings) {
@@ -41,12 +31,12 @@ const VisionForm = () => {
     formData.append('vision', data?.vision);
 
     formData.append('settingable_type', 'nbns');
-    formData.append('settingable_id', user?.id);
+    formData.append('settingable_id', 1);
 
     if (data?.vision_image?.length > 0) {
       formData.append('vision_image', data?.vision_image?.[0]);
     }
-    dispatch(postSiteSettings(formData));
+    dispatch(postSiteSettings(formData, { settingable_type: 'nbns', settingable_id: 1 }));
   };
 
   return (

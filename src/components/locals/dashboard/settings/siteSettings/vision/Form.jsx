@@ -7,7 +7,7 @@ import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSiteSettings, postSiteSettings } from '../../redux/actions';
+import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
 const VisionForm = () => {
@@ -21,9 +21,6 @@ const VisionForm = () => {
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
-  useEffect(() => {
-    dispatch(getSiteSettings());
-  }, []);
 
   useEffect(() => {
     if (site_settings) {
@@ -33,15 +30,17 @@ const VisionForm = () => {
 
   const submitHandler = (data) => {
     const formData = new FormData();
+    let typeData;
     formData.append('vision', data?.vision);
     if (user?.role_name === Roles.NCC) {
       formData.append('settingable_type', user?.role_name);
       formData.append('settingable_id', user?.id);
+      typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
     }
     if (data?.vision_image?.length > 0) {
       formData.append('vision_image', data?.vision_image?.[0]);
     }
-    dispatch(postSiteSettings(formData));
+    dispatch(postSiteSettings(formData, typeData));
   };
 
   return (

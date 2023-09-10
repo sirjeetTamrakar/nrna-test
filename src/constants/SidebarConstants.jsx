@@ -150,7 +150,7 @@ export const SidebarConstants = [
         url: '/dashboard/business',
         icon: Business,
         activeIcon: ActiveSettingsIcon,
-        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member],
         children: [
           {
             label: 'Category',

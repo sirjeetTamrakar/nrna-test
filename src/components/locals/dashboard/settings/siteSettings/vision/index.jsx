@@ -1,7 +1,9 @@
-import { Box, Paper, Typography } from '@mui/material';
+import { Box, CircularProgress, Paper, Typography } from '@mui/material';
+import { useSelector } from 'react-redux';
 import Register from './Register';
 
 export default function Vision() {
+  const { get_site_settings_loading } = useSelector((state) => state.settings);
   return (
     <>
       <Paper sx={{ padding: '20px', marginInline: '-20px' }}>
@@ -15,8 +17,13 @@ export default function Vision() {
             Vision Section
           </Typography>
         </Box>
-
-        <Register />
+        {!get_site_settings_loading ? (
+          <Register />
+        ) : (
+          <Box display={'flex'} justifyContent={'center'} alignItems={'center'} height={'60vh'}>
+            <CircularProgress size={24} />
+          </Box>
+        )}
       </Paper>
     </>
   );

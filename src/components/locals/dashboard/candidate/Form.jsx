@@ -7,9 +7,9 @@ import { useStyles } from './styles';
 const CandidateForm = () => {
   const classes = useStyles();
 
-  const { usersData } = useSelector((state) => state.auth);
+  const { users } = useSelector((state) => state.user);
 
-  const createdByUsers = usersData?.map((item) => ({
+  const createdByUsers = users?.data?.map((item) => ({
     label: item?.name,
     value: item?.id
   }));

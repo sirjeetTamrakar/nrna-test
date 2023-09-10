@@ -15,10 +15,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeEventsStatus, deleteEvents, getEvents } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeEventsStatus, deleteEvents, getEvents } from './redux/actions';
+import { useStyles } from './styles';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -37,13 +37,6 @@ const Events = () => {
     useSelector((state) => state.events);
 
   const { user } = useSelector((state) => state.auth);
-  console.log('userreerr', { user });
-
-  console.log({ eventsData });
-
-  // useEffect(() => {
-  //   dispatch(getEvents());
-  // }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -139,12 +132,14 @@ const Events = () => {
     }
   ];
 
-  // const refetch = () => {
-  //   dispatch(getEvents());
-  // };
-
   const handleConfirm = (slug) => {
-    dispatch(deleteEvents(slug, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(deleteEvents(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
@@ -153,7 +148,13 @@ const Events = () => {
       status: detail?.status === 0 ? 1 : 0,
       _method: 'PATCH'
     };
-    dispatch(changeEventsStatus(finalData, statusOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(changeEventsStatus(finalData, statusOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {
@@ -182,13 +183,18 @@ const Events = () => {
   };
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getEvents(data));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(getEvents(typeData));
   };
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
+    user && refetch();
+  }, [page, rowsPerPage, user]);
 
   return (
     <>

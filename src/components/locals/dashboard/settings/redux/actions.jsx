@@ -14,19 +14,16 @@ export const getSiteSettings = (data) => (dispatch) => {
     });
 };
 
-export const postSiteSettings =
-  (data, handleSuccess, refetch = () => {}) =>
-  (dispatch) => {
-    dispatch({ type: actions.POST_SITE_SETTINGS_BEGIN });
-    postSiteSettingsApi(data)
-      .then((res) => {
-        dispatch({ type: actions.POST_SITE_SETTINGS_SUCCESS });
-        successToast('Your message sent successfully');
-        handleSuccess && handleSuccess();
-        refetch && refetch();
-      })
-      .catch((error) => {
-        errorToast(error);
-        dispatch({ type: actions.POST_SITE_SETTINGS_ERROR });
-      });
-  };
+export const postSiteSettings = (data, typeData) => (dispatch) => {
+  dispatch({ type: actions.POST_SITE_SETTINGS_BEGIN });
+  postSiteSettingsApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_SITE_SETTINGS_SUCCESS });
+      successToast('Your message sent successfully');
+      dispatch(getSiteSettings(typeData));
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_SITE_SETTINGS_ERROR });
+    });
+};

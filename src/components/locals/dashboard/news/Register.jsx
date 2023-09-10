@@ -4,7 +4,6 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
 import { validationSchema } from './ValidationSchema';
@@ -12,12 +11,11 @@ import { postNews } from './redux/actions';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const defaultValues = {};
+  const defaultValues = { created_by: user?.id };
   const classes = useStyles();
   const { news_loading } = useSelector((state) => state.news);
-  const { user } = useSelector((state) => state.auth);
-  const [typeData, setTypeData] = useState();
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -28,10 +26,11 @@ const Register = ({ handleClose }) => {
     if (data?.feature_image?.length > 0) {
       formData.append('feature_image', data?.feature_image?.[0]);
     }
+    let typeData;
     if (user?.role_name == Roles?.Member) {
-      setTypeData({ type: 'member', id: user?.id });
+      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
-      setTypeData({ type: 'ncc', id: user?.id });
+      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
     }
     dispatch(postNews(formData, handleClose, typeData));
   };

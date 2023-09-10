@@ -2,11 +2,11 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDepartment } from '../department/redux/actions';
-import { getAllUsers } from '../userManagement/redux/actions';
 import OurTeamForm from './Form';
 import { validationSchema } from './ValidationSchema';
 import { updateTeams } from './redux/actions';
@@ -16,14 +16,32 @@ const EditForm = ({ id, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { update_teams_loading } = useSelector((state) => state.teams);
+  const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
-    dispatch(updateTeams({ ...data, _method: 'PUT' }, id, handleClose));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
+      dispatch(
+        updateTeams({ ...data, _method: 'PUT', ncc_id: user?.id }, id, handleClose, typeData)
+      );
+    } else {
+      typeData = { page: 1, pagination_limit: 10 };
+      dispatch(updateTeams({ ...data, _method: 'PUT' }, id, handleClose, typeData));
+    }
   };
   useEffect(() => {
-    dispatch(getAllUsers());
-    dispatch(getDepartment());
-  }, []);
+    let typeData;
+    if (user) {
+      if (user?.role_name == Roles?.NCC) {
+        typeData = { id: user?.id, page: 1, pagination_limit: 20 };
+        dispatch(getDepartment(typeData));
+      } else {
+        typeData = { page: 1, pagination_limit: 20 };
+        dispatch(getDepartment(typeData));
+      }
+    }
+  }, [user]);
 
   return (
     <CustomForm onSubmit={onSubmit}>

@@ -2,6 +2,7 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
@@ -13,6 +14,7 @@ const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { update_events_loading } = useSelector((state) => state.events);
+  const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -26,12 +28,15 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('contact_email', data?.contact_email);
     formData.append('contact_phone', data?.contact_phone);
     formData.append('map_url', data?.map_url);
-    formData.append('status', 'active');
     formData.append('_method', 'PUT');
     if (data?.feature_image?.length > 0) {
       formData.append('feature_image', data?.feature_image?.[0]);
     }
-    dispatch(updateEvents(formData, detail?.slug, handleClose));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(updateEvents(formData, detail?.slug, handleClose, typeData));
   };
 
   return (

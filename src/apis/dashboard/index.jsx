@@ -40,7 +40,8 @@ export const getEventsApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/events${page}${pagination_limit}`);
+  const id = data?.id ? `&ncc_id=${data?.id}` : '';
+  return axiosInstance().get(`/admin/events${page}${pagination_limit}${id}`);
 };
 
 // post events
@@ -141,7 +142,9 @@ export const getTeamsApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}`);
+  const id = data?.id ? `&ncc_id=${data?.id}` : '';
+
+  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}${id}`);
 };
 
 // post our teams
@@ -171,7 +174,8 @@ export const getCandidateApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/ncc-candidates${page}${pagination_limit}`);
+  const id = data?.id ? `&ncc_id=${data?.id}` : '';
+  return axiosInstance().get(`/admin/ncc-candidates${page}${pagination_limit}${id}`);
 };
 
 // post candidate

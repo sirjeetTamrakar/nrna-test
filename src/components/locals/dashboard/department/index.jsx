@@ -6,6 +6,7 @@ import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -27,6 +28,7 @@ const Department = () => {
   const { departmentData, get_department_loading, delete_department_loading } = useSelector(
     (state) => state.department
   );
+  const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -54,7 +56,13 @@ const Department = () => {
   ];
 
   const handleConfirm = (slug) => {
-    dispatch(deleteDepartment(slug, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(deleteDepartment(slug, deleteOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {
@@ -68,13 +76,18 @@ const Department = () => {
   };
 
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getDepartment(data));
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else {
+      typeData = { page: page + 1, pagination_limit: rowsPerPage };
+    }
+    dispatch(getDepartment(typeData));
   };
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
+    user && refetch();
+  }, [page, rowsPerPage, user]);
 
   return (
     <>

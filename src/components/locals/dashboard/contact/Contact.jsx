@@ -117,8 +117,8 @@ const Contact = () => {
   };
 
   useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
+    user && refetch();
+  }, [page, rowsPerPage, user]);
 
   return (
     <>

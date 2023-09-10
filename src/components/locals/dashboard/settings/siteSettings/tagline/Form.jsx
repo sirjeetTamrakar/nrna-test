@@ -24,13 +24,15 @@ const TaglineForm = () => {
 
   const submitHandler = (data) => {
     const formData = new FormData();
+    let typeData;
     formData.append('tagline_author', data?.tagline_author);
     formData.append('tagline_description', data?.tagline_description);
     if (user?.role_name === Roles.NCC) {
       formData.append('settingable_type', user?.role_name);
       formData.append('settingable_id', user?.id);
+      typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
     }
-    dispatch(postSiteSettings(formData));
+    dispatch(postSiteSettings(formData, typeData));
   };
 
   useEffect(() => {

@@ -19,9 +19,9 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
-    formData.append('subtitle', data?.subtitle);
-    formData.append('description', data?.description);
-    formData.append('link', data?.link);
+    formData.append('subtitle', data?.subtitle ?? '');
+    formData.append('description', data?.description ?? '');
+    formData.append('link', data?.link ?? '');
     formData.append('status', 1);
     formData.append('bannerable_type', 'nbns');
     formData.append('bannerable_id', 1);

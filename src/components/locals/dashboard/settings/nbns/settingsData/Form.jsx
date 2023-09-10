@@ -6,7 +6,7 @@ import CustomInput from 'components/common/Form/CustomInput';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSiteSettings, postSiteSettings } from '../../redux/actions';
+import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
 const SettingsDataForm = () => {
@@ -22,9 +22,6 @@ const SettingsDataForm = () => {
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
-  // useEffect(() => {
-  //   dispatch(getSiteSettings());
-  // }, []);
 
   useEffect(() => {
     if (site_settings) {
@@ -34,27 +31,18 @@ const SettingsDataForm = () => {
     }
   }, [site_settings]);
 
-  const refetch = () => {
-    const data = { settingable_type: 'nbns', settingable_id: user?.id };
-    dispatch(getSiteSettings(data));
-  };
-
-  useEffect(() => {
-    refetch();
-  }, [user]);
-
   const submitHandler = (data) => {
     const formData = new FormData();
     formData.append('address', data?.address);
     formData.append('phone', data?.phone);
     formData.append('email', data?.email);
     formData.append('settingable_type', 'nbns');
-    formData.append('settingable_id', user?.id);
+    formData.append('settingable_id', 1);
 
     if (data?.region_logo?.length > 0) {
       formData.append('region_logo', data?.region_logo?.[0]);
     }
-    dispatch(postSiteSettings(formData));
+    dispatch(postSiteSettings(formData, { settingable_type: 'nbns', settingable_id: 1 }));
   };
   return (
     <Box className={classes.root}>

@@ -30,7 +30,7 @@ const Form = () => {
         Contact Us
       </p>
       <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
-        <Box className={classes.root}>
+        <Box className={classes.contactRoot}>
           <CustomForm onSubmit={submitHandler}>
             <Grid container spacing={2} sx={{ marginTop: '20px' }}>
               <Grid item sm={6}>
