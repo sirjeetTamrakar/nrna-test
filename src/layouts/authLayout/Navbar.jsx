@@ -37,7 +37,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                   <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
                 </div>
                 <div className="main-name">
-                  <h4>{currentUser ? currentUser.name : 'NRNA'}</h4>
+                  <h4>{'NRNA'}</h4>
                 </div>
               </div>
             </Link>

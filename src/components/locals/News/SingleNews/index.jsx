@@ -1,9 +1,10 @@
 import { Box, CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getAllNews, getSingleNews } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
+import SecondaryNav from '../SecondaryNav';
 
 const SingleNews = () => {
   const { single_news, news, single_news_loading } = useSelector((state) => state.homepage);
@@ -16,8 +17,41 @@ const SingleNews = () => {
     dispatch(getSingleNews(slug));
     dispatch(getAllNews());
   }, [slug]);
+  const category = [
+    {
+      title: 'Tech & IT',
+      slug: 'advisory_board'
+    },
+    {
+      title: 'Business',
+      slug: 'board_of_directors'
+    },
+    {
+      title: 'Science',
+      slug: 'general_members'
+    },
+    {
+      title: 'Health',
+      slug: 'task_force'
+    },
+    {
+      title: 'lifeStyle',
+      slug: 'travel'
+    },
+    {
+      title: 'Health',
+      slug: 'education'
+    },
+    {
+      title: 'Entertainment',
+      slug: 'entertainment'
+    }
+  ];
+  const [selected, setSelected] = useState(category?.[0]?.slug);
   return (
-    <div className="main_content">
+    <>
+      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
+
       <div className="container">
         <div className="single_news_page">
           <div className="single_news_page_content">
@@ -82,7 +116,7 @@ const SingleNews = () => {
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 };
 

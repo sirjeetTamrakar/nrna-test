@@ -1,8 +1,9 @@
 import { Box, CircularProgress } from '@mui/material';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllNews } from 'redux/homepage/actions';
 import NewsCard from '../../globals/NewsCard';
+import SecondaryNav from './SecondaryNav';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -10,11 +11,42 @@ const News = () => {
   useEffect(() => {
     dispatch(getAllNews());
   }, []);
+  const category = [
+    {
+      title: 'Tech & IT',
+      slug: 'advisory_board'
+    },
+    {
+      title: 'Business',
+      slug: 'board_of_directors'
+    },
+    {
+      title: 'Science',
+      slug: 'general_members'
+    },
+    {
+      title: 'Health',
+      slug: 'task_force'
+    },
+    {
+      title: 'lifeStyle',
+      slug: 'travel'
+    },
+    {
+      title: 'Health',
+      slug: 'education'
+    },
+    {
+      title: 'Entertainment',
+      slug: 'entertainment'
+    }
+  ];
+  const [selected, setSelected] = useState(category?.[0]?.slug);
 
   return (
-    <div className="main_content">
+    <>
+      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
       <section className="all_news">
-        <div className="all_news_title">News</div>
         <div className="container">
           {news_loading ? (
             <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
@@ -35,7 +67,7 @@ const News = () => {
           )}
         </div>
       </section>
-    </div>
+    </>
   );
 };
 

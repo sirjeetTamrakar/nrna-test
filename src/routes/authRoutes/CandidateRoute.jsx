@@ -1,3 +1,4 @@
+import BusinessListPage from 'pages/public/candidateSite/BusinessList';
 import CandidateSitePage from 'pages/public/candidateSite/CandidateSite';
 import Contact from 'pages/public/candidateSite/Contact';
 import News from 'pages/public/candidateSite/News';
@@ -12,6 +13,10 @@ export const candidateRoute = [
   {
     path: ':candidate/news',
     component: <News />
+  },
+  {
+    path: ':candidate/business',
+    component: <BusinessListPage />
   },
   {
     path: ':candidate/contact',

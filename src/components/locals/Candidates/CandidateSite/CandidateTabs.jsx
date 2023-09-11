@@ -52,15 +52,15 @@ const CandidateTabs = () => {
     <Box sx={{ width: '100%' }}>
       <Box>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab icon={<WorkIcon />} iconPosition="start" label="Business" {...a11yProps(0)} />
-          <Tab icon={<GroupsIcon />} iconPosition="start" label="About Us" {...a11yProps(1)} />
+          <Tab icon={<GroupsIcon />} iconPosition="start" label="About Us" {...a11yProps(0)} />
+          <Tab icon={<WorkIcon />} iconPosition="start" label="Business" {...a11yProps(1)} />
         </Tabs>
       </Box>
       <Box sx={{ backgroundColor: '#F9F9FB', marginTop: '20px' }}>
-        <CustomTabPanel value={value} index={0}>
+        <CustomTabPanel value={value} index={1}>
           <Business />
         </CustomTabPanel>
-        <CustomTabPanel value={value} index={1}>
+        <CustomTabPanel value={value} index={0}>
           <About />
         </CustomTabPanel>
       </Box>

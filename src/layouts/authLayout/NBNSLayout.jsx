@@ -78,5 +78,7 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction('/nbns/vision')
     }
   ];
-  return <SecondaryNav options={options} setSelected={setSelected} selected={selected} />;
+  return (
+    <SecondaryNav title="NBNS" options={options} setSelected={setSelected} selected={selected} />
+  );
 };

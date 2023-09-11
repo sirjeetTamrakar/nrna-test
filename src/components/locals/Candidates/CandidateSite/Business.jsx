@@ -37,7 +37,6 @@ const Business = () => {
 
   return (
     <div>
-      <p style={{ fontWeight: '600', fontSize: '16px' }}>Our Services</p>
       <Grid container spacing={2}>
         {cardData?.map((item, index) => {
           return (
