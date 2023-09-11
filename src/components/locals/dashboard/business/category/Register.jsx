@@ -18,8 +18,8 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
-    if (data?.image?.length > 0) {
-      formData.append('image', data?.image?.[0]);
+    if (data?.category_image?.length > 0) {
+      formData.append('category_image', data?.category_image?.[0]);
     }
     dispatch(postCategory(formData, handleClose));
   };

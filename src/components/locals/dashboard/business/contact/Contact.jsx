@@ -9,9 +9,9 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
-import { getBusinessContact } from '../redux/actions';
-import View from './View';
+import { deleteBusinessContact, getBusinessContact } from '../redux/actions';
 import { useStyles } from './styles';
+import View from './View';
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -25,7 +25,9 @@ const Contact = () => {
     dispatch(getBusinessContact());
   }, []);
 
-  const { contact, contact_loading } = useSelector((state) => state.business);
+  const { contact, contact_loading, delete_business_contact_loading } = useSelector(
+    (state) => state.business
+  );
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -89,6 +91,10 @@ const Contact = () => {
     deleteOpenFunction();
   };
 
+  const confirmDelete = (id) => {
+    dispatch(deleteBusinessContact(id, deleteOpenFunction));
+  };
+
   return (
     <>
       <Box>
@@ -110,7 +116,13 @@ const Contact = () => {
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={confirmDelete}
+          slug={detail?.id}
+          open={openDelete}
+          isLoading={delete_business_contact_loading}
+          handleClose={deleteOpenFunction}
+        />
       </Box>
     </>
   );

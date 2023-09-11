@@ -20,8 +20,8 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('title', data?.title);
     formData.append('_method', 'PUT');
 
-    if (data?.image?.length > 0) {
-      formData.append('image', data?.image?.[0]);
+    if (data?.category_image?.length > 0) {
+      formData.append('category_image', data?.category_image?.[0]);
     }
     dispatch(updateCategory(formData, detail?.slug, handleClose));
   };

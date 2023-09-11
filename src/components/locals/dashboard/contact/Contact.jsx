@@ -11,8 +11,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import View from './View';
 import { useStyles } from './styles';
+import View from './View';
 
 const Contact = () => {
   const dispatch = useDispatch();

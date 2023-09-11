@@ -6,8 +6,10 @@ import CandidateImage1 from 'assets/images/candidate1.png';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
+import { useDispatch } from 'react-redux';
 import CandidateTabs from './CandidateTabs';
 const CandidateSite = () => {
+  const dispatch = useDispatch();
   const candidateImages = {
     profileBannerImage: Banner,
     profileImage: CandidateImage1
@@ -23,6 +25,7 @@ const CandidateSite = () => {
     address: 'Kathmandu, Bagmati',
     country: 'Nepal'
   };
+
   return (
     <div className="main_content">
       <div className="container">

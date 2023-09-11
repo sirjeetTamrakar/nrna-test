@@ -41,6 +41,10 @@ const AllNCCSection = () => {
     }
   ];
   const [selected, setSelected] = useState(category?.[0]?.slug);
+  console.log('selected', { selected });
+
+  const filteredNCC = ncc?.filter((item) => item?.continent === selected);
+  console.log({ filteredNCC });
 
   useEffect(() => {
     if (ncc) {
