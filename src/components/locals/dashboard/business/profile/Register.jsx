@@ -2,11 +2,10 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { Roles } from 'constants/RoleConstant';
 import { useDispatch, useSelector } from 'react-redux';
 import { postBusiness } from '../redux/actions';
 import BusinessForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
@@ -14,16 +13,30 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { business_loading } = useSelector((state) => state.business);
+  const { user } = useSelector((state) => state.auth);
+  console.log('sssdddddddff', { user });
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append('title', data?.title);
+    formData.append('fullname', data?.fullname);
+    formData.append('email', data?.email);
+    formData.append('phone', data?.phone);
+    formData.append('address', data?.address);
+    formData.append('google_map_link', data?.google_map_link);
+    formData.append('facebook_url', data?.facebook_url);
+    formData.append('instagram_url', data?.instagram_url);
+    formData.append('twitter_url', data?.twitter_url);
     formData.append('description', data?.description);
-    formData.append('status', 'active');
-    formData.append('created_by', data?.created_by);
+    if (user?.role_name !== Roles?.SuperAdmin) {
+      formData.append('user_id', user?.id);
+    }
+    formData.append('business_category_id', data?.business_category_id);
 
-    if (data?.feature_image?.length > 0) {
-      formData.append('feature_image', data?.feature_image?.[0]);
+    if (data?.profile_image?.length > 0) {
+      formData.append('profile_image', data?.profile_image?.[0]);
+    }
+    if (data?.banner_image?.length > 0) {
+      formData.append('banner_image', data?.banner_image?.[0]);
     }
 
     dispatch(postBusiness(formData, handleClose));
@@ -33,7 +46,8 @@ const Register = ({ handleClose }) => {
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        resolver={useYupValidationResolver(validationSchema)}>
+        // resolver={useYupValidationResolver(validationSchema)}
+      >
         <CustomForm onSubmit={onSubmit}>
           <BusinessForm />
           <Box className={classes.footerRoot}>

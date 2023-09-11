@@ -2,7 +2,9 @@ import {
   changeBusinessStatusApi,
   changeCategoryStatusApi,
   deleteBusinessApi,
+  deleteBusinessContactApi,
   deleteCategoryApi,
+  getBusinessApi,
   getBusinessContactApi,
   getCategoryApi,
   // getBusinessApi,
@@ -92,16 +94,16 @@ export const changeCategoryStatus = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const getBusiness = () => (dispatch) => {
-  // dispatch({ type: actions.GET_BUSINESS_BEGIN });
-  // getBusinessApi()
-  //   .then((res) => {
-  //     dispatch({ type: actions.GET_BUSINESS_SUCCESS, payload: res.data.data });
-  //   })
-  //   .catch((error) => {
-  //     errorToast(error);
-  //     dispatch({ type: actions.GET_BUSINESS_ERROR });
-  //   });
+export const getBusiness = (data) => (dispatch) => {
+  dispatch({ type: actions.GET_BUSINESS_BEGIN });
+  getBusinessApi(data)
+    .then((res) => {
+      dispatch({ type: actions.GET_BUSINESS_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_BUSINESS_ERROR });
+    });
 };
 
 export const postBusiness = (data, handleSuccess) => (dispatch) => {
@@ -180,4 +182,23 @@ export const getBusinessContact = () => (dispatch) => {
     .catch((error) => {
       dispatch({ type: actions.GET_CONTACT_ERROR });
     });
+};
+
+// delete business contact
+export const deleteBusinessContact = (Data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_BUSINESS_BEGIN });
+
+  try {
+    await deleteBusinessContactApi(Data);
+    dispatch({
+      type: actions.DELETE_BUSINESS_SUCCESS,
+      payload: ''
+    });
+    dispatch(getBusiness());
+    handleSuccess && handleSuccess();
+    successToast('Business has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_BUSINESS_ERROR });
+    errorToast(error);
+  }
 };

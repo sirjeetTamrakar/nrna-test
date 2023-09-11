@@ -2,11 +2,10 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { Roles } from 'constants/RoleConstant';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateBusiness } from '../redux/actions';
 import BusinessForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
 
 const EditForm = ({ detail, handleClose }) => {
@@ -14,24 +13,37 @@ const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
 
   const { update_business_loading } = useSelector((state) => state.business);
+  const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append('title', data?.title);
+    formData.append('fullname', data?.fullname);
+    formData.append('email', data?.email);
+    formData.append('phone', data?.phone);
+    formData.append('address', data?.address);
+    formData.append('google_map_link', data?.google_map_link);
+    formData.append('facebook_url', data?.facebook_url);
+    formData.append('instagram_url', data?.instagram_url);
+    formData.append('twitter_url', data?.twitter_url);
     formData.append('description', data?.description);
-    formData.append('status', data?.status);
-    formData.append('created_by', data?.created_by);
-    formData.append('status', 'active');
     formData.append('_method', 'PUT');
-    if (data?.feature_image?.length > 0) {
-      formData.append('feature_image', data?.feature_image?.[0]);
+    if (user?.role_name !== Roles?.SuperAdmin) {
+      formData.append('user_id', user?.id);
+    }
+    formData.append('business_category_id', data?.business_category_id);
+
+    if (data?.profile_image?.length > 0) {
+      formData.append('profile_image', data?.profile_image?.[0]);
+    }
+    if (data?.banner_image?.length > 0) {
+      formData.append('banner_image', data?.banner_image?.[0]);
     }
     dispatch(updateBusiness(formData, detail?.slug, handleClose));
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <BusinessForm featureImage={detail?.feature_image} />
+      <BusinessForm profileImage={detail?.image} bannerImage={detail?.banner_image} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={update_business_loading} />
       </Box>
@@ -40,8 +52,16 @@ const EditForm = ({ detail, handleClose }) => {
 };
 const Edit = ({ data, handleClose }) => {
   const defaultValues = {
-    title: data?.title,
-    created_by: data?.created_by?.id,
+    fullname: data?.fullname,
+    email: data?.email,
+    phone: data?.phone,
+    address: data?.address,
+    business_category_id: parseInt(data?.business_category_id),
+    google_map_link: data?.google_map_link,
+    facebook_url: data?.facebook_url,
+    instagram_url: data?.instagram_url,
+    twitter_url: data?.twitter_url,
+
     description: data?.description
   };
 
@@ -49,7 +69,8 @@ const Edit = ({ data, handleClose }) => {
     <>
       <CustomFormProvider
         defaultValues={defaultValues}
-        resolver={useYupValidationResolver(editValidationSchema)}>
+        // resolver={useYupValidationResolver(editValidationSchema)}
+      >
         <EditForm detail={data} handleClose={handleClose} />
       </CustomFormProvider>
     </>

@@ -22,7 +22,9 @@ const defaultState = {
   candidates: [],
   candidate_loading: false,
   ncc: [],
-  ncc_loading: false
+  ncc_loading: false,
+  single_teams: null,
+  single_teams_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -136,6 +138,15 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_OUR_TEAM_ERROR:
       return { ...state, team_loading: false };
+
+    case actions.FETCH_SINGLE_TEAMS_BEGIN:
+      return { ...state, single_teams_loading: true };
+
+    case actions.FETCH_SINGLE_TEAMS_SUCCESS:
+      return { ...state, single_teams_loading: false, single_teams: action.payload };
+
+    case actions.FETCH_SINGLE_TEAMS_ERROR:
+      return { ...state, single_teams_loading: false };
 
     case actions.FETCH_CANDIDATE_BEGIN:
       return { ...state, candidate_loading: true };

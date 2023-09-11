@@ -38,9 +38,16 @@ const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   console.log('userreerr', { user });
 
+  const refetch = () => {
+    const data = {
+      user_id: user?.role_name !== Roles.SuperAdmin && user?.id
+    };
+    dispatch(getBusiness(data));
+  };
+
   useEffect(() => {
-    dispatch(getBusiness());
-  }, []);
+    refetch();
+  }, [page, rowsPerPage]);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -51,7 +58,7 @@ const Profile = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.name}</Typography>
+            <Typography variant="body2">{row?.fullname}</Typography>
             <Typography variant="subtitle1">{row?.address}</Typography>
           </Box>
         );
@@ -224,7 +231,7 @@ const Profile = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={business}
+          tableData={businessData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

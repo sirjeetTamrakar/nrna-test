@@ -49,7 +49,7 @@ const Category = () => {
       field: (row) => {
         return (
           <Box>
-            <img src={row?.feature_image} height="40px" width="40px" />
+            <img src={row?.image} height="40px" width="40px" />
           </Box>
         );
       }

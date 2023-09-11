@@ -1,22 +1,30 @@
 import { Box, Grid } from '@mui/material';
 import CustomEditor from 'components/common/CustomEditor';
+import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
+import { useSelector } from 'react-redux';
 import { useStyles } from './styles';
 
-const ProfileForm = () => {
+const ProfileForm = ({ profileImage, bannerImage }) => {
   const classes = useStyles();
+  const { categoryData } = useSelector((state) => state.business);
+
+  const businessCategory = categoryData?.map((item) => ({
+    label: item?.title,
+    value: item?.id
+  }));
 
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
         <Grid item sm={4}>
           <FileUploader
-            title="Profile banner image"
+            title="Profile image"
             name="profile_image"
             label="Select Photo"
             widthFull
-            image=""
+            image={profileImage}
           />
         </Grid>
         <Grid item sm={8}>
@@ -25,11 +33,11 @@ const ProfileForm = () => {
             name="banner_image"
             label="Select Photo"
             widthFull
-            image=""
+            image={bannerImage}
           />
         </Grid>
         <Grid item sm={4}>
-          <CustomInput name="name" label="Fullname" required />
+          <CustomInput name="fullname" label="Fullname" required />
         </Grid>
         <Grid item sm={4}>
           <CustomInput name="email" label="Email" type="email" required />
@@ -41,16 +49,24 @@ const ProfileForm = () => {
           <CustomInput name="address" label="Address" required />
         </Grid>
         <Grid item sm={8}>
-          <CustomInput name="map_link" label="Google Map Link" required />
+          <CustomInput name="google_map_link" label="Google Map Link" required />
         </Grid>
         <Grid item sm={4}>
-          <CustomInput name="fb_link" label="Facebook url" required />
+          <CustomInput name="facebook_url" label="Facebook url" required />
         </Grid>
         <Grid item sm={4}>
-          <CustomInput name="insta_link" label="Instagram url" required />
+          <CustomInput name="instagram_url" label="Instagram url" required />
         </Grid>
         <Grid item sm={4}>
-          <CustomInput name="twitter_link" label="Twitter url" required />
+          <CustomInput name="twitter_url" label="Twitter url" required />
+        </Grid>
+        <Grid item sm={12}>
+          <CustomAutoComplete
+            name="business_category_id"
+            label="Select business category"
+            options={businessCategory}
+            required
+          />
         </Grid>
         <Grid item sm={12}>
           <CustomEditor name="description" />

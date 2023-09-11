@@ -9,6 +9,7 @@ import {
   getNccApi,
   getSingleEventApi,
   getSingleNewsApi,
+  getSingleTeamsApi,
   getSiteSettingsApi,
   getTeamsApi
 } from 'apis/homepage';
@@ -147,6 +148,18 @@ export const getTeams = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_OUR_TEAM_ERROR });
+    });
+};
+
+export const getSingleTeams = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_TEAMS_BEGIN });
+  getSingleTeamsApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_TEAMS_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_TEAMS_ERROR });
     });
 };
 

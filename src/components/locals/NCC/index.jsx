@@ -16,30 +16,34 @@ const AllNCCSection = () => {
   const category = [
     {
       title: 'Asia',
-      slug: 'advisory_board'
+      slug: 'Asia'
     },
     {
       title: 'Europe',
-      slug: 'board_of_directors'
+      slug: 'Europe'
     },
     {
       title: 'North America',
-      slug: 'general_members'
+      slug: 'North America'
     },
     {
       title: 'South America',
-      slug: 'task_force'
+      slug: 'South America'
     },
     {
       title: 'Africa',
-      slug: 'travel'
+      slug: 'Africa'
     },
     {
       title: 'Australia',
-      slug: 'education'
+      slug: 'Australia'
     }
   ];
   const [selected, setSelected] = useState(category?.[0]?.slug);
+  console.log('selected', { selected });
+
+  const filteredNCC = ncc?.filter((item) => item?.continent === selected);
+  console.log({ filteredNCC });
 
   return (
     <>
@@ -52,8 +56,8 @@ const AllNCCSection = () => {
             </Box>
           ) : (
             <div className="row">
-              {ncc?.length > 0 ? (
-                ncc?.map((nccItem) => (
+              {filteredNCC?.length > 0 ? (
+                filteredNCC?.map((nccItem) => (
                   <div key={nccItem.id} className="col-6 col-md-4 col-lg-3 col-xl-2">
                     <NCCItem nccItem={nccItem} />
                   </div>

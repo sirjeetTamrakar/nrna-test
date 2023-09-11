@@ -58,6 +58,11 @@ export const getTeamsApi = () => {
   return axiosInstance().get(`/api/our-teams`);
 };
 
+// get single news
+export const getSingleTeamsApi = (slug) => {
+  return axiosInstance().get(`/api/our-teams/${slug}`);
+};
+
 // get candidates
 export const getCandidatesApi = () => {
   return axiosInstance().get(`/api/ncc-candidates`);
