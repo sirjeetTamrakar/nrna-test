@@ -22,7 +22,9 @@ const defaultState = {
   candidates: [],
   candidate_loading: false,
   ncc: [],
-  ncc_loading: false
+  ncc_loading: false,
+  department: [],
+  department_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -154,6 +156,15 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_NBNS_SETTING_ERROR:
       return { ...state, nbns_setting_loading: false };
+
+    case actions.FETCH_DEPARTMENT_BEGIN:
+      return { ...state, department_loading: true };
+
+    case actions.FETCH_DEPARTMENT_SUCCESS:
+      return { ...state, department_loading: false, department: action.payload };
+
+    case actions.FETCH_DEPARTMENT_ERROR:
+      return { ...state, department_loading: false };
 
     default:
       return state;

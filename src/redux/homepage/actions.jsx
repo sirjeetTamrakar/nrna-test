@@ -6,6 +6,7 @@ import {
   getBannerApi,
   getCandidatesApi,
   getContactUsApi,
+  getDepartmentApi,
   getNccApi,
   getSingleEventApi,
   getSingleNewsApi,
@@ -169,5 +170,16 @@ export const getNcc = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_NCC_ERROR });
+    });
+};
+
+export const getDepartment = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_DEPARTMENT_BEGIN });
+  getDepartmentApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_DEPARTMENT_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_DEPARTMENT_ERROR });
     });
 };

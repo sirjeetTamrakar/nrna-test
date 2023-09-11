@@ -5,9 +5,15 @@ const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
   const classes = useStyles();
 
   const checkActive = (slug) => {
-    if (slug === selected) {
+    if (selected) {
+      if (slug === selected) {
+        return 'active';
+      } else return '';
+    } else if (slug === departments?.[0]?.id) {
       return 'active';
-    } else return '';
+    } else {
+      return '';
+    }
   };
 
   const handleSearch = (e) => {
@@ -24,10 +30,7 @@ const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
         </Box>
         <ul className={classes.list}>
           {departments?.map((list, index) => (
-            <li
-              className={checkActive(list?.slug)}
-              key={index}
-              onClick={() => setSelected(list?.slug)}>
+            <li className={checkActive(list?.id)} key={index} onClick={() => setSelected(list?.id)}>
               {list?.title}
             </li>
           ))}

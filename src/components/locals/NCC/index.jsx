@@ -8,6 +8,7 @@ import SecondaryNav from './SecondaryNav';
 const AllNCCSection = () => {
   const dispatch = useDispatch();
   const { ncc, ncc_loading } = useSelector((state) => state.homepage);
+  const [filteredNcc, setFilteredNcc] = useState([]);
 
   useEffect(() => {
     dispatch(getNcc());
@@ -16,30 +17,37 @@ const AllNCCSection = () => {
   const category = [
     {
       title: 'Asia',
-      slug: 'advisory_board'
+      slug: 'Asia'
     },
     {
       title: 'Europe',
-      slug: 'board_of_directors'
+      slug: 'Europe'
     },
     {
       title: 'North America',
-      slug: 'general_members'
+      slug: 'North America'
     },
     {
       title: 'South America',
-      slug: 'task_force'
+      slug: 'South_America'
     },
     {
       title: 'Africa',
-      slug: 'travel'
+      slug: 'Africa'
     },
     {
       title: 'Australia',
-      slug: 'education'
+      slug: 'Oceania'
     }
   ];
   const [selected, setSelected] = useState(category?.[0]?.slug);
+
+  useEffect(() => {
+    if (ncc) {
+      const data = ncc?.filter((list) => list?.continent == selected);
+      setFilteredNcc(data);
+    }
+  }, [ncc, selected]);
 
   return (
     <>
@@ -52,8 +60,8 @@ const AllNCCSection = () => {
             </Box>
           ) : (
             <div className="row">
-              {ncc?.length > 0 ? (
-                ncc?.map((nccItem) => (
+              {filteredNcc?.length > 0 ? (
+                filteredNcc?.map((nccItem) => (
                   <div key={nccItem.id} className="col-6 col-md-4 col-lg-3 col-xl-2">
                     <NCCItem nccItem={nccItem} />
                   </div>

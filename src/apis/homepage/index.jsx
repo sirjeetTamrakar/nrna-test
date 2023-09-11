@@ -67,3 +67,8 @@ export const getCandidatesApi = () => {
 export const getNccApi = () => {
   return axiosInstance().get(`/api/ncc`);
 };
+
+// get our team department
+export const getDepartmentApi = () => {
+  return axiosInstance().get(`/api/our-team-categories`);
+};
