@@ -6,7 +6,10 @@ import CandidateImage1 from 'assets/images/candidate1.png';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
-import { useDispatch } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getSingleTeams } from 'redux/homepage/actions';
 import CandidateTabs from './CandidateTabs';
 const CandidateSite = () => {
   const dispatch = useDispatch();
@@ -26,6 +29,13 @@ const CandidateSite = () => {
     country: 'Nepal'
   };
 
+  const { candidate } = useParams();
+  const { single_teams } = useSelector((state) => state.homepage);
+  console.log({ candidate, single_teams });
+  useEffect(() => {
+    dispatch(getSingleTeams(candidate));
+  }, [candidate]);
+
   return (
     <div className="main_content">
       <div className="container">
@@ -42,13 +52,11 @@ const CandidateSite = () => {
             <div className="candidate_page_lower_banner_wrapper">
               <div className="candidate_page_lower_banner_wrapper_box">
                 <div className="img_container_profile">
-                  <img src={candidateImages?.profileImage} alt="" />
+                  <img src={single_teams?.member?.profile_image} alt="" />
                 </div>
                 <div className="candidate_name_box">
-                  <div className="candidate_name">{currentUser?.name}</div>
-                  <div className="candidate_designation">
-                    {candidateData?.designation ?? ''}IT company
-                  </div>
+                  <div className="candidate_name">{single_teams?.member?.name}</div>
+                  <div className="candidate_designation">{single_teams?.designation ?? ''}</div>
                 </div>
               </div>
             </div>
@@ -83,23 +91,29 @@ const CandidateSite = () => {
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Username</div>
-                      <span className="contact_list_item">{candidateData?.username ?? ''}</span>
+                      <span className="contact_list_item">
+                        {single_teams?.member?.username ?? ''}
+                      </span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Email Address</div>
-                      <span className="contact_list_item">{candidateData?.email ?? ''}</span>
+                      <span className="contact_list_item">{single_teams?.member?.email ?? ''}</span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Phone no.</div>
-                      <span className="contact_list_item">{candidateData?.phone ?? ''}</span>
+                      <span className="contact_list_item">{single_teams?.member?.phone ?? ''}</span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Address</div>
-                      <span className="contact_list_item">{candidateData?.address ?? ''}</span>
+                      <span className="contact_list_item">
+                        {single_teams?.member?.address ?? ''}
+                      </span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Country Of Residence</div>
-                      <span className="contact_list_item">{candidateData?.country ?? ''}</span>
+                      <span className="contact_list_item">
+                        {single_teams?.member?.country_of_residence ?? ''}
+                      </span>
                     </li>
                   </ul>
                   {/* <div className="social_links">
