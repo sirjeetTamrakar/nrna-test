@@ -65,9 +65,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
               <li className="d-none d-lg-block">
                 <Link to="/events">Event</Link>
               </li>
-              <li className="d-none d-lg-block">
-                <Link to="/contact">Contact</Link>
-              </li>
+
               <li>
                 {isLoggedIn() ? (
                   <button className="btn-md" onClick={goToDashboard}>

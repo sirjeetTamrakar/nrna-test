@@ -13,6 +13,7 @@ const Homepage = () => {
   useEffect(() => {
     dispatch(getBanner());
   }, []);
+
   return (
     <>
       <BannerSection banners={banners} />

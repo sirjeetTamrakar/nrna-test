@@ -6,7 +6,7 @@ import { useDispatch } from 'react-redux';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { setGlobalUser } from 'redux/auth/actions';
-import { getNcc, getSiteSettings } from 'redux/homepage/actions';
+import { getContinents, getNcc, getSiteSettings } from 'redux/homepage/actions';
 import RouteList from 'routes';
 import 'slick-carousel/slick/slick-theme.css';
 import 'slick-carousel/slick/slick.css';
@@ -20,6 +20,7 @@ export default function App() {
     dispatch(getSiteSettings());
     dispatch(setGlobalUser());
     dispatch(getNcc());
+    dispatch(getContinents());
   }, []);
 
   return (

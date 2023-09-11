@@ -77,3 +77,8 @@ export const getNccApi = () => {
 export const getDepartmentApi = () => {
   return axiosInstance().get(`/api/our-team-categories`);
 };
+
+// get all continents
+export const getContinentsApi = () => {
+  return axiosInstance().get(`/api/continents`);
+};

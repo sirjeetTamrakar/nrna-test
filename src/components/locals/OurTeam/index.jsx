@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDepartment, getTeams } from 'redux/homepage/actions';
 import OurTeamCard from './OurTeamCard';
-import SecondaryNav from './SecondaryNav';
+import SecondaryNav from './secondaryNav';
 
 const OurTeam = () => {
   const dispatch = useDispatch();

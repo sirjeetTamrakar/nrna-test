@@ -26,7 +26,9 @@ const defaultState = {
   department: [],
   department_loading: false,
   single_teams: null,
-  single_teams_loading: false
+  single_teams_loading: false,
+  continents: [],
+  continent_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
