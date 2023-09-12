@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { useStyles } from './styles';
 
-const SecondaryNav = ({ options, selected, setSelected, title }) => {
+const SecondaryNav = ({ options, selected, title }) => {
   const classes = useStyles();
   const checkActive = (slug) => {
     if (selected) {
