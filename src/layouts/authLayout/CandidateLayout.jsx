@@ -18,8 +18,6 @@ const CandidateLayout = () => {
   );
 };
 
-export default CandidateLayout;
-
 const SecondaryNavWrapper = () => {
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
@@ -66,3 +64,5 @@ const SecondaryNavWrapper = () => {
     />
   );
 };
+
+export default CandidateLayout;
