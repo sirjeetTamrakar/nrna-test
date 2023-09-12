@@ -7,12 +7,14 @@ import BusinessContactPage from 'pages/private/business/Contact';
 import CandidatePage from 'pages/private/CandidatePage';
 import ContactPage from 'pages/private/ContactPage';
 import DepartmentPage from 'pages/private/Department';
-import EventsPage from 'pages/private/EventsPage';
+import EventCategoryPage from 'pages/private/event/Category';
+import EventsPage from 'pages/private/event/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
 import NBNSBannerPage from 'pages/private/NBNSBanner';
 import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
-import NewsPage from 'pages/private/NewsPage';
+import NewsCategoryPage from 'pages/private/news/Category';
+import NewsPage from 'pages/private/news/NewsPage';
 import OurTeamPage from 'pages/private/OurTeamPage';
 import ParticipantResultPage from 'pages/private/ParticipantResult';
 import ParticipantsPage from 'pages/private/Participants';
@@ -30,12 +32,28 @@ const DashboardRoutes = [
       </Protected>
     )
   },
+  {
+    path: 'events/category',
+    component: (
+      <Protected>
+        <EventCategoryPage />
+      </Protected>
+    )
+  },
 
   {
     path: 'news',
     component: (
       <Protected>
         <NewsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'news/category',
+    component: (
+      <Protected>
+        <NewsCategoryPage />
       </Protected>
     )
   },

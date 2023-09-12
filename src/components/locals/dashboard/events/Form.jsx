@@ -1,17 +1,40 @@
 import { Box, Grid } from '@mui/material';
+import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategory } from './redux/actions';
 import { useStyles } from './styles';
 
 const EventForm = ({ image }) => {
+  const dispatch = useDispatch();
+  const { categoryData } = useSelector((state) => state.events);
   const classes = useStyles();
+  const eventCategory = categoryData?.map((item) => ({
+    label: item?.title,
+    value: item?.id
+  }));
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
 
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item sm={12}>
+        <Grid item sm={6}>
           <CustomInput name="title" label="Title" required />
+        </Grid>
+        <Grid item sm={6}>
+          <CustomAutoComplete
+            placeholder="Event Category"
+            name="event_category_id"
+            label="Event Category"
+            options={eventCategory ?? []}
+            required
+          />
         </Grid>
         <Grid item sm={6}>
           <CustomInput name="contact_email" type="email" label="Contact email" />

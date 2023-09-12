@@ -195,6 +195,16 @@ export const SidebarConstants = [
             label: 'NBNS Banner',
             url: '/dashboard/settings/nbns-banner',
             roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'News Category',
+            url: '/dashboard/news/category',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'Events Category',
+            url: '/dashboard/events/category',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           }
         ]
       }

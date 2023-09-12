@@ -4,25 +4,46 @@ import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import { Roles } from 'constants/RoleConstant';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategory } from './redux/actions';
 import { useStyles } from './styles';
 
 const NewsForm = ({ featureImage }) => {
   const classes = useStyles();
+  const dispatch = useDispatch();
   const { users } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.auth);
-  console.log('ssssssss', { users });
+  const { categoryData } = useSelector((state) => state.news);
 
   const createdByUsers = users?.data?.map((item) => ({
     label: item?.name,
     value: item?.id
   }));
 
+  const newsCategory = categoryData?.map((item) => ({
+    label: item?.title,
+    value: item?.id
+  }));
+
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
+
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item sm={12}>
+        <Grid item sm={6}>
           <CustomInput name="title" label="Title" required />
+        </Grid>
+        <Grid item sm={6}>
+          <CustomAutoComplete
+            placeholder="News Category"
+            name="news_category_id"
+            label="News Category"
+            options={newsCategory ?? []}
+            required
+          />
         </Grid>
 
         <Grid item sm={12}>

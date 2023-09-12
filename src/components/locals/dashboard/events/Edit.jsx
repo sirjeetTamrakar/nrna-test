@@ -29,6 +29,8 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('contact_phone', data?.contact_phone);
     formData.append('map_url', data?.map_url);
     formData.append('_method', 'PUT');
+    formData.append('event_category_id', data?.event_category_id);
+
     if (data?.feature_image?.length > 0) {
       formData.append('feature_image', data?.feature_image?.[0]);
     }

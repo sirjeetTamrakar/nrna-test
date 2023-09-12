@@ -25,6 +25,8 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('description', data?.description);
     formData.append('created_by', data?.created_by);
     formData.append('_method', 'PUT');
+    formData.append('news_category_id', data?.news_category_id);
+
     if (data?.feature_image?.length > 0) {
       formData.append('feature_image', data?.feature_image?.[0]);
     }
@@ -52,7 +54,8 @@ const Edit = ({ data, handleClose }) => {
   const defaultValues = {
     title: data?.title,
     created_by: data?.created_by?.id,
-    description: data?.description
+    description: data?.description,
+    news_category_id: data?.news_category_id
   };
 
   return (

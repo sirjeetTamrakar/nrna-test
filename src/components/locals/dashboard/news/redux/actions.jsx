@@ -3,8 +3,13 @@ import {
   deleteNewsApi,
   getNewsApi,
   postNewsApi,
-  updateNewsApi
-} from 'apis/dashboard';
+  updateNewsApi,
+  changeCategoryStatusApi,
+  deleteCategoryApi,
+  getCategoryApi,
+  postCategoryApi,
+  updateCategoryApi
+} from 'apis/dashboard/news';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -82,5 +87,83 @@ export const changeNewsStatus = (data, handleSuccess, typeData) => (dispatch) =>
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.CHANGE_NEWS_STATUS_ERROR });
+    });
+};
+
+export const getCategory = () => (dispatch) => {
+  dispatch({ type: actions.GET_CATEGORY_BEGIN });
+  getCategoryApi()
+    .then((res) => {
+      dispatch({ type: actions.GET_CATEGORY_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_CATEGORY_ERROR });
+    });
+};
+
+export const postCategory = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_CATEGORY_BEGIN });
+  postCategoryApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_CATEGORY_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getCategory());
+      successToast('Category added successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_CATEGORY_ERROR });
+    });
+};
+
+export const deleteCategory = (Data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_CATEGORY_BEGIN });
+
+  try {
+    await deleteCategoryApi(Data);
+    dispatch({
+      type: actions.DELETE_CATEGORY_SUCCESS,
+      payload: ''
+    });
+    dispatch(getCategory());
+    handleSuccess && handleSuccess();
+    successToast('Category has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_CATEGORY_ERROR });
+    errorToast(error);
+  }
+};
+
+export const updateCategory = (Data, slug, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.UPDATE_CATEGORY_BEGIN });
+
+  try {
+    await updateCategoryApi(Data, slug);
+    dispatch({
+      type: actions.UPDATE_CATEGORY_SUCCESS,
+      payload: ''
+    });
+    dispatch(getCategory());
+    handleSuccess && handleSuccess();
+    successToast('Category has been updated');
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_CATEGORY_ERROR });
+    errorToast(error);
+  }
+};
+
+export const changeCategoryStatus = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_CATEGORY_STATUS_BEGIN });
+  changeCategoryStatusApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_CATEGORY_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getCategory());
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CHANGE_CATEGORY_STATUS_ERROR });
     });
 };
