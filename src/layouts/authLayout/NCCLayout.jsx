@@ -27,6 +27,8 @@ const NCCLayout = () => {
   );
 };
 
+export default NCCLayout;
+
 const SecondaryNavWrapper = () => {
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
@@ -97,5 +99,3 @@ const SecondaryNavWrapper = () => {
     />
   );
 };
-
-export default NCCLayout;
