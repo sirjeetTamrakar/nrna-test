@@ -26,8 +26,6 @@ const NBNSLayout = () => {
   );
 };
 
-export default NBNSLayout;
-
 const SecondaryNavWrapper = () => {
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
@@ -82,3 +80,5 @@ const SecondaryNavWrapper = () => {
     <SecondaryNav title="NBNS" options={options} setSelected={setSelected} selected={selected} />
   );
 };
+
+export default NBNSLayout;
