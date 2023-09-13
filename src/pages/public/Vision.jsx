@@ -1,4 +1,4 @@
-import SecondaryNav from 'components/globals/secondaryNav';
+import SecondaryNav from 'components/globals/SecondaryNav';
 import Vision from 'components/locals/Vision';
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';

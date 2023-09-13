@@ -1,5 +1,6 @@
 import { Box } from '@mui/material';
-import SecondaryNav from 'components/globals/secondaryNav';
+// import SecondaryNav from 'components/globals/SecondaryNav';
+import SecondaryNav from '../../components/globals/SecondaryNav';
 import { useEffect, useState } from 'react';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import Footer from './Footer';
