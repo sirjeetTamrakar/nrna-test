@@ -3,7 +3,7 @@ import SecondaryNav from 'components/globals/secondaryNav';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getSiteSettings } from 'redux/homepage/actions';
+import { getSingleNCC, getSiteSettings } from 'redux/homepage/actions';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
@@ -30,6 +30,7 @@ const NCCLayout = () => {
 export default NCCLayout;
 
 const SecondaryNavWrapper = () => {
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -37,6 +38,12 @@ const SecondaryNavWrapper = () => {
   const handleFunction = (data) => {
     navigate(data);
   };
+  console.log({ ncc });
+  const { single_ncc } = useSelector((state) => state.homepage);
+  console.log({ single_ncc });
+  useEffect(() => {
+    dispatch(getSingleNCC(ncc));
+  }, [ncc]);
   useEffect(() => {
     pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
   }, [pathname]);
@@ -92,7 +99,7 @@ const SecondaryNavWrapper = () => {
   ];
   return (
     <SecondaryNav
-      title="NCC Name"
+      title={single_ncc?.country_name}
       options={options}
       setSelected={setSelected}
       selected={selected}

@@ -4,6 +4,17 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     background: '#276fc4'
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    '& input': {
+      height: '16px',
+      background: '#5d9fee',
+      color: '#fff',
+      borderRadius: '4px'
+    }
+  },
   contactRoot: {},
   title: {
     fontSize: '24px !important',

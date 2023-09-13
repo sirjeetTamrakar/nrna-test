@@ -1,16 +1,36 @@
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllEvents } from 'redux/homepage/actions';
+import { getAllEvents, getEventsCategory } from 'redux/homepage/actions';
 import EventCard from '../../globals/EventCard';
 import SecondaryNav from './SecondaryNav';
 
 const Events = () => {
   const dispatch = useDispatch();
-  const { events, events_loading } = useSelector((state) => state.homepage);
+  const { events, events_loading, events_category, events_category_loading } = useSelector(
+    (state) => state.homepage
+  );
+
+  const [filteredEvents, setFilteredEvents] = useState();
+
+  const [selected, setSelected] = useState(events_category?.[0]?.id);
+  const [search, setSearch] = useState('');
+
   useEffect(() => {
     dispatch(getAllEvents());
+    dispatch(getEventsCategory());
   }, []);
+
+  useEffect(() => {
+    if (events) {
+      const newEvents = events?.filter(
+        (list) =>
+          list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          list?.event_category_id == Number(selected)
+      );
+      setFilteredEvents(newEvents);
+    }
+  }, [search, events, selected, events_category]);
   const category = [
     {
       title: 'Tech & IT',
@@ -41,22 +61,27 @@ const Events = () => {
       slug: 'entertainment'
     }
   ];
-  const [selected, setSelected] = useState(category?.[0]?.slug);
+  // const [selected, setSelected] = useState(category?.[0]?.slug);
 
   return (
     <>
-      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
+      <SecondaryNav
+        category={events_category}
+        setSelected={setSelected}
+        selected={selected}
+        setSearch={setSearch}
+      />
 
       <section className="all_events">
         <div className="container">
-          {events_loading ? (
+          {events_loading || events_category_loading ? (
             <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
               <CircularProgress size={24} />
             </Box>
           ) : (
             <div className="row">
-              {events.length > 0 ? (
-                events.map((event) => (
+              {filteredEvents?.length > 0 ? (
+                filteredEvents.map((event) => (
                   <EventCard key={event.id} event={event} linkUrl={`/events/${event.slug}`} />
                 ))
               ) : (

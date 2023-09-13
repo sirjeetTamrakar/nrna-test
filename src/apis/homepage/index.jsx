@@ -12,6 +12,11 @@ export const getAllNewsApi = () => {
   return axiosInstance().get(`/api/news`);
 };
 
+// get news category
+export const getNewsCategoryApi = () => {
+  return axiosInstance().get(`/api/news-categories`);
+};
+
 // get single news
 export const getSingleNewsApi = (slug) => {
   return axiosInstance().get(`/api/news/${slug}`);
@@ -20,6 +25,11 @@ export const getSingleNewsApi = (slug) => {
 // get all events
 export const getAllEventsApi = () => {
   return axiosInstance().get(`/api/events`);
+};
+
+// get events category
+export const getEventsCategoryApi = () => {
+  return axiosInstance().get(`/api/event-categories`);
 };
 
 // get single evnet
@@ -73,6 +83,11 @@ export const getNccApi = () => {
   return axiosInstance().get(`/api/ncc`);
 };
 
+// get single news
+export const getSingleNCCApi = (slug) => {
+  return axiosInstance().get(`/api/ncc/${slug}`);
+};
+
 // get our team department
 export const getDepartmentApi = () => {
   return axiosInstance().get(`/api/our-team-categories`);
@@ -81,4 +96,29 @@ export const getDepartmentApi = () => {
 // get all continents
 export const getContinentsApi = () => {
   return axiosInstance().get(`/api/continents`);
+};
+
+// get business
+export const getBusinessApi = () => {
+  return axiosInstance().get(`/api/businesses`);
+};
+
+// get single business
+export const getSingleBusinessApi = (slug) => {
+  return axiosInstance().get(`/api/businesses/${slug}`);
+};
+
+// send business contact
+export const businessContactApi = (data) => {
+  return axiosInstance().post(`/api/business-contact`, data);
+};
+
+// get business category
+export const getBusinessCategoryApi = () => {
+  return axiosInstance().get(`/api/business-categories`);
+};
+
+// get countries list
+export const getCountriesApi = () => {
+  return axiosInstance().get(`/api/countries`);
 };

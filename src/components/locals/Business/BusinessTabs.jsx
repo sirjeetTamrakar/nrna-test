@@ -43,7 +43,7 @@ function a11yProps(index) {
   };
 }
 
-const BusinessTabs = () => {
+const BusinessTabs = ({ singleBusinessData }) => {
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event, newValue) => {
@@ -69,10 +69,10 @@ const BusinessTabs = () => {
           <Services />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={1}>
-          <About />
+          <About singleBusinessData={singleBusinessData} />
         </CustomTabPanel>
         <CustomTabPanel value={value} index={2}>
-          <Form />
+          <Form singleBusinessData={singleBusinessData} />
         </CustomTabPanel>
       </Box>
     </Box>

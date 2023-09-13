@@ -5,19 +5,32 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { postBusinessContact } from 'redux/homepage/actions';
 import * as Yup from 'yup';
 import { useStyles } from './styles';
 
-const Form = () => {
+const Form = ({ singleBusinessData }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
+  const { business_contact_loading } = useSelector((state) => state.homepage);
   const validationSchema = Yup.object({
     name: Yup.string().required('Please enter name'),
     email: Yup.string().required('Please enter email'),
     subject: Yup.string().required('Please enter subject'),
     description: Yup.string().required('Please enter description')
   });
-  const submitHandler = () => {
-    console.log('submit');
+
+  const { setValue } = useForm({});
+
+  const handleSuccess = () => {
+    const array = ['name', 'email', 'subject', 'description'];
+    array?.map((item) => setValue(item, ''));
+  };
+  const submitHandler = (data) => {
+    console.log('businessFormData', { data });
+    dispatch(postBusinessContact({ ...data, business_id: singleBusinessData?.id }, handleSuccess));
   };
   return (
     <div>
@@ -58,7 +71,7 @@ const Form = () => {
               </Grid>
               <Grid item sm={12}>
                 <Box className={classes.footerRoot}>
-                  <CustomButton buttonName="Submit Form" />
+                  <CustomButton buttonName="Submit Form" loading={business_contact_loading} />
                 </Box>
               </Grid>
             </Grid>

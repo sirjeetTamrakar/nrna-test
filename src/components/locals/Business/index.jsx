@@ -1,11 +1,42 @@
+import { Box, CircularProgress } from '@mui/material';
 import CandidateImage1 from 'assets/images/candidate1.png';
 import CandidateImage2 from 'assets/images/candidate2.png';
 import CandidateImage3 from 'assets/images/candidate3.png';
-import { useState } from 'react';
-import NCCItem from './BusinessItem';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getBusiness, getBusinessCategory } from 'redux/homepage/actions';
+import BusinessItem from './BusinessItem';
 import SecondaryNav from './SecondaryNav';
 
 const Business = () => {
+  const dispatch = useDispatch();
+  const { business, business_category, business_loading, business_category_loading } = useSelector(
+    (state) => state.homepage
+  );
+  console.log({ business });
+  const [filteredBusiness, setFilteredBusiness] = useState();
+
+  const [selected, setSelected] = useState(business_category?.[0]?.id);
+  const [search, setSearch] = useState('');
+
+  console.log({ selected });
+
+  useEffect(() => {
+    dispatch(getBusiness());
+    dispatch(getBusinessCategory());
+  }, []);
+
+  useEffect(() => {
+    if (business) {
+      const newBusiness = business?.filter(
+        (list) =>
+          list?.fullname?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          list?.business_category_id == Number(selected)
+      );
+      setFilteredBusiness(newBusiness);
+    }
+  }, [search, business, selected, business_category]);
+
   const nccItems = [
     {
       id: '1',
@@ -57,26 +88,52 @@ const Business = () => {
       slug: 'entertainment'
     }
   ];
-  const [selected, setSelected] = useState(category?.[0]?.slug);
+
   return (
     <>
-      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
+      <SecondaryNav
+        category={business_category}
+        setSelected={setSelected}
+        selected={selected}
+        setSearch={setSearch}
+      />
       <section className="all_events">
         <div className="container">
+          {business_loading || business_category_loading ? (
+            <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
+              <CircularProgress size={24} />
+            </Box>
+          ) : (
+            <div className="row">
+              {filteredBusiness?.length > 0 ? (
+                filteredBusiness?.map((item) => (
+                  <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
+                    <BusinessItem businessItem={item} />
+                  </div>
+                ))
+              ) : (
+                <div className="col-md-12 mt-5 mb-5">
+                  <h3 className="text-center">No business available</h3>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        {/* <div className="container">
           <div className="row">
-            {nccItems.length > 0 ? (
-              nccItems.map((nccItem) => (
-                <div key={nccItem.id} className="col-md-3">
-                  <NCCItem nccItem={nccItem} />
+            {filteredBusiness.length > 0 ? (
+              filteredBusiness.map((item) => (
+                <div key={item.id} className="col-md-3">
+                  <BusinessItem businessItem={item} />
                 </div>
               ))
             ) : (
               <div className="col-md-12 mt-5 mb-5">
-                <h3 className="text-center">No NCC items available</h3>
+                <h3 className="text-center">No Business items available</h3>
               </div>
             )}
           </div>
-        </div>
+        </div> */}
       </section>
     </>
   );
