@@ -5,7 +5,9 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import { getAdvice, postAdvice } from 'components/locals/dashboard/advice/redux/actions';
+import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -21,6 +23,10 @@ const Form = () => {
     label: item,
     value: item
   }));
+
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
 
   const { setValue, watch } = useFormContext({});
 

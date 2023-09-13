@@ -1,15 +1,22 @@
 import {
+  businessContactApi,
   contactUsApi,
   deleteContactApi,
   getAllEventsApi,
   getAllNewsApi,
   getBannerApi,
+  getBusinessApi,
+  getBusinessCategoryApi,
   getCandidatesApi,
   getContactUsApi,
   getContinentsApi,
   getDepartmentApi,
+  getEventsCategoryApi,
   getNccApi,
+  getNewsCategoryApi,
+  getSingleBusinessApi,
   getSingleEventApi,
+  getSingleNCCApi,
   getSingleNewsApi,
   getSingleTeamsApi,
   getSiteSettingsApi,
@@ -206,5 +213,87 @@ export const getContinents = () => (dispatch) => {
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_CONTACT_ERROR });
+    });
+};
+
+export const getBusiness = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_BUSINESS_BEGIN });
+  getBusinessApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_BUSINESS_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_BUSINESS_ERROR });
+    });
+};
+
+export const getSingleBusiness = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_BUSINESS_BEGIN });
+  getSingleBusinessApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_BUSINESS_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_BUSINESS_ERROR });
+    });
+};
+
+export const postBusinessContact = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_BUSINESS_CONTACT_BEGIN });
+  businessContactApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_BUSINESS_CONTACT_SUCCESS });
+      successToast('Your message sent successfully');
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_BUSINESS_CONTACT_ERROR });
+    });
+};
+
+export const getBusinessCategory = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_BUSINESS_CATEGORY_BEGIN });
+  getBusinessCategoryApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_BUSINESS_CATEGORY_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_BUSINESS_CATEGORY_ERROR });
+    });
+};
+
+export const getNewsCategory = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_NEWS_CATEGORY_BEGIN });
+  getNewsCategoryApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_NEWS_CATEGORY_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_NEWS_CATEGORY_ERROR });
+    });
+};
+
+export const getEventsCategory = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_EVENTS_CATEGORY_BEGIN });
+  getEventsCategoryApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_EVENTS_CATEGORY_SUCCESS, payload: res.data.data });
+    })
+    .catch((err) => {
+      dispatch({ type: actions.FETCH_EVENTS_CATEGORY_ERROR });
+    });
+};
+
+export const getSingleNCC = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_NCC_BEGIN });
+  getSingleNCCApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_NCC_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_NCC_ERROR });
     });
 };

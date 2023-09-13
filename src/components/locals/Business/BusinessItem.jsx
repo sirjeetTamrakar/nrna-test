@@ -1,12 +1,14 @@
 import { Link } from 'react-router-dom';
 
-const BusinessItem = ({ nccItem }) => {
+const BusinessItem = ({ businessItem }) => {
   return (
-    <Link to={`/business/${nccItem.username}`} className="political_item">
+    <Link to={`/business/${businessItem.slug}`} className="political_item">
       <div className="img_container">
-        <img src={nccItem?.image} alt="" />
+        <img src={businessItem?.image} alt="" />
       </div>
-      <div className="political_item_title text-center">{nccItem.name}</div>
+      <div style={{ paddingBottom: '10px' }} className="political_item_title text-center">
+        {businessItem.fullname}
+      </div>
     </Link>
   );
 };

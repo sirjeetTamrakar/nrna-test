@@ -1,26 +1,34 @@
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import Grid from '@mui/material/Grid';
-import Banner from 'assets/images/banner.png';
-import banner2 from 'assets/images/banner2.png';
-import CandidateImage1 from 'assets/images/candidate1.png';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { getSingleBusiness } from 'redux/homepage/actions';
 import BusinessTabs from './BusinessTabs';
 const BusinessProfile = () => {
-  const candidateImages = {
-    profileBannerImage: Banner,
-    profileImage: CandidateImage1
-  };
-  const currentUser = {
-    name: 'Restaurant',
-    designation: 'Chairman'
-  };
-  const candidateData = {
-    email: 'yogen@ybcservices.com',
-    phone: '+1231 124391 129381',
-    address: 'North Lane, Aldershot, UK'
-  };
+  const dispatch = useDispatch();
+  const { slug } = useParams();
+  const { single_business } = useSelector((state) => state.homepage);
+  console.log({ single_business });
+  useEffect(() => {
+    dispatch(getSingleBusiness(slug));
+  }, [slug]);
+  // const candidateImages = {
+  //   profileBannerImage: Banner,
+  //   profileImage: CandidateImage1
+  // };
+  // const currentUser = {
+  //   name: 'Restaurant',
+  //   designation: 'Chairman'
+  // };
+  // const candidateData = {
+  //   email: 'yogen@ybcservices.com',
+  //   phone: '+1231 124391 129381',
+  //   address: 'North Lane, Aldershot, UK'
+  // };
   return (
     <div className="main_content">
       <div className="container">
@@ -29,21 +37,19 @@ const BusinessProfile = () => {
             className="candidate_page_banner"
             style={{
               // backgroundImage: `url('${candidateImages?.profileBannerImage}')`,
-              backgroundImage: `url('${banner2}')`,
-              backgroundPosition: 'center'
-              // backgroundSize: 'cover'
+              backgroundImage: `url('${single_business?.banner_image}')`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
             }}></div>
           <div className="candidate_page_lower_banner">
             <div className="candidate_page_lower_banner_wrapper">
               <div className="candidate_page_lower_banner_wrapper_box">
                 <div className="img_container">
-                  <img src={candidateImages?.profileImage} alt="" />
+                  <img src={single_business?.image} alt="" />
                 </div>
                 <div className="candidate_name_box">
-                  <div className="candidate_name">{currentUser?.name}</div>
-                  <div className="candidate_designation">
-                    {candidateData?.designation ?? ''}IT company
-                  </div>
+                  <div className="candidate_name">{single_business?.fullname}</div>
+                  <div className="candidate_designation">IT company</div>
                 </div>
               </div>
             </div>
@@ -51,14 +57,20 @@ const BusinessProfile = () => {
               <div className="candidate_social_wrapper_box">
                 <div className="candidate_social_wrapper">
                   <div className="candidate_social_icons_box">
-                    <img src={facebook} alt="" className="candidate_social_icons" />
+                    <a href={single_business?.facebook_url} target="_blank" rel="noreferrer">
+                      <img src={facebook} alt="" className="candidate_social_icons" />
+                    </a>
                   </div>
-                  <div className="candidate_social_icons_box">
-                    <img src={insta} alt="" className="candidate_social_icons" />
-                  </div>
-                  <div className="candidate_social_icons_box">
-                    <img src={linkedin} alt="" className="candidate_social_icons" />
-                  </div>
+                  <a href={single_business?.instagram_url} target="_blank" rel="noreferrer">
+                    <div className="candidate_social_icons_box">
+                      <img src={insta} alt="" className="candidate_social_icons" />
+                    </div>
+                  </a>
+                  <a href={single_business?.twitter_url} target="_blank" rel="noreferrer">
+                    <div className="candidate_social_icons_box">
+                      <img src={linkedin} alt="" className="candidate_social_icons" />
+                    </div>
+                  </a>
                 </div>
               </div>
             </div>
@@ -78,15 +90,15 @@ const BusinessProfile = () => {
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Email Address</div>
-                      <span className="contact_list_item">{candidateData?.email ?? ''}</span>
+                      <span className="contact_list_item">{single_business?.email ?? ''}</span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Phone no.</div>
-                      <span className="contact_list_item">{candidateData?.phone ?? ''}</span>
+                      <span className="contact_list_item">{single_business?.phone ?? ''}</span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Address</div>
-                      <span className="contact_list_item">{candidateData?.address ?? ''}</span>
+                      <span className="contact_list_item">{single_business?.address ?? ''}</span>
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Map</div>
@@ -96,7 +108,7 @@ const BusinessProfile = () => {
                           height="220"
                           frameBorder="0"
                           allowFullScreen
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.768872277732!2d85.32570517465824!3d27.724421624739644!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1851cf303769%3A0x1bcc914cc1d45313!2sNRN%20Association!5e0!3m2!1sen!2snp!4v1694172615702!5m2!1sen!2snp"></iframe>
+                          src={single_business?.google_map_link}></iframe>
                       </div>
                       {/* <span className="contact_list_item">{candidateData?.address ?? ''}</span> */}
                     </li>
@@ -115,7 +127,7 @@ const BusinessProfile = () => {
                 </div>
               </Grid>
               <Grid item sm={7}>
-                <BusinessTabs />
+                <BusinessTabs singleBusinessData={single_business} />
               </Grid>
             </Grid>
             {/* <div className="candidate_page_content">

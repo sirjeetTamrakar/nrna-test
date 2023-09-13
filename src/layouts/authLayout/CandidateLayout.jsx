@@ -2,7 +2,9 @@ import { Box } from '@mui/material';
 // import SecondaryNav from 'components/globals/SecondaryNav';
 import SecondaryNav from '../../components/globals/SecondaryNav';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
+import { getSingleTeams } from 'redux/homepage/actions';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
@@ -20,6 +22,7 @@ const CandidateLayout = () => {
 };
 
 const SecondaryNavWrapper = () => {
+  const dispatch = useDispatch();
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -27,6 +30,10 @@ const SecondaryNavWrapper = () => {
   const handleFunction = (data) => {
     navigate(data);
   };
+  const { single_teams } = useSelector((state) => state.homepage);
+  useEffect(() => {
+    dispatch(getSingleTeams(candidate));
+  }, [candidate]);
   useEffect(() => {
     pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
   }, [pathname]);
@@ -58,7 +65,7 @@ const SecondaryNavWrapper = () => {
   ];
   return (
     <SecondaryNav
-      title="User Name"
+      title={single_teams?.member?.username}
       options={options}
       setSelected={setSelected}
       selected={selected}
