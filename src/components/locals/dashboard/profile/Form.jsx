@@ -12,6 +12,7 @@ import { useStyles } from './styles';
 
 const ProfileForm = () => {
   const { user } = useSelector((state) => state.auth);
+  console.log({ user });
   const { profile_update_loading } = useSelector((state) => state.user);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -31,9 +32,11 @@ const ProfileForm = () => {
     if (data?.profile_image?.length > 0) {
       formData.append('profile_image', data?.profile_image?.[0]);
     }
-    if (data?.banner_image?.length > 0) {
-      formData.append(`banner_image`, data?.banner_image?.[0]);
+    if (data?.profile_banner?.length > 0) {
+      formData.append(`profile_banner`, data?.profile_banner?.[0]);
     }
+
+    formData.append('_method', 'PATCH');
     dispatch(updateProfile(user?.username, formData));
   };
 
@@ -66,9 +69,9 @@ const ProfileForm = () => {
           <Grid item sm={8}>
             <FileUploader
               title="Banner image"
-              name="banner_image"
+              name="profile_banner"
               label="Select Photo"
-              image={user?.banner_image}
+              image={user?.profile_banner}
               widthFull
             />
           </Grid>

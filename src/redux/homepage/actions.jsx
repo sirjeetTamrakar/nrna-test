@@ -19,8 +19,10 @@ import {
   getSingleNCCApi,
   getSingleNewsApi,
   getSingleTeamsApi,
+  getSingleUserApi,
   getSiteSettingsApi,
-  getTeamsApi
+  getTeamsApi,
+  postTeamContactApi
 } from 'apis/homepage';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
@@ -295,5 +297,31 @@ export const getSingleNCC = (slug) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_SINGLE_NCC_ERROR });
+    });
+};
+
+export const getSingleUser = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_USER_BEGIN });
+  getSingleUserApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_USER_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_USER_ERROR });
+    });
+};
+
+export const teamsContactUs = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_TEAMS_CONTACT_BEGIN });
+  postTeamContactApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_TEAMS_CONTACT_SUCCESS });
+      successToast('Your message sent successfully');
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_TEAMS_CONTACT_ERROR });
     });
 };

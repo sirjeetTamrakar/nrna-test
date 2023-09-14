@@ -41,7 +41,10 @@ const defaultState = {
   events_category: [],
   events_category_loading: false,
   single_ncc: null,
-  single_ncc_loading: false
+  single_ncc_loading: false,
+  single_user: null,
+  single_user_loading: false,
+  teams_contact_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -258,6 +261,25 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_SINGLE_NCC_ERROR:
       return { ...state, single_ncc_loading: false };
+
+    case actions.FETCH_SINGLE_USER_BEGIN:
+      return { ...state, single_user_loading: true };
+
+    case actions.FETCH_SINGLE_USER_SUCCESS:
+      return { ...state, single_user_loading: false, single_user: action.payload };
+
+    case actions.FETCH_SINGLE_USER_ERROR:
+      return { ...state, single_user_loading: false };
+
+    case actions.POST_TEAMS_CONTACT_BEGIN:
+      return {
+        ...state,
+        teams_contact_loading: true
+      };
+
+    case actions.POST_TEAMS_CONTACT_SUCCESS:
+    case actions.POST_TEAMS_CONTACT_ERROR:
+      return { ...state, teams_contact_loading: false };
 
     default:
       return state;
