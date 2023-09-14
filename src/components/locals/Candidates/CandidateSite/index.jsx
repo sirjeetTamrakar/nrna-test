@@ -1,7 +1,6 @@
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
-import banner2 from 'assets/images/banner2.png';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
@@ -28,8 +27,9 @@ const CandidateSite = () => {
           <div
             className="candidate_page_banner"
             style={{
-              backgroundImage: `url('${banner2}')`,
-              backgroundPosition: 'center'
+              backgroundImage: `url('${single_user?.profile_banner}')`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover'
             }}></div>
           <div className="candidate_page_lower_banner">
             <div className="candidate_page_lower_banner_wrapper">
