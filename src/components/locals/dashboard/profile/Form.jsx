@@ -12,6 +12,7 @@ import { useStyles } from './styles';
 
 const ProfileForm = () => {
   const { user } = useSelector((state) => state.auth);
+  console.log({ user });
   const { profile_update_loading } = useSelector((state) => state.user);
   const classes = useStyles();
   const dispatch = useDispatch();
@@ -34,6 +35,8 @@ const ProfileForm = () => {
     if (data?.banner_image?.length > 0) {
       formData.append(`banner_image`, data?.banner_image?.[0]);
     }
+
+    formData.append('_method', 'PATCH');
     dispatch(updateProfile(user?.username, formData));
   };
 

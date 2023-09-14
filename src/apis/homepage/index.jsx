@@ -122,3 +122,13 @@ export const getBusinessCategoryApi = () => {
 export const getCountriesApi = () => {
   return axiosInstance().get(`/api/countries`);
 };
+
+// get single user
+export const getSingleUserApi = (slug) => {
+  return axiosInstance().get(`/api/users/${slug}`);
+};
+
+// post team contact
+export const postTeamContactApi = (data) => {
+  return axiosInstance().post('/api/team-contact', data);
+};

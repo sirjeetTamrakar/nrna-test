@@ -17,6 +17,7 @@ const SingleNews = () => {
     dispatch(getSingleNews(slug));
     dispatch(getAllNews());
   }, [slug]);
+
   const category = [
     {
       title: 'Tech & IT',

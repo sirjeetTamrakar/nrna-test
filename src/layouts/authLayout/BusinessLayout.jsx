@@ -3,12 +3,12 @@ import { Box } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getSingleUser } from 'redux/homepage/actions';
+import { getSingleBusiness } from 'redux/homepage/actions';
 import SecondaryNav from '../../components/globals/SecondaryNav';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
-const CandidateLayout = () => {
+const BusinessLayout = () => {
   return (
     <>
       <Navbar />
@@ -26,15 +26,14 @@ const SecondaryNavWrapper = () => {
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const { candidate } = useParams();
-  console.log({ candidate });
+  const { slug } = useParams();
   const handleFunction = (data) => {
     navigate(data);
   };
-  const { single_user } = useSelector((state) => state.homepage);
+  const { single_business } = useSelector((state) => state.homepage);
   useEffect(() => {
-    dispatch(getSingleUser(candidate));
-  }, [candidate]);
+    dispatch(getSingleBusiness(slug));
+  }, [slug]);
   useEffect(() => {
     pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
   }, [pathname]);
@@ -42,31 +41,19 @@ const SecondaryNavWrapper = () => {
     {
       title: 'Home',
       value: 'home',
-      path: `/${candidate}`,
-      clickFunction: () => handleFunction(`/${candidate}`)
+      path: `/business/${slug}`,
+      clickFunction: () => handleFunction(`/business/${slug}`)
     },
     {
-      title: 'News',
-      value: 'news',
-      path: `/${candidate}/news`,
-      clickFunction: () => handleFunction(`/${candidate}/news`)
-    },
-    {
-      title: 'Business',
-      value: 'business',
-      path: `/${candidate}/business`,
-      clickFunction: () => handleFunction(`/${candidate}/business`)
-    },
-    {
-      title: 'Contact',
-      value: 'contact',
-      path: `/${candidate}/contact`,
-      clickFunction: () => handleFunction(`/${candidate}/contact`)
+      title: 'Service',
+      value: 'service',
+      path: `/business/${slug}/services`,
+      clickFunction: () => handleFunction(`/business/${slug}/services`)
     }
   ];
   return (
     <SecondaryNav
-      title={single_user?.username}
+      title={'Business name'}
       options={options}
       setSelected={setSelected}
       selected={selected}
@@ -74,4 +61,4 @@ const SecondaryNavWrapper = () => {
   );
 };
 
-export default CandidateLayout;
+export default BusinessLayout;

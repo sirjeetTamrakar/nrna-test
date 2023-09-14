@@ -36,5 +36,5 @@ export const changeUserRoleApi = (slug, data) => {
 };
 
 export const updateProfileApi = (slug, data) => {
-  return axiosInstance().patch(`/admin/users/${slug}/profile`, data);
+  return axiosInstance().post(`/admin/users/${slug}/profile`, data);
 };
