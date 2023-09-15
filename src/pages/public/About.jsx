@@ -18,7 +18,12 @@ const AboutPage = () => {
   ];
   return (
     <>
-      <SecondaryNav options={options} setSelected={setSelected} selected={selected} />
+      <SecondaryNav
+        title={'Home'}
+        options={options}
+        setSelected={setSelected}
+        selected={selected}
+      />
       <About />;
     </>
   );
