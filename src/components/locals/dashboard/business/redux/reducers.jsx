@@ -14,7 +14,8 @@ const defaultState = {
   business_status_loading: false,
   contact: [],
   contact_loading: false,
-  delete_business_contact_loading: false
+  delete_business_contact_loading: false,
+  business_service_loading: false
 };
 
 const businessReducer = (state = defaultState, action) => {
@@ -125,6 +126,16 @@ const businessReducer = (state = defaultState, action) => {
     case actions.DELETE_BUSINESS_CONTACT_SUCCESS:
     case actions.DELETE_BUSINESS_CONTACT_ERROR:
       return { ...state, delete_business_contact_loading: false };
+
+    case actions.POST_BUSINESS_SERVICE_BEGIN:
+      return {
+        ...state,
+        business_service_loading: true
+      };
+
+    case actions.POST_BUSINESS_SERVICE_SUCCESS:
+    case actions.POST_BUSINESS_SERVICE_ERROR:
+      return { ...state, business_service_loading: false };
 
     default:
       return state;

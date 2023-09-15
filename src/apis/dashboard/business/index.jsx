@@ -60,3 +60,8 @@ export const getBusinessContactApi = () => {
 export const deleteBusinessContactApi = (data) => {
   return axiosInstance().delete(`/admin/business-contact/${data}`);
 };
+
+// update business
+export const postBusinessServiceApi = (data) => {
+  return axiosInstance().post(`/admin/business-services`, data);
+};

@@ -50,6 +50,20 @@ const Form = () => {
               <div className="contact_content_subtitle">
                 Fill up the form to get in touch with the candidate and fill up the form.
               </div>
+              <ul className="contact_list">
+                <li>
+                  <i className="fa fa-map-marker-alt"></i>
+                  <span className="contact_list_item">{single_business?.address || ''}</span>
+                </li>
+                <li>
+                  <i className="fa fa-phone"></i>
+                  <span className="contact_list_item">{single_business?.phone || ''}</span>
+                </li>
+                <li>
+                  <i className="fa fa-envelope"></i>
+                  <span className="contact_list_item">{single_business?.email || ''}</span>
+                </li>
+              </ul>
             </div>
           </div>
           <div className="col-md-6">

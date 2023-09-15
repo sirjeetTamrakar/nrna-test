@@ -8,6 +8,7 @@ import {
   getBusinessContactApi,
   getCategoryApi,
   postBusinessApi,
+  postBusinessServiceApi,
   postCategoryApi,
   updateBusinessApi,
   updateCategoryApi
@@ -200,4 +201,19 @@ export const deleteBusinessContact = (Data, handleSuccess) => async (dispatch) =
     dispatch({ type: actions.DELETE_BUSINESS_ERROR });
     errorToast(error);
   }
+};
+
+export const postBusinessService = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_BUSINESS_SERVICE_BEGIN });
+  postBusinessServiceApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_BUSINESS_SERVICE_SUCCESS });
+      handleSuccess && handleSuccess();
+      // dispatch(getBusiness());
+      successToast('Business service added successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_BUSINESS_SERVICE_ERROR });
+    });
 };

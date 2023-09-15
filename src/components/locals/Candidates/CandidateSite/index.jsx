@@ -4,7 +4,8 @@ import Grid from '@mui/material/Grid';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
-import { useEffect } from 'react';
+import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getSingleUser } from 'redux/homepage/actions';
@@ -15,10 +16,28 @@ const CandidateSite = () => {
   const { candidate } = useParams();
 
   const { single_user } = useSelector((state) => state.homepage);
+  const { countries_list } = useSelector((state) => state.ncc);
+  const [filteredData, setFilteredData] = useState('');
+
   console.log({ candidate, single_user });
   useEffect(() => {
     dispatch(getSingleUser(candidate));
+    dispatch(getCountries());
   }, [candidate]);
+
+  useEffect(() => {
+    const newArray = countries_list.filter(
+      (item, index) => index === parseInt(single_user?.country_of_residence)
+    );
+    const newObj = {};
+
+    newArray.forEach((item, index) => {
+      newObj[`country${index + 1}`] = item;
+    });
+    setFilteredData(newObj);
+  }, [single_user]);
+
+  console.log({ filteredData });
 
   return (
     <div className="main_content">
@@ -97,7 +116,8 @@ const CandidateSite = () => {
                     <li>
                       <div className="contact_list_subtitle">Country Of Residence</div>
                       <span className="contact_list_item">
-                        {single_user?.country_of_residence ?? ''}
+                        {/* {single_user?.country_of_residence ?? ''} */}
+                        {filteredData?.country1 ?? ''}
                       </span>
                     </li>
                   </ul>

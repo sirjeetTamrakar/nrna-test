@@ -110,8 +110,7 @@ const BusinessProfile = () => {
                           height="220"
                           frameBorder="0"
                           allowFullScreen
-                          // src={single_business?.google_map_link}
-                          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3531.7688722777293!2d85.3257051746133!3d27.72442162473973!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb1851cf303769%3A0x1bcc914cc1d45313!2sNRN%20Association!5e0!3m2!1sen!2snp!4v1694715282714!5m2!1sen!2snp"></iframe>
+                          src={single_business?.google_map_link}></iframe>
                       </div>
                       {/* <span className="contact_list_item">{candidateData?.address ?? ''}</span> */}
                     </li>

@@ -13,7 +13,7 @@ const ServiceForm = () => {
         <Grid item sm={4}>
           <FileUploader
             title="Service Image"
-            name="feature_image"
+            name="service_image"
             label="Select Photo"
             widthFull
             image=""
