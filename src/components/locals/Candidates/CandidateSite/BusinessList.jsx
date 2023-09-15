@@ -3,8 +3,10 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box, Container } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import company from 'assets/images/company.png';
+import { useNavigate } from 'react-router-dom';
 
-const BusinessList = () => {
+const BusinessList = ({ data }) => {
+  const navigate = useNavigate();
   const cardData = [
     {
       icon: company,
@@ -38,70 +40,81 @@ const BusinessList = () => {
 
   return (
     <Box marginY={6}>
+      <div className="contact_page_title">Business</div>
+
       <Container>
         <Grid container spacing={2}>
-          {cardData?.map((item, index) => {
-            return (
-              <Grid item sm={3} key={index}>
-                <div
-                  style={{
-                    padding: '14px',
-                    boxShadow: '0px 8px 20px 0px rgba(18, 17, 39, 0.10)',
-                    backgroundColor: '#fff',
-                    borderRadius: '6px'
-                  }}>
-                  <div style={{ width: '42px', height: '42px' }}>
-                    <img
-                      src={item?.icon}
-                      alt=""
-                      style={{ width: '100%', height: '100%', objectFit: 'cover' }}
-                    />
+          {data?.business?.length !== 0 ? (
+            data?.business?.map((item, index) => {
+              return (
+                <Grid
+                  item
+                  sm={3}
+                  key={index}
+                  onClick={() => navigate(`/business/${item?.slug}`)}
+                  sx={{ cursor: 'pointer' }}>
+                  <div
+                    style={{
+                      padding: '14px',
+                      boxShadow: '0px 8px 20px 0px rgba(18, 17, 39, 0.10)',
+                      backgroundColor: '#fff',
+                      borderRadius: '6px'
+                    }}>
+                    <div style={{ width: '42px', height: '42px' }}>
+                      <img
+                        src={item?.image}
+                        alt=""
+                        style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                      />
+                    </div>
+                    <p
+                      style={{
+                        fontSize: '13px',
+                        fontWeight: '500',
+                        marginTop: '13px',
+                        marginBottom: '2px'
+                      }}>
+                      {item?.fullname}
+                    </p>
+                    <p
+                      style={{
+                        fontSize: '10px',
+                        fontWeight: '400',
+                        color: '#6C6B80'
+                      }}>
+                      {item?.company_status}
+                    </p>
+                    <span style={{ display: 'flex' }}>
+                      <LocationOnIcon sx={{ color: '#9D9CAF', height: '14px' }} />
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: '400',
+                          color: '#383751',
+                          marginBottom: '4px'
+                        }}>
+                        {item?.address}
+                      </p>
+                    </span>
+                    <span style={{ display: 'flex' }}>
+                      <EmailIcon sx={{ color: '#9D9CAF', height: '14px' }} />
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: '400',
+                          color: '#383751',
+                          marginBottom: '4px'
+                        }}>
+                        {item?.email}
+                      </p>
+                    </span>
                   </div>
-                  <p
-                    style={{
-                      fontSize: '13px',
-                      fontWeight: '500',
-                      marginTop: '13px',
-                      marginBottom: '2px'
-                    }}>
-                    {item?.company}
-                  </p>
-                  <p
-                    style={{
-                      fontSize: '10px',
-                      fontWeight: '400',
-                      color: '#6C6B80'
-                    }}>
-                    {item?.company_status}
-                  </p>
-                  <span style={{ display: 'flex' }}>
-                    <LocationOnIcon sx={{ color: '#9D9CAF', height: '14px' }} />
-                    <p
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: '400',
-                        color: '#383751',
-                        marginBottom: '4px'
-                      }}>
-                      {item?.address}
-                    </p>
-                  </span>
-                  <span style={{ display: 'flex' }}>
-                    <EmailIcon sx={{ color: '#9D9CAF', height: '14px' }} />
-                    <p
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: '400',
-                        color: '#383751',
-                        marginBottom: '4px'
-                      }}>
-                      {item?.email}
-                    </p>
-                  </span>
-                </div>
-              </Grid>
-            );
-          })}
+                </Grid>
+              );
+            })
+          ) : (
+            <Box sx={{ fontSize: '25px', marginLeft: '25px' }}>No business available</Box>
+          )}
         </Grid>
       </Container>
     </Box>

@@ -41,7 +41,9 @@ const Form = () => {
   };
 
   return (
-    <section className="contact_page" id="contact_main" style={{ background: '#e5e5e58f' }}>
+    <section className="contact_page" id="contact_main">
+      <div className="contact_page_title">Contact us</div>
+
       <div className="container">
         <div className="row">
           <div className="col-md-3 offset-md-1">
