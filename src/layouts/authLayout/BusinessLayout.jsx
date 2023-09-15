@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
+import SecondaryNav from 'components/globals/SecondaryNav';
 // import SecondaryNav from 'components/globals/SecondaryNav';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getSingleBusiness } from 'redux/homepage/actions';
-import SecondaryNav from '../../components/globals/SecondaryNav';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
@@ -45,15 +45,21 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction(`/business/${slug}`)
     },
     {
-      title: 'Service',
-      value: 'service',
+      title: 'Services',
+      value: 'services',
       path: `/business/${slug}/services`,
       clickFunction: () => handleFunction(`/business/${slug}/services`)
+    },
+    {
+      title: 'Contact',
+      value: 'contact',
+      path: `/business/${slug}/contact`,
+      clickFunction: () => handleFunction(`/business/${slug}/contact`)
     }
   ];
   return (
     <SecondaryNav
-      title={'Business name'}
+      title={single_business?.fullname}
       options={options}
       setSelected={setSelected}
       selected={selected}

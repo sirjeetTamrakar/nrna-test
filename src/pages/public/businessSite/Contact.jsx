@@ -1,7 +1,7 @@
-import Contact from 'components/locals/Candidates/CandidateSite/Contact';
+import Form from 'components/locals/Business/Form';
 
 const ContactPage = () => {
-  return <Contact />;
+  return <Form />;
 };
 
 export default ContactPage;

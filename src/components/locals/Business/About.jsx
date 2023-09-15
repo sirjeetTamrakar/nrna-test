@@ -1,4 +1,4 @@
-const About = ({ singleBusinessData }) => {
+const About = ({ data }) => {
   return (
     <div>
       <p
@@ -14,7 +14,7 @@ const About = ({ singleBusinessData }) => {
           fontSize: '14px',
           fontWeight: '400'
         }}>
-        <div dangerouslySetInnerHTML={{ __html: singleBusinessData?.description }} />
+        <div dangerouslySetInnerHTML={{ __html: data }} />
       </p>
     </div>
   );
