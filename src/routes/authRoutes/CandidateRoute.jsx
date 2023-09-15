@@ -9,7 +9,6 @@ export const candidateRoute = [
     path: ':candidate',
     component: <CandidateSitePage />
   },
-
   {
     path: ':candidate/news',
     component: <News />

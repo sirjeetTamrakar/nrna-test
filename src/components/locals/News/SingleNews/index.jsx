@@ -2,56 +2,76 @@ import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getAllNews, getSingleNews } from 'redux/homepage/actions';
+import { getAllNews, getNewsCategory, getSingleNews } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import SecondaryNav from '../SecondaryNav';
 
 const SingleNews = () => {
-  const { single_news, news, single_news_loading } = useSelector((state) => state.homepage);
   const dispatch = useDispatch();
   const { slug } = useParams();
 
+  const { news, news_category, single_news, single_news_loading } = useSelector(
+    (state) => state.homepage
+  );
   const recentNews = news?.filter((list) => list?.slug !== slug).slice(0, 4);
+  console.log('xxxxxxxxxx', { single_news });
+  // const [filteredNews, setFilteredNews] = useState();
+
+  const [selected, setSelected] = useState(
+    single_news?.news_category_id ? parseInt(single_news?.news_category_id) : news_category?.[0]?.id
+  );
+  console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
     dispatch(getSingleNews(slug));
     dispatch(getAllNews());
+    dispatch(getNewsCategory());
   }, [slug]);
+  // useEffect(() => {
+  //   if (news) {
+  //     const newNews = news?.filter(
+  //       (list) =>
+  //         list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
+  //         list?.news_category_id == Number(selected)
+  //     );
+  //     setFilteredNews(newNews);
+  //   }
+  // }, [news, selected, news_category]);
 
-  const category = [
-    {
-      title: 'Tech & IT',
-      slug: 'advisory_board'
-    },
-    {
-      title: 'Business',
-      slug: 'board_of_directors'
-    },
-    {
-      title: 'Science',
-      slug: 'general_members'
-    },
-    {
-      title: 'Health',
-      slug: 'task_force'
-    },
-    {
-      title: 'lifeStyle',
-      slug: 'travel'
-    },
-    {
-      title: 'Health',
-      slug: 'education'
-    },
-    {
-      title: 'Entertainment',
-      slug: 'entertainment'
-    }
-  ];
-  const [selected, setSelected] = useState(category?.[0]?.slug);
+  // const category = [
+  //   {
+  //     title: 'Tech & IT',
+  //     slug: 'advisory_board'
+  //   },
+  //   {
+  //     title: 'Business',
+  //     slug: 'board_of_directors'
+  //   },
+  //   {
+  //     title: 'Science',
+  //     slug: 'general_members'
+  //   },
+  //   {
+  //     title: 'Health',
+  //     slug: 'task_force'
+  //   },
+  //   {
+  //     title: 'lifeStyle',
+  //     slug: 'travel'
+  //   },
+  //   {
+  //     title: 'Health',
+  //     slug: 'education'
+  //   },
+  //   {
+  //     title: 'Entertainment',
+  //     slug: 'entertainment'
+  //   }
+  // ];
+  // const [selected, setSelected] = useState(category?.[0]?.slug);
   return (
     <>
-      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
+      <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
         <div className="single_news_page">

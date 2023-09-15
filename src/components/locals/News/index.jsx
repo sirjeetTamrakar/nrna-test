@@ -1,18 +1,24 @@
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { getAllNews, getNewsCategory } from 'redux/homepage/actions';
 import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
 
 const News = () => {
+  const location = useLocation();
+  console.log({ location });
+
   const dispatch = useDispatch();
   const { news, news_loading, news_category, news_category_loading } = useSelector(
     (state) => state.homepage
   );
   const [filteredNews, setFilteredNews] = useState();
 
-  const [selected, setSelected] = useState(news_category?.[0]?.id);
+  const [selected, setSelected] = useState(
+    location?.state ? location?.state : news_category?.[0]?.id
+  );
   const [search, setSearch] = useState('');
   useEffect(() => {
     dispatch(getAllNews());

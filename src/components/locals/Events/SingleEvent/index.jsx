@@ -3,14 +3,16 @@ import Banner from 'assets/images/banner.png';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getSingleEvent } from 'redux/homepage/actions';
+import { getAllEvents, getEventsCategory, getSingleEvent } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import SecondaryNav from '../SecondaryNav';
 
 const SingleEvent = () => {
   const { slug } = useParams();
   const dispatch = useDispatch();
-  const { events, single_event, single_event_loading } = useSelector((state) => state.homepage);
+  const { events, single_event, single_event_loading, events_category } = useSelector(
+    (state) => state.homepage
+  );
 
   const event = {
     id: '1',
@@ -22,9 +24,15 @@ const SingleEvent = () => {
       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
   };
   const recentEvent = events?.filter((list) => list?.slug != slug)?.slice(0, 4);
-
+  const [selected, setSelected] = useState(
+    single_event?.event_category_id
+      ? parseInt(single_event?.event_category_id)
+      : events_category?.[0]?.id
+  );
   useEffect(() => {
     slug && dispatch(getSingleEvent(slug));
+    dispatch(getAllEvents());
+    dispatch(getEventsCategory());
   }, [slug]);
   const category = [
     {
@@ -56,11 +64,11 @@ const SingleEvent = () => {
       slug: 'entertainment'
     }
   ];
-  const [selected, setSelected] = useState(category?.[0]?.slug);
+  // const [selected, setSelected] = useState(category?.[0]?.slug);
 
   return (
     <>
-      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
+      <SecondaryNav category={events_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
         <div className="single_event_page">

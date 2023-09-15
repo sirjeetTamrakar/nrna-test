@@ -39,7 +39,7 @@ const CandidateSite = () => {
                 </div>
                 <div className="candidate_name_box">
                   <div className="candidate_name">{single_user?.name}</div>
-                  <div className="candidate_designation">{single_user?.designation ?? ''}</div>
+                  <div className="candidate_designation">{single_user?.role_name ?? ''}</div>
                 </div>
               </div>
             </div>
@@ -106,7 +106,7 @@ const CandidateSite = () => {
               <Grid item sm={8}>
                 {/* <CandidateTabs /> */}
                 <Box sx={{ backgroundColor: '#F9F9FB', marginTop: '12px', padding: '20px' }}>
-                  <About />
+                  <About data={single_user?.description} />
                 </Box>
               </Grid>
             </Grid>

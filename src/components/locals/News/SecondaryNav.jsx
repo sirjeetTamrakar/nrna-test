@@ -1,8 +1,10 @@
 import { Box, Container, TextField, Typography } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 import { useStyles } from './styles';
 
 const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
   const classes = useStyles();
+  const navigate = useNavigate();
 
   const checkActive = (slug) => {
     if (selected) {
@@ -18,6 +20,10 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+  const handleSetSelected = (slug) => {
+    setSelected(slug);
+    navigate(`/news`, { state: slug });
+  };
   return (
     <Box className={classes.root}>
       <Container>
@@ -25,11 +31,14 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
           <Typography variant="h5" className={classes.title}>
             News
           </Typography>
-          <TextField placeholder="Search" name="search" onChange={handleSearch} />
+          {setSearch && <TextField placeholder="Search" name="search" onChange={handleSearch} />}
         </Box>
         <ul className={classes.list}>
           {category?.map((list, index) => (
-            <li className={checkActive(list?.id)} key={index} onClick={() => setSelected(list?.id)}>
+            <li
+              className={checkActive(list?.id)}
+              key={index}
+              onClick={() => handleSetSelected(list?.id)}>
               {list?.title}
             </li>
           ))}

@@ -1,11 +1,14 @@
 import { Box, CircularProgress } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { getAllEvents, getEventsCategory } from 'redux/homepage/actions';
 import EventCard from '../../globals/EventCard';
 import SecondaryNav from './SecondaryNav';
 
 const Events = () => {
+  const location = useLocation();
+  console.log({ location });
   const dispatch = useDispatch();
   const { events, events_loading, events_category, events_category_loading } = useSelector(
     (state) => state.homepage
@@ -13,7 +16,9 @@ const Events = () => {
 
   const [filteredEvents, setFilteredEvents] = useState();
 
-  const [selected, setSelected] = useState(events_category?.[0]?.id);
+  const [selected, setSelected] = useState(
+    location?.state ? location?.state : events_category?.[0]?.id
+  );
   const [search, setSearch] = useState('');
 
   useEffect(() => {

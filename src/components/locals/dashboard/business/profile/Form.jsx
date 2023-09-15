@@ -3,12 +3,18 @@ import CustomEditor from 'components/common/CustomEditor';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getCategory } from '../redux/actions';
 import { useStyles } from './styles';
 
 const ProfileForm = ({ profileImage, bannerImage }) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const { categoryData } = useSelector((state) => state.business);
+  useEffect(() => {
+    dispatch(getCategory());
+  }, []);
 
   const businessCategory = categoryData?.map((item) => ({
     label: item?.title,
