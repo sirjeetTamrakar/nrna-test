@@ -1,9 +1,11 @@
 import CandidateImage1 from 'assets/images/candidate1.png';
 import CandidateImage2 from 'assets/images/candidate2.png';
 import CandidateImage3 from 'assets/images/candidate3.png';
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 
 const CommitteeMembers = () => {
+  const dispatch = useDispatch();
   const candidates = [
     {
       id: '1',
@@ -29,6 +31,15 @@ const CommitteeMembers = () => {
     }
   ];
   const { ncc } = useParams();
+  // const { teams } = useSelector((state) => state.homepage);
+  // const { single_ncc } = useSelector((state) => state.homepage);
+  // console.log({ single_ncc });
+  // console.log('dsaddddddd', { teams });
+  // useEffect(() => {
+  //   dispatch(getTeamsApi({ ncc_id: single_ncc?.id }));
+  //   dispatch(getSingleNCC(ncc));
+  // }, []);
+
   return (
     <div className="main_content">
       <section className="all_events">

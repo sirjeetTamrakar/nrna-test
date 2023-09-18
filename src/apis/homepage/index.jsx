@@ -87,7 +87,6 @@ export const getBannerApi = (data) => {
 // };
 
 export const getTeamsApi = (data) => {
-  // const type = data?.type ? `?newsable_type=${data?.type}` : '';
   const id = data?.ncc_id ? `?ncc_id=${data?.ncc_id}` : '';
   return axiosInstance().get(`/api/our-teams${id}`);
 };

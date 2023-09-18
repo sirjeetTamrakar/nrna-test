@@ -6,9 +6,9 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import CandidateForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postCandidate } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
