@@ -11,8 +11,8 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
-import Register from './Register';
 import { deleteDepartment, getDepartment } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
 
 const Department = () => {

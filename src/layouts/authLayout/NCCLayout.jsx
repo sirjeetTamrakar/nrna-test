@@ -11,10 +11,11 @@ const NCCLayout = () => {
   const dispatch = useDispatch();
   const { ncc: slug } = useParams();
   const { ncc } = useSelector((state) => state.homepage);
+  const { user } = useSelector((state) => state.auth);
+
   useEffect(() => {
-    const single = ncc?.find((list) => list?.slug == slug);
-    single?.id && dispatch(getSiteSettings({ type: 'ncc', id: single?.id }));
-  }, [ncc]);
+    dispatch(getSiteSettings({ type: 'ncc', id: user?.id }));
+  }, []);
   return (
     <>
       <Navbar />

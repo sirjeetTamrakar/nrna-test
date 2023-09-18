@@ -4,7 +4,7 @@ import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useStyles } from './styles';
 
-const ServiceForm = () => {
+const ServiceForm = ({ serviceImage }) => {
   const classes = useStyles();
 
   return (
@@ -16,7 +16,7 @@ const ServiceForm = () => {
             name="service_image"
             label="Select Photo"
             widthFull
-            image=""
+            image={serviceImage}
           />
         </Grid>
 

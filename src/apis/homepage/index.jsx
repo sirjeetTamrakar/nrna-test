@@ -7,9 +7,15 @@ export const getSiteSettingsApi = (data) => {
   return axiosInstance().get(`/api/site-settings${type}${id}`);
 };
 
+// export const getAllNewsApi = () => {
+//   return axiosInstance().get(`/api/news`);
+// };
+
 // get all news
-export const getAllNewsApi = () => {
-  return axiosInstance().get(`/api/news`);
+export const getAllNewsApi = (data) => {
+  const type = data?.type ? `?newsable_type=${data?.type}` : '';
+  const id = data?.id ? `&newsable_id=${data?.id}` : '';
+  return axiosInstance().get(`/api/news${type}${id}`);
 };
 
 // get news category
@@ -23,8 +29,14 @@ export const getSingleNewsApi = (slug) => {
 };
 
 // get all events
-export const getAllEventsApi = () => {
-  return axiosInstance().get(`/api/events`);
+// export const getAllEventsApi = () => {
+//   return axiosInstance().get(`/api/events`);
+// };
+
+export const getAllEventsApi = (data) => {
+  // const type = data?.type ? `?newsable_type=${data?.type}` : '';
+  const id = data?.ncc_id ? `?ncc_id=${data?.ncc_id}` : '';
+  return axiosInstance().get(`/api/events${id}`);
 };
 
 // get events category
@@ -41,6 +53,12 @@ export const getSingleEventApi = (slug) => {
 export const contactUsApi = (data) => {
   return axiosInstance().post(`/api/contact-us`, data);
 };
+// export const contactUsApi = (data, typeData) => {
+//   const type = typeData?.type
+//     ? `?contactable_type=${typeData?.type}&contactable_id=${typeData?.id}`
+//     : '';
+//   return axiosInstance().post(`/api/contact-us${type}`, data);
+// };
 
 export const getContactUsApi = (data) => {
   const page = data?.page ? `?page=${data?.page}` : '';
@@ -64,8 +82,14 @@ export const getBannerApi = (data) => {
 };
 
 // get teams
-export const getTeamsApi = () => {
-  return axiosInstance().get(`/api/our-teams`);
+// export const getTeamsApi = () => {
+//   return axiosInstance().get(`/api/our-teams`);
+// };
+
+export const getTeamsApi = (data) => {
+  // const type = data?.type ? `?newsable_type=${data?.type}` : '';
+  const id = data?.ncc_id ? `?ncc_id=${data?.ncc_id}` : '';
+  return axiosInstance().get(`/api/our-teams${id}`);
 };
 
 // get single news

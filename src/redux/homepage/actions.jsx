@@ -51,11 +51,11 @@ export const getNbnsSettings = (data) => (dispatch) => {
     });
 };
 
-export const getAllNews = () => (dispatch) => {
+export const getAllNews = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_NEWS_BEGIN });
-  getAllNewsApi()
+  getAllNewsApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_NEWS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_NEWS_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);
@@ -75,9 +75,9 @@ export const getSingleNews = (slug) => (dispatch) => {
     });
 };
 
-export const getAllEvents = () => (dispatch) => {
+export const getAllEvents = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_EVENTS_BEGIN });
-  getAllEventsApi()
+  getAllEventsApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_EVENTS_SUCCESS, payload: res.data.data });
     })

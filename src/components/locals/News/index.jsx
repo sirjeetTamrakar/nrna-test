@@ -57,7 +57,7 @@ const News = () => {
 
   useEffect(() => {
     if (news) {
-      const newNews = news?.filter(
+      const newNews = news?.data?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.news_category_id == Number(selected)

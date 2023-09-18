@@ -3,14 +3,17 @@ import {
   changeCategoryStatusApi,
   deleteBusinessApi,
   deleteBusinessContactApi,
+  deleteBusinessServiceApi,
   deleteCategoryApi,
   getBusinessApi,
   getBusinessContactApi,
+  getBusinessServicesApi,
   getCategoryApi,
   postBusinessApi,
   postBusinessServiceApi,
   postCategoryApi,
   updateBusinessApi,
+  updateBusinessServiceApi,
   updateCategoryApi
 } from 'apis/dashboard/business';
 import { errorToast, successToast } from 'utils/toast';
@@ -216,4 +219,53 @@ export const postBusinessService = (data, handleSuccess) => (dispatch) => {
       errorToast(error);
       dispatch({ type: actions.POST_BUSINESS_SERVICE_ERROR });
     });
+};
+
+// get business service
+export const getBusinessService = () => (dispatch) => {
+  dispatch({ type: actions.GET_BUSINESS_SERVICE_BEGIN });
+  getBusinessServicesApi()
+    .then((res) => {
+      dispatch({ type: actions.GET_BUSINESS_SERVICE_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      dispatch({ type: actions.GET_BUSINESS_SERVICE_ERROR });
+    });
+};
+
+// delete business service
+export const deleteBusinessService = (Data, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_BUSINESS_SERVICE_BEGIN });
+
+  try {
+    await deleteBusinessServiceApi(Data);
+    dispatch({
+      type: actions.DELETE_BUSINESS_SERVICE_SUCCESS,
+      payload: ''
+    });
+    dispatch(getBusinessService());
+    handleSuccess && handleSuccess();
+    successToast('Business service has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_BUSINESS_SERVICE_ERROR });
+    errorToast(error);
+  }
+};
+
+export const updateBusinessService = (Data, slug, handleSuccess) => async (dispatch) => {
+  dispatch({ type: actions.UPDATE_BUSINESS_SERVICE_BEGIN });
+
+  try {
+    await updateBusinessServiceApi(Data, slug);
+    dispatch({
+      type: actions.UPDATE_BUSINESS_SERVICE_SUCCESS,
+      payload: ''
+    });
+    dispatch(getBusinessService());
+    handleSuccess && handleSuccess();
+    successToast('Business service has been updated');
+  } catch (error) {
+    dispatch({ type: actions.UPDATE_BUSINESS_SERVICE_ERROR });
+    errorToast(error);
+  }
 };

@@ -29,7 +29,8 @@ const CustomTable = ({
   setRowsPerPage,
   page = 0,
   setPage,
-  total = 1
+  total = 1,
+  padding
 }) => {
   const [selectedRows, setSelectedRows] = useState([]);
   const [anchorEl, setAnchorEl] = useState(null);
@@ -95,7 +96,7 @@ const CustomTable = ({
   };
 
   return (
-    <TableContainer className={classes.root}>
+    <TableContainer className={classes.root} sx={padding && { padding: '20px' }}>
       <Table>
         <TableHead>
           <TableRow className={classes.tableHead}>

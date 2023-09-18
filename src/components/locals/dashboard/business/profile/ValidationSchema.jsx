@@ -15,3 +15,12 @@ export const editValidationSchema = Yup.object({
   description: Yup.string().required('Please enter description'),
   created_by: Yup.string().required('Please select author')
 });
+
+export const serviceValidationSchema = Yup.object({
+  title: Yup.string().required('Please enter title'),
+  description: Yup.string().required('Please enter description'),
+  service_image: Yup.mixed()
+    .transform((v) => (!v ? undefined : v))
+    .nullable()
+    .required('Image is required')
+});

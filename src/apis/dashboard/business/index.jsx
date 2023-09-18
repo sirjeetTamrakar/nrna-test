@@ -61,7 +61,22 @@ export const deleteBusinessContactApi = (data) => {
   return axiosInstance().delete(`/admin/business-contact/${data}`);
 };
 
-// update business
+// post business service
 export const postBusinessServiceApi = (data) => {
   return axiosInstance().post(`/admin/business-services`, data);
+};
+
+// get business contact
+export const getBusinessServicesApi = () => {
+  return axiosInstance().get('/admin/business-services');
+};
+
+// delete business service
+export const deleteBusinessServiceApi = (data) => {
+  return axiosInstance().delete(`/admin/business-services/${data}`);
+};
+
+// update business service
+export const updateBusinessServiceApi = (data, slug) => {
+  return axiosInstance().post(`/admin/business-services/${slug}`, data);
 };

@@ -1,4 +1,45 @@
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import CustomButton from 'components/common/CustomButton/CustomButton';
+import CustomForm from 'components/common/Form/CustomForm';
+import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import CustomInput from 'components/common/Form/CustomInput';
+import CustomTextArea from 'components/common/Form/CustomTextarea';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
+import { contactUs, getSingleNCC } from 'redux/homepage/actions';
+import * as Yup from 'yup';
+
 const Contact = ({ siteSettings, handleSubmit }) => {
+  const dispatch = useDispatch();
+  const validationSchema = Yup.object({
+    name: Yup.string().required('Please enter name'),
+    email: Yup.string().required('Please enter email'),
+    phone: Yup.string().required('Please enter phone'),
+    message: Yup.string().required('Please enter description')
+  });
+
+  const { single_ncc, contact_loading } = useSelector((state) => state.homepage);
+  const { setValue } = useForm({});
+  const { ncc } = useParams();
+  useEffect(() => {
+    dispatch(getSingleNCC(ncc));
+  }, [ncc]);
+  const handleSuccess = () => {
+    const array = ['name', 'email', 'phone', 'message'];
+    array?.map((item) => setValue(item, ''));
+  };
+
+  const submitHandler = (data) => {
+    console.log('businessFormData', { data });
+    dispatch(
+      contactUs({ ...data, contactable_type: 'ncc', contactable_id: single_ncc?.id }, handleSuccess)
+    );
+  };
+
   return (
     <section className="contact_page" id="contact_main" style={{ background: '#e5e5e58f' }}>
       <div className="contact_page_title">Contact Us</div>
@@ -27,57 +68,57 @@ const Contact = ({ siteSettings, handleSubmit }) => {
             </div>
           </div>
           <div className="col-md-6">
-            <form onSubmit={handleSubmit} className="contact_form">
-              <div className="form-group">
-                <label htmlFor="">Full Name</label>
-                <input
-                  type="text"
-                  name="name"
-                  className="form-control"
-                  placeholder="Enter your name"
-                  required
-                />
-              </div>
-              <div className="row">
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label htmlFor="">Email</label>
-                    <input
-                      type="email"
-                      name="email"
-                      className="form-control"
-                      placeholder="Enter your email"
-                    />
-                  </div>
-                </div>
-                <div className="col-md-6">
-                  <div className="form-group">
-                    <label htmlFor="">Phone Number</label>
-                    <input
-                      type="text"
-                      name="phone"
-                      className="form-control"
-                      placeholder="Enter your phone number"
-                    />
-                  </div>
-                </div>
-              </div>
-              <div className="form-group">
-                <label htmlFor="">Message</label>
-                <textarea
-                  name="message"
-                  className="form-control"
-                  id=""
-                  cols="30"
-                  rows="4"
-                  required></textarea>
-              </div>
-              <div className="btn_container">
-                <button type="submit" className="btn-md">
-                  Send
-                </button>
-              </div>
-            </form>
+            <div className="contact_form" style={{ paddingTop: '-20px' }}>
+              <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
+                <Box>
+                  <CustomForm onSubmit={submitHandler}>
+                    <Grid container spacing={2} sx={{ marginTop: '20px' }}>
+                      <Grid item sm={12}>
+                        <CustomInput name="name" label="Name" placeholder="Guy Hawkins" rows={15} />
+                      </Grid>
+                      <Grid item sm={6}>
+                        <CustomInput
+                          name="email"
+                          label="Email address"
+                          type="email"
+                          placeholder="guy.hawkin@gmail.com"
+                          rows={15}
+                        />
+                      </Grid>
+                      <Grid item sm={6}>
+                        <CustomInput
+                          name="phone"
+                          label="Phone"
+                          placeholder="Enter Subject"
+                          rows={15}
+                        />
+                      </Grid>
+                      <Grid item sm={12}>
+                        <CustomInput
+                          name="subject"
+                          label="Subject"
+                          placeholder="Enter Subject"
+                          rows={15}
+                        />
+                      </Grid>
+                      <Grid item sm={12}>
+                        <CustomTextArea
+                          name="message"
+                          label="Message"
+                          placeholder="Say something"
+                          rows={5}
+                        />
+                      </Grid>
+                      <Grid item sm={12}>
+                        <Box>
+                          <CustomButton buttonName="Submit Form" loading={contact_loading} />
+                        </Box>
+                      </Grid>
+                    </Grid>
+                  </CustomForm>
+                </Box>
+              </CustomFormProvider>
+            </div>
           </div>
         </div>
       </div>

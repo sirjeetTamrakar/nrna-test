@@ -13,7 +13,7 @@ const SingleNews = () => {
   const { news, news_category, single_news, single_news_loading } = useSelector(
     (state) => state.homepage
   );
-  const recentNews = news?.filter((list) => list?.slug !== slug).slice(0, 4);
+  const recentNews = news?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
   console.log('xxxxxxxxxx', { single_news });
   // const [filteredNews, setFilteredNews] = useState();
 

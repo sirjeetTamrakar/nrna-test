@@ -17,6 +17,7 @@ import { changeBusinessStatus, deleteBusiness, getBusiness } from '../redux/acti
 import Edit from './Edit';
 import Register from './Register';
 import Service from './Service';
+import ServiceTable from './ServiceTable';
 import { useStyles } from './styles';
 
 const Profile = () => {
@@ -27,6 +28,7 @@ const Profile = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openService, serviceOpenFunction] = useToggle(false);
+  const [openServicesTable, servicesTableOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
@@ -99,7 +101,7 @@ const Profile = () => {
             variant="contained"
             color="primary"
             onClick={() => handleService(row)}>
-            Update
+            Add
           </Button>
         );
       }
@@ -151,6 +153,7 @@ const Profile = () => {
               {(user?.role_name === Roles?.SuperAdmin || user?.role_name === Roles?.Admin) && (
                 <li onClick={() => handleApprove(row)}>Approve Business</li>
               )}
+              <li onClick={() => handleTableServices(row)}>View services</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
           </CustomPopover>
@@ -193,6 +196,11 @@ const Profile = () => {
   const handleDelete = (row) => {
     setDetail(row);
     deleteOpenFunction();
+  };
+
+  const handleTableServices = (row) => {
+    setDetail(row);
+    servicesTableOpenFunction();
   };
 
   const handleStatus = (row) => {
@@ -240,6 +248,15 @@ const Profile = () => {
           loading={get_business_loading}
         />
         <CustomModal
+          open={openServicesTable}
+          handleClose={servicesTableOpenFunction}
+          modalTitle="Business Services"
+          modalSubtitle=""
+          // icon={<PersonAddIcon />}
+          width={`60rem`}>
+          <ServiceTable serviceId={detail?.id} />{' '}
+        </CustomModal>
+        <CustomModal
           open={openForm}
           handleClose={formOpenFunction}
           modalTitle="Create Business"
@@ -260,7 +277,7 @@ const Profile = () => {
         <CustomModal
           open={openService}
           handleClose={serviceOpenFunction}
-          modalTitle={`Services of ${detail?.name}`}
+          modalTitle={`Services of ${detail?.fullname}`}
           modalSubtitle="Enlist your services"
           icon={<PersonAddIcon />}
           width={`60rem`}>

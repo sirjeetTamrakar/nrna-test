@@ -11,11 +11,13 @@ import { getBanner } from 'redux/homepage/actions';
 const NccSite = () => {
   const { ncc: slug } = useParams();
   const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
   const { settings, banners, ncc } = useSelector((state) => state.homepage);
   useEffect(() => {
     const single = ncc?.find((list) => list?.slug == slug);
-    single?.id && dispatch(getBanner({ type: 'ncc', id: single?.id }));
+    single?.id && dispatch(getBanner({ type: 'ncc', id: user?.id }));
   }, [ncc]);
+
   return (
     <>
       <BannerSection banners={banners} />

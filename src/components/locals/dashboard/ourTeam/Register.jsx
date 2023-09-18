@@ -8,9 +8,9 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDepartment } from '../department/redux/actions';
 import OurTeamForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postTeams } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
