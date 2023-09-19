@@ -32,9 +32,9 @@ const MissionForm = () => {
     let typeData;
     formData.append('mission', data?.mission);
     if (user?.role_name === Roles.NCC) {
-      formData.append('settingable_type', user?.role_name);
-      formData.append('settingable_id', user?.id);
-      typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
+      formData.append('settingable_type', 'ncc');
+      formData.append('settingable_id', user?.ncc?.id);
+      typeData = { settingable_type: 'ncc', settingable_id: user?.ncc?.id };
     }
     if (data?.mission_image?.length > 0) {
       formData.append('mission_image', data?.mission_image?.[0]);

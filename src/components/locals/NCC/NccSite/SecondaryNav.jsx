@@ -2,7 +2,17 @@ import { Box, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useStyles } from '../styles';
 
-const SecondaryNav = ({ category, selected, setSelected, setSearch, id, events }) => {
+const SecondaryNav = ({
+  category,
+  selected,
+  setSelected,
+  setSearch,
+  id,
+  news,
+  events,
+  teams,
+  color
+}) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
@@ -22,11 +32,12 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch, id, events }
   };
   const handleSetSelected = (slug) => {
     setSelected(slug);
-    !events && navigate(`/ncc/${id}/news`, { state: slug });
+    news && navigate(`/ncc/${id}/news`, { state: slug });
     events && navigate(`/ncc/${id}/events`, { state: slug });
+    teams && navigate(`/ncc/${id}/committee`, { state: slug });
   };
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} sx={color && { backgroundColor: color }}>
       <Container>
         <Box sx={{ padding: '10px 0px' }} className={classes.header}>
           {/* <Typography variant="h5" className={classes.title}>

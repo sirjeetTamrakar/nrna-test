@@ -4,12 +4,12 @@ import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
-import { getAdvice, postAdvice } from 'components/locals/dashboard/advice/redux/actions';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
+import { postAdvice } from 'redux/homepage/actions';
 
 import * as Yup from 'yup';
 
@@ -33,24 +33,10 @@ const Form = () => {
   const refetch = () => {
     const array = ['name', 'email', 'phone', 'country_of_residence', 'advice'];
     array?.map((item) => setValue(item, ''));
-    dispatch(getAdvice());
+    // dispatch(getAdvice());
   };
 
   const onSubmit = (data) => {
-    // alert('dsad');
-    // console.log('data', data);
-    // const formdata = new FormData();
-    // console.log('formdata', formdata);
-
-    // formdata.append('name', data?.name);
-    // formdata.append('email', data?.email);
-    // formdata.append('phone', data?.phone);
-    // formdata.append('advice', data?.advice);
-    // formdata.append('country_of_resident', data?.country_of_resident);
-
-    // if (data?.logo?.length > 0) {
-    //   formdata.append('logo', data?.logo?.[0]);
-    // }
     dispatch(postAdvice(data, refetch));
   };
   return (

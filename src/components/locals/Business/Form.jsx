@@ -42,7 +42,7 @@ const Form = () => {
 
   return (
     <section className="contact_page" id="contact_main">
-      <div className="contact_page_title">Contact us</div>
+      {/* <div className="contact_page_title">Contact us</div> */}
 
       <div className="container">
         <div className="row">

@@ -2,7 +2,7 @@ import NewsCard from 'components/globals/NewsCard';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { getAllNews, getNewsCategory } from 'redux/homepage/actions';
+import { getAllNews, getNewsCategory, getSingleNCC } from 'redux/homepage/actions';
 import SecondaryNav from './SecondaryNav';
 
 const News = () => {
@@ -15,6 +15,7 @@ const News = () => {
   const { news, news_loading, news_category, news_category_loading } = useSelector(
     (state) => state.homepage
   );
+  const { ncc } = useParams();
   const [filteredNews, setFilteredNews] = useState();
   const [selected, setSelected] = useState(
     location?.state ? location?.state : news_category?.[0]?.id
@@ -25,6 +26,12 @@ const News = () => {
     dispatch(getAllNews({ type: 'ncc', id: user?.id }));
     dispatch(getNewsCategory());
   }, []);
+  console.log({ ncc });
+  const { single_ncc } = useSelector((state) => state.homepage);
+  console.log({ single_ncc });
+  useEffect(() => {
+    dispatch(getSingleNCC(ncc));
+  }, [ncc]);
 
   useEffect(() => {
     if (news) {
@@ -37,7 +44,6 @@ const News = () => {
     }
   }, [search, news, selected, news_category]);
 
-  const { ncc } = useParams();
   console.log('cxcxcxcxcxcx', { ncc });
   return (
     <>
@@ -47,6 +53,8 @@ const News = () => {
         selected={selected}
         setSearch={setSearch}
         id={ncc}
+        color={single_ncc?.color}
+        news
       />
       <div className="main_content">
         <section className="all_events">

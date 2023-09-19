@@ -149,7 +149,7 @@ const SettingsBanner = () => {
       page: page + 1,
       pagination_limit: rowsPerPage,
       bannerable_type: user?.role_name === Roles.NCC ? Roles.NCC : '',
-      bannerable_id: user?.id
+      bannerable_id: user?.ncc?.id
     };
     dispatch(getBanner(data));
   };

@@ -26,8 +26,8 @@ const Register = ({ handleClose }) => {
     formData.append('link', data?.link);
     formData.append('status', 1);
     if (user?.role_name === Roles.NCC) {
-      formData.append('bannerable_type', user?.role_name);
-      formData.append('bannerable_id', user?.id);
+      formData.append('bannerable_type', 'ncc');
+      formData.append('bannerable_id', user?.ncc?.id);
     }
 
     if (data?.image?.length > 0) {

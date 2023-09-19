@@ -15,10 +15,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { changeEventsStatus, deleteEvents, getEvents } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const Events = () => {
   const dispatch = useDispatch();
@@ -185,7 +185,7 @@ const Events = () => {
   const refetch = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+      typeData = { id: user?.ncc?.id, page: page + 1, pagination_limit: rowsPerPage };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }

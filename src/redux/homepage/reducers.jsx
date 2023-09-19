@@ -44,7 +44,8 @@ const defaultState = {
   single_ncc_loading: false,
   single_user: null,
   single_user_loading: false,
-  teams_contact_loading: false
+  teams_contact_loading: false,
+  advice_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -280,6 +281,16 @@ const homepageReducer = (state = defaultState, action) => {
     case actions.POST_TEAMS_CONTACT_SUCCESS:
     case actions.POST_TEAMS_CONTACT_ERROR:
       return { ...state, teams_contact_loading: false };
+
+    case actions.POST_ADVICE_BEGIN:
+      return {
+        ...state,
+        advice_loading: true
+      };
+
+    case actions.POST_ADVICE_SUCCESS:
+    case actions.POST_ADVICE_ERROR:
+      return { ...state, advice_loading: false };
 
     default:
       return state;

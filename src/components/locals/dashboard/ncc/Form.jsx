@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
+import CustomInput from 'components/common/Form/CustomInput';
 import { useSelector } from 'react-redux';
 import { useStyles } from './styles';
 
@@ -8,10 +9,16 @@ const NCCForm = ({ logo }) => {
   const classes = useStyles();
 
   const { countries_list } = useSelector((state) => state.ncc);
+  const { users } = useSelector((state) => state.user);
 
   const countryList = countries_list?.map((item, index) => ({
     label: item,
     value: item
+  }));
+
+  const createdByUsers = users?.data?.map((item) => ({
+    label: item?.name,
+    value: item?.id
   }));
   return (
     <Box className={classes.root}>
@@ -24,6 +31,18 @@ const NCCForm = ({ logo }) => {
             options={countryList ?? []}
             required
           />
+        </Grid>
+        <Grid item sm={9}>
+          <CustomAutoComplete
+            placeholder="Assign NCC admin"
+            name="admin_id"
+            label="Assign NCC admin"
+            options={createdByUsers ?? []}
+            required
+          />
+        </Grid>
+        <Grid item sm={3}>
+          <CustomInput name="color" label="Navbar color" type="color" required />
         </Grid>
         <Grid item sm={12}>
           <FileUploader

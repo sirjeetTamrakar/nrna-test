@@ -2,7 +2,7 @@ import NewsCard from 'components/globals/NewsCard';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { getAllNews, getNewsCategory } from 'redux/homepage/actions';
+import { getAllNews, getNewsCategory, getSingleUser } from 'redux/homepage/actions';
 import SecondaryNav from './SecondaryNav';
 
 const News = () => {
@@ -40,12 +40,14 @@ const News = () => {
   // ];
 
   const dispatch = useDispatch();
+  const { candidate } = useParams();
+  console.log({ candidate });
 
   const location = useLocation();
   console.log({ location });
 
   const { user } = useSelector((state) => state.auth);
-  const { news, news_loading, news_category, news_category_loading } = useSelector(
+  const { news, news_loading, news_category, news_category_loading, single_user } = useSelector(
     (state) => state.homepage
   );
   const [filteredNews, setFilteredNews] = useState();
@@ -53,9 +55,10 @@ const News = () => {
     location?.state ? location?.state : news_category?.[0]?.id
   );
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { filteredNews });
+  console.log('dsadddddddcxx', { single_user });
   useEffect(() => {
-    dispatch(getAllNews({ type: user?.role_name, id: user?.id }));
+    dispatch(getSingleUser(candidate));
+    dispatch(getAllNews({ type: single_user?.role_name, id: single_user?.id }));
     dispatch(getNewsCategory());
   }, []);
 
@@ -73,8 +76,6 @@ const News = () => {
   // const { ncc } = useParams();
   // console.log('cxcxcxcxcxcx', { ncc });
 
-  const { candidate } = useParams();
-  console.log({ candidate });
   return (
     <>
       <SecondaryNav

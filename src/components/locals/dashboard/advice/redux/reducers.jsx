@@ -1,6 +1,5 @@
 import * as actions from './types';
 const defaultState = {
-  advice_loading: false,
   get_advice_loading: false,
   adviceData: [],
   delete_advice_loading: false
@@ -8,16 +7,6 @@ const defaultState = {
 
 const adviceReducer = (state = defaultState, action) => {
   switch (action.type) {
-    case actions.POST_ADVICE_BEGIN:
-      return {
-        ...state,
-        advice_loading: true
-      };
-
-    case actions.POST_ADVICE_SUCCESS:
-    case actions.POST_ADVICE_ERROR:
-      return { ...state, advice_loading: false };
-
     case actions.GET_ADVICE_BEGIN:
       return {
         ...state,

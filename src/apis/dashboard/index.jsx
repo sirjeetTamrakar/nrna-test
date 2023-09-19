@@ -61,11 +61,6 @@ export const getAdviceApi = (data) => {
   return axiosInstance().get(`/admin/advices${page}${pagination_limit}`);
 };
 
-// post advice
-export const postAdviceApi = (data) => {
-  return axiosInstance().post('/admin/advices', data);
-};
-
 // delete advice
 export const deleteAdviceApi = (data) => {
   return axiosInstance().delete(`/admin/advices/${data}`);

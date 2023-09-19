@@ -16,7 +16,7 @@ const Register = ({ handleClose }) => {
   const classes = useStyles();
   const { events_loading } = useSelector((state) => state.events);
   const { user } = useSelector((state) => state.auth);
-
+  console.log('cxcxddddd', { user });
   const onSubmit = (data) => {
     const formData = new FormData();
 
@@ -36,8 +36,8 @@ const Register = ({ handleClose }) => {
     }
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
-      formData.append('ncc_id', user?.id);
+      typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      formData.append('ncc_id', user?.ncc?.id);
     } else {
       typeData = { page: 1, pagination_limit: 10 };
     }

@@ -112,8 +112,9 @@ export const getSingleNCCApi = (slug) => {
 };
 
 // get our team department
-export const getDepartmentApi = () => {
-  return axiosInstance().get(`/api/our-team-categories`);
+export const getDepartmentApi = (data) => {
+  const id = data?.ncc_id ? `?ncc_id=${data?.ncc_id}` : '';
+  return axiosInstance().get(`/api/our-team-categories${id}`);
 };
 
 // get all continents
@@ -154,4 +155,9 @@ export const getSingleUserApi = (slug) => {
 // post team contact
 export const postTeamContactApi = (data) => {
   return axiosInstance().post('/api/team-contact', data);
+};
+
+// post advice
+export const postAdviceApi = (data) => {
+  return axiosInstance().post('/api/advices', data);
 };

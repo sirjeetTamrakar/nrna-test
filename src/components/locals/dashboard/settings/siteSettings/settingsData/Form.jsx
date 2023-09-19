@@ -39,9 +39,9 @@ const SettingsDataForm = () => {
     formData.append('phone', data?.phone);
     formData.append('email', data?.email);
     if (user?.role_name == Roles.NCC) {
-      formData.append('settingable_type', user?.role_name);
-      formData.append('settingable_id', user?.id);
-      typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
+      formData.append('settingable_type', 'ncc');
+      formData.append('settingable_id', user?.ncc?.id);
+      typeData = { settingable_type: 'ncc', settingable_id: user?.ncc?.id };
     }
 
     if (data?.region_logo?.length > 0) {

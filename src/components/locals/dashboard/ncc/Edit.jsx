@@ -16,6 +16,9 @@ const EditForm = ({ handleClose, detail }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
+    formData.append('admin_id', data?.admin_id);
+    formData.append('color', data?.color ? data?.color : '#276FC4');
+
     if (data?.logo?.length > 0) {
       formData.append('logo', data?.logo[0]);
     }
@@ -32,8 +35,8 @@ const EditForm = ({ handleClose, detail }) => {
   );
 };
 const Edit = ({ data, handleClose }) => {
-  const defaultValues = { country_name: data?.country_name };
-
+  const defaultValues = { country_name: data?.country_name, admin_id: data?.admin?.id };
+  console.log('mnnnmmmmm', { data });
   return (
     <>
       <CustomFormProvider

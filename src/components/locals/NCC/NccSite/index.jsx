@@ -15,7 +15,7 @@ const NccSite = () => {
   const { settings, banners, ncc } = useSelector((state) => state.homepage);
   useEffect(() => {
     const single = ncc?.find((list) => list?.slug == slug);
-    single?.id && dispatch(getBanner({ type: 'ncc', id: user?.id }));
+    single?.id && dispatch(getBanner({ type: 'ncc', id: single?.id }));
   }, [ncc]);
 
   return (

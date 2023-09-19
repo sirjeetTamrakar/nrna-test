@@ -49,7 +49,7 @@ const CustomTextArea = ({
               helperText={fieldError}
               style={{ width: '100%', border: '1px solid #bdbdbd' }}
               onChange={onChange}
-              value={value}
+              value={value ?? ''}
               InputLabelProps={{ shrink: false }}
               placeholder={placeholder}
             />

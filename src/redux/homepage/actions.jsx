@@ -22,6 +22,7 @@ import {
   getSingleUserApi,
   getSiteSettingsApi,
   getTeamsApi,
+  postAdviceApi,
   postTeamContactApi
 } from 'apis/homepage';
 import { errorToast, successToast } from 'utils/toast';
@@ -151,9 +152,9 @@ export const deleteContact = (id, handleSuccess, typeData) => (dispatch) => {
     });
 };
 
-export const getTeams = () => (dispatch) => {
+export const getTeams = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_OUR_TEAM_BEGIN });
-  getTeamsApi()
+  getTeamsApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_OUR_TEAM_SUCCESS, payload: res.data.data });
     })
@@ -196,9 +197,9 @@ export const getNcc = () => (dispatch) => {
     });
 };
 
-export const getDepartment = () => (dispatch) => {
+export const getDepartment = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_DEPARTMENT_BEGIN });
-  getDepartmentApi()
+  getDepartmentApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_DEPARTMENT_SUCCESS, payload: res.data.data });
     })
@@ -323,5 +324,19 @@ export const teamsContactUs = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_TEAMS_CONTACT_ERROR });
+    });
+};
+
+export const postAdvice = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_ADVICE_BEGIN });
+  postAdviceApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_ADVICE_SUCCESS });
+      successToast('Your message sent successfully');
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_ADVICE_ERROR });
     });
 };

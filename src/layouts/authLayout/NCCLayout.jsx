@@ -14,8 +14,10 @@ const NCCLayout = () => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    dispatch(getSiteSettings({ type: 'ncc', id: user?.id }));
-  }, []);
+    const single = ncc?.find((list) => list?.slug == slug);
+
+    single?.id && dispatch(getSiteSettings({ type: 'ncc', id: single?.id }));
+  }, [ncc]);
   return (
     <>
       <Navbar />
@@ -101,6 +103,7 @@ const SecondaryNavWrapper = () => {
   return (
     <SecondaryNav
       title={single_ncc?.country_name}
+      color={single_ncc?.color}
       options={options}
       setSelected={setSelected}
       selected={selected}

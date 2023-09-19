@@ -22,8 +22,8 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
-      dispatch(postTeams({ ...data, ncc_id: user?.id }, handleClose, typeData));
+      typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      dispatch(postTeams({ ...data, ncc_id: user?.ncc?.id }, handleClose, typeData));
     } else {
       typeData = { page: 1, pagination_limit: 10 };
       dispatch(postTeams(data, handleClose, typeData));
@@ -34,7 +34,7 @@ const Register = ({ handleClose }) => {
     let typeData;
     if (user) {
       if (user?.role_name == Roles?.NCC) {
-        typeData = { id: user?.id, page: 1, pagination_limit: 20 };
+        typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 20 };
         dispatch(getDepartment(typeData));
       } else {
         typeData = { page: 1, pagination_limit: 20 };

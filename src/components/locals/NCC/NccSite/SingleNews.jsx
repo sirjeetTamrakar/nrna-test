@@ -36,6 +36,7 @@ const SingleNews = () => {
         category={news_category}
         setSelected={setSelected}
         selected={selected}
+        news
       />
 
       <div className="main_content">

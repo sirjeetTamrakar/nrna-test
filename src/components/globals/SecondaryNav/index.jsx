@@ -1,7 +1,7 @@
 import { Box, Container, Typography } from '@mui/material';
 import { useStyles } from './styles';
 
-const SecondaryNav = ({ options, selected, title }) => {
+const SecondaryNav = ({ options, selected, title, color }) => {
   const classes = useStyles();
   const checkActive = (slug) => {
     if (selected) {
@@ -15,7 +15,7 @@ const SecondaryNav = ({ options, selected, title }) => {
     }
   };
   return (
-    <Box className={classes.root}>
+    <Box className={classes.root} sx={color && { backgroundColor: color }}>
       <Container>
         {title && (
           <Box className={classes.header}>

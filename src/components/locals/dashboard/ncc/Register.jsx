@@ -5,9 +5,9 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NCCForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postNCC } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -16,8 +16,11 @@ const Register = ({ handleClose }) => {
   const { ncc_loading } = useSelector((state) => state.ncc);
 
   const onSubmit = (data) => {
+    console.log({ data });
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
+    formData.append('admin_id', data?.admin_id);
+    formData.append('color', data?.color ? data?.color : '#276FC4');
     if (data?.logo?.length > 0) {
       formData.append('logo', data?.logo[0]);
     }

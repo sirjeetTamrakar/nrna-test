@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getAllNews, getNewsCategory, getSingleNews } from 'redux/homepage/actions';
+import { getAllNews, getNewsCategory, getSingleNews, getSingleUser } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import SecondaryNav from './SecondaryNav';
 
@@ -55,7 +55,7 @@ const SingleNews = () => {
 
   console.log('ccccccccxxxcccc', { candidate });
 
-  const { news, news_category, single_news, single_news_loading } = useSelector(
+  const { news, news_category, single_news, single_news_loading, single_user } = useSelector(
     (state) => state.homepage
   );
   const recentNews = news?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
@@ -67,8 +67,10 @@ const SingleNews = () => {
   console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
+    dispatch(getSingleUser(candidate));
+
     dispatch(getSingleNews(slug));
-    dispatch(getAllNews({ type: user?.role_name, id: user?.id }));
+    dispatch(getAllNews({ type: single_user?.role_name, id: single_user?.id }));
     dispatch(getNewsCategory());
   }, [slug]);
 

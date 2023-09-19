@@ -33,9 +33,9 @@ const VisionForm = () => {
     let typeData;
     formData.append('vision', data?.vision);
     if (user?.role_name === Roles.NCC) {
-      formData.append('settingable_type', user?.role_name);
-      formData.append('settingable_id', user?.id);
-      typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
+      formData.append('settingable_type', 'ncc');
+      formData.append('settingable_id', user?.ncc?.id);
+      typeData = { settingable_type: 'ncc', settingable_id: user?.ncc?.id };
     }
     if (data?.vision_image?.length > 0) {
       formData.append('vision_image', data?.vision_image?.[0]);
