@@ -61,9 +61,9 @@ const Form = () => {
         </Grid>
         <Grid item sm={6}>
           <CustomAutoComplete
-            placeholder="Country Name"
+            placeholder="Country of residence"
             name="country_of_residence"
-            label="Country Name"
+            label="Country of residence"
             options={countryList ?? []}
             required
           />

@@ -4,6 +4,17 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     background: '#276fc4'
   },
+  header: {
+    display: 'flex',
+    justifyContent: 'end',
+    alignItems: 'center',
+    '& input': {
+      height: '16px',
+      background: '#5d9fee',
+      color: '#fff',
+      borderRadius: '4px'
+    }
+  },
   title: {
     fontSize: '24px !important',
     color: '#fff',

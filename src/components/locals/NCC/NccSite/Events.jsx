@@ -1,79 +1,78 @@
 import EventCard from 'components/globals/EventCard';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useParams } from 'react-router-dom';
-import { getAllEvents, getSingleNCC } from 'redux/homepage/actions';
-
+import { useLocation, useParams } from 'react-router-dom';
+import { getAllEvents, getEventsCategory, getSingleNCC } from 'redux/homepage/actions';
+import SecondaryNav from './SecondaryNav';
 const Events = () => {
   const dispatch = useDispatch();
-
-  // const events = [
-  //   {
-  //     id: '1',
-  //     featureImage: CandidateImage1,
-  //     name: 'John Doe',
-  //     slug: 'first_news_slug',
-  //     title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-
-  //     excerpt:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-  //   },
-  //   {
-  //     id: 2,
-  //     featureImage: CandidateImage2,
-  //     name: 'Jason Momoa',
-  //     slug: 'second_news_slug',
-  //     title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-
-  //     excerpt:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-  //   },
-  //   {
-  //     id: 3,
-  //     featureImage: CandidateImage3,
-  //     name: 'Chris Bumsterd',
-  //     slug: 'third_news_slug',
-  //     title: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry',
-
-  //     excerpt:
-  //       "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."
-  //   }
-  // ];
   const { ncc } = useParams();
-  const data = useParams();
-  console.log('bnnnnnnnn', { data });
+
+  //-------------------
+
+  const location = useLocation();
+  console.log({ location });
+
   const { user } = useSelector((state) => state.auth);
-  const { single_ncc } = useSelector((state) => state.homepage);
-  console.log({ single_ncc });
-  const { events } = useSelector((state) => state.homepage);
-  console.log('dsaddddddd', { events });
+  const { events, events_loading, events_category, events_category_loading, single_ncc } =
+    useSelector((state) => state.homepage);
+  const [filteredEvents, setFilteredEvents] = useState();
+  const [selected, setSelected] = useState(
+    location?.state ? location?.state : events_category?.[0]?.id
+  );
+  const [search, setSearch] = useState('');
+  console.log('dsadddddddcxx', { filteredEvents });
   useEffect(() => {
     dispatch(getAllEvents({ ncc_id: single_ncc?.id }));
+    dispatch(getEventsCategory());
     dispatch(getSingleNCC(ncc));
   }, []);
+
+  useEffect(() => {
+    if (events) {
+      const newEvents = events?.filter(
+        (list) =>
+          list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          list?.event_category_id == Number(selected)
+      );
+      setFilteredEvents(newEvents);
+    }
+  }, [search, events, selected, events_category]);
+
+  console.log('cxcxcxcxcxcx', { ncc });
   return (
-    <div className="main_content">
-      <section className="all_events">
-        <div className="all_events_title">Events</div>
-        <div className="container">
-          <div className="row">
-            {events.length > 0 ? (
-              events.map((event) => (
-                <EventCard
-                  key={event.id}
-                  event={event}
-                  linkUrl={`/ncc/${ncc}/events/${event?.slug}`}
-                />
-              ))
-            ) : (
-              <div className="col-md-12 mt-5 mb-5">
-                <h3 className="text-center">No events available.</h3>
-              </div>
-            )}
+    <>
+      <SecondaryNav
+        category={events_category}
+        setSelected={setSelected}
+        selected={selected}
+        setSearch={setSearch}
+        id={ncc}
+        events
+      />
+      <div className="main_content">
+        <section className="all_events">
+          <div className="all_events_title">Events</div>
+          <div className="container">
+            <div className="row">
+              {filteredEvents?.length > 0 ? (
+                filteredEvents.map((event) => (
+                  <EventCard
+                    key={event.id}
+                    event={event}
+                    linkUrl={`/ncc/${ncc}/events/${event?.slug}`}
+                  />
+                ))
+              ) : (
+                <div className="col-md-12 mt-5 mb-5">
+                  <h3 className="text-center">No events available.</h3>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
-      </section>
-    </div>
+        </section>
+      </div>
+    </>
   );
 };
 

@@ -30,47 +30,48 @@ const ServicesList = ({ data }) => {
 
   return (
     <Box marginY={6}>
-      <div className="contact_page_title">Services</div>
+      {/* <div className="contact_page_title">Services</div> */}
 
       <Container>
         <Grid container spacing={3}>
           {data?.business_service?.length !== 0 ? (
             data?.business_service?.map((item, index) => {
               return (
-                <Grid item sm={4} key={index}>
+                <Grid item sm={3} key={index}>
                   <div
                     style={{
-                      padding: '20px',
                       boxShadow: '0px 8px 20px 0px rgba(18, 17, 39, 0.10)',
                       backgroundColor: '#fff',
                       borderRadius: '6px'
                     }}>
-                    <div style={{ width: '42px', height: '42px' }}>
+                    <div style={{ width: '100%', height: '150px' }}>
                       <img
                         src={item?.service_image}
                         alt=""
                         style={{ width: '100%', height: '100%', objectFit: 'cover' }}
                       />
                     </div>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: '600',
-                        marginTop: '13px',
-                        marginBottom: '4px'
-                      }}>
-                      {item?.title}
-                    </p>
-                    <p
-                      style={{
-                        fontSize: '12px',
-                        fontWeight: '400',
-                        height: '40px'
-                      }}>
-                      {item?.description?.length < 129
-                        ? item?.description
-                        : `${item?.description.substring(0, 130)}...`}
-                    </p>
+                    <div style={{ padding: '10px 15px' }}>
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: '600',
+                          marginTop: '13px',
+                          marginBottom: '4px'
+                        }}>
+                        {item?.title}
+                      </p>
+                      <p
+                        style={{
+                          fontSize: '12px',
+                          fontWeight: '400',
+                          height: '60px'
+                        }}>
+                        {item?.description?.length < 129
+                          ? item?.description
+                          : `${item?.description.substring(0, 130)}...`}
+                      </p>
+                    </div>
                   </div>
                 </Grid>
               );
