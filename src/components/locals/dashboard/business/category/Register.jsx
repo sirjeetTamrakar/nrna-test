@@ -18,6 +18,7 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
+    formData.append('subtitle', data?.subtitle);
     if (data?.category_image?.length > 0) {
       formData.append('category_image', data?.category_image?.[0]);
     }

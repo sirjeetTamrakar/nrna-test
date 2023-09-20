@@ -2,7 +2,7 @@ import EastIcon from '@mui/icons-material/East';
 import Slider from 'react-slick';
 const BannerSection = ({ banners }) => {
   var settings = {
-    dots: true,
+    // dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,

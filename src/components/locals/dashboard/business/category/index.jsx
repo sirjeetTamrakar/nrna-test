@@ -1,7 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import logo from 'assets/images/nrna.png';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
@@ -41,8 +41,17 @@ const Category = () => {
     {
       title: 'Title',
       minWidth: 250,
-      field: 'title'
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">
+              {row?.subtitle !== '' ? row?.subtitle : row?.title}
+            </Typography>
+          </Box>
+        );
+      }
     },
+
     {
       title: 'Image',
       minWidth: 120,
@@ -50,6 +59,19 @@ const Category = () => {
         return (
           <Box>
             <img src={row?.image} height="40px" width="40px" />
+          </Box>
+        );
+      }
+    },
+    {
+      title: 'Parent category',
+      minWidth: 250,
+      field: (row) => {
+        const findCategoryTitle = categoryData?.find((item) => item?.id === Number(row?.title));
+        console.log({ findCategoryTitle });
+        return (
+          <Box>
+            <Typography variant="body2">{row?.title ? findCategoryTitle?.title : '-'}</Typography>
           </Box>
         );
       }

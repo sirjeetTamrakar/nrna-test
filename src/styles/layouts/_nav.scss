@@ -13,7 +13,7 @@
         object-fit: contain;
       }
     }
-    .main-name h4{
+    .main-name h4 {
       font-size: 28px;
       font-weight: 600;
       color: #000;
@@ -36,26 +36,26 @@
         .btn-md {
           color: white;
           background: none;
-          &:hover{
+          &:hover {
             border-color: #0c1f62;
           }
         }
-        .home-btn{
+        .home-btn {
           transition: all 0.2s ease-in-out;
-          
-          &:hover{
+
+          &:hover {
             transform: scale(0.95);
           }
         }
-        
+
         svg {
-          color:#046fc4;
+          color: #046fc4;
           cursor: pointer;
           font-size: 18px;
         }
-        .btn-md-contained{
-          svg{
-            color: #fff
+        .btn-md-contained {
+          svg {
+            color: #fff;
           }
         }
       }
@@ -64,12 +64,13 @@
 }
 
 .navbar_sticky {
-
+  position: sticky;
+  top: 0;
+  width: 100%;
   background-color: #fff;
   z-index: 100;
   box-shadow: 2px 2px 15px #0000000d;
   .nav_wrapper li {
-    
     .fa-bars {
       color: $secondary-light-text;
       cursor: pointer;
@@ -77,8 +78,8 @@
     }
     a {
       color: #000;
-    font-weight: 500;
-    font-size: 13px;
+      font-weight: 500;
+      font-size: 13px;
     }
     .btn-md {
       color: $primary-color;
@@ -87,7 +88,7 @@
         border-color: #fff;
       }
     }
-    .home-btn{
+    .home-btn {
       padding: 6px 15px;
       border-radius: 4px;
       font-size: 14px;

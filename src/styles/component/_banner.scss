@@ -1,44 +1,44 @@
 .banner {
-    .banner_item {
-        height: calc(100vh - 220px);
-        position: relative;
-        z-index: 0;
-        .banner_wrapper {
-            height: calc(100vh - 220px);
-            display: flex;
-            align-items: center;
-            width: 60%;
-        }
-        h1 {
-            color: white;
-            font-size: 46px;
-            line-height: 120%;
-            font-weight: 500;
-            width: 70%;
-        }
-        .description {
-            color: #fff;
-            margin: 15px 0px 45px 0;
-            font-size: 16px;
-            width: 80%;
-        }
-        .button_wrapper {
-            a:first-child {
-                margin-right: 30px;
-            }
-        }
+  .banner_item {
+    height: calc(100vh - 260px);
+    position: relative;
+    z-index: 0;
+    .banner_wrapper {
+      height: calc(100vh - 220px);
+      display: flex;
+      align-items: center;
+      width: 60%;
     }
-    .overlay {
-        position: relative;
-        &::after {
-            z-index: -1;
-            content: "";
-            position: absolute;
-            background: linear-gradient(45deg, #0a0a0a87, #00000030);
-            top: 0;
-            bottom: 0;
-            left: 0;
-            right: 0;
-        }
+    h1 {
+      color: white;
+      font-size: 46px;
+      line-height: 120%;
+      font-weight: 500;
+      width: 70%;
     }
+    .description {
+      color: #fff;
+      margin: 15px 0px 45px 0;
+      font-size: 16px;
+      width: 80%;
+    }
+    .button_wrapper {
+      a:first-child {
+        margin-right: 30px;
+      }
+    }
+  }
+  .overlay {
+    position: relative;
+    &::after {
+      z-index: -1;
+      content: '';
+      position: absolute;
+      background: linear-gradient(45deg, #0a0a0a87, #00000030);
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+    }
+  }
 }

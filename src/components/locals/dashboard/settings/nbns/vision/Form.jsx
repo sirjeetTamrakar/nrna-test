@@ -2,6 +2,7 @@ import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
+import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
@@ -14,6 +15,8 @@ const VisionForm = () => {
   const classes = useStyles();
   const defaultValues = {
     vision: '',
+    vision_title: '',
+    vision_subtitle: '',
     vision_image: ''
   };
   const { setValue } = useFormContext({ defaultValues });
@@ -23,12 +26,16 @@ const VisionForm = () => {
   useEffect(() => {
     if (site_settings) {
       setValue('vision', site_settings?.vision);
+      setValue('vision_title', site_settings?.vision_title);
+      setValue('vision_subtitle', site_settings?.vision_subtitle);
     }
   }, [site_settings]);
 
   const submitHandler = (data) => {
     const formData = new FormData();
     formData.append('vision', data?.vision);
+    formData.append('vision_title', data?.vision_title);
+    formData.append('vision_subtitle', data?.vision_subtitle);
 
     formData.append('settingable_type', 'nbns');
     formData.append('settingable_id', 1);
@@ -51,6 +58,12 @@ const VisionForm = () => {
               label="Select Photo"
               image={site_settings?.vision_image}
             />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="vision_title" label="Vision Title" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="vision_subtitle" label="Vision Subtitle" required />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea name="vision" label="Vision Description" required rows={15} />

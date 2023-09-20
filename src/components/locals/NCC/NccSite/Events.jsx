@@ -17,9 +17,10 @@ const Events = () => {
   const { events, events_loading, events_category, events_category_loading, single_ncc } =
     useSelector((state) => state.homepage);
   const [filteredEvents, setFilteredEvents] = useState();
-  const [selected, setSelected] = useState(
-    location?.state ? location?.state : events_category?.[0]?.id
-  );
+  const [selected, setSelected] = useState();
+  useEffect(() => {
+    setSelected(location?.state ? location?.state : events_category?.[0]?.id);
+  }, [location?.state, events_category]);
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { filteredEvents });
   useEffect(() => {

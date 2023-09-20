@@ -51,9 +51,11 @@ const News = () => {
     (state) => state.homepage
   );
   const [filteredNews, setFilteredNews] = useState();
-  const [selected, setSelected] = useState(
-    location?.state ? location?.state : news_category?.[0]?.id
-  );
+  const [selected, setSelected] = useState();
+
+  useEffect(() => {
+    setSelected(location?.state ? location?.state : news_category?.[0]?.id);
+  }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { single_user });
   useEffect(() => {

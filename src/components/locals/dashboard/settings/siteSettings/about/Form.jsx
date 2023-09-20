@@ -2,6 +2,7 @@ import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
+import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
@@ -15,6 +16,8 @@ const AboutForm = () => {
   const classes = useStyles();
   const defaultValues = {
     about: '',
+    about_title: '',
+    about_subtitle: '',
     about_image: ''
   };
   const { setValue } = useFormContext({ defaultValues });
@@ -25,6 +28,8 @@ const AboutForm = () => {
   useEffect(() => {
     if (site_settings) {
       setValue('about', site_settings?.about);
+      setValue('about_title', site_settings?.about_title);
+      setValue('about_subtitle', site_settings?.about_subtitle);
     }
   }, [site_settings]);
 
@@ -32,6 +37,8 @@ const AboutForm = () => {
     const formData = new FormData();
     let typeData;
     formData.append('about', data?.about);
+    formData.append('about_title', data?.about_title);
+    formData.append('about_subtitle', data?.about_subtitle);
     if (user?.role_name === Roles.NCC) {
       formData.append('settingable_type', 'ncc');
       formData.append('settingable_id', user?.ncc?.id);
@@ -55,6 +62,12 @@ const AboutForm = () => {
               label="Select Photo"
               image={site_settings?.about_image}
             />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="about_title" label="About Title" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="about_subtitle" label="About Subtitle" required />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea name="about" label="About Description" required rows={15} />

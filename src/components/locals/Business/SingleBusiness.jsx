@@ -33,16 +33,16 @@ const BusinessProfile = () => {
   // };
   return (
     <div className="main_content">
+      <div
+        className="candidate_page_banner"
+        style={{
+          // backgroundImage: `url('${candidateImages?.profileBannerImage}')`,
+          backgroundImage: `url('${single_business?.banner_image}')`,
+          backgroundPosition: 'center',
+          backgroundSize: 'cover'
+        }}></div>
       <div className="container">
         <div className="candidate_page">
-          <div
-            className="candidate_page_banner"
-            style={{
-              // backgroundImage: `url('${candidateImages?.profileBannerImage}')`,
-              backgroundImage: `url('${single_business?.banner_image}')`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover'
-            }}></div>
           <div className="candidate_page_lower_banner">
             <div className="candidate_page_lower_banner_wrapper">
               <div className="candidate_page_lower_banner_wrapper_box">

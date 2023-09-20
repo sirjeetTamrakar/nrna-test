@@ -2,6 +2,7 @@ import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
+import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
@@ -15,6 +16,8 @@ const MissionForm = () => {
   const classes = useStyles();
   const defaultValues = {
     mission: '',
+    mission_title: '',
+    mission_subtitle: '',
     mission_image: ''
   };
   const { setValue } = useFormContext({ defaultValues });
@@ -24,6 +27,8 @@ const MissionForm = () => {
   useEffect(() => {
     if (site_settings) {
       setValue('mission', site_settings?.mission);
+      setValue('mission_title', site_settings?.mission_title);
+      setValue('mission_subtitle', site_settings?.mission_subtitle);
     }
   }, [site_settings]);
 
@@ -31,6 +36,8 @@ const MissionForm = () => {
     const formData = new FormData();
     let typeData;
     formData.append('mission', data?.mission);
+    formData.append('mission_title', data?.mission_title);
+    formData.append('mission_subtitle', data?.mission_subtitle);
     if (user?.role_name === Roles.NCC) {
       formData.append('settingable_type', 'ncc');
       formData.append('settingable_id', user?.ncc?.id);
@@ -54,6 +61,12 @@ const MissionForm = () => {
               label="Select Photo"
               image={site_settings?.mission_image}
             />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="mission_title" label="Mission Title" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="mission_subtitle" label="Mission Subtitle" required />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea name="mission" label="Mission Description" required rows={15} />

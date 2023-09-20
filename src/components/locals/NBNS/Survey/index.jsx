@@ -19,9 +19,38 @@ const Survey = () => {
   };
 
   const { user } = useSelector((state) => state.auth);
+  const { nbns_settings } = useSelector((state) => state.homepage);
+  console.log('dsadsdddddddddd', { nbns_settings });
   console.log({ user });
   return (
     <>
+      <Box>
+        <section className="banner">
+          <div
+            className={`banner_item ${nbns_settings?.survey_title !== '' ? 'overlay' : ''}`}
+            style={{
+              backgroundImage: `url('${nbns_settings?.survey_banner}')`,
+              backgroundPosition: 'center',
+              backgroundSize: 'cover',
+              height: 'calc(100vh - 450px)'
+            }}>
+            <div className="container">
+              <div
+                className="banner_wrapper"
+                style={{
+                  height: 'calc(100vh - 450px)',
+                  display: 'flex',
+                  alignItems: 'center'
+                }}>
+                <div>
+                  <h1 style={{ width: '100%' }}>{nbns_settings?.survey_title}</h1>
+                  {/* <div className="description">dsadsad</div> */}
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </Box>
       <Container>
         <Box className={classes.root}>
           <Box>

@@ -16,9 +16,10 @@ const Events = () => {
 
   const [filteredEvents, setFilteredEvents] = useState();
 
-  const [selected, setSelected] = useState(
-    location?.state ? location?.state : events_category?.[0]?.id
-  );
+  const [selected, setSelected] = useState();
+  useEffect(() => {
+    setSelected(location?.state ? location?.state : events_category?.[0]?.id);
+  }, [location?.state, events_category]);
   const [search, setSearch] = useState('');
 
   useEffect(() => {

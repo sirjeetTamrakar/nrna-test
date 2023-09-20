@@ -1,7 +1,7 @@
 import * as Yup from 'yup';
 
 export const validationSchema = Yup.object({
-  title: Yup.string().required('Please enter title')
+  subtitle: Yup.string().required('Please enter title')
   // image: Yup.mixed()
   //   .transform((v) => (!v ? undefined : v))
   //   .nullable()
@@ -9,5 +9,5 @@ export const validationSchema = Yup.object({
 });
 
 export const editValidationSchema = Yup.object({
-  title: Yup.string().required('Please enter title')
+  subtitle: Yup.string().required('Please enter title')
 });

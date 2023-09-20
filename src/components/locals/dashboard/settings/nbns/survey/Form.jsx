@@ -3,21 +3,18 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
-import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { postSiteSettings } from '../../redux/actions';
 import { useStyles } from './styles';
 
-const AboutForm = () => {
+const SurveyForm = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const defaultValues = {
-    about: '',
-    about_title: '',
-    about_subtitle: '',
-    about_image: ''
+    survey_title: '',
+    survey_banner: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
@@ -25,21 +22,17 @@ const AboutForm = () => {
 
   useEffect(() => {
     if (site_settings) {
-      setValue('about', site_settings?.about);
-      setValue('about_title', site_settings?.about_title);
-      setValue('about_subtitle', site_settings?.about_subtitle);
+      setValue('survey_title', site_settings?.survey_title);
     }
   }, [site_settings]);
 
   const submitHandler = (data) => {
     const formData = new FormData();
-    formData.append('about', data?.about);
-    formData.append('about_title', data?.about_title);
-    formData.append('about_subtitle', data?.about_subtitle);
+    formData.append('survey_title', data?.survey_title);
     formData.append('settingable_type', 'nbns');
     formData.append('settingable_id', 1);
-    if (data?.about_image?.length > 0) {
-      formData.append('about_image', data?.about_image?.[0]);
+    if (data?.survey_banner?.length > 0) {
+      formData.append('survey_banner', data?.survey_banner?.[0]);
     }
     dispatch(postSiteSettings(formData, { settingable_type: 'nbns', settingable_id: 1 }));
   };
@@ -50,21 +43,16 @@ const AboutForm = () => {
         <Grid container spacing={2}>
           <Grid item sm={12}>
             <FileUploader
-              title="About Image"
-              imageText="Resolution: height: 525 x width: 500"
-              name="about_image"
+              title="Survey Banner"
+              imageText="Resolution: height: 1400 x width: 400"
+              name="survey_banner"
               label="Select Photo"
-              image={site_settings?.about_image}
+              image={site_settings?.survey_banner}
+              widthFull
             />
           </Grid>
           <Grid item sm={12}>
-            <CustomInput name="about_title" label="About Title" required />
-          </Grid>
-          <Grid item sm={12}>
-            <CustomInput name="about_subtitle" label="About Subtitle" required />
-          </Grid>
-          <Grid item sm={12}>
-            <CustomTextArea name="about" label="About Description" required rows={15} />
+            <CustomInput name="survey_title" label="Survey Title" required />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
@@ -77,4 +65,4 @@ const AboutForm = () => {
   );
 };
 
-export default AboutForm;
+export default SurveyForm;

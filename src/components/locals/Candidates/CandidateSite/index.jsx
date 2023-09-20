@@ -41,15 +41,15 @@ const CandidateSite = () => {
 
   return (
     <div className="main_content">
-      <div className="container">
-        <div className="candidate_page">
-          <div
-            className="candidate_page_banner"
-            style={{
-              backgroundImage: `url('${single_user?.profile_banner}')`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover'
-            }}></div>
+      <div style={{}}>
+        <div
+          className="candidate_page_banner"
+          style={{
+            backgroundImage: `url('${single_user?.profile_banner}')`,
+            backgroundPosition: 'center',
+            backgroundSize: 'cover'
+          }}></div>
+        <div className="container">
           <div className="candidate_page_lower_banner">
             <div className="candidate_page_lower_banner_wrapper">
               <div className="candidate_page_lower_banner_wrapper_box">
@@ -84,6 +84,10 @@ const CandidateSite = () => {
               </div>
             </div>
           </div>
+        </div>
+      </div>
+      <div className="container">
+        <div className="candidate_page">
           <div>
             <hr />
           </div>

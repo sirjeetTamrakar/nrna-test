@@ -7,6 +7,7 @@ import * as React from 'react';
 import About from './about';
 import Mission from './mission';
 import SettingsData from './settingsData';
+import Survey from './survey';
 import Tagline from './tagline';
 import Vision from './vision';
 
@@ -58,6 +59,7 @@ const BasicTabs = () => {
           <Tab label="Mission" {...a11yProps(2)} />
           <Tab label="Vision" {...a11yProps(3)} />
           <Tab label="Tagline" {...a11yProps(4)} />
+          <Tab label="Survey" {...a11yProps(5)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -74,6 +76,9 @@ const BasicTabs = () => {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
         <Tagline />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={5}>
+        <Survey />
       </CustomTabPanel>
     </Box>
   );

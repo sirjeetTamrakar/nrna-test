@@ -44,7 +44,10 @@ const CommitteeMembers = () => {
   );
   const [filteredTeams, setFilteredTeams] = useState();
   console.log({ filteredTeams });
-  const [selected, setSelected] = useState(location?.state ? location?.state : department?.[0]?.id);
+  const [selected, setSelected] = useState();
+  useEffect(() => {
+    setSelected(location?.state ? location?.state : department?.[0]?.id);
+  }, [location?.state, department]);
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { selected, filteredTeams });
   useEffect(() => {

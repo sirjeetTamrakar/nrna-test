@@ -1,7 +1,4 @@
 import { Box, CircularProgress } from '@mui/material';
-import CandidateImage1 from 'assets/images/candidate1.png';
-import CandidateImage2 from 'assets/images/candidate2.png';
-import CandidateImage3 from 'assets/images/candidate3.png';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBusiness, getBusinessCategory } from 'redux/homepage/actions';
@@ -13,11 +10,14 @@ const Business = () => {
   const { business, business_category, business_loading, business_category_loading } = useSelector(
     (state) => state.homepage
   );
-  console.log({ business });
+  console.log('dasldsalda', business_category?.[0]?.id);
   const [filteredBusiness, setFilteredBusiness] = useState();
 
-  const [selected, setSelected] = useState(business_category?.[0]?.id);
+  const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
+  useEffect(() => {
+    setSelected(business_category?.[0]?.id);
+  }, [business_category]);
 
   console.log({ selected });
 
@@ -31,63 +31,11 @@ const Business = () => {
       const newBusiness = business?.filter(
         (list) =>
           list?.fullname?.toLowerCase()?.includes(search?.toLowerCase()) &&
-          list?.business_category_id == Number(selected)
+          Number(list?.business_category_id) === Number(selected)
       );
       setFilteredBusiness(newBusiness);
     }
   }, [search, business, selected, business_category]);
-
-  const nccItems = [
-    {
-      id: '1',
-      image: CandidateImage1,
-      name: 'Restaurant',
-      username: 'portugal'
-    },
-    {
-      id: 2,
-      image: CandidateImage2,
-      name: 'Hotels',
-      username: 'usa'
-    },
-    { id: 3, image: CandidateImage3, name: 'IT Company', username: 'uk' },
-    {
-      id: 2,
-      image: CandidateImage2,
-      name: 'Laundry',
-      username: 'usa'
-    }
-  ];
-  const category = [
-    {
-      title: 'Tech & IT',
-      slug: 'advisory_board'
-    },
-    {
-      title: 'Consultancy',
-      slug: 'board_of_directors'
-    },
-    {
-      title: 'Construction',
-      slug: 'general_members'
-    },
-    {
-      title: 'Restaurant',
-      slug: 'task_force'
-    },
-    {
-      title: 'Travel & Tours',
-      slug: 'travel'
-    },
-    {
-      title: 'Education',
-      slug: 'education'
-    },
-    {
-      title: 'Entertainment',
-      slug: 'entertainment'
-    }
-  ];
 
   return (
     <>

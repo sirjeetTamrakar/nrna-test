@@ -12,8 +12,12 @@ const OurTeam = () => {
   );
   const [filteredTeam, setFilteredTeam] = useState();
 
-  const [selected, setSelected] = useState(department?.[0]?.id);
+  const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
+
+  useEffect(() => {
+    setSelected(department?.[0]?.id);
+  }, [department]);
 
   useEffect(() => {
     dispatch(getTeams());
