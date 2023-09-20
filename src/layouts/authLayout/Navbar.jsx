@@ -3,12 +3,21 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SegmentIcon from '@mui/icons-material/Segment';
 import { Box } from '@mui/material';
 import Logo from 'assets/images/nrna.png';
+import BusinessIcon from 'assets/navicons/business.svg';
+import EventIcon from 'assets/navicons/events.svg';
+import HomeIcon from 'assets/navicons/home.svg';
+import NBNSIcon from 'assets/navicons/nbns.svg';
+import NCCIcon from 'assets/navicons/ncc.svg';
+import NewsIcon from 'assets/navicons/news.svg';
+import TeamIcon from 'assets/navicons/team.svg';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import { Link, useNavigate } from 'react-router-dom';
 import { isLoggedIn } from 'utils';
+import useStyles from './styles';
+
 function Navbar({ isHomePage, currentUser, sticky }) {
   const navigate = useNavigate();
   const openNav = () => {
@@ -18,6 +27,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   const closeNav = () => {
     // Implement closeNav logic here
   };
+  const classes = useStyles();
 
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
@@ -36,34 +46,52 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 <div className="logo_wrapper">
                   <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
                 </div>
-                <div className="main-name">
-                  <h4>{'NRNA'}</h4>
-                </div>
               </div>
             </Link>
 
             <ul className="nav_wrapper">
-              <li className="d-none d-lg-block">
-                <Link to="/">Home</Link>
+              <li className={` d-none d-lg-block`}>
+                <Link to="/" className={classes.navIcon}>
+                  <img src={HomeIcon} />
+                  <span>Home</span>
+                </Link>
               </li>
               <li className="d-none d-lg-block">
-                <Link to="/nbns">NBNS</Link>
+                <Link to="/nbns" className={classes.navIcon}>
+                  <img src={NBNSIcon} />
+                  <span>NBNS</span>
+                </Link>
               </li>
               <li className="d-none d-lg-block">
-                <Link to="/our-team">Our Team</Link>
+                <Link to="/our-team" className={classes.navIcon}>
+                  <img src={TeamIcon} />
+                  <span>Our Team</span>
+                </Link>
               </li>
 
               <li className="d-none d-lg-block">
-                <Link to="/business">Business</Link>
+                <Link to="/business" className={classes.navIcon}>
+                  <img src={BusinessIcon} />
+                  <span>Business</span>
+                </Link>
               </li>
               <li className="d-none d-lg-block">
-                <Link to="/ncc">NCC</Link>
+                <Link to="/ncc" className={classes.navIcon}>
+                  <img src={NCCIcon} />
+                  <span>NCC</span>
+                </Link>
               </li>
               <li className="d-none d-lg-block">
-                <Link to="/news">News</Link>
+                <Link to="/news" className={classes.navIcon}>
+                  <img src={NewsIcon} />
+                  <span>News</span>
+                </Link>
               </li>
               <li className="d-none d-lg-block">
-                <Link to="/events">Event</Link>
+                <Link to="/events" className={classes.navIcon}>
+                  <img src={EventIcon} />
+                  <span>Events</span>
+                </Link>
               </li>
 
               <li>

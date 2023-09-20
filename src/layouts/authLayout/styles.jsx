@@ -10,6 +10,12 @@ const authWrapperStyles = {
 };
 
 const useStyles = makeStyles((theme) => ({
+  navIcon: {
+    display: 'flex',
+    alignItems: 'center',
+    columnGap: '5px',
+    lineHeight: '30px'
+  },
   authContainer: {
     display: 'flex',
     flexDirection: 'column',
