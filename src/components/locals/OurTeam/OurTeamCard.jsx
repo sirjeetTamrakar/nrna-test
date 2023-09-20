@@ -6,7 +6,11 @@ const OurTeamCard = ({ candidate }) => {
       <div className="img_container">
         <img src={candidate?.member?.profile_image} alt="" />
       </div>
-      <div className="political_item_title text-center">{candidate?.member?.name}</div>
+      <div className="political_item_title text-center">
+        {candidate?.member?.full_name !== ''
+          ? candidate?.member?.full_name
+          : candidate?.member?.username}
+      </div>
       <div className="political_item_subtitle text-center">{candidate?.designation}</div>
     </Link>
   );

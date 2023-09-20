@@ -11,7 +11,7 @@ const OurTeamForm = () => {
   const { departmentData } = useSelector((state) => state.department);
 
   const createdByUsers = users?.data?.map((item) => ({
-    label: item?.name,
+    label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
   }));
   const department = departmentData?.data?.map((item) => ({

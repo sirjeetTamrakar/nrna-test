@@ -20,7 +20,8 @@ const ProfileForm = () => {
 
   const submitHandler = (data) => {
     const formData = new FormData();
-    formData.append('name', data?.name);
+    formData.append('first_name', data?.first_name);
+    formData.append('last_name', data?.last_name);
     formData.append('address', data?.address);
     formData.append('phone', data?.phone);
     formData.append('facebook_url', data?.facebook_url);
@@ -42,7 +43,8 @@ const ProfileForm = () => {
 
   useEffect(() => {
     if (user) {
-      setValue('name', user?.name);
+      setValue('first_name', user?.first_name);
+      setValue('last_name', user?.last_name);
       setValue('address', user?.address);
       setValue('phone', user?.phone);
       setValue('facebook_url', user?.facebook_url);
@@ -75,13 +77,16 @@ const ProfileForm = () => {
               widthFull
             />
           </Grid>
-          <Grid item sm={4}>
-            <CustomInput name="name" label="Name" required />
+          <Grid item sm={6}>
+            <CustomInput name="first_name" label="Firstname" required />
           </Grid>
-          <Grid item sm={4}>
+          <Grid item sm={6}>
+            <CustomInput name="last_name" label="Lastname" required />
+          </Grid>
+          <Grid item sm={6}>
             <CustomInput name="phone" label="Phone" />
           </Grid>
-          <Grid item sm={4}>
+          <Grid item sm={6}>
             <CustomInput name="address" label="Address" />
           </Grid>
           <Grid item sm={6}>

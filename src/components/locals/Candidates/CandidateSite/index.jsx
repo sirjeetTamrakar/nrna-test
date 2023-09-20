@@ -57,7 +57,9 @@ const CandidateSite = () => {
                   <img src={single_user?.profile_image} alt="" />
                 </div>
                 <div className="candidate_name_box">
-                  <div className="candidate_name">{single_user?.name}</div>
+                  <div className="candidate_name">
+                    {single_user?.full_name !== '' ? single_user?.full_name : single_user?.username}
+                  </div>
                   <div className="candidate_designation">{single_user?.role_name ?? ''}</div>
                 </div>
               </div>

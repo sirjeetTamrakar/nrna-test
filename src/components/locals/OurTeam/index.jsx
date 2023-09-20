@@ -11,7 +11,7 @@ const OurTeam = () => {
     (state) => state.homepage
   );
   const [filteredTeam, setFilteredTeam] = useState();
-
+  console.log({ filteredTeam });
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
 
@@ -28,7 +28,7 @@ const OurTeam = () => {
     if (teams) {
       const newTeam = teams?.filter(
         (list) =>
-          list?.member?.name?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          list?.member?.username?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.our_team_category_id == Number(selected)
       );
       setFilteredTeam(newTeam);

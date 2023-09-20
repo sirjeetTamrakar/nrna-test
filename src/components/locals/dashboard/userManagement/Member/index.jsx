@@ -20,8 +20,8 @@ import { changeDateFormat } from 'utils/dateUtils';
 import { changeApproval, changeStatus, changeUserRole, getAllUsers } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import View from './View';
 import { useStyles } from './styles';
+import View from './View';
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
@@ -46,7 +46,10 @@ const Member = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.name}</Typography>
+            <Typography variant="body2">
+              {row?.first_name && row?.first_name} {row?.first_name && row?.last_name}{' '}
+              {!row?.first_name && row?.username}
+            </Typography>
             <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
           </Box>
         );

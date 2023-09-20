@@ -18,7 +18,8 @@ const Register = ({ loginOpen, handleClose }) => {
   const [agree, setAgree] = useState(false);
   const { register_loading } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
-    name: Yup.string().required('Name is Required'),
+    first_name: Yup.string().required('Firstname is Required'),
+    last_name: Yup.string().required('Lastname is Required'),
     email: Yup.string().email().required('Email is required'),
     country_of_residence: Yup.string().required('Country of Residence'),
     password: Yup.string()
@@ -69,7 +70,8 @@ const Register = ({ loginOpen, handleClose }) => {
           <div className="title">Join Us</div>
           <div className="subtitle">Register to the website to browse more</div>
           <Box display="flex" flexDirection="column" rowGap={`12px`}>
-            <CustomInput name="name" label="Name" />
+            <CustomInput name="first_name" label="Firstname" />
+            <CustomInput name="last_name" label="Lastname" />
             <CustomInput name="email" label="Email" type="email" />
             <CustomAutoComplete
               name="country_of_residence"

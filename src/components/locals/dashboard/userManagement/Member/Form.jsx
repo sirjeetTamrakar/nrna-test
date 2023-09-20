@@ -32,9 +32,12 @@ const MemberForm = ({ disabled }) => {
     <Box className={classes.root}>
       <Grid container spacing={2}>
         <Grid item sm={6}>
-          <CustomInput name="name" label="Name" required />
+          <CustomInput name="first_name" label="Firstname" required />
         </Grid>
         <Grid item sm={6}>
+          <CustomInput name="last_name" label="Lastname" required />
+        </Grid>
+        <Grid item sm={12}>
           <CustomInput
             disabled={disabled ? true : false}
             name="email"
