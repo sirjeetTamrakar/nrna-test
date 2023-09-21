@@ -59,7 +59,7 @@ const Form = () => {
           <CustomInput name="email" label="Email" type="email" required />
         </Grid>
         <Grid item sm={6}>
-          <CustomInput name="phone" label="Phone" required />
+          <CustomInput name="phone" label="Phone" type="text" required />
         </Grid>
         {/* <Grid item sm={12}>
           <FileUploader
@@ -97,11 +97,7 @@ const AdviceForm = () => {
     // country_of_resident: Yup.string().required('Please select a country'),
     email: Yup.string().email().required('Please enter email'),
     advice: Yup.string().required('Please write your advice before submitting'),
-    phone: Yup.string()
-      .typeError('It must be a number')
-      .required('Phone number is required')
-      .min(10)
-      .max(10)
+    phone: Yup.string().required('Phone number is required').min(10).max(10)
   });
   return (
     <CustomFormProvider

@@ -17,7 +17,7 @@ export const postNCCApi = (data) => {
 
 // update ncc
 export const updateNCCApi = (data, slug) => {
-  return axiosInstance().put(`/admin/ncc/${slug}`, data);
+  return axiosInstance().post(`/admin/ncc/${slug}`, data);
 };
 
 // delete ncc
@@ -74,8 +74,9 @@ export const getTeamsApi = (data) => {
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
   const id = data?.id ? `&ncc_id=${data?.id}` : '';
+  const country = data?.country ? `&country=${data?.country}` : '';
 
-  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}${id}`);
+  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}${id}${country}`);
 };
 
 // post our teams
@@ -161,7 +162,7 @@ export const postBannerApi = (data) => {
 
 // update banner
 export const updateBannerApi = (banner_id, data) => {
-  return axiosInstance().patch(`/admin/banners/${banner_id}`, data);
+  return axiosInstance().post(`/admin/banners/${banner_id}`, data);
 };
 
 // delete banner

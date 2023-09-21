@@ -20,20 +20,27 @@ const Register = ({ handleClose }) => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
+    let typeData;
     formData.append('title', data?.title);
     formData.append('subtitle', data?.subtitle);
     formData.append('description', data?.description);
     formData.append('link', data?.link);
     formData.append('status', 1);
+    // if (user?.role_name === Roles.NCC) {
+    //   formData.append('bannerable_type', 'ncc');
+    //   formData.append('bannerable_id', user?.ncc?.id);
+    // }
+
     if (user?.role_name === Roles.NCC) {
       formData.append('bannerable_type', 'ncc');
       formData.append('bannerable_id', user?.ncc?.id);
+      typeData = { page: 1, bannerable_type: 'ncc', bannerable_id: user?.ncc?.id };
     }
 
     if (data?.image?.length > 0) {
       formData.append('image', data?.image?.[0]);
     }
-    dispatch(postBanner(formData, handleClose));
+    dispatch(postBanner(formData, typeData, handleClose));
   };
 
   return (

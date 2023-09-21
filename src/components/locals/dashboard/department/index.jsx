@@ -78,7 +78,7 @@ const Department = () => {
   const refetch = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+      typeData = { id: user?.ncc?.id, page: page + 1, pagination_limit: rowsPerPage };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }

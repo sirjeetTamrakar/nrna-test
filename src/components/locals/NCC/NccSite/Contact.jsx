@@ -18,7 +18,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
   const validationSchema = Yup.object({
     name: Yup.string().required('Please enter name'),
     email: Yup.string().required('Please enter email'),
-    phone: Yup.string().required('Please enter phone'),
+    phone: Yup.string().required('Please enter phone').min(10).max(10),
     message: Yup.string().required('Please enter description')
   });
 

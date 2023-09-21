@@ -1,7 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getAllEvents, getEventsCategory, getSingleEvent } from 'redux/homepage/actions';
+import {
+  getAllEvents,
+  getEventsCategory,
+  getSingleEvent,
+  getSingleNCC
+} from 'redux/homepage/actions';
 import SecondaryNav from './SecondaryNav';
 
 const SingleEvent = () => {
@@ -13,7 +18,9 @@ const SingleEvent = () => {
 
   console.log('ccccccccxxvvv', { data });
 
-  const { single_event, events, events_category } = useSelector((state) => state.homepage);
+  const { single_event, events, events_category, single_ncc } = useSelector(
+    (state) => state.homepage
+  );
   const recentEvent = events?.filter((list) => list?.slug !== slug).slice(0, 4);
   console.log('xxxxxxxxxx', { recentEvent });
 
@@ -29,6 +36,10 @@ const SingleEvent = () => {
     dispatch(getAllEvents({ ncc_id: 30 }));
     dispatch(getEventsCategory());
   }, [slug]);
+  useEffect(() => {
+    dispatch(getSingleNCC(ncc));
+  }, [ncc]);
+
   return (
     <>
       <SecondaryNav
@@ -37,6 +48,7 @@ const SingleEvent = () => {
         setSelected={setSelected}
         selected={selected}
         events
+        color={single_ncc?.color}
       />
       <div className="main_content">
         <div className="container">

@@ -86,14 +86,14 @@ const SingleNews = () => {
               </Box>
             ) : (
               <>
-                <div className="single_news_page_title">{single_news?.title}</div>
-
                 <div className="single_news_page_imgwrap">
                   <img src={single_news?.feature_image} alt={single_news?.title} />
                 </div>
+                <div className="single_news_page_title">{single_news?.title}</div>
+
                 <div className="single_news_page_date">
-                  {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} |{' '}
-                  {single_news?.created_by?.name}
+                  {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Created by:{' '}
+                  {single_news?.created_by?.full_name}
                 </div>
                 {/* <div className="single_news_page_short">
               Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum

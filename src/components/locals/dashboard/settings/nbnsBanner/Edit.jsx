@@ -5,9 +5,9 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import MemberForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { updateNBNSBanner } from './redux/actions';
 import { useStyles } from './styles';
+import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
@@ -20,6 +20,7 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('description', data?.description);
     formData.append('link', data?.link);
     formData.append('status', 1);
+    formData.append('_method', 'PUT');
 
     if (data?.image?.length > 0) {
       formData.append('image', data?.image?.[0]);

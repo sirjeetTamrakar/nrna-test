@@ -17,7 +17,7 @@ const NewsForm = ({ featureImage }) => {
   const { categoryData } = useSelector((state) => state.news);
 
   const createdByUsers = users?.data?.map((item) => ({
-    label: item?.name,
+    label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
   }));
 

@@ -59,7 +59,7 @@ const Register = ({ loginOpen, handleClose }) => {
 
   const countryList = countries_list?.map((item, index) => ({
     label: item,
-    value: index
+    value: item
   }));
   return (
     <CustomFormProvider

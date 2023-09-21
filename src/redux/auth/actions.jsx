@@ -38,7 +38,7 @@ export const loginUser = (data, handleSuccess) => (dispatch) => {
       handleSuccess && handleSuccess();
     })
     .catch((error) => {
-      // errorToast(error);
+      errorToast(error);
       dispatch({ type: actions.LOGIN_ERROR });
     });
 };
@@ -99,6 +99,7 @@ export const registerUser = (data, handleSuccess) => (dispatch) => {
     .then((res) => {
       dispatch({ type: actions.REGISTER_USER_SUCCESS, payload: res.data.data });
       handleSuccess && handleSuccess();
+      successToast('User account created Successfully');
     })
     .catch((error) => {
       errorToast(error);

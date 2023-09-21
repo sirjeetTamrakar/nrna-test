@@ -14,10 +14,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { changeTeamsStatus, deleteTeams, getTeams } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const OurTeam = () => {
   const dispatch = useDispatch();
@@ -35,7 +35,7 @@ const OurTeam = () => {
     (state) => state.teams
   );
   const { user } = useSelector((state) => state.auth);
-
+  console.log('ccdcddddee', { user });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -172,7 +172,12 @@ const OurTeam = () => {
   const refetch = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+      typeData = {
+        id: user?.ncc?.id,
+        country: user?.ncc?.country_name,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }

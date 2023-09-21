@@ -20,13 +20,13 @@ export const getBanner = (data) => (dispatch) => {
     });
 };
 
-export const postBanner = (data, handleSuccess) => (dispatch) => {
+export const postBanner = (data, typeData, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.POST_BANNER_BEGIN });
   postBannerApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_BANNER_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getBanner());
+      dispatch(getBanner(typeData));
       successToast('Your message sent successfully');
     })
     .catch((error) => {
@@ -52,7 +52,7 @@ export const deleteBanner = (banner_id, handleSuccess) => async (dispatch) => {
   }
 };
 
-export const updateBanner = (banner_id, data, handleSuccess) => async (dispatch) => {
+export const updateBanner = (banner_id, data, typeData, handleSuccess) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_BANNER_BEGIN });
 
   try {
@@ -61,7 +61,7 @@ export const updateBanner = (banner_id, data, handleSuccess) => async (dispatch)
     dispatch({
       type: actions.UPDATE_BANNER_SUCCESS
     });
-    dispatch(getBanner());
+    dispatch(getBanner(typeData));
     successToast('Banner has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_BANNER_ERROR });

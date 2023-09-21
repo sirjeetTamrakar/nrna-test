@@ -15,10 +15,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -53,7 +53,9 @@ const News = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.created_by?.name}</Typography>
+            <Typography variant="body2">
+              {row?.created_by?.full_name ? row?.created_by?.full_name : row?.created_by?.username}
+            </Typography>
             <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
           </Box>
         );
@@ -93,6 +95,17 @@ const News = () => {
       minWidth: 150,
       field: (row) => {
         return <Box>{row?.approved_by ? row?.approved_by : '-'}</Box>;
+      }
+    },
+    {
+      title: 'News category',
+      minWidth: 120,
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">{row?.news_category?.title}</Typography>
+          </Box>
+        );
       }
     },
     {
