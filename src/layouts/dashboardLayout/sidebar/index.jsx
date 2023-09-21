@@ -78,18 +78,6 @@ export default function Sidebar() {
           <DrawerHeader>
             <Box className={classes.drawerHeader}>
               <img src={Logo} />
-              <Box>
-                <Typography
-                  fontWeight={600}
-                  fontSize={'medium'}
-                  sx={{ lineHeight: 1, paddingBottom: '2px' }}>
-                  NRNA Global
-                </Typography>
-
-                <Typography fontWeight={500} fontSize={'11px'}>
-                  {user?.name}
-                </Typography>
-              </Box>
             </Box>
           </DrawerHeader>
 

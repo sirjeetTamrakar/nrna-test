@@ -52,7 +52,7 @@ const Contact = () => {
             <div className="contact_content">
               <div className="contact_content_title">Contact Information</div>
               <div className="contact_content_subtitle">
-                Fill up the form to get in touch with the candidate and fill up the form.
+                Fill up the form to get in touch with the NRNA Global team.
               </div>
               <ul className="contact_list">
                 <li>

@@ -7,10 +7,10 @@ const useStyles = makeStyles((theme) => ({
   drawerHeader: {
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     columnGap: '7px',
     width: '100%',
-    '& img': { height: '35px', width: '35px', objectFit: 'contain' }
+    '& img': { height: '35px', width: 'auto', objectFit: 'contain' }
   },
   drawerContent: {
     display: 'flex',
