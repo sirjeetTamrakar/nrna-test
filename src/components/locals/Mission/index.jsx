@@ -13,7 +13,7 @@ const Mission = () => {
           </div>
           <div className="col-lg-7 col-xl-7" id="about-section">
             <div className="about_title">Mission</div>
-            <div className="about_description">
+            <div className="about_description_single">
               <div dangerouslySetInnerHTML={{ __html: settings?.mission }}></div>
             </div>
           </div>

@@ -17,7 +17,7 @@ const NCCForm = ({ logo }) => {
   }));
 
   const createdByUsers = users?.data?.map((item) => ({
-    label: item?.name,
+    label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
   }));
   return (

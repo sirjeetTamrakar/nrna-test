@@ -7,9 +7,9 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { updateNews } from './redux/actions';
 import { useStyles } from './styles';
+import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
@@ -20,6 +20,7 @@ const EditForm = ({ detail, handleClose }) => {
   const [typeData, setTypeData] = useState();
 
   const onSubmit = (data) => {
+    console.log('ssssssssdd', { data });
     const formData = new FormData();
     formData.append('title', data?.title);
     formData.append('description', data?.description);

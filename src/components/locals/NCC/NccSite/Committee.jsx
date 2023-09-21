@@ -1,38 +1,10 @@
-import CandidateImage1 from 'assets/images/candidate1.png';
-import CandidateImage2 from 'assets/images/candidate2.png';
-import CandidateImage3 from 'assets/images/candidate3.png';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
-import { getDepartment, getTeams } from 'redux/homepage/actions';
+import { getDepartment, getSingleNCC, getTeams } from 'redux/homepage/actions';
 import SecondaryNav from './SecondaryNav';
 
 const CommitteeMembers = () => {
-  const candidates = [
-    {
-      id: '1',
-      image: CandidateImage1,
-      name: 'John Doe',
-      username: 'john',
-      designation: 'Manager'
-    },
-    {
-      id: 2,
-      image: CandidateImage2,
-      name: 'Jason Momoa',
-      username: 'jason',
-      designation: 'Manager'
-    },
-
-    {
-      id: 3,
-      image: CandidateImage3,
-      name: 'Chris Bumsterd',
-      username: 'chris',
-      designation: 'Manager'
-    }
-  ];
-
   const dispatch = useDispatch();
 
   const location = useLocation();
@@ -44,12 +16,13 @@ const CommitteeMembers = () => {
   );
   const [filteredTeams, setFilteredTeams] = useState();
   console.log({ filteredTeams });
+  const { ncc } = useParams();
   const [selected, setSelected] = useState();
   useEffect(() => {
     setSelected(location?.state ? location?.state : department?.[0]?.id);
   }, [location?.state, department]);
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { selected, filteredTeams });
+  console.log('dsadddddddcxx', { selected, filteredTeams, single_ncc });
   useEffect(() => {
     dispatch(getTeams({ ncc_id: single_ncc?.id }));
     dispatch(getDepartment({ ncc_id: single_ncc?.id }));
@@ -65,8 +38,10 @@ const CommitteeMembers = () => {
       setFilteredTeams(newTeams);
     }
   }, [search, teams, selected, department]);
+  useEffect(() => {
+    dispatch(getSingleNCC(ncc));
+  }, [ncc]);
 
-  const { ncc } = useParams();
   console.log('cxcxcxcxcxcx', { ncc });
 
   // const { ncc } = useParams();
@@ -80,6 +55,7 @@ const CommitteeMembers = () => {
         setSearch={setSearch}
         id={ncc}
         teams
+        color={single_ncc?.color}
       />
       <div className="main_content">
         <section className="all_events">

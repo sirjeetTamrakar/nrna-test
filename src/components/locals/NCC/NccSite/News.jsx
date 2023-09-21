@@ -12,7 +12,7 @@ const News = () => {
   console.log({ location });
 
   const { user } = useSelector((state) => state.auth);
-  const { news, news_loading, news_category, news_category_loading } = useSelector(
+  const { news, news_loading, news_category, news_category_loading, single_ncc } = useSelector(
     (state) => state.homepage
   );
   const { ncc } = useParams();
@@ -29,7 +29,7 @@ const News = () => {
     dispatch(getNewsCategory());
   }, []);
   console.log({ ncc });
-  const { single_ncc } = useSelector((state) => state.homepage);
+
   console.log({ single_ncc });
   useEffect(() => {
     dispatch(getSingleNCC(ncc));

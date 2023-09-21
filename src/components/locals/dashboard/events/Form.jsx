@@ -63,7 +63,14 @@ const EventForm = ({ image }) => {
           </div>
         </Grid>
         <Grid item sm={6}>
-          <CustomInput name="event_date" label="Event date" type="date" />
+          <CustomInput
+            name="event_date"
+            label="Event date"
+            type="date"
+            inputProps={{
+              inputProps: { min: '2023-09-21' }
+            }}
+          />
         </Grid>
         <Grid item sm={6}>
           <CustomInput name="event_time" label="Event time" type="time" />
@@ -75,7 +82,6 @@ const EventForm = ({ image }) => {
             name="feature_image"
             label="Select Photo"
             widthFull
-            image={image}
           />
         </Grid>
         <Grid item sm={12}>

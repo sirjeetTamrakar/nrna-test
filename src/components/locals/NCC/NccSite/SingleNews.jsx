@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getAllNews, getNewsCategory, getSingleNews } from 'redux/homepage/actions';
+import { getAllNews, getNewsCategory, getSingleNCC, getSingleNews } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import SecondaryNav from './SecondaryNav';
 
@@ -13,7 +13,7 @@ const SingleNews = () => {
 
   console.log('ccccccccxxxcccc', { ncc });
 
-  const { news, news_category, single_news, single_news_loading } = useSelector(
+  const { news, news_category, single_news, single_news_loading, single_ncc } = useSelector(
     (state) => state.homepage
   );
   const recentNews = news?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
@@ -29,6 +29,9 @@ const SingleNews = () => {
     dispatch(getAllNews({ type: 'ncc', id: user?.id }));
     dispatch(getNewsCategory());
   }, [slug]);
+  useEffect(() => {
+    dispatch(getSingleNCC(ncc));
+  }, [ncc]);
   return (
     <>
       <SecondaryNav
@@ -37,18 +40,20 @@ const SingleNews = () => {
         setSelected={setSelected}
         selected={selected}
         news
+        color={single_ncc?.color}
       />
 
       <div className="main_content">
         <div className="container">
           <div className="single_event_page">
             <div className="single_event_page_content">
-              <div className="single_event_page_title">{single_news?.title}</div>
-              <div className="single_event_page_date">
-                {changeDateFormat(single_news?.created_at)}
-              </div>
               <div className="single_event_page_imgwrap">
                 <img src={single_news?.feature_image} alt={single_news?.title} />
+              </div>
+              <div className="single_event_page_title">{single_news?.title}</div>
+              <div className="single_event_page_date">
+                {changeDateFormat(single_news?.created_at)} | Created by:{' '}
+                {single_news?.created_by?.full_name}
               </div>
               <div className="single_event_page_short">
                 <div

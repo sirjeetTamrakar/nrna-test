@@ -40,7 +40,7 @@ const Contact = () => {
   const validationSchema = Yup.object({
     name: Yup.string().required('Please enter name'),
     email: Yup.string().required('Please enter email'),
-    phone: Yup.number().typeError('Please enter number only').required('Please enter phone number'),
+    phone: Yup.string().required('Please enter phone number').min(10).max(10),
     message: Yup.string().required('Please enter message')
   });
 

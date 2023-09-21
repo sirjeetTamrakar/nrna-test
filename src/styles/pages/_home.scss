@@ -62,6 +62,14 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+  &_description_single {
+    font-size: 15px;
+    color: $secondary-light-text;
+    // display: -webkit-box;
+    // -webkit-line-clamp: 8;
+    // -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
   .view_more {
     color: #ffffff;
     font-size: 13px;

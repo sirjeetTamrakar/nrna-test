@@ -29,7 +29,7 @@ const Form = ({ defaultValues }) => {
             <CustomInput name="email" label="Email" type="email" required />
           </Grid>
           <Grid item sm={6}>
-            <CustomInput name="phone" label="Phone Number" type="number" />
+            <CustomInput name="phone" label="Phone Number" type="text" />
           </Grid>
           <Grid item sm={12}>
             <CustomInput name="subject" label="Subject" required />
@@ -69,7 +69,8 @@ const ContactForm = () => {
     name: Yup.string().required('Please enter your name'),
     subject: Yup.string().required('Please enter subject for the message'),
     email: Yup.string().email().required('Please enter your email'),
-    message: Yup.string().required('Please enter message')
+    message: Yup.string().required('Please enter message'),
+    phone: Yup.string().required('Please enter phone').min(10).max(10)
   });
 
   return (

@@ -80,7 +80,10 @@ const CustomInput = ({
               error={fieldError ? true : false}
               disabled={disabled}
               helperText={fieldError}
-              inputProps={inputProps}
+              InputProps={inputProps}
+              // InputProps={{
+              //   inputProps: { min: '2023-09-21' }
+              // }}
               type={type}
               select={select}
               onWheel={(e) => e.target.blur()}>

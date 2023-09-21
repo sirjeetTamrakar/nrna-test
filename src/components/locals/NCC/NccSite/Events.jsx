@@ -50,6 +50,7 @@ const Events = () => {
         setSearch={setSearch}
         id={ncc}
         events
+        color={single_ncc?.color}
       />
       <div className="main_content">
         <section className="all_events">
