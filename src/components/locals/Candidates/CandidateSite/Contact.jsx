@@ -116,7 +116,7 @@ const FormComponent = ({ singleUser, loading }) => {
             <CustomInput name="email" label="Email" type="email" placeholder="Enter your email" />
           </Grid>
           <Grid item sm={6}>
-            <CustomInput name="phone" type="number" label="Phone" placeholder="Enter your phone" />
+            <CustomInput name="phone" type="text" label="Phone" placeholder="Enter your phone" />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea

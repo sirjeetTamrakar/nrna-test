@@ -47,7 +47,7 @@ const MemberForm = ({ disabled }) => {
           />
         </Grid>
         <Grid item sm={6}>
-          <CustomInput name="phone" label="Phone" type="number" />
+          <CustomInput name="phone" label="Phone" type="text" />
         </Grid>
         <Grid item sm={6}>
           <CustomInput name="city" label="City" />

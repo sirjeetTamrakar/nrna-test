@@ -15,16 +15,6 @@ const Events = () => {
   );
 
   const [filteredEvents, setFilteredEvents] = useState();
-  const [filteredHomeEvents, setFilteredHomeEvents] = useState();
-
-  console.log({ filteredEvents });
-
-  useEffect(() => {
-    if (events) {
-      const homeEvents = events?.filter((item) => !item?.ncc_id);
-      setFilteredHomeEvents(homeEvents);
-    }
-  }, [events]);
 
   const [selected, setSelected] = useState();
   useEffect(() => {
@@ -39,12 +29,12 @@ const Events = () => {
 
   useEffect(() => {
     if (events) {
-      const newEvents = filteredHomeEvents?.filter(
+      const newEvents = events?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.event_category_id == Number(selected)
       );
-      setFilteredEvents(selected === 'ALL' ? filteredHomeEvents : newEvents);
+      setFilteredEvents(selected === 'ALL' ? events : newEvents);
     }
   }, [search, events, selected, events_category]);
 

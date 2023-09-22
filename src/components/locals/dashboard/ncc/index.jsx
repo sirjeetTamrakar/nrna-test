@@ -13,10 +13,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { changeNCCStatus, deleteNCC, getNCC } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const NCC = () => {
   const dispatch = useDispatch();
@@ -216,7 +216,7 @@ const NCC = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Edit data={detail} handleClose={formOpenFunction} />
+          <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}

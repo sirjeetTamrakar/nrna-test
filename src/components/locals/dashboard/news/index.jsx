@@ -134,7 +134,7 @@ const News = () => {
     if (user?.role_name == Roles?.Member) {
       typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
     dispatch(deleteNews(slug, deleteOpenFunction, typeData));
   };
@@ -149,7 +149,7 @@ const News = () => {
     if (user?.role_name == Roles?.Member) {
       typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
     dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
   };

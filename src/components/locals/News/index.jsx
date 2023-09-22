@@ -16,22 +16,9 @@ const News = () => {
   );
 
   const [filteredNews, setFilteredNews] = useState();
-  const [filteredHomeNews, setFilteredHomeNews] = useState();
 
-  useEffect(() => {
-    if (news) {
-      const homeNews = news?.data?.filter(
-        (item) =>
-          item?.newsable_type !== 'ncc' &&
-          item?.newsable_type !== 'member' &&
-          item?.newsable_type !== 'nbns'
-      );
-      setFilteredHomeNews(homeNews);
-    }
-  }, [news]);
   const [selected, setSelected] = useState();
   console.log('selected------', { selected });
-  console.log('filteredHomeNews', { filteredHomeNews });
 
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
@@ -45,13 +32,13 @@ const News = () => {
   console.log({ selected });
 
   useEffect(() => {
-    if (filteredHomeNews) {
-      const newNews = filteredHomeNews?.filter(
+    if (news) {
+      const newNews = news?.data?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.news_category_id == Number(selected)
       );
-      setFilteredNews(selected === 'ALL' ? filteredHomeNews : newNews);
+      setFilteredNews(selected === 'ALL' ? news?.data : newNews);
     }
   }, [search, news, selected, news_category]);
 

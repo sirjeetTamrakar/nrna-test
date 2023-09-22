@@ -63,7 +63,7 @@ const SettingsDataForm = () => {
             <CustomInput name="email" label="Email" type="email" required />
           </Grid>
           <Grid item sm={12}>
-            <CustomInput name="phone" label="Phone" type="number" required />
+            <CustomInput name="phone" label="Phone" type="text" required />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

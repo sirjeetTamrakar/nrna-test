@@ -20,6 +20,8 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('description', data?.description);
     formData.append('link', data?.link);
     formData.append('status', 1);
+    formData.append('bannerable_type', 'nbns');
+    formData.append('bannerable_id', 1);
     formData.append('_method', 'PUT');
 
     if (data?.image?.length > 0) {

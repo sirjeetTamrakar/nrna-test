@@ -10,18 +10,7 @@ import { getBanner } from 'redux/homepage/actions';
 const Homepage = () => {
   const dispatch = useDispatch();
   const { settings, banners } = useSelector((state) => state.homepage);
-  // const [filteredHomeBanner, setFilteredHomeNews] = useState();
-  // useEffect(() => {
-  //   if (banners) {
-  //     const homeBanner = banners?.data?.filter(
-  //       (item) =>
-  //         item?.newsable_type !== 'ncc' &&
-  //         item?.newsable_type !== 'member' &&
-  //         item?.newsable_type !== 'nbns'
-  //     );
-  //     setFilteredHomeBanner(homeBanner);
-  //   }
-  // }, [banners]);
+
   useEffect(() => {
     dispatch(getBanner());
   }, []);
