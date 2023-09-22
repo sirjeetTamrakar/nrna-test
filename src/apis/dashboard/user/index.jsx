@@ -16,7 +16,7 @@ export const createUserApi = (data) => {
 
 // change approval status
 export const changeApprovalApi = (slug, data) => {
-  return axiosInstance().patch(`/admin/users/${slug}/approval-status`, data);
+  return axiosInstance().post(`/admin/users/${slug}/approval-status`, data);
 };
 
 // change status
@@ -32,7 +32,7 @@ export const updateUsersApi = (data, slug) => {
 // change user role
 
 export const changeUserRoleApi = (slug, data) => {
-  return axiosInstance().patch(`/admin/users/${slug}/role`, data);
+  return axiosInstance().post(`/admin/users/${slug}/role`, data);
 };
 
 export const updateProfileApi = (slug, data) => {

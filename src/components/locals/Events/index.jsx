@@ -15,10 +15,20 @@ const Events = () => {
   );
 
   const [filteredEvents, setFilteredEvents] = useState();
+  const [filteredHomeEvents, setFilteredHomeEvents] = useState();
+
+  console.log({ filteredEvents });
+
+  useEffect(() => {
+    if (events) {
+      const homeEvents = events?.filter((item) => !item?.ncc_id);
+      setFilteredHomeEvents(homeEvents);
+    }
+  }, [events]);
 
   const [selected, setSelected] = useState();
   useEffect(() => {
-    setSelected(location?.state ? location?.state : events_category?.[0]?.id);
+    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, events_category]);
   const [search, setSearch] = useState('');
 
@@ -29,45 +39,14 @@ const Events = () => {
 
   useEffect(() => {
     if (events) {
-      const newEvents = events?.filter(
+      const newEvents = filteredHomeEvents?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.event_category_id == Number(selected)
       );
-      setFilteredEvents(newEvents);
+      setFilteredEvents(selected === 'ALL' ? filteredHomeEvents : newEvents);
     }
   }, [search, events, selected, events_category]);
-  const category = [
-    {
-      title: 'Tech & IT',
-      slug: 'advisory_board'
-    },
-    {
-      title: 'Business',
-      slug: 'board_of_directors'
-    },
-    {
-      title: 'Science',
-      slug: 'general_members'
-    },
-    {
-      title: 'Health',
-      slug: 'task_force'
-    },
-    {
-      title: 'lifeStyle',
-      slug: 'travel'
-    },
-    {
-      title: 'Health',
-      slug: 'education'
-    },
-    {
-      title: 'Entertainment',
-      slug: 'entertainment'
-    }
-  ];
-  // const [selected, setSelected] = useState(category?.[0]?.slug);
 
   return (
     <>

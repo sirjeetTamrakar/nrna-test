@@ -16,7 +16,7 @@ const Business = () => {
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
   useEffect(() => {
-    setSelected(business_category?.[0]?.id);
+    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [business_category]);
 
   console.log({ selected });
@@ -33,7 +33,7 @@ const Business = () => {
           list?.fullname?.toLowerCase()?.includes(search?.toLowerCase()) &&
           Number(list?.business_category_id) === Number(selected)
       );
-      setFilteredBusiness(newBusiness);
+      setFilteredBusiness(selected === 'ALL' ? business : newBusiness);
     }
   }, [search, business, selected, business_category]);
 

@@ -19,13 +19,16 @@ export const axiosInstance = () => {
   const baseUrl = window?._env_?.VITE_APP_API || import.meta.env.VITE_APP_API;
   const instance = axios.create({
     baseURL: baseUrl,
+    headers: {
+      'Content-Type': 'application/json'
+    }
     // headers: {
     //   // 'Content-Type': 'application/x-www-form-urlencoded'
 
     // }
-    headers: {
-      'Content-Type': 'multipart/form-data'
-    }
+    // headers: {
+    //   'Content-Type': 'multipart/form-data'
+    // }
   });
   instance.interceptors.request.use(
     (config) => {

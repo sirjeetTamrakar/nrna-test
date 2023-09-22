@@ -54,7 +54,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
               <ul className="contact_list">
                 <li>
                   <i className="fa fa-map-marker-alt"></i>
-                  <span className="contact_list_item">{siteSettings?.address || ''}</span>
+                  <span className="contact_list_item">{single_ncc?.address || ''}</span>
                 </li>
                 <li>
                   <i className="fa fa-phone"></i>

@@ -1,4 +1,10 @@
-import { forgotPasswordApi, loginApi, registerApi, resetPasswordApi } from 'apis/auth';
+import {
+  chnagePasswordApi,
+  forgotPasswordApi,
+  loginApi,
+  registerApi,
+  resetPasswordApi
+} from 'apis/auth';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -114,4 +120,25 @@ export const updateGlobalUser = (user) => (dispatch) => {
     type: actions.SET_AUTH_USER,
     payload: user
   });
+};
+
+// Set new Password with chnage password token or verify email
+export const changePassword = (data, handleRedirect) => (dispatch) => {
+  dispatch({
+    type: actions.CHANGE_PASSWORD_BEGIN
+  });
+  chnagePasswordApi(data)
+    .then((res) => {
+      dispatch({
+        type: actions.CHANGE_PASSWORD_SUCCESS
+      });
+      handleRedirect && handleRedirect();
+      successToast('Password changed Successfully');
+    })
+    .catch((error) => {
+      dispatch({
+        type: actions.CHANGE_PASSWORD_ERROR
+      });
+      errorToast(error);
+    });
 };

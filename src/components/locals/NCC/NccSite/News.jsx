@@ -20,7 +20,7 @@ const News = () => {
   const [selected, setSelected] = useState();
 
   useEffect(() => {
-    setSelected(location?.state ? location?.state : news_category?.[0]?.id);
+    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { filteredNews });
@@ -42,7 +42,7 @@ const News = () => {
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.news_category_id == Number(selected)
       );
-      setFilteredNews(newNews);
+      setFilteredNews(selected === 'ALL' ? news?.data : newNews);
     }
   }, [search, news, selected, news_category]);
 

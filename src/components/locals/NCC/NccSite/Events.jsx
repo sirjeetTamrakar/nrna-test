@@ -19,7 +19,7 @@ const Events = () => {
   const [filteredEvents, setFilteredEvents] = useState();
   const [selected, setSelected] = useState();
   useEffect(() => {
-    setSelected(location?.state ? location?.state : events_category?.[0]?.id);
+    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, events_category]);
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { filteredEvents });
@@ -36,7 +36,7 @@ const Events = () => {
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.event_category_id == Number(selected)
       );
-      setFilteredEvents(newEvents);
+      setFilteredEvents(selected === 'ALL' ? events : newEvents);
     }
   }, [search, events, selected, events_category]);
 

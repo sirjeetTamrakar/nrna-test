@@ -46,6 +46,13 @@ const SecondaryNav = ({
           {/* {setSearch && <TextField placeholder="Search" name="search" onChange={handleSearch} />} */}
         </Box>
         <ul className={classes.list}>
+          {!teams && (
+            <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>
+              All
+              {/* {JSON.stringify({ selected })} */}
+            </li>
+          )}
+
           {category?.map((list, index) => (
             <li
               className={checkActive(list?.id)}

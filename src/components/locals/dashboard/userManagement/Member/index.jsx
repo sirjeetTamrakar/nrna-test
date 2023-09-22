@@ -197,7 +197,7 @@ const Member = () => {
 
   const handleChangeRole = (value) => {
     dispatch(
-      changeUserRole(detail?.username, { role_name: value }, () => {
+      changeUserRole(detail?.username, { role_name: value, _method: 'PATCH' }, () => {
         roleOpenFunction();
         refetch();
       })
@@ -207,7 +207,7 @@ const Member = () => {
   const handleApproveStatus = (value) => {
     const status = value === 'approved' ? 'approved' : 'rejected';
     dispatch(
-      changeApproval(detail?.username, { approval_status: status }, () => {
+      changeApproval(detail?.username, { approval_status: status, _method: 'PATCH' }, () => {
         approveOpenFunction();
         refetch();
       })

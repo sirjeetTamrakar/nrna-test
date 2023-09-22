@@ -22,6 +22,7 @@ const CustomRoleChangeModal = ({
     { value: '', label: 'None' }
   ];
   const submitHandler = (data) => {
+    console.log('mmmmmmmmmff', { data });
     handleConfirm(data?.role);
   };
   return (
