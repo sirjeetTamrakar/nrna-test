@@ -5,6 +5,7 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
+import PageBanner from 'components/globals/PageBanner';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
@@ -41,88 +42,95 @@ const Contact = ({ siteSettings, handleSubmit }) => {
   };
 
   return (
-    <section className="contact_page" id="contact_main" style={{ background: '#e5e5e58f' }}>
-      <div className="contact_page_title">Contact Us</div>
-      <div className="container">
-        <div className="row">
-          <div className="col-md-3 offset-md-1">
-            <div className="contact_content">
-              <div className="contact_content_title">Contact Information</div>
-              <div className="contact_content_subtitle">
-                Fill up the form to get in touch with the NRNA Global team.
+    <>
+      <PageBanner />
+      <section className="contact_page" id="contact_main" style={{ background: '#e5e5e58f' }}>
+        <div className="container">
+          <div className="row">
+            <div className="col-md-3 offset-md-1">
+              <div className="contact_content">
+                <div className="contact_content_title">Contact Information</div>
+                <div className="contact_content_subtitle">
+                  Fill up the form to get in touch with the NRNA Global team.
+                </div>
+                <ul className="contact_list">
+                  <li>
+                    <i className="fa fa-map-marker-alt"></i>
+                    <span className="contact_list_item">{single_ncc?.address || ''}</span>
+                  </li>
+                  <li>
+                    <i className="fa fa-phone"></i>
+                    <span className="contact_list_item">{siteSettings?.phone || ''}</span>
+                  </li>
+                  <li>
+                    <i className="fa fa-envelope"></i>
+                    <span className="contact_list_item">{siteSettings?.email || ''}</span>
+                  </li>
+                </ul>
               </div>
-              <ul className="contact_list">
-                <li>
-                  <i className="fa fa-map-marker-alt"></i>
-                  <span className="contact_list_item">{single_ncc?.address || ''}</span>
-                </li>
-                <li>
-                  <i className="fa fa-phone"></i>
-                  <span className="contact_list_item">{siteSettings?.phone || ''}</span>
-                </li>
-                <li>
-                  <i className="fa fa-envelope"></i>
-                  <span className="contact_list_item">{siteSettings?.email || ''}</span>
-                </li>
-              </ul>
             </div>
-          </div>
-          <div className="col-md-6">
-            <div className="contact_form" style={{ paddingTop: '-20px' }}>
-              <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
-                <Box>
-                  <CustomForm onSubmit={submitHandler}>
-                    <Grid container spacing={2} sx={{ marginTop: '20px' }}>
-                      <Grid item sm={12}>
-                        <CustomInput name="name" label="Name" placeholder="Guy Hawkins" rows={15} />
+            <div className="col-md-6">
+              <div className="contact_form" style={{ paddingTop: '-20px' }}>
+                <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
+                  <Box>
+                    <CustomForm onSubmit={submitHandler}>
+                      <Grid container spacing={2} sx={{ marginTop: '20px' }}>
+                        <Grid item sm={12}>
+                          <CustomInput
+                            name="name"
+                            label="Name"
+                            placeholder="Guy Hawkins"
+                            rows={15}
+                          />
+                        </Grid>
+                        <Grid item sm={6}>
+                          <CustomInput
+                            name="email"
+                            label="Email address"
+                            type="email"
+                            placeholder="guy.hawkin@gmail.com"
+                            rows={15}
+                          />
+                        </Grid>
+                        <Grid item sm={6}>
+                          <CustomInput
+                            name="phone"
+                            label="Phone"
+                            placeholder="Enter Subject"
+                            rows={15}
+                          />
+                        </Grid>
+                        <Grid item sm={12}>
+                          <CustomInput
+                            name="subject"
+                            label="Subject"
+                            placeholder="Enter Subject"
+                            rows={15}
+                          />
+                        </Grid>
+                        <Grid item sm={12}>
+                          <CustomTextArea
+                            name="message"
+                            label="Message"
+                            placeholder="Say something"
+                            rows={5}
+                          />
+                        </Grid>
+                        <Grid item sm={12}>
+                          <Box>
+                            <CustomButton buttonName="Submit Form" loading={contact_loading} />
+                          </Box>
+                        </Grid>
                       </Grid>
-                      <Grid item sm={6}>
-                        <CustomInput
-                          name="email"
-                          label="Email address"
-                          type="email"
-                          placeholder="guy.hawkin@gmail.com"
-                          rows={15}
-                        />
-                      </Grid>
-                      <Grid item sm={6}>
-                        <CustomInput
-                          name="phone"
-                          label="Phone"
-                          placeholder="Enter Subject"
-                          rows={15}
-                        />
-                      </Grid>
-                      <Grid item sm={12}>
-                        <CustomInput
-                          name="subject"
-                          label="Subject"
-                          placeholder="Enter Subject"
-                          rows={15}
-                        />
-                      </Grid>
-                      <Grid item sm={12}>
-                        <CustomTextArea
-                          name="message"
-                          label="Message"
-                          placeholder="Say something"
-                          rows={5}
-                        />
-                      </Grid>
-                      <Grid item sm={12}>
-                        <Box>
-                          <CustomButton buttonName="Submit Form" loading={contact_loading} />
-                        </Box>
-                      </Grid>
-                    </Grid>
-                  </CustomForm>
-                </Box>
-              </CustomFormProvider>
+                    </CustomForm>
+                  </Box>
+                </CustomFormProvider>
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </>
   );
 };
 

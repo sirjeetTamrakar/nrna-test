@@ -1,5 +1,6 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import CustomModal from 'components/common/CustomModal/CustomModal';
+import PageBanner from 'components/globals/PageBanner';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
@@ -24,33 +25,8 @@ const Survey = () => {
   console.log({ user });
   return (
     <>
-      <Box>
-        <section className="banner">
-          <div
-            className={`banner_item ${nbns_settings?.survey_title !== '' ? 'overlay' : ''}`}
-            style={{
-              backgroundImage: `url('${nbns_settings?.survey_banner}')`,
-              backgroundPosition: 'center',
-              backgroundSize: 'cover',
-              height: 'calc(100vh - 450px)'
-            }}>
-            <div className="container">
-              <div
-                className="banner_wrapper"
-                style={{
-                  height: 'calc(100vh - 450px)',
-                  display: 'flex',
-                  alignItems: 'center'
-                }}>
-                <div>
-                  <h1 style={{ width: '100%' }}>{nbns_settings?.survey_title}</h1>
-                  {/* <div className="description">dsadsad</div> */}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </Box>
+      <PageBanner image={nbns_settings?.survey_banner} title={nbns_settings?.survey_title} />
+
       <Container>
         <Box className={classes.root}>
           <Box>
