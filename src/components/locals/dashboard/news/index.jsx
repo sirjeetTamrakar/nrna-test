@@ -184,7 +184,12 @@ const News = () => {
       const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'member', id: user?.id };
       dispatch(getNews(data));
     } else if (user?.role_name == Roles?.NCC) {
-      const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'ncc', id: user?.id };
+      const data = {
+        page: page + 1,
+        pagination_limit: rowsPerPage,
+        type: 'ncc',
+        id: user?.ncc?.id
+      };
       dispatch(getNews(data));
     } else {
       const data = { page: page + 1, pagination_limit: rowsPerPage };

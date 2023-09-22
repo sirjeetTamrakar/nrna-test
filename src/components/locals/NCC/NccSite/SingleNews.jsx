@@ -57,7 +57,7 @@ const SingleNews = () => {
               </div>
               <div className="single_event_page_short">
                 <div
-                  className="mission_description"
+                  className="about_description_single"
                   dangerouslySetInnerHTML={{ __html: single_news?.description || '' }}
                 />
               </div>

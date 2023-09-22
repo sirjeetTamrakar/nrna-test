@@ -17,45 +17,18 @@ const News = () => {
   const [filteredNews, setFilteredNews] = useState();
 
   const [selected, setSelected] = useState();
+  console.log('selected------', { selected });
 
   useEffect(() => {
-    setSelected(location?.state ? location?.state : news_category?.[0]?.id);
+    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
   useEffect(() => {
     dispatch(getAllNews());
     dispatch(getNewsCategory());
   }, []);
-  const category = [
-    {
-      title: 'Tech & IT',
-      slug: 'advisory_board'
-    },
-    {
-      title: 'Business',
-      slug: 'board_of_directors'
-    },
-    {
-      title: 'Science',
-      slug: 'general_members'
-    },
-    {
-      title: 'Health',
-      slug: 'task_force'
-    },
-    {
-      title: 'lifeStyle',
-      slug: 'travel'
-    },
-    {
-      title: 'Health',
-      slug: 'education'
-    },
-    {
-      title: 'Entertainment',
-      slug: 'entertainment'
-    }
-  ];
+
+  console.log({ selected });
 
   useEffect(() => {
     if (news) {
@@ -64,7 +37,7 @@ const News = () => {
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.news_category_id == Number(selected)
       );
-      setFilteredNews(newNews);
+      setFilteredNews(selected === 'ALL' ? news?.data : newNews);
     }
   }, [search, news, selected, news_category]);
 

@@ -24,6 +24,7 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
     setSelected(slug);
     navigate(`/news`, { state: slug });
   };
+
   return (
     <Box className={classes.root}>
       <Container>
@@ -34,6 +35,10 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
           {setSearch && <TextField placeholder="Search" name="search" onChange={handleSearch} />}
         </Box>
         <ul className={classes.list}>
+          <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>
+            All
+            {/* {JSON.stringify({ selected })} */}
+          </li>
           {category?.map((list, index) => (
             <li
               className={checkActive(list?.id)}

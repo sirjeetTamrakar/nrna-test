@@ -6,9 +6,9 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postNews } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const { user } = useSelector((state) => state.auth);
@@ -31,7 +31,7 @@ const Register = ({ handleClose }) => {
     if (user?.role_name == Roles?.Member) {
       typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
     dispatch(postNews(formData, handleClose, typeData));
   };

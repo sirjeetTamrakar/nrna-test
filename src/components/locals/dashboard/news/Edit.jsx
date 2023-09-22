@@ -38,7 +38,7 @@ const EditForm = ({ detail, handleClose }) => {
     if (user?.role_name == Roles?.Member) {
       setTypeData({ type: 'member', id: user?.id, page: 1, pagination_limit: 10 });
     } else if (user?.role_name == Roles?.NCC) {
-      setTypeData({ type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 });
+      setTypeData({ type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 });
     }
   }, []);
 

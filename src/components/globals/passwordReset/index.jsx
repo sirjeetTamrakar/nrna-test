@@ -13,6 +13,7 @@ const PasswordReset = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
+  console.log({ params });
   const { loading } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
     new_password: Yup.string().required('Please enter your email'),

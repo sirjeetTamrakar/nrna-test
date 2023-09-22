@@ -3,7 +3,7 @@
   justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
-  .event_list_wrapper{
+  .event_list_wrapper {
     background-color: #f1f0f0;
     padding: 15px 45px;
     display: flex;
@@ -13,28 +13,26 @@
     margin: 0 auto;
     margin-top: 30px;
     border-radius: 4px;
-    
   }
-  .map-container{
+  .map-container {
     display: flex;
     justify-content: space-between;
     column-gap: 60px;
     margin-top: 45px;
   }
 
-  .event_list{
-    list-style:none;
+  .event_list {
+    list-style: none;
     margin: 0;
     padding: 0;
-    li{
+    li {
       display: flex;
-      
     }
-    .title{
+    .title {
       font-size: 15px;
       width: 100px;
     }
-     .value{
+    .value {
       font-size: 15px;
     }
   }
@@ -45,7 +43,7 @@
   }
   &_imgwrap {
     height: 360px;
-    margin-top: 30px;
+    // margin-top: 30px;
     width: 100%;
     img {
       height: inherit;
@@ -62,6 +60,7 @@
     font-size: 36px;
     color: #474849;
     font-weight: bold;
+    margin-top: 20px;
   }
   &_date {
     font-size: 14px;
@@ -113,7 +112,7 @@
           line-height: 18px;
         }
         &_date {
-         font-size: 11px;
+          font-size: 11px;
           color: $secondary-light-text;
         }
       }
@@ -150,7 +149,7 @@
       width: 36px;
       line-height: 56px;
       left: -60px;
-      &::before{
+      &::before {
         color: $primary-color;
       }
     }
@@ -160,7 +159,7 @@
       border-radius: 30px;
       width: 36px;
       line-height: 56px;
-      &::before{
+      &::before {
         color: $primary-color;
       }
     }

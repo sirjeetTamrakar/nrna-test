@@ -25,7 +25,7 @@ const News = () => {
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { filteredNews });
   useEffect(() => {
-    dispatch(getAllNews({ type: 'ncc', id: user?.id }));
+    dispatch(getAllNews({ type: 'ncc', id: single_ncc?.id }));
     dispatch(getNewsCategory());
   }, []);
   console.log({ ncc });

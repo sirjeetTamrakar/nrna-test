@@ -6,9 +6,9 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { updateEvents } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
@@ -36,7 +36,8 @@ const EditForm = ({ detail, handleClose }) => {
     }
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      formData.append('ncc_id', user?.ncc?.id);
     }
     dispatch(updateEvents(formData, detail?.slug, handleClose, typeData));
   };

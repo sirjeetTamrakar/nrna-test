@@ -28,6 +28,7 @@
     font-size: 36px;
     color: #474849;
     font-weight: bold;
+    margin-top: 20px;
   }
   &_date {
     font-size: 12px;
@@ -80,7 +81,7 @@
           line-height: 18px;
         }
         &_date {
-         font-size: 14px;
+          font-size: 14px;
           color: $secondary-light-text;
         }
       }
@@ -91,5 +92,4 @@
       margin-bottom: 45px;
     }
   }
-
 }

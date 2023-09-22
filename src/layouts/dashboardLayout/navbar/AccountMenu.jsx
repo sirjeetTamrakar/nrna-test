@@ -32,6 +32,10 @@ export default function AccountMenu() {
     navigate(`/`);
   };
 
+  const handlePasswordChange = () => {
+    navigate(`/password-reset`);
+  };
+
   const goToHome = () => {
     navigate('/');
   };
@@ -102,7 +106,7 @@ export default function AccountMenu() {
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-        <MenuItem onClick={handleClose}>
+        <MenuItem onClick={handlePasswordChange}>
           <ListItemIcon>
             <Settings fontSize="small" />
           </ListItemIcon>

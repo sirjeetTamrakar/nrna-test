@@ -80,6 +80,7 @@ const EventForm = ({ image }) => {
             title="Event Image"
             imageText="Resolution: height: 1024 x width: 768"
             name="feature_image"
+            image={image}
             label="Select Photo"
             widthFull
           />
