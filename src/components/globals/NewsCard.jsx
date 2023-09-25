@@ -10,11 +10,11 @@ const NewsCard = ({ news, linkUrl }) => {
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           <div className="news_card_title">{news.title}</div>
-          <div className="news_card_text_description" style={{ fontSize: '11px' }}>
+          {/* <div className="news_card_text_description" style={{ fontSize: '11px' }}>
             <div
               style={{ fontSize: '11px' }}
               dangerouslySetInnerHTML={{ __html: news?.description }}></div>
-          </div>{' '}
+          </div>{' '} */}
           <div className="news_card_text_date">
             <TimeAgo time={news?.created_at} /> |&nbsp;
             {news?.created_by?.full_name
