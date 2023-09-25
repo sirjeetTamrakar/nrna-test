@@ -15,6 +15,7 @@ const Events = () => {
   );
 
   const [filteredEvents, setFilteredEvents] = useState();
+  const [allFilteredEvents, setAllFilteredEvents] = useState();
 
   const [selected, setSelected] = useState();
   useEffect(() => {
@@ -29,12 +30,21 @@ const Events = () => {
 
   useEffect(() => {
     if (events) {
+      const allNewEvents = events?.filter((list) =>
+        list?.title?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      setAllFilteredEvents(allNewEvents);
+    }
+  }, [search, events]);
+
+  useEffect(() => {
+    if (events) {
       const newEvents = events?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.event_category_id == Number(selected)
       );
-      setFilteredEvents(selected === 'ALL' ? events : newEvents);
+      setFilteredEvents(selected === 'ALL' ? allFilteredEvents : newEvents);
     }
   }, [search, events, selected, events_category]);
 

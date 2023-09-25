@@ -7,7 +7,8 @@ const defaultState = {
   user_status_loading: false,
   update_user_loading: false,
   change_role_loading: false,
-  profile_update_loading: false
+  profile_update_loading: false,
+  user_search: ''
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -77,6 +78,10 @@ const userReducer = (state = defaultState, action) => {
     case actions.UPDATE_PROFILE_SUCCESS:
     case actions.UPDATE_PROFILE_ERROR:
       return { ...state, profile_update_loading: false };
+
+    case actions.SEARCH_USER:
+      return { ...state, user_search: action.payload };
+
     default:
       return state;
   }

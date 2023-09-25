@@ -114,3 +114,7 @@ export const updateProfile = (slug, data) => (dispatch) => {
       errorToast(error);
     });
 };
+
+export const setUserSearch = (data) => (dispatch) => {
+  dispatch({ type: actions.SEARCH_USER, payload: data });
+};

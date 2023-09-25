@@ -6,7 +6,8 @@ export const getAllUsersApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  return axiosInstance().get(`/admin/users${page}${pagination_limit}`);
+  const search = data?.search ? `&search=${data?.search}` : '';
+  return axiosInstance().get(`/admin/users${page}${pagination_limit}${search}`);
 };
 
 // create users

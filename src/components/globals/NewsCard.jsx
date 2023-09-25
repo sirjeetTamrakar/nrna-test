@@ -1,3 +1,4 @@
+import { TimeAgo } from 'components/common/CustomTime/CustomTime';
 import { Link } from 'react-router-dom';
 
 const NewsCard = ({ news, linkUrl }) => {
@@ -7,7 +8,20 @@ const NewsCard = ({ news, linkUrl }) => {
         <div className="img_wrapper">
           <img src={news?.feature_image} alt="" />
         </div>
-        <div className="news_card_title">{news.title}</div>
+        <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="news_card_title">{news.title}</div>
+          <div className="news_card_text_description" style={{ fontSize: '11px' }}>
+            <div
+              style={{ fontSize: '11px' }}
+              dangerouslySetInnerHTML={{ __html: news?.description }}></div>
+          </div>{' '}
+          <div className="news_card_text_date">
+            <TimeAgo time={news?.created_at} /> |&nbsp;
+            {news?.created_by?.full_name
+              ? news?.created_by?.full_name
+              : news?.created_by?.username}{' '}
+          </div>{' '}
+        </div>
       </Link>
     </div>
   );

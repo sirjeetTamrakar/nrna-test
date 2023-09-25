@@ -11,6 +11,7 @@ const OurTeam = () => {
     (state) => state.homepage
   );
   const [filteredTeam, setFilteredTeam] = useState();
+
   console.log({ filteredTeam });
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');

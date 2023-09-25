@@ -5,9 +5,9 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './about';
+import HomeData from './banner';
 import Mission from './mission';
 import SettingsData from './settingsData';
-import Tagline from './tagline';
 import Vision from './vision';
 
 function CustomTabPanel(props) {
@@ -57,7 +57,7 @@ const BasicTabs = () => {
           <Tab label="About" {...a11yProps(1)} />
           <Tab label="Mission" {...a11yProps(2)} />
           <Tab label="Vision" {...a11yProps(3)} />
-          <Tab label="Tagline" {...a11yProps(4)} />
+          <Tab label="Home Data" {...a11yProps(4)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -73,7 +73,7 @@ const BasicTabs = () => {
         <Vision />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={4}>
-        <Tagline />
+        <HomeData />
       </CustomTabPanel>
     </Box>
   );

@@ -16,6 +16,7 @@ const News = () => {
   );
 
   const [filteredNews, setFilteredNews] = useState();
+  const [allFilteredNews, setAllFilteredNews] = useState();
 
   const [selected, setSelected] = useState();
   console.log('selected------', { selected });
@@ -33,12 +34,21 @@ const News = () => {
 
   useEffect(() => {
     if (news) {
+      const allNewNews = news?.data?.filter((list) =>
+        list?.title?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      setAllFilteredNews(allNewNews);
+    }
+  }, [search, news]);
+
+  useEffect(() => {
+    if (news) {
       const newNews = news?.data?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.news_category_id == Number(selected)
       );
-      setFilteredNews(selected === 'ALL' ? news?.data : newNews);
+      setFilteredNews(selected === 'ALL' ? allFilteredNews : newNews);
     }
   }, [search, news, selected, news_category]);
 

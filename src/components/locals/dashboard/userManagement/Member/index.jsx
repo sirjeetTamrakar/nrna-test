@@ -17,7 +17,13 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
-import { changeApproval, changeStatus, changeUserRole, getAllUsers } from '../redux/actions';
+import {
+  changeApproval,
+  changeStatus,
+  changeUserRole,
+  getAllUsers,
+  setUserSearch
+} from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
@@ -31,12 +37,19 @@ const Member = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
-  const { users, users_loading, user_status_loading, approve_user_loading, change_role_loading } =
-    useSelector((state) => state.user);
+  const {
+    users,
+    user_search,
+    users_loading,
+    user_status_loading,
+    approve_user_loading,
+    change_role_loading
+  } = useSelector((state) => state.user);
   console.log({ users });
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  // const [userSearch, setUserSearch] = useState('');
   const classes = useStyles();
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -214,13 +227,30 @@ const Member = () => {
     );
   };
 
+  const handleUserSearch = (e) => {
+    e.preventDefault();
+  };
+
+  const nameChangeHandler = (e) => {
+    const timeout = setTimeout(() => {
+      dispatch(setUserSearch(e.target.value));
+    }, [1000]);
+    return () => clearTimeout(timeout);
+  };
+
+  // console.log({ userSearch });
+
+  const filterData = { page: page + 1, pagination_limit: rowsPerPage, search: user_search };
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getAllUsers(data));
+    dispatch(getAllUsers(filterData));
   };
 
   useEffect(() => {
-    refetch();
+    dispatch(getAllUsers(filterData));
+  }, [JSON.stringify(filterData)]);
+
+  useEffect(() => {
+    // refetch();
   }, [page, rowsPerPage]);
 
   return (
@@ -233,7 +263,26 @@ const Member = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>Member</Box>
+          <Box>
+            <Box>Member</Box>
+            <Box sx={{ marginTop: '10px' }}>
+              <form onClick={handleUserSearch}>
+                <input
+                  style={{
+                    padding: '3px 8px',
+                    width: '200px',
+                    border: '1px solid #9B9B9B',
+                    borderRadius: '4px'
+                  }}
+                  type="text"
+                  // value={userSearch}
+                  onChange={nameChangeHandler}
+                  placeholder="Search user"
+                />
+                {/* <button type="submit">Search</button> */}
+              </form>
+            </Box>
+          </Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"

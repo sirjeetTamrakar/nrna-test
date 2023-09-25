@@ -201,3 +201,36 @@ export const deleteDepartmentApi = (data) => {
 export const changeDepartmentStatusApi = (data) => {
   return axiosInstance().post(`/admin/our-team-categories/${data?.slug}/status`, data);
 };
+
+// site setting home data---------------->
+// gethomedata
+export const getHomeDataApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  const bannerable_type = data?.bannerable_type ? `&bannerable_type=${data?.bannerable_type}` : '';
+  const bannerable_id = data?.bannerable_id ? `&bannerable_id=${data?.bannerable_id}` : '';
+  return axiosInstance().get(
+    `/admin/homedata${page}${pagination_limit}${bannerable_type}${bannerable_id}`
+  );
+};
+
+// posthomedata
+export const postHomeDataApi = (data) => {
+  return axiosInstance().post('/admin/homedata', data);
+};
+
+// updatehomedata
+export const updateHomeDataApi = (banner_id, data) => {
+  return axiosInstance().post(`/admin/homedata/${banner_id}`, data);
+};
+
+// deletehomedata
+export const deleteHomeDataApi = (banner_id) => {
+  return axiosInstance().delete(`/admin/homedata/${banner_id}`);
+};
+
+export const updateHomeDataStatusApi = (banner_id, data) => {
+  return axiosInstance().patch(`/admin/homedata/${banner_id}/status`, data);
+};

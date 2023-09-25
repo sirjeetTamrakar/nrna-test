@@ -12,6 +12,7 @@ const Business = () => {
   );
   console.log('dasldsalda', business_category?.[0]?.id);
   const [filteredBusiness, setFilteredBusiness] = useState();
+  const [allFilteredBusiness, setAllFilteredBusiness] = useState();
 
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
@@ -28,12 +29,21 @@ const Business = () => {
 
   useEffect(() => {
     if (business) {
+      const allNewBusiness = business?.filter((list) =>
+        list?.fullname?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      setAllFilteredBusiness(allNewBusiness);
+    }
+  }, [search, business]);
+
+  useEffect(() => {
+    if (business) {
       const newBusiness = business?.filter(
         (list) =>
           list?.fullname?.toLowerCase()?.includes(search?.toLowerCase()) &&
           Number(list?.business_category_id) === Number(selected)
       );
-      setFilteredBusiness(selected === 'ALL' ? business : newBusiness);
+      setFilteredBusiness(selected === 'ALL' ? allFilteredBusiness : newBusiness);
     }
   }, [search, business, selected, business_category]);
 
