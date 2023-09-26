@@ -1,8 +1,9 @@
 import { Box, Container, Typography } from '@mui/material';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { getAllQuestions } from 'components/locals/dashboard/survey/redux/actions';
+// import { getAllQuestions } from 'components/locals/dashboard/survey/redux/actions';
 import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
+import { getAllQuestions } from 'redux/homepage/actions';
 import FormTwo from './FormTwo';
 import useStyles from './styles';
 

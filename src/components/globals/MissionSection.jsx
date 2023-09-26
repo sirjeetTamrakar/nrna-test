@@ -1,15 +1,15 @@
 import { Link } from 'react-router-dom';
 
-const MissionSection = ({ image, linkUrl, mission }) => {
+const MissionSection = ({ image, linkUrl, title, description }) => {
   return (
     <section className="mission" id="mission_main">
       <div className="container">
         <div className="row">
           <div className="col-lg-7 col-xl-7" id="mission-section">
-            <div className="mission_title">Mission</div>
+            <div className="mission_title">{title}</div>
             <div
               className="mission_description"
-              dangerouslySetInnerHTML={{ __html: mission || '' }}
+              dangerouslySetInnerHTML={{ __html: description || '' }}
             />
 
             <Link to={linkUrl || `/mission`} className="view_more">

@@ -97,7 +97,7 @@ const News = () => {
                   <NewsCard
                     key={newsItem.id}
                     news={newsItem}
-                    linkUrl={`/${candidate}/news/${newsItem?.slug}`}
+                    linkUrl={`/our-team/${candidate}/news/${newsItem?.slug}`}
                   />
                 ))
               ) : (

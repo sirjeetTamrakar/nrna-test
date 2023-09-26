@@ -6,24 +6,24 @@ import SingleNewsCandidate from 'pages/public/candidateSite/SingleNews';
 
 export const candidateRoute = [
   {
-    path: ':candidate',
+    path: 'our-team/:candidate',
     component: <CandidateSitePage />
   },
   {
-    path: ':candidate/news',
+    path: 'our-team/:candidate/news',
     component: <News />
   },
   {
-    path: ':candidate/business',
+    path: 'our-team/:candidate/business',
     component: <BusinessListPage />
   },
   {
-    path: ':candidate/contact',
+    path: 'our-team/:candidate/contact',
     component: <Contact />
   },
 
   {
-    path: ':candidate/news/:slug',
+    path: 'our-team/:candidate/news/:slug',
     component: <SingleNewsCandidate />
   }
 ];

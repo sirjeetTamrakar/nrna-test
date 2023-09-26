@@ -8,6 +8,7 @@ import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import { postQuestionFront } from 'components/locals/dashboard/survey/redux/actions';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { updateSurveyTaken } from 'redux/auth/actions';
@@ -17,7 +18,8 @@ const FormTwo = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
-  const { questions, post_question_front_loading } = useSelector((state) => state.question);
+  const { post_question_front_loading } = useSelector((state) => state.question);
+  const { questions } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
 
   const [answers, setAnswers] = useState([]);
@@ -42,6 +44,7 @@ const FormTwo = () => {
         option_id: answer.selectedOptionId
       }))
     };
+    console.log({ finalData });
     dispatch(postQuestionFront(finalData, handleSuccess));
   };
 
@@ -62,6 +65,9 @@ const FormTwo = () => {
   const handleOpenForm = () => {
     formOpenFunction();
   };
+
+  const { watch } = useForm({});
+  console.log('watch---', watch());
 
   return (
     <CustomForm onSubmit={onSubmit}>

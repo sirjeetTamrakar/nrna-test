@@ -151,7 +151,7 @@ const SingleNews = () => {
                   </div>
                 )}
                 <div className="button_wrap">
-                  <Link to={`/${candidate}/news`} className="btn-sm">
+                  <Link to={`/our-team/${candidate}/news`} className="btn-sm">
                     View All
                   </Link>
                 </div>

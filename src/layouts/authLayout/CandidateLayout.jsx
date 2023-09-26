@@ -42,26 +42,26 @@ const SecondaryNavWrapper = () => {
     {
       title: 'Home',
       value: 'home',
-      path: `/${candidate}`,
-      clickFunction: () => handleFunction(`/${candidate}`)
+      path: `/our-team/${candidate}`,
+      clickFunction: () => handleFunction(`/our-team/${candidate}`)
     },
     {
       title: 'News',
       value: 'news',
-      path: `/${candidate}/news`,
-      clickFunction: () => handleFunction(`/${candidate}/news`)
+      path: `/our-team/${candidate}/news`,
+      clickFunction: () => handleFunction(`/our-team/${candidate}/news`)
     },
     {
       title: 'Business',
       value: 'business',
-      path: `/${candidate}/business`,
-      clickFunction: () => handleFunction(`/${candidate}/business`)
+      path: `/our-team/${candidate}/business`,
+      clickFunction: () => handleFunction(`/our-team/${candidate}/business`)
     },
     {
       title: 'Contact',
       value: 'contact',
-      path: `/${candidate}/contact`,
-      clickFunction: () => handleFunction(`/${candidate}/contact`)
+      path: `/our-team/${candidate}/contact`,
+      clickFunction: () => handleFunction(`/our-team/${candidate}/contact`)
     }
   ];
   return (
