@@ -15,22 +15,24 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
 
-  const { banner_loading } = useSelector((state) => state.banner);
+  const { home_data_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
     let typeData;
     formData.append('title', data?.title);
-    formData.append('tab_title', data?.tab_title);
+    formData.append('tabtitle', data?.tabtitle);
     formData.append('subtitle', data?.subtitle);
     formData.append('description', data?.description);
+    formData.append('tagline', data?.tagline);
+    formData.append('tagline_author', data?.tagline_author);
     formData.append('status', 1);
 
     if (user?.role_name === Roles.NCC) {
-      formData.append('bannerable_type', 'ncc');
-      formData.append('bannerable_id', user?.ncc?.id);
-      typeData = { page: 1, bannerable_type: 'ncc', bannerable_id: user?.ncc?.id };
+      formData.append('homedataable_type', 'ncc');
+      formData.append('homedataable_id', user?.ncc?.id);
+      typeData = { page: 1, homedataable_type: 'ncc', homedataable_id: user?.ncc?.id };
     }
 
     if (data?.image?.length > 0) {
@@ -50,7 +52,7 @@ const Register = ({ handleClose }) => {
         <CustomForm onSubmit={onSubmit}>
           <HomeDataForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Home data" loading={banner_loading} />
+            <CustomButton buttonName="Create Home data" loading={home_data_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

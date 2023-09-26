@@ -13,23 +13,25 @@ import { editValidationSchema } from './ValidationSchema';
 const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { update_banner_loading } = useSelector((state) => state.banner);
+  const { update_home_data_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
     let typeData;
     formData.append('title', data?.title);
-    formData.append('tab_title', data?.tab_title);
+    formData.append('tabtitle', data?.tabtitle);
     formData.append('subtitle', data?.subtitle);
     formData.append('description', data?.description);
+    formData.append('tagline', data?.tagline);
+    formData.append('tagline_author', data?.tagline_author);
     formData.append('status', 1);
     formData.append('_method', 'PUT');
 
     if (user?.role_name === Roles.NCC) {
       formData.append('bannerable_type', 'ncc');
       formData.append('bannerable_id', user?.ncc?.id);
-      typeData = { page: 1, bannerable_type: 'ncc', bannerable_id: user?.ncc?.id };
+      typeData = { page: 1, homedataable_type: 'ncc', homedataable_id: user?.ncc?.id };
     }
 
     if (data?.image?.length > 0) {
@@ -43,9 +45,9 @@ const EditForm = ({ detail, handleClose }) => {
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <HomeDataForm banner_image={detail?.image} />
+      <HomeDataForm banner_image={detail?.banner_image} image={detail?.image} />
       <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_banner_loading} />
+        <CustomButton buttonName="Update" loading={update_home_data_loading} />
       </Box>
     </CustomForm>
   );
@@ -54,9 +56,10 @@ const Edit = ({ data, handleClose }) => {
   const defaultValues = {
     title: data?.title,
     subtitle: data?.subtitle,
-    link: data?.link,
-    description: data?.link,
-    status: data?.status
+    description: data?.description,
+    tabtitle: data?.tabtitle,
+    tagline: data?.tagline,
+    tagline_author: data?.tagline_author
   };
 
   return (

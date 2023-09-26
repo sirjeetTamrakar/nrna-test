@@ -3,7 +3,7 @@ import SecondaryNav from 'components/globals/SecondaryNav';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getSingleNCC, getSiteSettings } from 'redux/homepage/actions';
+import { getAllHomeData, getSingleNCC, getSiteSettings } from 'redux/homepage/actions';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
@@ -34,6 +34,8 @@ export default NCCLayout;
 
 const SecondaryNavWrapper = () => {
   const dispatch = useDispatch();
+  const { slug } = useParams();
+
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -41,8 +43,10 @@ const SecondaryNavWrapper = () => {
   const handleFunction = (data) => {
     navigate(data);
   };
-  console.log({ ncc });
+  console.log({ selected, slug });
   const { single_ncc } = useSelector((state) => state.homepage);
+  const { user } = useSelector((state) => state.auth);
+
   console.log({ single_ncc });
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
@@ -92,7 +96,25 @@ const SecondaryNavWrapper = () => {
       value: 'vision',
       path: `/ncc/${ncc}/vision`,
       clickFunction: () => handleFunction(`/ncc/${ncc}/vision`)
-    },
+    }
+  ];
+
+  const { home_data } = useSelector((state) => state.homepage);
+  console.log('bbbvbvbv', { home_data });
+  useEffect(() => {
+    const data = {
+      type: 'ncc',
+      id: user?.ncc?.id
+    };
+    dispatch(getAllHomeData(data));
+  }, []);
+  const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
+    title: item?.title,
+    value: item?.slug,
+    clickFunction: () => handleFunction(`/ncc/${ncc}/${item.slug}`)
+  }));
+
+  const contact = [
     {
       title: 'Contact',
       value: 'contact',
@@ -100,11 +122,14 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction(`/ncc/${ncc}/contact`)
     }
   ];
+
+  const allOptions = [...options, ...homeOptions, ...contact];
+
   return (
     <SecondaryNav
       title={single_ncc?.country_name}
       color={single_ncc?.color}
-      options={options}
+      options={allOptions}
       setSelected={setSelected}
       selected={selected}
     />

@@ -1,12 +1,11 @@
 import { Box, Button, Container, Typography } from '@mui/material';
 import CustomModal from 'components/common/CustomModal/CustomModal';
-import PageBanner from 'components/globals/PageBanner';
 import Login from 'components/globals/login';
+import PageBanner from 'components/globals/PageBanner';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { isLoggedIn } from 'utils';
 import useStyles from './styles';
 
 const Survey = () => {
@@ -39,23 +38,23 @@ const Survey = () => {
               </Typography>
             </Box>
             <Box textAlign="center" marginTop={4}>
-              {isLoggedIn() ? (
-                <Button
-                  disabled={user?.has_taken_survey ? true : false}
-                  variant="contained"
-                  onClick={startSurvey}>
-                  Start Making a Differences
-                </Button>
-              ) : (
+              {/* {isLoggedIn() ? ( */}
+              <Button
+                // disabled={user?.has_taken_survey ? true : false}
+                variant="contained"
+                onClick={startSurvey}>
+                Start Making a Differences
+              </Button>
+              {/* ) : (
                 <Button variant="contained" onClick={openFunction}>
                   Login to take survey
                 </Button>
-              )}
-              {user?.has_taken_survey && (
+              )} */}
+              {/* {user?.has_taken_survey && (
                 <Typography sx={{ marginTop: '20px', fontSize: '20px' }}>
                   You have already taken the survey.
                 </Typography>
-              )}
+              )} */}
             </Box>
             <Box marginTop={4}>
               <Typography className={classes.description}>

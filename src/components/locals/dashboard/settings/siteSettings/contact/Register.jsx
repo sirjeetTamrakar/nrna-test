@@ -1,6 +1,6 @@
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
-import VisionForm from './Form';
+import ContactForm from './Form';
 import { validationSchema } from './ValidationSchema';
 
 const Register = () => {
@@ -11,7 +11,7 @@ const Register = () => {
       <CustomFormProvider
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
-        <VisionForm />
+        <ContactForm />
       </CustomFormProvider>
     </>
   );

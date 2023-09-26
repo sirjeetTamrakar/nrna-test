@@ -6,7 +6,11 @@ const About = ({ siteSettingImages, about, title }) => {
 
   return (
     <>
-      <PageBanner />
+      <PageBanner
+        image={settings?.about_banner}
+        title={settings?.title}
+        subtitle={settings?.about_subtitle}
+      />
 
       <section className="about" id="about_main">
         <div className="container">

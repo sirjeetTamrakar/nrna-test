@@ -6,9 +6,8 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './about';
 import HomeData from './banner';
-import Mission from './mission';
+import Contact from './contact';
 import SettingsData from './settingsData';
-import Vision from './vision';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -55,9 +54,8 @@ const BasicTabs = () => {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Settings Data" {...a11yProps(0)} />
           <Tab label="About" {...a11yProps(1)} />
-          <Tab label="Mission" {...a11yProps(2)} />
-          <Tab label="Vision" {...a11yProps(3)} />
-          <Tab label="Home Data" {...a11yProps(4)} />
+          <Tab label="Contact" {...a11yProps(2)} />
+          <Tab label="Home Data" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -66,13 +64,11 @@ const BasicTabs = () => {
       <CustomTabPanel value={value} index={1}>
         <About />
       </CustomTabPanel>
+
       <CustomTabPanel value={value} index={2}>
-        <Mission />
+        <Contact />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
-        <Vision />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
         <HomeData />
       </CustomTabPanel>
     </Box>

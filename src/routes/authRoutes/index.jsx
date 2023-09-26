@@ -5,6 +5,7 @@ import ContactPage from 'pages/public/Contact';
 import EventsPage from 'pages/public/events';
 import SingleEventPage from 'pages/public/events/SingleEvent';
 import Forgot from 'pages/public/forgot';
+import HomeDataComponentPage from 'pages/public/HomeDataComponentPage';
 import { Homepage } from 'pages/public/Homepage';
 import MissionPage from 'pages/public/Mission';
 import NCCPage from 'pages/public/NCC';
@@ -71,6 +72,10 @@ const AuthRoutes = [
   {
     path: '/mission',
     component: <MissionPage />
+  },
+  {
+    path: `/:slug`,
+    component: <HomeDataComponentPage />
   },
 
   { path: '/forgot-password', component: <Forgot /> },

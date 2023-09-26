@@ -12,9 +12,8 @@ import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBanner } from 'redux/homepage/actions';
+import { deleteHomeData, getHomeData, updateHomeDataStatus } from '../../redux/actions';
 import Edit from './Edit';
-import { deleteBanner, updateBannerStatus } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
@@ -30,8 +29,8 @@ const HomeData = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
-  const { bannerData, banner_status_loading, delete_banner_loading, get_banner_loading } =
-    useSelector((state) => state.banner);
+  const { home_data, banner_home_data_loading, delete_home_data_loading, get_home_data_loading } =
+    useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
@@ -63,7 +62,7 @@ const HomeData = () => {
         return (
           <Box>
             <Typography variant="body2">
-              {row?.subtitle?.length > 59
+              {row?.description?.length > 59
                 ? `${row?.description?.substring(0, 60)}...`
                 : row?.subtitle}
             </Typography>
@@ -146,34 +145,52 @@ const HomeData = () => {
     viewOpenFunction();
   };
 
-  const handleStatusConfirm = () => {
-    dispatch(
-      updateBannerStatus(detail?.id, { status: detail?.status == 1 ? 0 : 1 }, statusOpenFunction)
-    );
+  // const handleStatusConfirm = () => {
+  //   dispatch(
+  //     updateHomeDataStatus(detail?.id, { status: detail?.status == 1 ? 0 : 1 }, statusOpenFunction)
+  //   );
+  // };
+
+  const handleStatusConfirm = (slug) => {
+    const finalData = {
+      slug: slug,
+      status: detail?.status === 0 ? 1 : 0,
+      _method: 'PATCH'
+    };
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(updateHomeDataStatus(finalData, statusOpenFunction, typeData));
   };
 
-  const handleDeleteConfirm = () => {
-    dispatch(deleteBanner(detail?.id, deleteOpenFunction));
+  const handleDeleteConfirm = (slug) => {
+    let typeData;
+    if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(deleteHomeData(slug, deleteOpenFunction, typeData));
   };
 
-  useEffect(() => {
-    dispatch(getBanner());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getHomeData());
+  // }, []);
 
   const refetch = () => {
     const data = {
       page: page + 1,
       pagination_limit: rowsPerPage,
-      bannerable_type: user?.role_name === Roles.NCC ? Roles.NCC : '',
-      bannerable_id: user?.ncc?.id
+      homedataable_type: user?.role_name === Roles.NCC ? Roles.NCC : '',
+      homedataable_id: user?.ncc?.id
     };
-    dispatch(getBanner(data));
+    dispatch(getHomeData(data));
   };
 
   useEffect(() => {
     refetch();
   }, [page, rowsPerPage]);
 
+  console.log({ home_data });
   return (
     <>
       <Box>
@@ -195,13 +212,13 @@ const HomeData = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={bannerData?.data}
+          tableData={home_data?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={bannerData?.meta?.total}
-          loading={get_banner_loading}
+          total={home_data?.meta?.total}
+          loading={get_home_data_loading}
         />
         <CustomModal
           open={openForm}
@@ -234,14 +251,16 @@ const HomeData = () => {
           open={openDelete}
           handleClose={deleteOpenFunction}
           handleConfirm={handleDeleteConfirm}
-          isLoading={delete_banner_loading}
+          isLoading={delete_home_data_loading}
+          slug={detail?.id}
         />
         <CustomStatusModal
           open={openStatus}
           handleClose={statusOpenFunction}
           status={detail?.status == 1 ? 'Active' : 'Inactive'}
           handleConfirm={handleStatusConfirm}
-          isLoading={banner_status_loading}
+          isLoading={banner_home_data_loading}
+          id={detail?.id}
         />
       </Box>
     </>

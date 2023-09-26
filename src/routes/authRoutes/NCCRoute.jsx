@@ -8,6 +8,7 @@ import News from 'pages/public/nccSite/News';
 import ProfilePage from 'pages/public/nccSite/Profile';
 import SingleEventNCC from 'pages/public/nccSite/SingleEvent';
 import SingleNewsNCC from 'pages/public/nccSite/SingleNews';
+import TabComponentPage from 'pages/public/nccSite/TabComponentPage';
 import VisionPage from 'pages/public/nccSite/Vision';
 
 export const nccRoute = [
@@ -54,5 +55,9 @@ export const nccRoute = [
   {
     path: '/ncc/:ncc/events/:slug',
     component: <SingleEventNCC />
+  },
+  {
+    path: `ncc/:ncc/:slug`,
+    component: <TabComponentPage />
   }
 ];

@@ -47,6 +47,9 @@ const AboutForm = () => {
     if (data?.about_image?.length > 0) {
       formData.append('about_image', data?.about_image?.[0]);
     }
+    if (data?.about_banner?.length > 0) {
+      formData.append('about_banner', data?.about_banner?.[0]);
+    }
     dispatch(postSiteSettings(formData, typeData));
   };
 
@@ -61,6 +64,16 @@ const AboutForm = () => {
               name="about_image"
               label="Select Photo"
               image={site_settings?.about_image}
+            />
+          </Grid>
+          <Grid item sm={12}>
+            <FileUploader
+              title="About Banner Image"
+              imageText="Resolution: height: 1400 x width: 400"
+              name="about_banner"
+              label="Select Photo"
+              image={site_settings?.about_banner}
+              widthFull
             />
           </Grid>
           <Grid item sm={12}>

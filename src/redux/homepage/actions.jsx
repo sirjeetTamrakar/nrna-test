@@ -3,7 +3,9 @@ import {
   contactUsApi,
   deleteContactApi,
   getAllEventsApi,
+  getAllHomeDataApi,
   getAllNewsApi,
+  getAllQuestionsApi,
   getBannerApi,
   getBusinessApi,
   getBusinessCategoryApi,
@@ -16,6 +18,7 @@ import {
   getNewsCategoryApi,
   getSingleBusinessApi,
   getSingleEventApi,
+  getSingleHomeDataApi,
   getSingleNCCApi,
   getSingleNewsApi,
   getSingleTeamsApi,
@@ -338,5 +341,42 @@ export const postAdvice = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_ADVICE_ERROR });
+    });
+};
+
+export const getAllHomeData = (data) => (dispatch) => {
+  dispatch({ type: actions.FETCH_HOME_DATA_BEGIN });
+  getAllHomeDataApi(data)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_HOME_DATA_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_HOME_DATA_ERROR });
+    });
+};
+
+export const getSingleHomeData = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_HOME_DATA_BEGIN });
+  getSingleHomeDataApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_HOME_DATA_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_HOME_DATA_ERROR });
+    });
+};
+
+export const getAllQuestions = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_QUESTIONS_BEGIN });
+
+  getAllQuestionsApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_QUESTIONS_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_QUESTIONS_ERROR });
     });
 };

@@ -9,7 +9,11 @@ const Contact = ({ siteSettings, handleSubmit }) => {
   const { settings } = useSelector((state) => state.homepage);
   return (
     <>
-      <PageBanner />
+      <PageBanner
+        title={settings?.contact_title}
+        subtitle={settings?.contact_subtitle}
+        image={settings?.contact_banner_image}
+      />
       <section className="contact_page" id="contact_main">
         <div className="container">
           <div className="row">

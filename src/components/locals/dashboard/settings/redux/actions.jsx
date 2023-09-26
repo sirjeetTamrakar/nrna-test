@@ -4,7 +4,8 @@ import {
   getSiteSettingsApi,
   postHomeDataApi,
   postSiteSettingsApi,
-  updateHomeDataApi
+  updateHomeDataApi,
+  updateHomeDataStatusApi
 } from 'apis/dashboard';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
@@ -62,16 +63,16 @@ export const postHomeData = (data, typeData, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteHomeData = (banner_id, handleSuccess) => async (dispatch) => {
+export const deleteHomeData = (banner_id, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.DELETE_HOME_DATA_BEGIN });
 
   try {
     await deleteHomeDataApi(banner_id);
-    handleSuccess && handleSuccess();
     dispatch({
       type: actions.DELETE_HOME_DATA_SUCCESS
     });
-    dispatch(getHomeData());
+    handleSuccess && handleSuccess();
+    dispatch(getHomeData(typeData));
     successToast('Home data has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_HOME_DATA_ERROR });
@@ -96,14 +97,14 @@ export const updateHomeData = (banner_id, data, typeData, handleSuccess) => asyn
   }
 };
 
-export const updateHomeDataStatus = (banner_id, data, handleSuccess) => (dispatch) => {
+export const updateHomeDataStatus = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.UPDATE_HOME_DATA_STATUS_BEGIN });
-  updateHomeDataApi(banner_id, data)
+  updateHomeDataStatusApi(data)
     .then((res) => {
       dispatch({ type: actions.UPDATE_HOME_DATA_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
       successToast('Status Updated Successfully');
-      dispatch(getHomeData());
+      dispatch(getHomeData(typeData));
     })
     .catch((error) => {
       dispatch({ type: actions.UPDATE_HOME_DATA_STATUS_ERROR });

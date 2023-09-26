@@ -52,7 +52,7 @@ const settingsReducer = (state = defaultState, action) => {
       };
 
     case actions.GET_HOME_DATA_SUCCESS:
-      return { ...state, get_home_data_loading: false, home_dataData: action.payload };
+      return { ...state, get_home_data_loading: false, home_data: action.payload };
 
     case actions.GET_HOME_DATA_ERROR:
       return { ...state, get_home_data_loading: false };

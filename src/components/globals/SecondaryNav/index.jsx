@@ -1,11 +1,24 @@
 import { Box, Container, Typography } from '@mui/material';
+import { useEffect, useState } from 'react';
 import { useStyles } from './styles';
 
-const SecondaryNav = ({ options, selected, title, color }) => {
+const SecondaryNav = ({ options, selected, title, color, setSelected }) => {
   const classes = useStyles();
+
+  const [localSelected, setLocalSelected] = useState(selected);
+
+  useEffect(() => {
+    setLocalSelected(selected);
+  }, [selected]);
+
+  const handleOptionClick = (value) => {
+    console.log('Clicked value:', value);
+
+    setSelected(value);
+  };
   const checkActive = (slug) => {
-    if (selected) {
-      if (slug === selected) {
+    if (localSelected) {
+      if (slug === localSelected) {
         return 'active';
       } else return '';
     } else if (slug === options?.value) {
@@ -26,7 +39,13 @@ const SecondaryNav = ({ options, selected, title, color }) => {
         )}
         <ul className={classes.list}>
           {options?.map((list, index) => (
-            <li className={checkActive(list?.value)} key={index} onClick={list?.clickFunction}>
+            <li
+              className={checkActive(list?.value)}
+              key={index}
+              onClick={() => {
+                handleOptionClick(list.value);
+                list.clickFunction();
+              }}>
               {list?.title}
             </li>
           ))}

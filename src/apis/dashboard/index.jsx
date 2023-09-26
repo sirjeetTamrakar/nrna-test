@@ -209,10 +209,12 @@ export const getHomeDataApi = (data) => {
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
-  const bannerable_type = data?.bannerable_type ? `&bannerable_type=${data?.bannerable_type}` : '';
-  const bannerable_id = data?.bannerable_id ? `&bannerable_id=${data?.bannerable_id}` : '';
+  const homedataable_type = data?.homedataable_type
+    ? `&homedataable_type=${data?.homedataable_type}`
+    : '';
+  const homedataable_id = data?.homedataable_id ? `&homedataable_id=${data?.homedataable_id}` : '';
   return axiosInstance().get(
-    `/admin/homedata${page}${pagination_limit}${bannerable_type}${bannerable_id}`
+    `/admin/homedata${page}${pagination_limit}${homedataable_type}${homedataable_id}`
   );
 };
 
@@ -231,6 +233,6 @@ export const deleteHomeDataApi = (banner_id) => {
   return axiosInstance().delete(`/admin/homedata/${banner_id}`);
 };
 
-export const updateHomeDataStatusApi = (banner_id, data) => {
-  return axiosInstance().patch(`/admin/homedata/${banner_id}/status`, data);
+export const updateHomeDataStatusApi = (data) => {
+  return axiosInstance().post(`/admin/homedata/${data?.slug}/status`, data);
 };

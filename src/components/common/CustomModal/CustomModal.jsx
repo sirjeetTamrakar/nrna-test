@@ -13,7 +13,8 @@ function CustomModal({
   modalSubtitle,
   modalStyles = {},
   icon,
-  widthFull
+  widthFull,
+  padding
 }) {
   const classes = styles();
   function getModalStyle(height, width) {
@@ -58,7 +59,7 @@ function CustomModal({
               </IconButton>
             </Box>
           )}
-          <Box>
+          <Box sx={padding && { padding: '20px' }}>
             <Box>{children}</Box>
           </Box>
         </div>

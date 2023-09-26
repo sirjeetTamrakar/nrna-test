@@ -2,7 +2,7 @@ import { Box, CircularProgress, Paper, Typography } from '@mui/material';
 import { useSelector } from 'react-redux';
 import Register from './Register';
 
-export default function Vision() {
+export default function Contact() {
   const { get_site_settings_loading } = useSelector((state) => state.settings);
   return (
     <>
@@ -14,7 +14,7 @@ export default function Vision() {
             alignItems: 'center'
           }}>
           <Typography component="h4" sx={{ fontSize: '20px', marginBottom: '10px' }}>
-            Vision Section
+            Contact Section
           </Typography>
         </Box>
         {!get_site_settings_loading ? (

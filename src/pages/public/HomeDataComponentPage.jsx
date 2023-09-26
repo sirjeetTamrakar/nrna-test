@@ -1,18 +1,20 @@
 import SecondaryNav from 'components/globals/SecondaryNav';
-import About from 'components/locals/About';
+import HomeDataCom from 'components/locals/HomeDataReuseCom/HomeDataCom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { getAllHomeData } from 'redux/homepage/actions';
 
-const AboutPage = () => {
-  const [selected, setSelected] = useState('about');
+const HomeDataComponentPage = () => {
+  const { slug } = useParams();
+  console.log({ slug });
+  const [selected, setSelected] = useState(slug);
   console.log({ selected });
-
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
+
   const dispatch = useDispatch();
   const { home_data } = useSelector((state) => state.homepage);
   console.log('bbbvbvbv', { home_data });
@@ -24,6 +26,7 @@ const AboutPage = () => {
     value: item?.slug,
     clickFunction: () => handleFunction(`/${item.slug}`)
   }));
+
   const options = [
     { title: 'Home', value: 'home', clickFunction: () => handleFunction('/') },
     { title: 'About', value: 'about', clickFunction: () => handleFunction('/about') }
@@ -42,9 +45,9 @@ const AboutPage = () => {
         setSelected={setSelected}
         selected={selected}
       />
-      <About />;
+      <HomeDataCom />;
     </>
   );
 };
 
-export default AboutPage;
+export default HomeDataComponentPage;

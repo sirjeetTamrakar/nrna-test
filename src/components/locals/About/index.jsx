@@ -4,7 +4,12 @@ const About = () => {
   const { settings } = useSelector((state) => state.homepage);
   return (
     <>
-      <PageBanner />
+      <PageBanner
+        image={settings?.about_banner}
+        title={settings?.title}
+        subtitle={settings?.about_subtitle}
+      />
+
       <section className="about" id="about_main">
         <div className="container">
           <div className="row">

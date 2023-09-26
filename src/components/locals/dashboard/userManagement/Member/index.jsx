@@ -228,14 +228,25 @@ const Member = () => {
   };
 
   const handleUserSearch = (e) => {
+    setPage(0);
+    dispatch(setUserSearch(inputValue));
     e.preventDefault();
   };
+  const [inputValue, setInputValue] = useState(''); // Track the input field value
 
   const nameChangeHandler = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue); // Update the input field value
     const timeout = setTimeout(() => {
       dispatch(setUserSearch(e.target.value));
     }, [1000]);
     return () => clearTimeout(timeout);
+  };
+
+  const nameClearHandler = () => {
+    setPage(0);
+    setInputValue('');
+    dispatch(setUserSearch(''));
   };
 
   // console.log({ userSearch });
@@ -269,17 +280,37 @@ const Member = () => {
               <form onClick={handleUserSearch}>
                 <input
                   style={{
-                    padding: '3px 8px',
-                    width: '200px',
-                    border: '1px solid #9B9B9B',
-                    borderRadius: '4px'
+                    padding: '5px 10px',
+                    width: '250px',
+                    border: 'none',
+                    outline: 'none'
+                    // borderRadius: '4px'
                   }}
                   type="text"
-                  // value={userSearch}
+                  value={inputValue}
                   onChange={nameChangeHandler}
                   placeholder="Search user"
                 />
-                {/* <button type="submit">Search</button> */}
+
+                <button
+                  onClick={nameClearHandler}
+                  style={
+                    inputValue
+                      ? {
+                          padding: '5px 10px',
+                          border: 'none',
+                          backgroundColor: '#fff',
+                          color: 'red'
+                        }
+                      : {
+                          padding: '5px 10px',
+                          border: 'none',
+                          backgroundColor: '#fff',
+                          color: '#fff'
+                        }
+                  }>
+                  x
+                </button>
               </form>
             </Box>
           </Box>

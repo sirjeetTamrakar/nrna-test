@@ -161,3 +161,20 @@ export const postTeamContactApi = (data) => {
 export const postAdviceApi = (data) => {
   return axiosInstance().post('/api/advices', data);
 };
+
+// get all homedata
+export const getAllHomeDataApi = (data) => {
+  const type = data?.type ? `?homedataable_type=${data?.type}` : '';
+  const id = data?.id ? `&homedataable_id=${data?.id}` : '';
+  return axiosInstance().get(`/api/homedata${type}${id}`);
+};
+
+// get single homedata
+export const getSingleHomeDataApi = (slug) => {
+  return axiosInstance().get(`/api/homedata/${slug}`);
+};
+
+// get questions public
+export const getAllQuestionsApi = () => {
+  return axiosInstance().get('/api/questions');
+};

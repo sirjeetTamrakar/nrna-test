@@ -45,7 +45,13 @@ const defaultState = {
   single_user: null,
   single_user_loading: false,
   teams_contact_loading: false,
-  advice_loading: false
+  advice_loading: false,
+  home_data: [],
+  home_data_loading: false,
+  single_home_data: null,
+  single_home_data_loading: false,
+  questions_loading: false,
+  questions: []
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -291,6 +297,38 @@ const homepageReducer = (state = defaultState, action) => {
     case actions.POST_ADVICE_SUCCESS:
     case actions.POST_ADVICE_ERROR:
       return { ...state, advice_loading: false };
+
+    case actions.FETCH_HOME_DATA_BEGIN:
+      return {
+        ...state,
+        home_data_loading: true
+      };
+
+    case actions.FETCH_HOME_DATA_SUCCESS:
+      return { ...state, home_data_loading: false, home_data: action.payload };
+
+    case actions.FETCH_HOME_DATA_ERROR:
+      return { ...state, home_data_loading: false };
+
+    case actions.FETCH_SINGLE_HOME_DATA_BEGIN:
+      return { ...state, single_home_data_loading: true };
+
+    case actions.FETCH_SINGLE_HOME_DATA_SUCCESS:
+      return { ...state, single_home_data_loading: false, single_home_data: action.payload };
+
+    case actions.FETCH_SINGLE_HOME_DATA_ERROR:
+      return { ...state, single_home_data_loading: false };
+    case actions.FETCH_QUESTIONS_BEGIN:
+      return {
+        ...state,
+        questions_loading: true
+      };
+
+    case actions.FETCH_QUESTIONS_SUCCESS:
+      return { ...state, questions_loading: false, questions: action.payload };
+
+    case actions.FETCH_QUESTIONS_ERROR:
+      return { ...state, questions_loading: false };
 
     default:
       return state;

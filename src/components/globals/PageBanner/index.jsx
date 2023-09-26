@@ -7,7 +7,7 @@ const PageBanner = ({
 }) => {
   return (
     <div className="page_banner">
-      <img src={image && image} alt="" />
+      <img src={image && image} alt="" style={{ objectFit: 'cover' }} />
       <div className="content_wrapper">
         <div className="container">
           <div className="title">{title && title}</div>
