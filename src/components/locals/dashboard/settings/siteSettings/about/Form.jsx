@@ -18,7 +18,9 @@ const AboutForm = () => {
     about: '',
     about_title: '',
     about_subtitle: '',
-    about_image: ''
+    about_image: '',
+    about_tagline: '',
+    about_tagline_author: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
@@ -30,6 +32,8 @@ const AboutForm = () => {
       setValue('about', site_settings?.about);
       setValue('about_title', site_settings?.about_title);
       setValue('about_subtitle', site_settings?.about_subtitle);
+      setValue('about_tagline', site_settings?.about_tagline);
+      setValue('about_tagline_author', site_settings?.about_tagline_author);
     }
   }, [site_settings]);
 
@@ -39,6 +43,8 @@ const AboutForm = () => {
     formData.append('about', data?.about);
     formData.append('about_title', data?.about_title);
     formData.append('about_subtitle', data?.about_subtitle);
+    formData.append('about_tagline', data?.about_tagline);
+    formData.append('about_tagline_author', data?.about_tagline_author);
     if (user?.role_name === Roles.NCC) {
       formData.append('settingable_type', 'ncc');
       formData.append('settingable_id', user?.ncc?.id);
@@ -81,6 +87,12 @@ const AboutForm = () => {
           </Grid>
           <Grid item sm={12}>
             <CustomInput name="about_subtitle" label="About Subtitle" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="about_tagline_author" label="Tagline author" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomTextArea name="CustomTextArea" label="Tagline" required />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea name="about" label="About Description" required rows={15} />

@@ -1,4 +1,5 @@
 import PageBanner from 'components/globals/PageBanner';
+import TaglineSection from 'components/globals/TaglineSection';
 import { useSelector } from 'react-redux';
 const About = () => {
   const { settings } = useSelector((state) => state.homepage);
@@ -8,6 +9,10 @@ const About = () => {
         image={settings?.about_banner}
         title={settings?.title}
         subtitle={settings?.about_subtitle}
+      />
+      <TaglineSection
+        tagline={settings?.about_tagline}
+        taglineAuthor={settings?.about_tagline_author}
       />
 
       <section className="about" id="about_main">
