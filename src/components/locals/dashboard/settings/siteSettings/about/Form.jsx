@@ -92,7 +92,7 @@ const AboutForm = () => {
             <CustomInput name="about_tagline_author" label="Tagline author" required />
           </Grid>
           <Grid item sm={12}>
-            <CustomTextArea name="CustomTextArea" label="Tagline" required />
+            <CustomTextArea name="about_tagline" label="Tagline" required />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea name="about" label="About Description" required rows={15} />

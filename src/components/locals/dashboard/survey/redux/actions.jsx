@@ -137,7 +137,7 @@ export const getParticipants = () => (dispatch) => {
   dispatch({ type: actions.FETCH_PARTICIPANT_BEGIN });
   getParticipantsApi()
     .then((res) => {
-      dispatch({ type: actions.FETCH_PARTICIPANT_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_PARTICIPANT_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       dispatch({ type: actions.FETCH_PARTICIPANT_ERROR });

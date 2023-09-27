@@ -51,7 +51,7 @@ const NCC = () => {
       field: (row) => {
         return (
           <Button variant="contained" color="primary">
-            {row?.members}
+            {row?.members?.length}
           </Button>
         );
       }
@@ -73,6 +73,7 @@ const NCC = () => {
       title: 'Created At',
       minWidth: 80,
       field: (row) => {
+        console.log({ row });
         return changeDateFormat(row?.created_at);
       }
     },

@@ -40,7 +40,7 @@ export const getSurveyResultApi = () => {
 };
 
 export const getParticipantsApi = () => {
-  return axiosInstance().get(`/admin/surveys/result-user-list`);
+  return axiosInstance().get(`/admin/surveys/survey-participants`);
 };
 
 export const getParticipantResultApi = (user_id) => {

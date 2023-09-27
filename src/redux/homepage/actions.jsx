@@ -26,8 +26,10 @@ import {
   getSiteSettingsApi,
   getTeamsApi,
   postAdviceApi,
+  postCheckEmailApi,
   postTeamContactApi
 } from 'apis/homepage';
+import { getError } from 'helpers';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
@@ -379,4 +381,25 @@ export const getAllQuestions = () => (dispatch) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_QUESTIONS_ERROR });
     });
+};
+
+export const emailCheck = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_EMAIL_CHECK_BEGIN });
+  postCheckEmailApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_EMAIL_CHECK_SUCCESS });
+      successToast('You cann take survey');
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      dispatch({ type: actions.POST_EMAIL_CHECK_ERROR });
+      console.log({ aaaaa: error });
+      // alert('dsadsa');
+      // errorToast(error);
+      getError(error);
+    });
+};
+
+export const saveDetails = (data) => (dispatch) => {
+  dispatch({ type: actions.STORE_DETAILS, payload: data });
 };

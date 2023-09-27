@@ -10,7 +10,7 @@ const CandidateForm = () => {
   const { users } = useSelector((state) => state.user);
 
   const createdByUsers = users?.data?.map((item) => ({
-    label: item?.name,
+    label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
   }));
 

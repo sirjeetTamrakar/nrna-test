@@ -6,8 +6,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { createQuestion } from '../redux/actions';
 import QuestionForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -16,7 +16,9 @@ const Register = ({ handleClose }) => {
   const { create_question_loading } = useSelector((state) => state.question);
 
   const onSubmit = (data) => {
-    dispatch(createQuestion(data, handleClose));
+    const newData = { ...data, options: data?.options?.filter((item) => item) };
+    console.log({ newData });
+    dispatch(createQuestion(newData, handleClose));
   };
 
   return (

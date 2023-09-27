@@ -51,7 +51,9 @@ const defaultState = {
   single_home_data: null,
   single_home_data_loading: false,
   questions_loading: false,
-  questions: []
+  questions: [],
+  email_check_loading: false,
+  details: {}
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -329,6 +331,19 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_QUESTIONS_ERROR:
       return { ...state, questions_loading: false };
+
+    case actions.POST_EMAIL_CHECK_BEGIN:
+      return {
+        ...state,
+        email_check_loading: true
+      };
+
+    case actions.POST_EMAIL_CHECK_SUCCESS:
+    case actions.POST_EMAIL_CHECK_ERROR:
+      return { ...state, email_check_loading: false };
+
+    case actions.STORE_DETAILS:
+      return { ...state, details: action.payload };
 
     default:
       return state;

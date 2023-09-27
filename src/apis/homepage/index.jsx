@@ -178,3 +178,8 @@ export const getSingleHomeDataApi = (slug) => {
 export const getAllQuestionsApi = () => {
   return axiosInstance().get('/api/questions');
 };
+
+// check survey taken with email
+export const postCheckEmailApi = (data) => {
+  return axiosInstance().post(`/api/surveys/checkemail`, data);
+};

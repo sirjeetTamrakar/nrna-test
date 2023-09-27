@@ -45,7 +45,9 @@ const OurTeam = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.member?.name}</Typography>
+            <Typography variant="body2">
+              {row?.member?.full_name ? row?.member?.full_name : row?.member?.username}
+            </Typography>
           </Box>
         );
       }

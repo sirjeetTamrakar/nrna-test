@@ -10,10 +10,12 @@ const About = () => {
         title={settings?.title}
         subtitle={settings?.about_subtitle}
       />
-      <TaglineSection
-        tagline={settings?.about_tagline}
-        taglineAuthor={settings?.about_tagline_author}
-      />
+      {settings?.about_tagline && (
+        <TaglineSection
+          tagline={settings?.about_tagline}
+          taglineAuthor={settings?.about_tagline_author}
+        />
+      )}
 
       <section className="about" id="about_main">
         <div className="container">

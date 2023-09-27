@@ -1,4 +1,5 @@
 import PageBanner from 'components/globals/PageBanner';
+import TaglineSection from 'components/globals/TaglineSection';
 import { useSelector } from 'react-redux';
 
 const About = () => {
@@ -6,7 +7,17 @@ const About = () => {
 
   return (
     <>
-      <PageBanner />
+      <PageBanner
+        title={nbns_settings?.about_title}
+        subtitle={nbns_settings?.about_subtitle}
+        image={nbns_settings?.about_banner}
+      />
+      {nbns_settings?.about_tagline && (
+        <TaglineSection
+          tagline={nbns_settings?.about_tagline}
+          taglineAuthor={nbns_settings?.about_tagline_author}
+        />
+      )}
 
       <section className="about" id="about_main">
         <div className="container">

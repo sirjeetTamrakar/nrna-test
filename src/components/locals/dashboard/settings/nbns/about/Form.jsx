@@ -17,7 +17,9 @@ const AboutForm = () => {
     about: '',
     about_title: '',
     about_subtitle: '',
-    about_image: ''
+    about_image: '',
+    about_tagline: '',
+    about_tagline_author: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
@@ -28,6 +30,8 @@ const AboutForm = () => {
       setValue('about', site_settings?.about);
       setValue('about_title', site_settings?.about_title);
       setValue('about_subtitle', site_settings?.about_subtitle);
+      setValue('about_tagline', site_settings?.about_tagline);
+      setValue('about_tagline_author', site_settings?.about_tagline_author);
     }
   }, [site_settings]);
 
@@ -36,10 +40,15 @@ const AboutForm = () => {
     formData.append('about', data?.about);
     formData.append('about_title', data?.about_title);
     formData.append('about_subtitle', data?.about_subtitle);
+    formData.append('about_tagline', data?.about_tagline);
+    formData.append('about_tagline_author', data?.about_tagline_author);
     formData.append('settingable_type', 'nbns');
     formData.append('settingable_id', 1);
     if (data?.about_image?.length > 0) {
       formData.append('about_image', data?.about_image?.[0]);
+    }
+    if (data?.about_banner?.length > 0) {
+      formData.append('about_banner', data?.about_banner?.[0]);
     }
     dispatch(postSiteSettings(formData, { settingable_type: 'nbns', settingable_id: 1 }));
   };
@@ -58,10 +67,26 @@ const AboutForm = () => {
             />
           </Grid>
           <Grid item sm={12}>
+            <FileUploader
+              title="About Banner Image"
+              imageText="Resolution: height: 1400 x width: 400"
+              name="about_banner"
+              label="Select Photo"
+              image={site_settings?.about_banner}
+              widthFull
+            />
+          </Grid>
+          <Grid item sm={12}>
             <CustomInput name="about_title" label="About Title" required />
           </Grid>
           <Grid item sm={12}>
             <CustomInput name="about_subtitle" label="About Subtitle" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="about_tagline_author" label="Tagline author" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomTextArea name="about_tagline" label="Tagline" required />
           </Grid>
           <Grid item sm={12}>
             <CustomTextArea name="about" label="About Description" required rows={15} />

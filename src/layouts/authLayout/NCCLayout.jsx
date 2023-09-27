@@ -84,19 +84,19 @@ const SecondaryNavWrapper = () => {
       value: 'events',
       path: `/ncc/${ncc}/events`,
       clickFunction: () => handleFunction(`/ncc/${ncc}/events`)
-    },
-    {
-      title: 'Mission',
-      value: 'mission',
-      path: `/ncc/${ncc}/mission`,
-      clickFunction: () => handleFunction(`/ncc/${ncc}/mission`)
-    },
-    {
-      title: 'Vision',
-      value: 'vision',
-      path: `/ncc/${ncc}/vision`,
-      clickFunction: () => handleFunction(`/ncc/${ncc}/vision`)
     }
+    // {
+    //   title: 'Mission',
+    //   value: 'mission',
+    //   path: `/ncc/${ncc}/mission`,
+    //   clickFunction: () => handleFunction(`/ncc/${ncc}/mission`)
+    // },
+    // {
+    //   title: 'Vision',
+    //   value: 'vision',
+    //   path: `/ncc/${ncc}/vision`,
+    //   clickFunction: () => handleFunction(`/ncc/${ncc}/vision`)
+    // }
   ];
 
   const { home_data } = useSelector((state) => state.homepage);
@@ -109,7 +109,7 @@ const SecondaryNavWrapper = () => {
     dispatch(getAllHomeData(data));
   }, []);
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
-    title: item?.title,
+    title: item?.tabtitle,
     value: item?.slug,
     clickFunction: () => handleFunction(`/ncc/${ncc}/${item.slug}`)
   }));

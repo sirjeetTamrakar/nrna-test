@@ -14,3 +14,8 @@ export const infoToast = (message = 'Information') => toast.info(message, { them
 
 export const errorToast = (error = {}) =>
   toast.error(error.response.data.message, { theme: 'colored' });
+
+export const customToaster = ({ type, message }) =>
+  toast[type?.toLowerCase() === 'danger' ? 'error' : type?.toLowerCase()](message || 'Success', {
+    theme: 'colored'
+  });

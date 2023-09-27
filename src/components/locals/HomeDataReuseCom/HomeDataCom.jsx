@@ -20,10 +20,12 @@ const HomeDataCom = () => {
         title={single_home_data?.title}
         subtitle={single_home_data?.subtitle}
       />
-      <TaglineSection
-        tagline={single_home_data?.tagline}
-        taglineAuthor={single_home_data?.tagline_author}
-      />
+      {single_home_data?.tagline && (
+        <TaglineSection
+          tagline={single_home_data?.tagline}
+          taglineAuthor={single_home_data?.tagline_author}
+        />
+      )}
       <section className="about" id="about_main">
         <div className="container">
           <div className="row">

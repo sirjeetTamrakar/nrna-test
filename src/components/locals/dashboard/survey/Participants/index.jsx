@@ -1,4 +1,4 @@
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +11,7 @@ const Participants = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const { participants, participants_loading } = useSelector((state) => state.question);
+  console.log({ participants });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -18,13 +19,14 @@ const Participants = () => {
       title: 'Name',
       minWidth: 150,
       field: (row) => {
-        return <Typography variant="body2">{row?.name}</Typography>;
+        return <Typography variant="body2">{row?.first_name}</Typography>;
       }
     },
     {
       title: 'Email/Phone',
       minWidth: 100,
       field: (row) => {
+        console.log({ row });
         return (
           <Box>
             <Typography variant="body2">{row?.email}</Typography>
@@ -35,12 +37,10 @@ const Participants = () => {
     },
 
     {
-      title: 'Address',
+      title: 'Country of residence',
       minWidth: 120,
       field: (row) => {
-        return (
-          <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
-        );
+        return <Typography variant="body2">{` ${row?.country_of_residence}`}</Typography>;
       }
     },
 
@@ -50,24 +50,24 @@ const Participants = () => {
       field: (row) => {
         return <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>;
       }
-    },
-    {
-      title: 'Survey',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <Box>
-            <Button
-              variant="contained"
-              color="success"
-              sx={{ width: '100px' }}
-              onClick={() => navigate(`/dashboard/survey/participants/${row?.id}`)}>
-              View
-            </Button>
-          </Box>
-        );
-      }
     }
+    // {
+    //   title: 'Survey',
+    //   minWidth: 100,
+    //   field: (row) => {
+    //     return (
+    //       <Box>
+    //         <Button
+    //           variant="contained"
+    //           color="success"
+    //           sx={{ width: '100px' }}
+    //           onClick={() => navigate(`/dashboard/survey/participants/${row?.id}`)}>
+    //           View
+    //         </Button>
+    //       </Box>
+    //     );
+    //   }
+    // }
   ];
 
   useEffect(() => {
@@ -88,7 +88,7 @@ const Participants = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={participants}
+          tableData={participants?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

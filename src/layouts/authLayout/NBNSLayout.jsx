@@ -43,6 +43,12 @@ const SecondaryNavWrapper = () => {
   const options = [
     { title: 'Home', value: 'home', path: '/nbns', clickFunction: () => handleFunction('/nbns') },
     {
+      title: 'About',
+      value: 'about',
+      path: '/nbns/about',
+      clickFunction: () => handleFunction('/nbns/about')
+    },
+    {
       title: 'Survey',
       value: 'survey',
       path: '/nbns/survey',
@@ -61,12 +67,6 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction('/nbns/support')
     }
 
-    // {
-    //   title: 'About',
-    //   value: 'about',
-    //   path: '/nbns/about',
-    //   clickFunction: () => handleFunction('/nbns/about')
-    // },
     // {
     //   title: 'Mission',
     //   value: 'mission',
