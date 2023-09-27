@@ -48,7 +48,7 @@ const Login = ({ registerOpen, handleClose }) => {
 
           <CustomButton buttonName="Login" fullWidth loading={login_loading} />
           <div className="link">
-            Don't have an account. <span onClick={handleRegisterOpen}>Register</span>
+            Don't have an account? <span onClick={handleRegisterOpen}>Register</span>
           </div>
           <Box onClick={handleForgotPassword} sx={{ cursor: 'pointer', color: '#1b6ab7' }}>
             <Typography variant="subtitle1" textAlign="center">
