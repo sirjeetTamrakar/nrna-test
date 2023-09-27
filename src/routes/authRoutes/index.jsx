@@ -73,14 +73,13 @@ const AuthRoutes = [
     path: '/mission',
     component: <MissionPage />
   },
+  { path: '/reset-password', component: <ResetPassword /> },
+  { path: '/forgot-password', component: <Forgot /> },
+  { path: '/verify-mail', component: <VerifyEmail /> },
   {
     path: `/:slug`,
     component: <HomeDataComponentPage />
-  },
-
-  { path: '/forgot-password', component: <Forgot /> },
-  { path: '/password-reset', component: <ResetPassword /> },
-  { path: '/verify-mail', component: <VerifyEmail /> }
+  }
 ];
 
 export default AuthRoutes;
