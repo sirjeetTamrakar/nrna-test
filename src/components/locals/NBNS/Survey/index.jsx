@@ -22,6 +22,7 @@ const Survey = () => {
   const { nbns_settings } = useSelector((state) => state.homepage);
   console.log('dsadsdddddddddd', { nbns_settings });
   console.log({ user });
+
   return (
     <>
       <PageBanner image={nbns_settings?.survey_banner} title={nbns_settings?.survey_title} />

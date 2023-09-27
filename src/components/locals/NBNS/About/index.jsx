@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 const About = () => {
   const { nbns_settings } = useSelector((state) => state.homepage);
+
   return (
     <>
       <PageBanner />

@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './about';
 import Mission from './mission';
+import NbnsHomeData from './nbnsHomeData';
 import SettingsData from './settingsData';
 import Survey from './survey';
 import Tagline from './tagline';
@@ -60,6 +61,7 @@ const BasicTabs = () => {
           <Tab label="Vision" {...a11yProps(3)} />
           <Tab label="Tagline" {...a11yProps(4)} />
           <Tab label="Survey" {...a11yProps(5)} />
+          <Tab label="Home Data" {...a11yProps(6)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -79,6 +81,9 @@ const BasicTabs = () => {
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
         <Survey />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={6}>
+        <NbnsHomeData />
       </CustomTabPanel>
     </Box>
   );

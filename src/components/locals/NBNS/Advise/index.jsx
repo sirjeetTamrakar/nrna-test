@@ -1,13 +1,43 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import PageBanner from 'components/globals/PageBanner';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllHomeData } from 'redux/homepage/actions';
 import AdviceForm from './Form';
 import useStyles from './styles';
 
 const Advise = () => {
   const classes = useStyles();
+
+  const dispatch = useDispatch();
+  const [adviceData, setAdviceData] = useState();
+  const { home_data } = useSelector((state) => state.homepage);
+  console.log('bttttt', { adviceData });
+  useEffect(() => {
+    const data = {
+      type: 'nbns',
+      id: 1
+    };
+    dispatch(getAllHomeData(data));
+  }, []);
+
+  useEffect(() => {
+    const newArray = home_data?.data?.filter((item) => item?.slug === 'advice');
+    const newObj = {};
+
+    newArray.forEach((item, index) => {
+      newObj[`advice${index + 1}`] = item;
+    });
+    setAdviceData(newObj);
+  }, [home_data?.data]);
+
   return (
     <>
-      <PageBanner />
+      <PageBanner
+        title={adviceData?.advice1?.title}
+        subtitle={adviceData?.advice1?.subtitle}
+        image={adviceData?.advice1?.banner_image}
+      />
 
       <Container>
         <Box className={classes.root}>

@@ -14,7 +14,8 @@ function CustomModal({
   modalStyles = {},
   icon,
   widthFull,
-  padding
+  padding,
+  nonClose
 }) {
   const classes = styles();
   function getModalStyle(height, width) {
@@ -37,7 +38,7 @@ function CustomModal({
   return (
     <Modal
       open={open}
-      onClose={handleClose}
+      onClose={!nonClose && handleClose}
       aria-labelledby="simple-modal-title"
       aria-describedby="simple-modal-description"
       closeAfterTransition>
@@ -54,9 +55,11 @@ function CustomModal({
                   <Typography className={classes.modalSubtitle}>{modalSubtitle}</Typography>
                 </Box>
               </Box>
-              <IconButton variant="subtitle1" className={classes.rotate} onClick={handleClose}>
-                <Clear />
-              </IconButton>
+              {!nonClose && (
+                <IconButton variant="subtitle1" className={classes.rotate} onClick={handleClose}>
+                  <Clear />
+                </IconButton>
+              )}
             </Box>
           )}
           <Box sx={padding && { padding: '20px' }}>

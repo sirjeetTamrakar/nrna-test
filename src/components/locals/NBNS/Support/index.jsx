@@ -2,14 +2,42 @@ import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import { Box, Button, Container, Typography } from '@mui/material';
 import PageBanner from 'components/globals/PageBanner';
 import useToggle from 'hooks/useToggle';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllHomeData } from 'redux/homepage/actions';
 import useStyles from './styles';
 
 const Support = () => {
   const classes = useStyles();
   const [show, showToggle] = useToggle(false);
+  const dispatch = useDispatch();
+  const [supportData, setSupportData] = useState();
+  const { home_data } = useSelector((state) => state.homepage);
+  console.log('bttttt', { home_data });
+  useEffect(() => {
+    const data = {
+      type: 'nbns',
+      id: 1
+    };
+    dispatch(getAllHomeData(data));
+  }, []);
+
+  useEffect(() => {
+    const newArray = home_data?.data?.filter((item) => item?.slug === 'support');
+    const newObj = {};
+
+    newArray.forEach((item, index) => {
+      newObj[`support${index + 1}`] = item;
+    });
+    setSupportData(newObj);
+  }, [home_data?.data]);
   return (
     <>
-      <PageBanner />
+      <PageBanner
+        title={supportData?.support1?.title}
+        subtitle={supportData?.support1?.subtitle}
+        image={supportData?.support1?.banner_image}
+      />
 
       <Container>
         <Box className={classes.root}>

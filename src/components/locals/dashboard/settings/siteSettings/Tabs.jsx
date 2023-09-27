@@ -5,8 +5,8 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './about';
-import HomeData from './banner';
 import Contact from './contact';
+import HomeData from './homeData';
 import SettingsData from './settingsData';
 
 function CustomTabPanel(props) {

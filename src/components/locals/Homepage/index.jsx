@@ -5,7 +5,7 @@ import TaglineSection from 'components/globals/TaglineSection';
 import VisionSection from 'components/globals/VisionSection';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllHomeData } from 'redux/homepage/actions';
+import { getAllHomeData, getBanner } from 'redux/homepage/actions';
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -13,7 +13,37 @@ const Homepage = () => {
   console.log('ssssssss', { home_data });
   useEffect(() => {
     dispatch(getAllHomeData());
+    dispatch(getBanner());
   }, []);
+
+  // Map home_data into MissionSection and VisionSection in an alternating way
+  const renderSections = () => {
+    return home_data?.data?.map((item, index) => {
+      if (index % 2 !== 0) {
+        // Even index, render VisionSection
+        return (
+          <VisionSection
+            key={item?.id}
+            title={item?.title}
+            image={item?.image}
+            linkUrl={item?.slug}
+            description={item?.description}
+          />
+        );
+      } else {
+        // Odd index, render MissionSection
+        return (
+          <MissionSection
+            key={item?.id}
+            title={item?.title}
+            image={item?.image}
+            linkUrl={item?.slug}
+            description={item?.description}
+          />
+        );
+      }
+    });
+  };
 
   return (
     <>
@@ -23,20 +53,8 @@ const Homepage = () => {
         taglineAuthor={settings?.tagline_author}
       />
       <AboutSection about={settings?.about} image={settings?.about_image} />
-      {home_data?.data?.map((item) => {
-        return (
-          <div key={item?.id}>
-            <MissionSection
-              title={item?.title}
-              image={item?.image}
-              linkUrl={item?.slug}
-              description={item?.description}
-            />
-          </div>
-        );
-      })}
-      {/* <MissionSection mission={settings?.mission} image={settings?.mission_image} /> */}
-      <VisionSection vision={settings?.vision} image={settings?.vision_image} />
+
+      {renderSections()}
     </>
   );
 };
