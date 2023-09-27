@@ -27,21 +27,27 @@ const NccSite = () => {
           taglineAuthor={settings?.tagline_author}
         />
       )}
-      <AboutSection
-        about={settings?.about}
-        image={settings?.about_image}
-        linkUrl={`/ncc/${slug}/about`}
-      />
-      <MissionSection
-        mission={settings?.mission}
-        image={settings?.mission_image}
-        linkUrl={`/ncc/${slug}/mission`}
-      />
-      <VisionSection
-        vision={settings?.vision}
-        image={settings?.vision_image}
-        linkUrl={`/ncc/${slug}/vision`}
-      />
+      {settings?.about && (
+        <AboutSection
+          about={settings?.about}
+          image={settings?.about_image}
+          linkUrl={`/ncc/${slug}/about`}
+        />
+      )}
+      {settings?.mission && (
+        <MissionSection
+          mission={settings?.mission}
+          image={settings?.mission_image}
+          linkUrl={`/ncc/${slug}/mission`}
+        />
+      )}
+      {settings?.vision && (
+        <VisionSection
+          vision={settings?.vision}
+          image={settings?.vision_image}
+          linkUrl={`/ncc/${slug}/vision`}
+        />
+      )}
     </>
   );
 };

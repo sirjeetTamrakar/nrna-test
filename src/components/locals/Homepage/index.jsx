@@ -48,15 +48,13 @@ const Homepage = () => {
   return (
     <>
       <BannerSection banners={banners} />
-
       {settings?.tagline_description && (
         <TaglineSection
           tagline={settings?.tagline_description}
           taglineAuthor={settings?.tagline_author}
         />
       )}
-      <AboutSection about={settings?.about} image={settings?.about_image} />
-
+      {settings?.about && <AboutSection about={settings?.about} image={settings?.about_image} />}
       {renderSections()}
     </>
   );

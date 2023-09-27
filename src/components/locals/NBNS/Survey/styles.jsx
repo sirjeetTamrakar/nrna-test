@@ -53,7 +53,7 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     columnGap: '15px',
     '& li': {
-      width: 'calc(50% - 15px)',
+      width: 'calc(30% - 15px)',
       margin: '5px auto',
       display: 'flex',
       justifyContent: 'flex-start',
