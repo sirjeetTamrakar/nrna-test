@@ -51,10 +51,12 @@ const NBNS = () => {
   return (
     <>
       <BannerSection banners={banners} />
-      <TaglineSection
-        taglineAuthor={nbns_settings?.tagline_author}
-        tagline={nbns_settings?.tagline_description}
-      />
+      {nbns_settings?.tagline_author && (
+        <TaglineSection
+          taglineAuthor={nbns_settings?.tagline_author}
+          tagline={nbns_settings?.tagline_description}
+        />
+      )}
 
       <AboutSection
         image={nbns_settings?.about_image}

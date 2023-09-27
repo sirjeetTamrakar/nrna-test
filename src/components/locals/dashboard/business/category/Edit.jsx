@@ -18,6 +18,7 @@ const EditForm = ({ detail, handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
+    formData.append('subtitle', '123');
     formData.append('_method', 'PUT');
 
     if (data?.category_image?.length > 0) {

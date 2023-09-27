@@ -29,7 +29,7 @@ const AllNCCSection = () => {
     },
     {
       title: 'South America',
-      slug: 'South_America'
+      slug: 'South America'
     },
     {
       title: 'Africa',
@@ -37,7 +37,7 @@ const AllNCCSection = () => {
     },
     {
       title: 'Australia',
-      slug: 'Oceania'
+      slug: 'Australia'
     }
   ];
   const [selected, setSelected] = useState(category?.[0]?.slug);

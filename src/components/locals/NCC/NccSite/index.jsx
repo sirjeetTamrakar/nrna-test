@@ -21,10 +21,12 @@ const NccSite = () => {
   return (
     <>
       <BannerSection banners={banners} />
-      <TaglineSection
-        tagline={settings?.tagline_description}
-        taglineAuthor={settings?.tagline_author}
-      />
+      {settings?.tagline_description && (
+        <TaglineSection
+          tagline={settings?.tagline_description}
+          taglineAuthor={settings?.tagline_author}
+        />
+      )}
       <AboutSection
         about={settings?.about}
         image={settings?.about_image}

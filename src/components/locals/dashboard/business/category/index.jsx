@@ -44,9 +44,7 @@ const Category = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">
-              {row?.subtitle !== '' ? row?.subtitle : row?.title}
-            </Typography>
+            <Typography variant="body2">{row?.title}</Typography>
           </Box>
         );
       }
