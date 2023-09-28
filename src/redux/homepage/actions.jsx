@@ -6,6 +6,7 @@ import {
   getAllHomeDataApi,
   getAllNewsApi,
   getAllQuestionsApi,
+  getAllSurveyApi,
   getBannerApi,
   getBusinessApi,
   getBusinessCategoryApi,
@@ -402,4 +403,17 @@ export const emailCheck = (data, handleSuccess) => (dispatch) => {
 
 export const saveDetails = (data) => (dispatch) => {
   dispatch({ type: actions.STORE_DETAILS, payload: data });
+};
+
+export const getAllSurvey = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_SURVEY_BEGIN });
+
+  getAllSurveyApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SURVEY_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SURVEY_ERROR });
+    });
 };

@@ -122,8 +122,7 @@ const CandidateSite = () => {
                     <li>
                       <div className="contact_list_subtitle">Country Of Residence</div>
                       <span className="contact_list_item">
-                        {/* {single_user?.country_of_residence ?? ''} */}
-                        {filteredData?.country1 ?? ''}
+                        {single_user?.country_of_residence ?? ''}
                       </span>
                     </li>
                   </ul>

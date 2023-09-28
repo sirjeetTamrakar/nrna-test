@@ -4,25 +4,24 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
-import { createQuestion } from '../redux/actions';
-import QuestionForm from './Form';
+import { createSurvey } from '../redux/actions';
+import SurveyListForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
-const Register = ({ handleClose, surveyId }) => {
+const Register = ({ handleClose }) => {
+  const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  const defaultValues = {};
+  const defaultValues = { created_by: user?.id };
   const classes = useStyles();
-  const { create_question_loading } = useSelector((state) => state.question);
-
+  const { create_survey_loading } = useSelector((state) => state.question);
+  console.log({ create_survey_loading });
   const onSubmit = (data) => {
-    const newData = {
-      ...data,
-      survey_id: surveyId,
-      options: data?.options?.filter((item) => item)
-    };
-    console.log({ newData });
-    dispatch(createQuestion(newData, handleClose));
+    // const formData = new FormData();
+    // formData.append('title', data?.title);
+    // formData.append('description', data?.description);
+
+    dispatch(createSurvey(data, handleClose));
   };
 
   return (
@@ -31,9 +30,9 @@ const Register = ({ handleClose, surveyId }) => {
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
-          <QuestionForm />
+          <SurveyListForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Question" loading={create_question_loading} />
+            <CustomButton buttonName="Submit" loading={create_survey_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

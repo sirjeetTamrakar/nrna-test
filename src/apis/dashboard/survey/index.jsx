@@ -46,3 +46,35 @@ export const getParticipantsApi = () => {
 export const getParticipantResultApi = (user_id) => {
   return axiosInstance().get(`/admin/surveys/${user_id}/result-detail`);
 };
+
+// survey-------------
+// get all survey
+
+export const getAllSurveyApi = (data) => {
+  console.log(data, 'dddd');
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/surveys${page}${pagination_limit}`);
+};
+
+// create question
+export const createSurveyApi = (data) => {
+  return axiosInstance().post('/admin/surveys', data);
+};
+
+// update question
+export const updateSurveyApi = (id, data) => {
+  return axiosInstance().put(`/admin/surveys/${id}`, data);
+};
+
+// change status
+export const changeSurveyStatusApi = (data) => {
+  return axiosInstance().post(`/admin/surveys/${data?.slug}/status`, data);
+};
+
+// delete question
+export const deleteSurveyApi = (id) => {
+  return axiosInstance().delete(`/admin/surveys/${id}`);
+};

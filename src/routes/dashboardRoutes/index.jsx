@@ -20,8 +20,10 @@ import ParticipantResultPage from 'pages/private/ParticipantResult';
 import ParticipantsPage from 'pages/private/Participants';
 import ProfilePage from 'pages/private/ProfilePage';
 import QuestionsPage from 'pages/private/Questions';
+import ResultListPage from 'pages/private/ResultListPage';
 import ResultsPage from 'pages/private/ResultsPage';
 import SiteSettingsPage from 'pages/private/SiteSettings';
+import SurveyListPage from 'pages/private/SurveyList';
 
 const DashboardRoutes = [
   {
@@ -118,12 +120,28 @@ const DashboardRoutes = [
     path: 'survey/site',
     component: (
       <Protected>
+        <SurveyListPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'survey/questions',
+    component: (
+      <Protected>
         <QuestionsPage />
       </Protected>
     )
   },
   {
     path: 'survey/result',
+    component: (
+      <Protected>
+        <ResultListPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'survey/result-list',
     component: (
       <Protected>
         <ResultsPage />

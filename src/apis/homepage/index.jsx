@@ -183,3 +183,8 @@ export const getAllQuestionsApi = () => {
 export const postCheckEmailApi = (data) => {
   return axiosInstance().post(`/api/surveys/checkemail`, data);
 };
+
+// get questions public
+export const getAllSurveyApi = () => {
+  return axiosInstance().get('/api/surveys');
+};

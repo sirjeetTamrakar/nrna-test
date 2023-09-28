@@ -9,13 +9,17 @@ import QuestionForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
-const EditForm = ({ handleClose, id }) => {
+const EditForm = ({ handleClose, id, surveyId }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { update_question_loading } = useSelector((state) => state.question);
 
   const onSubmit = (data) => {
-    const newData = { ...data, options: data?.options?.filter((item) => item) };
+    const newData = {
+      ...data,
+      survey_id: surveyId,
+      options: data?.options?.filter((item) => item)
+    };
 
     dispatch(updateQuestion(id, newData, handleClose));
   };
@@ -29,7 +33,7 @@ const EditForm = ({ handleClose, id }) => {
     </CustomForm>
   );
 };
-const Edit = ({ data, handleClose }) => {
+const Edit = ({ data, handleClose, surveyId }) => {
   const defaultValues = {
     question: data?.question,
     options: data?.options?.map((item) => item?.option)
@@ -40,7 +44,7 @@ const Edit = ({ data, handleClose }) => {
       <CustomFormProvider
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
-        <EditForm handleClose={handleClose} id={data?.id} />
+        <EditForm handleClose={handleClose} id={data?.id} surveyId={surveyId} />
       </CustomFormProvider>
     </>
   );

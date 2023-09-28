@@ -10,6 +10,7 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { changeStatus, deleteQuestion, getAllQuestions } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
@@ -18,6 +19,8 @@ import { useStyles } from './styles';
 const Questions = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const location = useLocation();
+  console.log({ location });
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -85,6 +88,14 @@ const Questions = () => {
 
   const { questions, questions_loading, question_status_loading, delete_question_loading } =
     useSelector((state) => state.question);
+  const [singleSurveyQuestion, setSingleSurveyQuestion] = useState([]);
+  useEffect(() => {
+    if (questions) {
+      const newArray = questions?.filter((item) => Number(item?.survey_id) === location?.state?.id);
+      setSingleSurveyQuestion(newArray);
+    }
+  }, [questions]);
+  console.log({ singleSurveyQuestion });
 
   const handleConfirm = (slug) => {
     dispatch(deleteQuestion(slug, deleteOpenFunction));
@@ -135,7 +146,7 @@ const Questions = () => {
         </Box>
         <CollapseTable
           tableHeads={tableHeads}
-          tableData={questions}
+          tableData={singleSurveyQuestion}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
@@ -152,7 +163,7 @@ const Questions = () => {
           modalSubtitle="Add question and options for the survey"
           icon={<PsychologyAltIcon />}
           width={`50rem`}>
-          <Register handleClose={formOpenFunction} />
+          <Register handleClose={formOpenFunction} surveyId={location?.state?.id} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -161,7 +172,7 @@ const Questions = () => {
           modalSubtitle="Use update to make survey accurate"
           icon={<PsychologyAltIcon />}
           width={`50rem`}>
-          <Edit data={detail} handleClose={editOpenFunction} />
+          <Edit data={detail} handleClose={editOpenFunction} surveyId={location?.state?.id} />
         </CustomModal>
 
         <CustomDeleteModal

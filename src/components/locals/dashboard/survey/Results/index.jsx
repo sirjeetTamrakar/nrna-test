@@ -2,6 +2,7 @@ import { Box, Typography } from '@mui/material';
 import CollapseTable from 'components/common/CollapseableTable';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLocation } from 'react-router-dom';
 import { getSurveyResult } from '../redux/actions';
 import OverallResult from './OverallResult';
 import { useStyles } from './styles';
@@ -11,6 +12,9 @@ const Results = () => {
   const { result, result_loading } = useSelector((state) => state.question);
   const dispatch = useDispatch();
   const [tableData, setTableData] = useState();
+  const [singleSurveyQuestion, setSingleSurveyQuestion] = useState([]);
+  const location = useLocation();
+  console.log({ location });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -35,11 +39,19 @@ const Results = () => {
   ];
 
   useEffect(() => {
+    if (result) {
+      const newArray = result?.filter((item) => Number(item?.survey_id) === location?.state?.id);
+      setSingleSurveyQuestion(newArray);
+    }
+  }, [result]);
+  console.log({ singleSurveyQuestion });
+
+  useEffect(() => {
     dispatch(getSurveyResult());
   }, []);
 
   useEffect(() => {
-    const arrangedData = result?.map((list) => {
+    const arrangedData = singleSurveyQuestion?.map((list) => {
       const value = list?.options?.reduce(
         (acc, value) => acc + Number(value?.survey_answers_count),
         0
@@ -47,7 +59,7 @@ const Results = () => {
       return { ...list, total: value || 0 };
     });
     setTableData(arrangedData);
-  }, [result]);
+  }, [singleSurveyQuestion]);
 
   return (
     <>

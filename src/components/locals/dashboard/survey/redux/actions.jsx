@@ -1,14 +1,19 @@
 import {
   changeStatusApi,
+  changeSurveyStatusApi,
   createQuestionApi,
+  createSurveyApi,
   deleteQuestionApi,
+  deleteSurveyApi,
   getAllQuestionsApi,
+  getAllSurveyApi,
   getParticipantResultApi,
   getParticipantsApi,
   getSurveyResultApi,
   postQuestionCheckFrontApi,
   postQuestionFrontApi,
-  updateQuestionApi
+  updateQuestionApi,
+  updateSurveyApi
 } from 'apis/dashboard/survey';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
@@ -153,5 +158,82 @@ export const getParticipantsResult = (user_id) => (dispatch) => {
     })
     .catch(() => {
       dispatch({ type: actions.FETCH_PARTICIPANT_RESULT_ERROR });
+    });
+};
+
+// status---------
+export const getAllSurvey = (data) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SURVEY_BEGIN });
+
+  getAllSurveyApi(data)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SURVEY_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SURVEY_ERROR });
+    });
+};
+
+export const createSurvey = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CREATE_SURVEY_BEGIN });
+
+  createSurveyApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CREATE_SURVEY_SUCCESS });
+      successToast('Survey created successfully');
+      handleSuccess && handleSuccess();
+      dispatch(getAllSurvey());
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CREATE_SURVEY_ERROR });
+    });
+};
+
+export const updateSurvey = (data, id, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.UPDATE_SURVEY_BEGIN });
+  updateSurveyApi(id, data)
+    .then((res) => {
+      dispatch({ type: actions.UPDATE_SURVEY_SUCCESS });
+      successToast('Survey updated successfully');
+
+      handleSuccess && handleSuccess();
+      dispatch(getAllSurvey());
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.UPDATE_SURVEY_ERROR });
+    });
+};
+
+export const changeSurveyStatus = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.CHANGE_SURVEY_STATUS_BEGIN });
+  changeSurveyStatusApi(data)
+    .then((res) => {
+      dispatch({ type: actions.CHANGE_SURVEY_STATUS_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getAllSurvey());
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.CHANGE_SURVEY_STATUS_ERROR });
+    });
+};
+
+export const deleteSurvey = (id, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.DELETE_SURVEY_BEGIN });
+  deleteSurveyApi(id)
+    .then((res) => {
+      dispatch({ type: actions.DELETE_SURVEY_SUCCESS });
+      successToast('Survey deleted successfully');
+
+      handleSuccess && handleSuccess();
+      dispatch(getAllSurvey());
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.DELETE_SURVEY_ERROR });
     });
 };

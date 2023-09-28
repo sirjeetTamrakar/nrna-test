@@ -15,7 +15,7 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { emailCheck, saveDetails } from 'redux/homepage/actions';
+import { emailCheck, getAllSurvey, saveDetails } from 'redux/homepage/actions';
 import * as Yup from 'yup';
 import useStyles from './styles';
 
@@ -27,6 +27,25 @@ const validationSchema = Yup.object({
   country_of_residence: Yup.string().required('Please select a country')
 });
 const Survey = () => {
+  const cardData = [
+    {
+      title: 'Web development covers a broad range of services',
+      desc: 'Communications covers a broad range of services — from data to voice and video calls. An IT provider can configure your communication systems.'
+    },
+    {
+      title: 'Web development',
+      desc: 'Communications covers a broad range of services — from data to voice and video calls. An IT provider can configure your communication systems.'
+    },
+    {
+      title: 'Web development',
+      desc: 'Communications covers a broad range of services — from data to voice and video calls. An IT provider can configure your communication systems.'
+    },
+    {
+      title: 'Web development',
+      desc: 'Communications covers a broad range of services'
+    }
+  ];
+
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -34,8 +53,11 @@ const Survey = () => {
   const [openRegister, openFunctionRegister] = useToggle(false);
   const [openForm, formOpenFunction] = useToggle(false);
   const [userFormDetails, setUserFormDetails] = useState([]);
+  const [surveyID, setSurveyID] = useState();
 
-  const startSurvey = () => {
+  // console.log({ userFormDetails });
+  const startSurvey = (id) => {
+    setSurveyID(id);
     // navigate(`/nbns/survey/questions`);
     formOpenFunction();
   };
@@ -57,7 +79,7 @@ const Survey = () => {
   }, []);
 
   const refetch = (data) => {
-    dispatch(saveDetails(data));
+    dispatch(saveDetails({ ...data, survey_id: surveyID }));
     navigate(`questions`);
   };
   const onSubmitDetails = (data) => {
@@ -68,6 +90,10 @@ const Survey = () => {
   const handleCancel = () => {
     formOpenFunction();
   };
+  const { survey } = useSelector((state) => state.homepage);
+  useEffect(() => {
+    dispatch(getAllSurvey());
+  }, []);
 
   return (
     <>
@@ -86,22 +112,80 @@ const Survey = () => {
             </Box>
             <Box textAlign="center" marginTop={4}>
               {/* {isLoggedIn() ? ( */}
-              <Button
-                // disabled={user?.has_taken_survey ? true : false}
-                variant="contained"
-                onClick={startSurvey}>
+              {/* <Button variant="contained" onClick={startSurvey}>
                 Start Making a Differences
-              </Button>
-              {/* ) : (
-                <Button variant="contained" onClick={openFunction}>
-                  Login to take survey
-                </Button>
-              )} */}
-              {/* {user?.has_taken_survey && (
-                <Typography sx={{ marginTop: '20px', fontSize: '20px' }}>
-                  You have already taken the survey.
-                </Typography>
-              )} */}
+              </Button> */}
+
+              {/* <SurveyCards handleClick={startSurvey} /> */}
+              <Box marginY={6}>
+                {/* <Container> */}
+                <Grid container spacing={3}>
+                  {survey?.length !== 0 ? (
+                    survey?.map((item) => {
+                      return (
+                        <Grid item sm={3} key={survey?.id}>
+                          <div
+                            style={{
+                              boxShadow: '0px 8px 20px 0px rgba(18, 17, 39, 0.10)',
+                              backgroundColor: '#fff',
+                              borderRadius: '6px'
+                            }}>
+                            <div
+                              style={{
+                                padding: '10px 15px'
+                              }}>
+                              <div
+                                style={{
+                                  display: 'flex',
+                                  flexDirection: 'column',
+                                  justifyContent: 'flex-start'
+                                }}>
+                                <p
+                                  style={{
+                                    fontSize: '14px',
+                                    fontWeight: '600',
+                                    marginTop: '13px',
+                                    marginBottom: '6px',
+                                    height: '40px',
+                                    textAlign: 'start'
+                                  }}>
+                                  Survey title:{' '}
+                                  {item?.title?.length < 39
+                                    ? item?.title
+                                    : `${item?.title.substring(0, 40)}...`}
+                                </p>
+                                <p
+                                  style={{
+                                    fontSize: '12px',
+                                    fontWeight: '400',
+                                    height: '35px',
+                                    textAlign: 'start'
+                                  }}>
+                                  Survey Description:{' '}
+                                  {item?.description?.length < 44
+                                    ? item?.description
+                                    : `${item?.description.substring(0, 45)}...`}
+                                </p>
+                              </div>
+                              <Button
+                                style={{
+                                  marginBottom: '10px'
+                                }}
+                                variant="contained"
+                                onClick={() => startSurvey(item?.id)}>
+                                Take part
+                              </Button>
+                            </div>
+                          </div>
+                        </Grid>
+                      );
+                    })
+                  ) : (
+                    <Box sx={{ fontSize: '25px', marginLeft: '25px' }}>No serveys available</Box>
+                  )}
+                </Grid>
+                {/* </Container> */}
+              </Box>
             </Box>
             <Box marginTop={4}>
               <Typography className={classes.description}>

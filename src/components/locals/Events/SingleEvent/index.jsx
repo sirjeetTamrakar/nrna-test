@@ -133,21 +133,20 @@ const SingleEvent = () => {
                 />
                 <div className="map-container">
                   {single_event?.map_url && (
-                    <iframe
-                      src={single_event?.map_url}
-                      width="50%"
-                      height="280"
-                      style={{ border: 0 }}
-                      allowFullScreen=""
-                      loading="lazy"
-                      referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    <div style={{ width: '50%', height: '290px' }}>
+                      <div
+                        style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+                        dangerouslySetInnerHTML={{ __html: single_event?.map_url }}
+                      />
+                    </div>
                   )}
-                  {event?.youtube_url && (
+
+                  {event?.youtube_url !== '' && (
                     <iframe
                       width="50%"
-                      height="280"
+                      height="290"
                       src={`https://www.youtube.com/embed/${event?.youtube_url}`}
-                      title="Event Video"
+                      title="YouTube video player"
                       frameBorder="0"
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                       allowFullScreen></iframe>

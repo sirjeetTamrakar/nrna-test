@@ -3,6 +3,8 @@ import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button } from '@mui/material';
+import Typography from '@mui/material/Typography/Typography';
+import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
@@ -11,72 +13,62 @@ import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDateFormat } from 'utils/dateUtils';
+import { useNavigate } from 'react-router-dom';
+import Questions from '../Question';
+import { changeSurveyStatus, deleteSurvey, getAllSurvey } from '../redux/actions';
 import Edit from './Edit';
-import { changeNCCStatus, deleteNCC, getNCC } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
-import ViewMembers from './ViewMembers';
 
-const NCC = () => {
+const SurveyList = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
-  const [openMembers, openMembersFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
+  const [openQuestions, openQuestionsFunction] = useToggle(false);
+
   const [openStatus, statusOpenFunction] = useToggle(false);
+  const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  // useEffect(() => {
-  //   dispatch(getNCC());
-  // }, []);
+  const {
+    survey,
+    survey_loading,
+    create_survey_loading,
+    update_survey_loading,
+    delete_survey_loading,
+    survey_status_loading
+  } = useSelector((state) => state.question);
+
+  const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
     {
-      title: 'Country',
-      minWidth: 100,
-
-      field: 'country_name'
+      title: 'Title',
+      minWidth: 250,
+      field: 'title'
     },
     {
-      title: 'Member',
-      minWidth: 100,
-
+      title: 'Description',
+      minWidth: 250,
       field: (row) => {
         return (
-          <Button variant="contained" color="primary" onClick={() => handleShowMembers(row)}>
-            {row?.members?.length}
-          </Button>
+          <Box>
+            <Typography variant="body2">
+              {row?.description?.length > 59
+                ? `${row?.description?.substring(0, 60)}...`
+                : row?.description}
+            </Typography>
+          </Box>
         );
-      }
-    },
-
-    {
-      title: 'Committee',
-      minWidth: 100,
-
-      field: (row) => {
-        return (
-          <Button variant="contained" color="primary">
-            {row?.committee}
-          </Button>
-        );
-      }
-    },
-    {
-      title: 'Created At',
-      minWidth: 80,
-      field: (row) => {
-        console.log({ row });
-        return changeDateFormat(row?.created_at);
       }
     },
 
@@ -86,7 +78,7 @@ const NCC = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status == '1' ? (
+            {Number(row?.status) === 1 ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -108,13 +100,27 @@ const NCC = () => {
       }
     },
     {
+      title: 'Questions',
+      minWidth: 120,
+      field: (row) => {
+        return (
+          <Box>
+            <Button variant="contained" color="primary" onClick={() => handleShowQuestions(row)}>
+              Questions
+            </Button>
+          </Box>
+        );
+      }
+    },
+
+    {
       title: 'Actions',
       minWidth: 85,
       field: (row) => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit NCC </li>
+              <li onClick={() => handleEdit(row)}>Edit Survey </li>
               <li onClick={() => handleView(row)}>View Details</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
@@ -124,35 +130,26 @@ const NCC = () => {
     }
   ];
 
-  const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
-  console.log({ nccData });
-
-  // const refetch = () => {
-  //   dispatch(getNCC());
-  // };
-
   const handleConfirm = (slug) => {
-    dispatch(deleteNCC(slug, refetch));
-    deleteOpenFunction();
-  };
-
-  const handleEdit = (row) => {
-    setDetail(row);
-    editOpenFunction();
-  };
-
-  const handleShowMembers = (row) => {
-    setDetail(row);
-    openMembersFunction();
+    let typeData;
+    typeData = { page: 1, pagination_limit: 10 };
+    dispatch(deleteSurvey(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
-      status: detail?.status == 0 ? 1 : 0,
+      status: Number(detail?.status) === 0 ? 1 : 0,
       _method: 'PATCH'
     };
-    dispatch(changeNCCStatus(finalData, statusOpenFunction));
+    let typeData;
+    typeData = { page: 1, pagination_limit: 10 };
+    dispatch(changeSurveyStatus(finalData, statusOpenFunction, typeData));
+  };
+
+  const handleEdit = (row) => {
+    setDetail(row);
+    editOpenFunction();
   };
 
   const handleDelete = (row) => {
@@ -165,19 +162,32 @@ const NCC = () => {
     statusOpenFunction();
   };
 
+  const handleApprove = (row) => {
+    setDetail(row);
+    approveOpenFunction();
+  };
+
   const handleView = (row) => {
     setDetail(row);
     viewOpenFunction();
   };
 
+  const handleShowQuestions = (row) => {
+    setDetail(row);
+    navigate(`/dashboard/survey/questions`, { state: row });
+    // openQuestionsFunction();
+  };
+
   const refetch = () => {
     const data = { page: page + 1, pagination_limit: rowsPerPage };
-    dispatch(getNCC(data));
+    dispatch(getAllSurvey(data));
   };
 
   useEffect(() => {
     refetch();
   }, [page, rowsPerPage]);
+
+  console.log({ detail });
 
   return (
     <>
@@ -189,29 +199,29 @@ const NCC = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>NCC</Box>
+          <Box>Survey list</Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"
             display="flex"
             onClick={formOpenFunction}>
-            Add NCC
+            Add Survey
           </Button>
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={nccData?.data}
+          tableData={survey}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={nccData?.meta?.total}
-          loading={get_ncc_loading ? true : false}
+          // total={newsData?.meta?.total}
+          loading={survey_loading ? true : false}
         />
         <CustomModal
           open={openForm}
           handleClose={formOpenFunction}
-          modalTitle="Create NCC"
+          modalTitle="Create Survey"
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
@@ -220,45 +230,48 @@ const NCC = () => {
         <CustomModal
           open={openEdit}
           handleClose={editOpenFunction}
-          modalTitle={`Update NCC`}
+          modalTitle={`Update Survey`}
           modalSubtitle=""
           icon={<PersonAddIcon />}
-          width={`40rem`}>
+          width={`60rem`}>
           <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle={`NCC Details`}
+          modalTitle="Survey Details"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
         <CustomModal
-          open={openMembers}
-          handleClose={openMembersFunction}
-          modalTitle={`NCC`}
-          padding
+          open={openQuestions}
+          handleClose={openQuestionsFunction}
+          modalTitle="Questions"
           icon={<PersonIcon />}
+          padding
           width={`60rem`}>
-          <ViewMembers data={detail} />
+          <Questions data={detail} />
         </CustomModal>
         <CustomDeleteModal
           handleConfirm={handleConfirm}
           slug={detail?.slug}
           open={openDelete}
+          isLoading={delete_survey_loading}
           handleClose={deleteOpenFunction}
         />
         <CustomStatusModal
           open={openStatus}
+          isLoading={survey_status_loading}
           handleClose={statusOpenFunction}
-          status={detail?.status == '1' ? 'Active' : 'Inactive'}
+          status={Number(detail?.status) == 1 ? 'Active' : 'Inactive'}
           id={detail?.slug}
           handleConfirm={handleStatusConfirm}
         />
+        <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
       </Box>
     </>
   );
 };
 
-export default NCC;
+export default SurveyList;

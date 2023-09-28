@@ -13,7 +13,13 @@ const defaultState = {
   participants: [],
   participants_loading: false,
   participant_result: [],
-  participant_result_loading: false
+  participant_result_loading: false,
+  survey: [],
+  survey_loading: false,
+  create_survey_loading: false,
+  update_survey_loading: false,
+  delete_survey_loading: false,
+  survey_status_loading: false
 };
 
 const questionReducer = (state = defaultState, action) => {
@@ -155,6 +161,59 @@ const questionReducer = (state = defaultState, action) => {
         ...state,
         participant_result_loading: false
       };
+
+    // survey
+    case actions.FETCH_SURVEY_BEGIN:
+      return {
+        ...state,
+        survey_loading: true
+      };
+
+    case actions.FETCH_SURVEY_SUCCESS:
+      return { ...state, survey_loading: false, survey: action.payload };
+
+    case actions.FETCH_SURVEY_ERROR:
+      return { ...state, survey_loading: false };
+
+    case actions.CREATE_SURVEY_BEGIN:
+      return {
+        ...state,
+        create_survey_loading: true
+      };
+
+    case actions.CREATE_SURVEY_SUCCESS:
+    case actions.CREATE_SURVEY_ERROR:
+      return { ...state, create_survey_loading: false };
+
+    case actions.UPDATE_SURVEY_BEGIN:
+      return {
+        ...state,
+        update_survey_loading: true
+      };
+
+    case actions.UPDATE_SURVEY_SUCCESS:
+    case actions.UPDATE_SURVEY_ERROR:
+      return { ...state, update_survey_loading: false };
+
+    case actions.DELETE_SURVEY_BEGIN:
+      return {
+        ...state,
+        delete_survey_loading: true
+      };
+
+    case actions.DELETE_SURVEY_SUCCESS:
+    case actions.DELETE_SURVEY_ERROR:
+      return { ...state, delete_survey_loading: false };
+
+    case actions.CHANGE_SURVEY_STATUS_BEGIN:
+      return {
+        ...state,
+        survey_status_loading: true
+      };
+
+    case actions.CHANGE_SURVEY_STATUS_SUCCESS:
+    case actions.CHANGE_SURVEY_STATUS_ERROR:
+      return { ...state, survey_status_loading: false };
 
     default:
       return state;

@@ -19,15 +19,24 @@ const FormTwo = () => {
   const { questions, details } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
   const [openForm, formOpenFunction] = useToggle(true);
-
+  console.log('hdkashksahd', { details });
   const [answers, setAnswers] = useState([]);
   const [userFormDetails, setUserFormDetails] = useState([]);
+  const [filteredQuestions, setFilteredQuestions] = useState([]);
   console.log({ userFormDetails });
   const handleOptionChange = (questionId, selectedOptionId) => {
     const updatedAnswers = answers.filter((answer) => answer.questionId !== questionId);
     updatedAnswers.push({ questionId, selectedOptionId });
     setAnswers(updatedAnswers);
   };
+
+  console.log({ filteredQuestions });
+  useEffect(() => {
+    if (questions) {
+      const newArray = questions?.filter((item) => Number(item?.survey_id) === details?.survey_id);
+      setFilteredQuestions(newArray);
+    }
+  }, [questions]);
 
   const handleSuccess = () => {
     navigate('/nbns/survey');
@@ -73,7 +82,7 @@ const FormTwo = () => {
       <CustomFormProvider>
         <CustomForm onSubmit={onSubmit}>
           <Box className={classes.questionSection}>
-            {questions.map((questionData, index) => (
+            {filteredQuestions.map((questionData, index) => (
               <Box className={classes.questionWrapper} key={index}>
                 <Typography variant="h6" className={classes.question}>
                   {index + 1}. {questionData?.question} ?

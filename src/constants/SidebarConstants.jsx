@@ -129,7 +129,7 @@ export const SidebarConstants = [
         roles: [Roles.Admin, Roles.SuperAdmin],
         children: [
           {
-            label: 'Questions',
+            label: 'Survey List',
             url: '/dashboard/survey/site',
             roles: [Roles.Admin, Roles.SuperAdmin]
           },

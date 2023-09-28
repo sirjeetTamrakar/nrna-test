@@ -52,6 +52,8 @@ const defaultState = {
   single_home_data_loading: false,
   questions_loading: false,
   questions: [],
+  survey_loading: false,
+  survey: [],
   email_check_loading: false,
   details: {}
 };
@@ -344,6 +346,18 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.STORE_DETAILS:
       return { ...state, details: action.payload };
+
+    case actions.FETCH_SURVEY_BEGIN:
+      return {
+        ...state,
+        survey_loading: true
+      };
+
+    case actions.FETCH_SURVEY_SUCCESS:
+      return { ...state, survey_loading: false, survey: action.payload };
+
+    case actions.FETCH_SURVEY_ERROR:
+      return { ...state, survey_loading: false };
 
     default:
       return state;

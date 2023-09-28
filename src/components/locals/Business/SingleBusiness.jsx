@@ -4,19 +4,33 @@ import Grid from '@mui/material/Grid';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getSingleBusiness } from 'redux/homepage/actions';
+import { getBusinessCategory, getSingleBusiness } from 'redux/homepage/actions';
 import About from './About';
 
 const BusinessProfile = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
-  const { single_business } = useSelector((state) => state.homepage);
-  console.log({ single_business });
+  const [filteredSingleBusiness, setFilteredSingleBusiness] = useState();
+  const { single_business, business_category } = useSelector((state) => state.homepage);
+  console.log({ filteredSingleBusiness });
+  useEffect(() => {
+    const filteredSingleCategoryData = business_category?.filter(
+      (item) => item?.id === Number(single_business?.business_category_id)
+    );
+    const newObj = {};
+
+    filteredSingleCategoryData.forEach((item, index) => {
+      newObj[`category${index + 1}`] = item;
+    });
+    setFilteredSingleBusiness(newObj);
+  }, [business_category]);
+
   useEffect(() => {
     dispatch(getSingleBusiness(slug));
+    dispatch(getBusinessCategory());
   }, [slug]);
   // const candidateImages = {
   //   profileBannerImage: Banner,
@@ -51,7 +65,9 @@ const BusinessProfile = () => {
                 </div>
                 <div className="candidate_name_box">
                   <div className="candidate_name">{single_business?.fullname}</div>
-                  <div className="candidate_designation">IT company</div>
+                  <div className="candidate_designation">
+                    {filteredSingleBusiness?.category1?.title}
+                  </div>
                 </div>
               </div>
             </div>
@@ -104,13 +120,18 @@ const BusinessProfile = () => {
                     </li>
                     <li>
                       <div className="contact_list_subtitle">Map</div>
-                      <div style={{ marginTop: '10px' }}>
-                        <iframe
+                      <div style={{ marginTop: '10px', width: '100%', height: '300px' }}>
+                        <div
+                          style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+                          dangerouslySetInnerHTML={{ __html: single_business?.google_map_link }}
+                        />
+
+                        {/* <iframe
                           width="100%"
                           height="220"
                           frameBorder="0"
                           allowFullScreen
-                          src={single_business?.google_map_link}></iframe>
+                          src={single_business?.google_map_link}></iframe> */}
                       </div>
                       {/* <span className="contact_list_item">{candidateData?.address ?? ''}</span> */}
                     </li>
