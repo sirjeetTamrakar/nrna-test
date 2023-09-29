@@ -15,7 +15,8 @@ function CustomModal({
   icon,
   widthFull,
   padding,
-  nonClose
+  nonClose,
+  titlePadding
 }) {
   const classes = styles();
   function getModalStyle(height, width) {
@@ -45,7 +46,9 @@ function CustomModal({
       <Fade in={open}>
         <div style={{ ...modalStyle, ...modalStyles }} className={classes.paper}>
           {modalTitle && (
-            <Box className={classes.modalHeader}>
+            <Box
+              className={classes.modalHeader}
+              sx={titlePadding && { paddingTop: '20px', paddingBottom: '20px' }}>
               <Box className={classes.modalTitleWrapper}>
                 {icon && <Box className={classes.iconDanger}>{icon}</Box>}
                 <Box>
@@ -62,7 +65,7 @@ function CustomModal({
               )}
             </Box>
           )}
-          <Box sx={padding && { padding: '20px' }}>
+          <Box sx={padding && { padding: '30px' }}>
             <Box>{children}</Box>
           </Box>
         </div>

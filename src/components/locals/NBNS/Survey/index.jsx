@@ -54,10 +54,12 @@ const Survey = () => {
   const [openForm, formOpenFunction] = useToggle(false);
   const [userFormDetails, setUserFormDetails] = useState([]);
   const [surveyID, setSurveyID] = useState();
+  const [surveySlug, setSurveySlug] = useState();
 
   // console.log({ userFormDetails });
-  const startSurvey = (id) => {
+  const startSurvey = (id, slug) => {
     setSurveyID(id);
+    setSurveySlug(slug);
     // navigate(`/nbns/survey/questions`);
     formOpenFunction();
   };
@@ -79,7 +81,7 @@ const Survey = () => {
   }, []);
 
   const refetch = (data) => {
-    dispatch(saveDetails({ ...data, survey_id: surveyID }));
+    dispatch(saveDetails({ ...data, survey_id: surveyID, survey_slug: surveySlug }));
     navigate(`questions`);
   };
   const onSubmitDetails = (data) => {
@@ -149,10 +151,9 @@ const Survey = () => {
                                     height: '40px',
                                     textAlign: 'start'
                                   }}>
-                                  Survey title:{' '}
-                                  {item?.title?.length < 39
+                                  {item?.title?.length < 49
                                     ? item?.title
-                                    : `${item?.title.substring(0, 40)}...`}
+                                    : `${item?.title.substring(0, 50)}...`}
                                 </p>
                                 <p
                                   style={{
@@ -161,7 +162,6 @@ const Survey = () => {
                                     height: '35px',
                                     textAlign: 'start'
                                   }}>
-                                  Survey Description:{' '}
                                   {item?.description?.length < 44
                                     ? item?.description
                                     : `${item?.description.substring(0, 45)}...`}
@@ -172,7 +172,7 @@ const Survey = () => {
                                   marginBottom: '10px'
                                 }}
                                 variant="contained"
-                                onClick={() => startSurvey(item?.id)}>
+                                onClick={() => startSurvey(item?.id, item?.slug)}>
                                 Take part
                               </Button>
                             </div>
@@ -222,21 +222,44 @@ const Survey = () => {
         // modalSubtitle=""
         nonClose
         padding
+        titlePadding
         width={`40rem`}>
         <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
           <CustomForm onSubmit={onSubmitDetails}>
             <Grid container spacing={2}>
               <Grid item sm={6}>
-                <CustomInput name="first_name" label="First Name" required />
+                <CustomInput
+                  name="first_name"
+                  label="First Name"
+                  placeholder="Enter your first name"
+                  required
+                />
               </Grid>
               <Grid item sm={6}>
-                <CustomInput name="last_name" label="Last Name" required />
+                <CustomInput
+                  name="last_name"
+                  label="Last Name"
+                  placeholder="Enter your last name"
+                  required
+                />
               </Grid>
               <Grid item sm={6}>
-                <CustomInput name="email" label="Email" type="email" required />
+                <CustomInput
+                  name="email"
+                  label="Email"
+                  type="email"
+                  placeholder="Enter your email"
+                  required
+                />
               </Grid>
               <Grid item sm={6}>
-                <CustomInput name="phone" label="Phone Number" type="text" />
+                <CustomInput
+                  name="phone"
+                  label="Phone Number"
+                  type="text"
+                  placeholder="Enter your phone number"
+                  required
+                />
               </Grid>
 
               <Grid item sm={12}>
@@ -248,7 +271,8 @@ const Survey = () => {
                   required
                 />
               </Grid>
-              <Grid item sm={6}>
+
+              <Grid item sm={6} sx={{ marginTop: '20px' }}>
                 <Button
                   onClick={() => handleCancel()}
                   variant="outlined"
@@ -257,8 +281,8 @@ const Survey = () => {
                   Cancel
                 </Button>
               </Grid>
-              <Grid item sm={6}>
-                <Tooltip title={'Please fill all field before submitting'}>
+              <Grid item sm={6} sx={{ marginTop: '20px' }}>
+                <Tooltip title={'Fill up all the fields before submitting'}>
                   <Button
                     type="submit"
                     variant="contained"

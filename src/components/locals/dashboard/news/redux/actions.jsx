@@ -1,14 +1,15 @@
 import {
-  changeNewsStatusApi,
-  deleteNewsApi,
-  getNewsApi,
-  postNewsApi,
-  updateNewsApi,
   changeCategoryStatusApi,
+  changeNewsStatusApi,
   deleteCategoryApi,
+  deleteNewsApi,
   getCategoryApi,
+  getNewsApi,
   postCategoryApi,
-  updateCategoryApi
+  postNewsApi,
+  postNewsOrderApi,
+  updateCategoryApi,
+  updateNewsApi
 } from 'apis/dashboard/news';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
@@ -165,5 +166,20 @@ export const changeCategoryStatus = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.CHANGE_CATEGORY_STATUS_ERROR });
+    });
+};
+
+export const postNewsOrder = (handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_NEWS_ORDER_BEGIN });
+  postNewsOrderApi()
+    .then((res) => {
+      dispatch({ type: actions.POST_NEWS_ORDER_SUCCESS });
+      handleSuccess && handleSuccess();
+      // dispatch(getNews(typeData));
+      successToast('Your message sent successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_NEWS_ORDER_ERROR });
     });
 };

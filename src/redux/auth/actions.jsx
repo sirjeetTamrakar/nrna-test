@@ -1,5 +1,5 @@
 import {
-  chnagePasswordApi,
+  changePasswordApi,
   forgotPasswordApi,
   loginApi,
   registerApi,
@@ -127,7 +127,7 @@ export const changePassword = (data, handleRedirect) => (dispatch) => {
   dispatch({
     type: actions.CHANGE_PASSWORD_BEGIN
   });
-  chnagePasswordApi(data)
+  changePasswordApi(data)
     .then((res) => {
       dispatch({
         type: actions.CHANGE_PASSWORD_SUCCESS

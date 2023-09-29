@@ -52,7 +52,18 @@ export const SidebarConstants = [
         icon: News,
         activeIcon: ActiveDashboardIcon,
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
-        children: []
+        children: [
+          {
+            label: 'News List',
+            url: '/dashboard/news/news-list',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          },
+          {
+            label: 'News Management',
+            url: '/dashboard/news/news-management',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          }
+        ]
       },
       {
         label: 'Events',
@@ -137,12 +148,12 @@ export const SidebarConstants = [
             label: 'Result',
             url: '/dashboard/survey/result',
             roles: [Roles.Admin, Roles.SuperAdmin]
-          },
-          {
-            label: 'Participants',
-            url: '/dashboard/survey/participants',
-            roles: [Roles.Admin, Roles.SuperAdmin]
           }
+          // {
+          //   label: 'Participants',
+          //   url: '/dashboard/survey/participants',
+          //   roles: [Roles.Admin, Roles.SuperAdmin]
+          // }
         ]
       },
       {

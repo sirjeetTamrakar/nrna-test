@@ -11,7 +11,8 @@ const defaultState = {
   categoryData: [],
   delete_category_loading: false,
   update_category_loading: false,
-  category_status_loading: false
+  category_status_loading: false,
+  news_order_loading: false
 };
 
 const newsReducer = (state = defaultState, action) => {
@@ -107,6 +108,16 @@ const newsReducer = (state = defaultState, action) => {
     case actions.CHANGE_CATEGORY_STATUS_SUCCESS:
     case actions.CHANGE_CATEGORY_STATUS_ERROR:
       return { ...state, category_status_loading: false };
+
+    case actions.POST_NEWS_ORDER_BEGIN:
+      return {
+        ...state,
+        news_order_loading: true
+      };
+
+    case actions.POST_NEWS_ORDER_SUCCESS:
+    case actions.POST_NEWS_ORDER_ERROR:
+      return { ...state, news_order_loading: false };
 
     default:
       return state;

@@ -39,12 +39,12 @@ export const getSurveyResultApi = () => {
   return axiosInstance().get(`/admin/surveys/result-by-question`);
 };
 
-export const getParticipantsApi = () => {
-  return axiosInstance().get(`/admin/surveys/survey-participants`);
+export const getParticipantsApi = (slug) => {
+  return axiosInstance().get(`/admin/surveys/survey-participants/${slug}`);
 };
 
-export const getParticipantResultApi = (user_id) => {
-  return axiosInstance().get(`/admin/surveys/${user_id}/result-detail`);
+export const getParticipantResultApi = (slug, user_id) => {
+  return axiosInstance().get(`/admin/surveys/${slug}/${user_id}/result-detail`);
 };
 
 // survey-------------

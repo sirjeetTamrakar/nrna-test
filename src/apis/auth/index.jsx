@@ -20,7 +20,7 @@ export const resetPasswordApi = (data) => {
   return axiosInstance().post('/api/reset-password', data);
 };
 // reset password or verify email
-export const chnagePasswordApi = (data) => {
+export const changePasswordApi = (data) => {
   return axiosInstance().post('/admin/change-password', data);
 };
 

@@ -138,9 +138,9 @@ export const getSurveyResult = () => (dispatch) => {
 };
 
 // get participants
-export const getParticipants = () => (dispatch) => {
+export const getParticipants = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_PARTICIPANT_BEGIN });
-  getParticipantsApi()
+  getParticipantsApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_PARTICIPANT_SUCCESS, payload: res.data });
     })
@@ -150,9 +150,9 @@ export const getParticipants = () => (dispatch) => {
 };
 
 // get participants result
-export const getParticipantsResult = (user_id) => (dispatch) => {
+export const getParticipantsResult = (slug, user_id) => (dispatch) => {
   dispatch({ type: actions.FETCH_PARTICIPANT_RESULT_BEGIN });
-  getParticipantResultApi(user_id)
+  getParticipantResultApi(slug, user_id)
     .then((res) => {
       dispatch({ type: actions.FETCH_PARTICIPANT_RESULT_SUCCESS, payload: res.data.data });
     })

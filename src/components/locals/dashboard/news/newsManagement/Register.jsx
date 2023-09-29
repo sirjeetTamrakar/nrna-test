@@ -2,11 +2,10 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
-import NewsForm from './Form';
-import { postNews } from './redux/actions';
+import { postNewsOrder } from '../redux/actions';
+import NewsManagementForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
@@ -19,22 +18,17 @@ const Register = ({ handleClose }) => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append('title', data?.title);
-    formData.append('description', data?.description);
-    formData.append('excerpt', data?.excerpt);
-    formData.append('created_by', data?.created_by);
-    formData.append('news_category_id', data?.news_category_id);
+    formData.append('order_number', data?.order_number);
+    formData.append('news_id', data?.news_id);
+    formData.append('_method', 'PATCH');
 
-    if (data?.feature_image?.length > 0) {
-      formData.append('feature_image', data?.feature_image?.[0]);
-    }
-    let typeData;
-    if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
-    } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
-    }
-    dispatch(postNews(formData, handleClose, typeData));
+    // let typeData;
+    // if (user?.role_name == Roles?.Member) {
+    //   typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+    // } else if (user?.role_name == Roles?.NCC) {
+    //   typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    // }
+    dispatch(postNewsOrder(formData, handleClose));
   };
 
   return (
@@ -43,7 +37,7 @@ const Register = ({ handleClose }) => {
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
-          <NewsForm />
+          <NewsManagementForm />
           <Box className={classes.footerRoot}>
             <CustomButton buttonName="Submit" loading={news_loading} />
           </Box>

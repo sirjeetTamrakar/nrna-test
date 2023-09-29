@@ -3,6 +3,7 @@ import CustomEditor from 'components/common/CustomEditor';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
+import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -55,6 +56,9 @@ const NewsForm = ({ featureImage }) => {
             label="Select Photo"
             widthFull
           />
+        </Grid>
+        <Grid item sm={12}>
+          <CustomTextArea rows={8} name="excerpt" label="Excerpt" />
         </Grid>
         <Grid item sm={12}>
           <CustomEditor name="description" />

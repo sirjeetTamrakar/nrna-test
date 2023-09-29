@@ -1,4 +1,5 @@
 import { Box, CircularProgress } from '@mui/material';
+import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation } from 'react-router-dom';
@@ -67,17 +68,90 @@ const News = () => {
               <CircularProgress size={24} />
             </Box>
           ) : (
-            <div className="row">
-              {filteredNews?.length > 0 ? (
-                filteredNews?.map((item) => (
-                  <NewsCard key={item.id} news={item} linkUrl={`/news/${item?.slug}`} />
-                ))
-              ) : (
-                <div className="col-md-12 mt-5 mb-5">
-                  <h3 className="text-center">No news available</h3>
-                </div>
-              )}
-            </div>
+            <>
+              {/* <div className="row">
+                {filteredNews?.length > 0 ? (
+                  filteredNews?.map((item) => (
+                    <NewsCard key={item.id} news={item} linkUrl={`/news/${item?.slug}`} />
+                  ))
+                ) : (
+                  <div className="col-md-12 mt-5 mb-5">
+                    <h3 className="text-center">No news available</h3>
+                  </div>
+                )}
+              </div> */}
+              <div className="row">
+                {filteredNews?.length > 0 ? (
+                  <>
+                    <Grid container spacing={2} sx={{ marginBottom: '20px' }}>
+                      <Grid item sm={6}>
+                        {filteredNews?.slice(0, 1)?.map((item) => (
+                          <NewsCard
+                            gridOne
+                            gridLayout
+                            key={item.id}
+                            news={item}
+                            linkUrl={`/news/${item?.slug}`}
+                          />
+                        ))}
+                      </Grid>
+                      <Grid item sm={6}>
+                        <Grid container spacing={2} item>
+                          <Grid item sm={6}>
+                            {filteredNews?.slice(1, 2)?.map((item) => (
+                              <NewsCard
+                                gridLayout
+                                key={item.id}
+                                news={item}
+                                linkUrl={`/news/${item?.slug}`}
+                              />
+                            ))}
+                          </Grid>
+                          <Grid item sm={6}>
+                            {filteredNews?.slice(2, 3)?.map((item) => (
+                              <NewsCard
+                                gridLayout
+                                key={item.id}
+                                news={item}
+                                linkUrl={`/news/${item?.slug}`}
+                              />
+                            ))}
+                          </Grid>
+                          <Grid item sm={6}>
+                            {filteredNews?.slice(3, 4)?.map((item) => (
+                              <NewsCard
+                                gridLayout
+                                key={item.id}
+                                news={item}
+                                linkUrl={`/news/${item?.slug}`}
+                              />
+                            ))}
+                          </Grid>
+                          <Grid item sm={6}>
+                            {filteredNews?.slice(4, 5)?.map((item) => (
+                              <NewsCard
+                                gridLayout
+                                key={item.id}
+                                news={item}
+                                linkUrl={`/news/${item?.slug}`}
+                              />
+                            ))}
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+
+                    {filteredNews?.slice(5)?.map((item) => (
+                      <NewsCard key={item.id} news={item} linkUrl={`/news/${item?.slug}`} />
+                    ))}
+                  </>
+                ) : (
+                  <div className="col-md-12 mt-5 mb-5">
+                    <h3 className="text-center">No news available</h3>
+                  </div>
+                )}
+              </div>
+            </>
           )}
         </div>
       </section>

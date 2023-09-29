@@ -109,6 +109,19 @@ const SurveyListResult = () => {
           </Box>
         );
       }
+    },
+    {
+      title: 'Participants',
+      minWidth: 120,
+      field: (row) => {
+        return (
+          <Box>
+            <Button variant="contained" color="primary" onClick={() => handleShowParticipants(row)}>
+              Participants
+            </Button>
+          </Box>
+        );
+      }
     }
 
     // {
@@ -174,7 +187,11 @@ const SurveyListResult = () => {
     console.log('jjjsjsjsjs', { row });
     setDetail(row);
     navigate(`/dashboard/survey/result-list`, { state: row });
-    // openQuestionsFunction();
+  };
+
+  const handleShowParticipants = (row) => {
+    setDetail(row);
+    navigate(`/dashboard/survey/participants`, { state: row });
   };
 
   const refetch = () => {

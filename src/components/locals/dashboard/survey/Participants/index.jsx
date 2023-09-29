@@ -1,17 +1,18 @@
-import { Box, Typography } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { changeDateFormat } from 'utils/dateUtils';
 import { getParticipants } from '../redux/actions';
 const Participants = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const { participants, participants_loading } = useSelector((state) => state.question);
-  console.log({ participants });
+  console.log({ participants, location });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -50,28 +51,32 @@ const Participants = () => {
       field: (row) => {
         return <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>;
       }
+    },
+    {
+      title: 'Survey',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Box>
+            <Button
+              variant="contained"
+              color="success"
+              sx={{ width: '100px' }}
+              onClick={() =>
+                navigate(`/dashboard/survey/participants/${row?.id}`, {
+                  state: location
+                })
+              }>
+              View
+            </Button>
+          </Box>
+        );
+      }
     }
-    // {
-    //   title: 'Survey',
-    //   minWidth: 100,
-    //   field: (row) => {
-    //     return (
-    //       <Box>
-    //         <Button
-    //           variant="contained"
-    //           color="success"
-    //           sx={{ width: '100px' }}
-    //           onClick={() => navigate(`/dashboard/survey/participants/${row?.id}`)}>
-    //           View
-    //         </Button>
-    //       </Box>
-    //     );
-    //   }
-    // }
   ];
 
   useEffect(() => {
-    dispatch(getParticipants());
+    dispatch(getParticipants(location?.state?.slug));
   }, []);
 
   return (
@@ -94,7 +99,7 @@ const Participants = () => {
           page={page}
           setPage={setPage}
           loading={participants_loading}
-          total={30}
+          total={participants?.data?.length}
         />
       </Box>
     </>

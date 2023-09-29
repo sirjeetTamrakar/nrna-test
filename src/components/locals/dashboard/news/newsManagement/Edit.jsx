@@ -6,8 +6,7 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import NewsForm from './Form';
-import { updateNews } from './redux/actions';
+import NewsManagementForm from './Form';
 import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
 
@@ -24,7 +23,6 @@ const EditForm = ({ detail, handleClose }) => {
     const formData = new FormData();
     formData.append('title', data?.title);
     formData.append('description', data?.description);
-    formData.append('excerpt', data?.excerpt);
     formData.append('created_by', data?.created_by);
     formData.append('_method', 'PUT');
     formData.append('news_category_id', data?.news_category_id);
@@ -33,7 +31,7 @@ const EditForm = ({ detail, handleClose }) => {
       formData.append('feature_image', data?.feature_image?.[0]);
     }
 
-    dispatch(updateNews(formData, detail?.slug, handleClose, typeData));
+    // dispatch(updateNews(formData, detail?.slug, handleClose, typeData));
   };
   useEffect(() => {
     if (user?.role_name == Roles?.Member) {
@@ -45,7 +43,7 @@ const EditForm = ({ detail, handleClose }) => {
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <NewsForm featureImage={detail?.feature_image} />
+      <NewsManagementForm featureImage={detail?.feature_image} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={update_news_loading} />
       </Box>
@@ -57,7 +55,6 @@ const Edit = ({ data, handleClose }) => {
     title: data?.title,
     created_by: data?.created_by?.id,
     description: data?.description,
-    excerpt: data?.excerpt,
     news_category_id: data?.news_category_id
   };
 

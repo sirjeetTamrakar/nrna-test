@@ -14,6 +14,7 @@ import NBNSBannerPage from 'pages/private/NBNSBanner';
 import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
 import NewsCategoryPage from 'pages/private/news/Category';
+import NewsManagementPage from 'pages/private/news/NewsManagementPage';
 import NewsPage from 'pages/private/news/NewsPage';
 import OurTeamPage from 'pages/private/OurTeamPage';
 import ParticipantResultPage from 'pages/private/ParticipantResult';
@@ -42,12 +43,19 @@ const DashboardRoutes = [
       </Protected>
     )
   },
-
   {
-    path: 'news',
+    path: 'news/news-list',
     component: (
       <Protected>
         <NewsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'news/news-management',
+    component: (
+      <Protected>
+        <NewsManagementPage />
       </Protected>
     )
   },

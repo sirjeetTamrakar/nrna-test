@@ -1,6 +1,7 @@
 import AboutPage from 'pages/public/About';
 import BusinessPage from 'pages/public/Business';
 import Candidates from 'pages/public/Candidates';
+import ChnagePasswordDashboard from 'pages/public/changePass';
 import ContactPage from 'pages/public/Contact';
 import EventsPage from 'pages/public/events';
 import SingleEventPage from 'pages/public/events/SingleEvent';
@@ -74,6 +75,7 @@ const AuthRoutes = [
     component: <MissionPage />
   },
   { path: '/reset-password', component: <ResetPassword /> },
+  { path: '/password-reset', component: <ChnagePasswordDashboard /> },
   { path: '/forgot-password', component: <Forgot /> },
   { path: '/verify-mail', component: <VerifyEmail /> },
   {

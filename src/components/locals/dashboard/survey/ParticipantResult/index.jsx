@@ -3,18 +3,24 @@ import { Box, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getParticipants, getParticipantsResult } from '../redux/actions';
 const ParticipantResult = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const location = useLocation();
+  console.log(location);
+  console.log('ggdhhhhhhh', location?.state?.state?.questions?.[0]?.survey_id);
+  console.log({ location });
   const { participant_id } = useParams();
+  // const data = useParams();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const [name, setName] = useState();
   const { participant_result, participant_result_loading, participants } = useSelector(
     (state) => state.question
   );
+  console.log({ participants, participant_id, participant_result });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -46,9 +52,11 @@ const ParticipantResult = () => {
   ];
 
   useEffect(() => {
-    participant_id && dispatch(getParticipantsResult(participant_id));
+    participant_id && dispatch(getParticipantsResult(location?.state?.state?.slug, participant_id));
     if (participant_id) {
-      const participantName = participants?.find((list) => list?.id == participant_id)?.name;
+      const participantName = participants?.data?.find(
+        (list) => list?.id == participant_id
+      )?.first_name;
       setName(participantName);
     }
   }, [participant_id]);
