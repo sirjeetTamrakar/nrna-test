@@ -28,7 +28,7 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
   return (
     <Box className={classes.rootNav}>
       <Container>
-        <Box sx={{ padding: '10px 0px' }} className={classes.header}>
+        <Box sx={{ padding: '5px 0px' }} className={classes.header}>
           {/* <Typography variant="h5" className={classes.title}>
             News management
           </Typography> */}

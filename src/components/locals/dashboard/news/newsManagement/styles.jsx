@@ -5,7 +5,8 @@ export const useStyles = makeStyles((theme) => ({
     padding: '30px'
   },
   rootNav: {
-    background: '#276fc4'
+    background: '#e1f5ff',
+    borderRadius: '4px'
   },
   header: {
     display: 'flex',
@@ -33,12 +34,12 @@ export const useStyles = makeStyles((theme) => ({
     padding: 0,
     '& li': {
       fontSize: '14px',
-      color: '#fff',
+      color: '#4559bd',
       fontWeight: '400',
       paddingBottom: '5px',
       cursor: 'pointer',
       '&.active': {
-        borderBottom: '4px solid #fff'
+        borderBottom: '3px solid #6f83ce'
       }
     }
   },
