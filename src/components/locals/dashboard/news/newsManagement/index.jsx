@@ -1,6 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button, Typography } from '@mui/material';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
@@ -13,12 +12,12 @@ import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeNewsStatus, deleteNews, getNews } from '../redux/actions';
+import { changeNewsStatus, deleteNewsOrder, getCategory, getNews } from '../redux/actions';
 import Edit from './Edit';
 // import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
 import Register from './Register';
+import SecondaryNav from './SecondaryNav';
 import { useStyles } from './styles';
-import View from './View';
 
 const NewsManagement = () => {
   const dispatch = useDispatch();
@@ -32,10 +31,13 @@ const NewsManagement = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
+  const [filteredNews, setFilteredNews] = useState();
+  const [allFilteredNews, setAllFilteredNews] = useState();
+  const [selected, setSelected] = useState();
+  const [search, setSearch] = useState('');
 
-  const { newsData, get_news_loading, news_status_loading, delete_news_loading } = useSelector(
-    (state) => state.news
-  );
+  const { newsData, categoryData, get_news_loading, news_status_loading, delete_news_loading } =
+    useSelector((state) => state.news);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -67,11 +69,11 @@ const NewsManagement = () => {
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
               <li onClick={() => handleEdit(row)}>Edit News </li>
-              <li onClick={() => handleView(row)}>View Details</li>
-              {(user?.role_name === Roles?.member?.SuperAdmin ||
+              {/* <li onClick={() => handleView(row)}>View Details</li> */}
+              {/* {(user?.role_name === Roles?.member?.SuperAdmin ||
                 user?.role_name === Roles?.member?.Admin) && (
                 <li onClick={() => handleApprove(row)}>Approve News</li>
-              )}
+              )} */}
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
           </CustomPopover>
@@ -87,7 +89,7 @@ const NewsManagement = () => {
     } else if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
-    dispatch(deleteNews(slug, deleteOpenFunction, typeData));
+    dispatch(deleteNewsOrder(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
@@ -152,13 +154,50 @@ const NewsManagement = () => {
   //   user && refetch();
   // }, [page, rowsPerPage, user]);
 
+  console.log('selected------', { selected });
+
+  useEffect(() => {
+    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
+  }, [location?.state, categoryData]);
+
   useEffect(() => {
     dispatch(getNews());
+    dispatch(getCategory());
   }, []);
+
+  console.log({ filteredNews, allFilteredNews, categoryData });
+
+  useEffect(() => {
+    if (newsData) {
+      const allNewNews = newsData?.data?.filter((list) =>
+        list?.title?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      setAllFilteredNews(allNewNews);
+    }
+  }, [search, newsData]);
+
+  useEffect(() => {
+    if (newsData) {
+      const newNews = newsData?.data?.filter(
+        (list) =>
+          list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          list?.news_category_id == Number(selected)
+      );
+      setFilteredNews(selected === 'ALL' ? allFilteredNews : newNews);
+    }
+  }, [search, newsData, selected, categoryData]);
 
   return (
     <>
       <Box>
+        <Box sx={{ marginBottom: '20px' }}>
+          <SecondaryNav
+            category={categoryData}
+            setSelected={setSelected}
+            selected={selected}
+            setSearch={setSearch}
+          />
+        </Box>
         <Box
           sx={{
             display: 'flex',
@@ -192,7 +231,7 @@ const NewsManagement = () => {
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
-          <Register handleClose={formOpenFunction} />
+          <Register handleClose={formOpenFunction} selected={selected} />
         </CustomModal>
         <CustomModal
           open={openEdit}
@@ -203,14 +242,14 @@ const NewsManagement = () => {
           width={`40rem`}>
           <Edit data={detail} handleClose={editOpenFunction} />
         </CustomModal>
-        <CustomModal
+        {/* <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
           modalTitle="News Details"
           icon={<PersonIcon />}
           width={`40rem`}>
           <View data={detail} />
-        </CustomModal>
+        </CustomModal> */}
         <CustomDeleteModal
           handleConfirm={handleConfirm}
           slug={detail?.slug}

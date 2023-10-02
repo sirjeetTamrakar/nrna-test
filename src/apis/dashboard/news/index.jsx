@@ -62,3 +62,8 @@ export const changeNewsStatusApi = (data) => {
 export const postNewsOrderApi = (data) => {
   return axiosInstance().post(`/admin/news/news-order`, data);
 };
+
+// delete news
+export const deleteNewsOrderApi = (data) => {
+  return axiosInstance().delete(`/admin/news/news-order/${data}`);
+};

@@ -9,18 +9,17 @@ import NewsManagementForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
-const Register = ({ handleClose }) => {
+const Register = ({ handleClose, selected }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
-  const { news_loading } = useSelector((state) => state.news);
-
+  const { news_order_loading } = useSelector((state) => state.news);
   const onSubmit = (data) => {
-    const formData = new FormData();
-    formData.append('order_number', data?.order_number);
-    formData.append('news_id', data?.news_id);
-    formData.append('_method', 'PATCH');
+    // const formData = new FormData();
+    // formData.append('order_number', data?.order_number);
+    // formData.append('news_id', data?.news_id);
+    // formData.append('_method', 'PATCH');
 
     // let typeData;
     // if (user?.role_name == Roles?.Member) {
@@ -28,7 +27,13 @@ const Register = ({ handleClose }) => {
     // } else if (user?.role_name == Roles?.NCC) {
     //   typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     // }
-    dispatch(postNewsOrder(formData, handleClose));
+
+    // let typeData;
+    // if (selected !== 'All') {
+    //   typeData = { category_id: selected };
+    // }
+
+    dispatch(postNewsOrder({ ...data, _method: 'PATCH' }, handleClose));
   };
 
   return (
@@ -39,7 +44,7 @@ const Register = ({ handleClose }) => {
         <CustomForm onSubmit={onSubmit}>
           <NewsManagementForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={news_loading} />
+            <CustomButton buttonName="Submit" loading={news_order_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

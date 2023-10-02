@@ -3,6 +3,7 @@ import {
   changeNewsStatusApi,
   deleteCategoryApi,
   deleteNewsApi,
+  deleteNewsOrderApi,
   getCategoryApi,
   getNewsApi,
   postCategoryApi,
@@ -169,9 +170,9 @@ export const changeCategoryStatus = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const postNewsOrder = (handleSuccess) => (dispatch) => {
+export const postNewsOrder = (data, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.POST_NEWS_ORDER_BEGIN });
-  postNewsOrderApi()
+  postNewsOrderApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_NEWS_ORDER_SUCCESS });
       handleSuccess && handleSuccess();
@@ -182,4 +183,22 @@ export const postNewsOrder = (handleSuccess) => (dispatch) => {
       errorToast(error);
       dispatch({ type: actions.POST_NEWS_ORDER_ERROR });
     });
+};
+
+export const deleteNewsOrder = (Data, handleSuccess, typeData) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_NEWS_ORDER_BEGIN });
+
+  try {
+    await deleteNewsOrderApi(Data);
+    dispatch({
+      type: actions.DELETE_NEWS_ORDER_SUCCESS,
+      payload: ''
+    });
+    dispatch(getNews(typeData));
+    handleSuccess && handleSuccess();
+    successToast('News order has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_NEWS_ORDER_ERROR });
+    errorToast(error);
+  }
 };
