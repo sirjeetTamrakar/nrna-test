@@ -90,7 +90,8 @@ const useStyles = makeStyles((theme) => ({
   },
   role: {
     margin: '0',
-    fontSize: '11px'
+    fontSize: '11px',
+    textTransform: 'capitalize'
   }
 }));
 

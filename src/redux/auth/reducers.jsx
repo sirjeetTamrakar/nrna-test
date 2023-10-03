@@ -4,7 +4,8 @@ const defaultState = {
   login_loading: false,
   loading: false,
   register_loading: false,
-  get_users_loading: false
+  get_users_loading: false,
+  role_details: ''
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -45,6 +46,9 @@ const authReducer = (state = defaultState, action) => {
     case actions.RESET_PASSWORD_SUCCESS:
     case actions.CHANGE_PASSWORD_SUCCESS:
       return { ...state, loading: false };
+
+    case actions.STORE_ROLE_DETAILS:
+      return { ...state, role_details: action.payload };
 
     default:
       return state;

@@ -6,6 +6,7 @@ import {
   deleteNewsOrderApi,
   getCategoryApi,
   getNewsApi,
+  getNewsOrderApi,
   postCategoryApi,
   postNewsApi,
   postNewsOrderApi,
@@ -201,4 +202,17 @@ export const deleteNewsOrder = (Data, handleSuccess, typeData) => async (dispatc
     dispatch({ type: actions.DELETE_NEWS_ORDER_ERROR });
     errorToast(error);
   }
+};
+
+export const getNewsOrder = () => (dispatch) => {
+  dispatch({ type: actions.GET_NEWS_ORDER_BEGIN });
+  getNewsOrderApi()
+    .then((res) => {
+      console.log({ res });
+      dispatch({ type: actions.GET_NEWS_ORDER_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_NEWS_ORDER_ERROR });
+    });
 };

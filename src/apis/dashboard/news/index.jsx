@@ -60,10 +60,15 @@ export const changeNewsStatusApi = (data) => {
 
 // post news order
 export const postNewsOrderApi = (data) => {
-  return axiosInstance().post(`/admin/news/news-order`, data);
+  return axiosInstance().post(`/admin/news-order`, data);
 };
 
 // delete news
 export const deleteNewsOrderApi = (data) => {
   return axiosInstance().delete(`/admin/news/news-order/${data}`);
+};
+
+// get category
+export const getNewsOrderApi = () => {
+  return axiosInstance().get('/admin/news-order');
 };

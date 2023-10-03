@@ -9,10 +9,9 @@ import Events from 'assets/icon/events.svg';
 import Country from 'assets/icon/ncc.svg';
 import News from 'assets/icon/news.svg';
 import Profile from 'assets/icon/profile.svg';
+import SettingsIcon from 'assets/icon/settings.svg';
 import Survey from 'assets/icon/survey.svg';
 import Team from 'assets/icon/team.svg';
-
-import SettingsIcon from 'assets/icon/settings.svg';
 import UserManagement from 'assets/icon/user-management.svg';
 import { Roles } from './RoleConstant';
 
@@ -24,6 +23,8 @@ export const SidebarConstants = [
         label: 'Dashboard',
         url: '/dashboard',
         icon: DashboardIcon,
+        memberProfile: 'memberProfile',
+        memberProfileNCC: 'memberProfileNCC',
         activeIcon: ActiveDashboardIcon,
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
@@ -51,17 +52,26 @@ export const SidebarConstants = [
         url: '/dashboard/news',
         icon: News,
         activeIcon: ActiveDashboardIcon,
+        memberProfile: 'memberProfile',
+        memberProfileNCC: 'memberProfileNCC',
+
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: [
           {
             label: 'News List',
             url: '/dashboard/news/news-list',
-            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+            memberProfile: 'memberProfile',
+            memberProfileNCC: 'memberProfileNCC',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC, Roles.Member]
           },
           {
             label: 'News Management',
             url: '/dashboard/news/news-management',
-            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+            memberProfile: 'memberProfile',
+            memberProfileNCC: 'memberProfileNCC',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC, Roles.Member]
           }
         ]
       },
@@ -70,6 +80,8 @@ export const SidebarConstants = [
         url: '/dashboard/events',
         icon: Events,
         activeIcon: ActiveDashboardIcon,
+        memberProfileNCC: 'memberProfileNCC',
+
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: []
       },
@@ -77,7 +89,10 @@ export const SidebarConstants = [
         label: 'Contact',
         url: '/dashboard/contact',
         icon: Contact,
+        memberProfile: 'memberProfile',
         activeIcon: ActiveDashboardIcon,
+        memberProfileNCC: 'memberProfileNCC',
+
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
       },
@@ -85,8 +100,9 @@ export const SidebarConstants = [
         label: 'Profile',
         url: '/dashboard/profile',
         icon: Profile,
+        memberProfile: 'memberProfile',
         activeIcon: ActiveDashboardIcon,
-        roles: [Roles.Member],
+        roles: [Roles.Member, Roles.NCC],
         children: []
       },
       {
@@ -110,16 +126,22 @@ export const SidebarConstants = [
         url: '/dashboard/our-team',
         icon: Team,
         activeIcon: ActiveDashboardIcon,
+        memberProfileNCC: 'memberProfileNCC',
+
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
             label: 'Team',
             url: '/dashboard/our-team',
+            memberProfileNCC: 'memberProfileNCC',
+
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
             label: 'Department',
             url: '/dashboard/our-team/department',
+            memberProfileNCC: 'memberProfileNCC',
+
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           }
         ]
@@ -129,6 +151,8 @@ export const SidebarConstants = [
         url: '/dashboard/candidate',
         icon: Candidate,
         activeIcon: ActiveDashboardIcon,
+        memberProfileNCC: 'memberProfileNCC',
+
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: []
       },
@@ -161,22 +185,30 @@ export const SidebarConstants = [
         url: '/dashboard/business',
         icon: Business,
         activeIcon: ActiveSettingsIcon,
-        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member],
+
+        memberProfile: 'memberProfile',
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: [
           {
             label: 'Category',
             url: '/dashboard/business/category',
-            roles: [Roles.Admin, Roles.SuperAdmin]
+            memberProfile: 'memberProfile',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
             label: 'Business',
             url: '/dashboard/business',
-            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member]
+            memberProfile: 'memberProfile',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
           },
           {
             label: 'Contact',
             url: '/dashboard/business/contact',
-            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member]
+            memberProfile: 'memberProfile',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
           }
         ]
       },
@@ -185,16 +217,23 @@ export const SidebarConstants = [
         url: '/dashboard/settings',
         icon: SettingsIcon,
         activeIcon: ActiveSettingsIcon,
+        memberProfileNCC: 'memberProfileNCC',
+
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
             label: 'Site Setting',
             url: '/dashboard/settings/site',
+            // memberProfileNCC: 'memberProfileNCC',
+
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
             label: 'Banner',
             url: '/dashboard/settings/banner',
+            memberProfile: 'memberProfile',
+            // memberProfileNCC: 'memberProfileNCC',
+
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {

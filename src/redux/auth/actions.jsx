@@ -142,3 +142,7 @@ export const changePassword = (data, handleRedirect) => (dispatch) => {
       errorToast(error);
     });
 };
+
+export const saveRoleDetails = (data) => (dispatch) => {
+  dispatch({ type: actions.STORE_ROLE_DETAILS, payload: data });
+};

@@ -36,8 +36,14 @@ const NewsManagement = () => {
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
 
-  const { newsData, categoryData, get_news_loading, news_status_loading, delete_news_loading } =
-    useSelector((state) => state.news);
+  const {
+    newsData,
+    newsOrderData,
+    categoryData,
+    get_news_loading,
+    news_status_loading,
+    delete_news_loading
+  } = useSelector((state) => state.news);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -56,7 +62,7 @@ const NewsManagement = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.news_category?.title}</Typography>
+            <Typography variant="body2">{row?.news_order?.order_number}</Typography>
           </Box>
         );
       }
@@ -68,7 +74,7 @@ const NewsManagement = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit News </li>
+              {/* <li onClick={() => handleEdit(row)}>Edit News </li> */}
               {/* <li onClick={() => handleView(row)}>View Details</li> */}
               {/* {(user?.role_name === Roles?.member?.SuperAdmin ||
                 user?.role_name === Roles?.member?.Admin) && (
@@ -186,6 +192,7 @@ const NewsManagement = () => {
       setFilteredNews(selected === 'ALL' ? allFilteredNews : newNews);
     }
   }, [search, newsData, selected, categoryData]);
+  console.log({ newsOrderData });
 
   return (
     <>

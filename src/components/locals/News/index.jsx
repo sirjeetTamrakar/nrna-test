@@ -1,3 +1,4 @@
+import { Button } from '@mui/base';
 import { Box, CircularProgress } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
@@ -18,18 +19,22 @@ const News = () => {
 
   const [filteredNews, setFilteredNews] = useState();
   const [allFilteredNews, setAllFilteredNews] = useState();
+  const [newsLimit, setNewsLimit] = useState(5);
 
   const [selected, setSelected] = useState();
-  console.log('selected------', { selected });
+  console.log('ww------', { filteredNews });
 
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
   useEffect(() => {
-    dispatch(getAllNews());
+    const data = {
+      limit: newsLimit
+    };
+    dispatch(getAllNews(data));
     dispatch(getNewsCategory());
-  }, []);
+  }, [newsLimit]);
 
   console.log({ selected });
 
@@ -53,6 +58,10 @@ const News = () => {
     }
   }, [search, news, selected, news_category]);
 
+  const handleShowMore = () => {
+    setNewsLimit(newsLimit + 4);
+  };
+  console.log({ newsLimit });
   return (
     <>
       <SecondaryNav
@@ -144,6 +153,26 @@ const News = () => {
                     {filteredNews?.slice(5)?.map((item) => (
                       <NewsCard key={item.id} news={item} linkUrl={`/news/${item?.slug}`} />
                     ))}
+                    <div
+                      style={{
+                        marginTop: '20px',
+                        marginBottom: '20px',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}>
+                      <Button
+                        style={{
+                          border: 'none',
+                          backgroundColor: '#E1F5FF',
+                          color: '#6F83CE',
+                          padding: '10px 20px',
+                          borderRadius: '4px'
+                        }}
+                        onClick={handleShowMore}>
+                        Show More
+                      </Button>
+                    </div>
                   </>
                 ) : (
                   <div className="col-md-12 mt-5 mb-5">

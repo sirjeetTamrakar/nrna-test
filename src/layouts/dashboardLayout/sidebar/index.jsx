@@ -64,12 +64,13 @@ const Drawer = styled(MuiDrawer, {
 export default function Sidebar() {
   const classes = useStyles();
   const [open, setOpen] = React.useState(sessionStorage.getItem('active'));
+
   const handleClick = (item) => {
     sessionStorage.setItem('active', open === item?.label ? '' : item?.label);
     setOpen((prev) => (prev === item?.label ? '' : item?.label));
   };
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, role_details } = useSelector((state) => state.auth);
 
   return (
     <Box sx={{ display: 'flex', '& .MuiDrawer-paper': { border: 'none' } }}>
@@ -81,95 +82,317 @@ export default function Sidebar() {
             </Box>
           </DrawerHeader>
 
-          {SidebarConstants?.map((row, index) => (
-            <List
-              key={row?.header}
-              subheader={<Box sx={{ fontSize: '11px', padding: '5px 12px' }}>{row?.header} </Box>}
-              sx={{ mb: '1rem' }}>
-              {row?.items?.map((item, index) => {
-                const filterData = item?.roles?.includes(user?.role_name);
-                if (filterData) {
-                  return (
-                    <ListItem
-                      key={item?.label}
-                      disablePadding
-                      sx={{ display: 'block', paddingBottom: '5px' }}
-                      className={classes.nav}>
-                      <NavLink
-                        to={!item?.children?.length && item?.url}
-                        className={({ isActive }) =>
-                          isActive &&
-                          (item?.children?.length
-                            ? item?.children?.some((nestedItem) =>
-                                window.location.pathname.includes(nestedItem.url)
-                              )
-                              ? classes.activeClass
-                              : {}
-                            : classes.activeClass)
-                        }>
-                        {({ isActive }) => (
-                          <ListItemButton
-                            className={classes.listItemButton}
-                            onClick={() =>
-                              item?.children?.length !== 0 ? handleClick(item) : handleClick()
-                            }
-                            style={{
-                              background: open === item?.label && '#f6f6f6'
-                            }}>
-                            <ListItemIcon
-                              sx={{
-                                minWidth: 0,
-                                mr: 2,
-                                justifyContent: 'center'
+          <NavBarByRoles role_details={role_details} user={user} handleClick={handleClick} />
+          <NavBarByRoleNCC role_details={role_details} user={user} handleClick={handleClick} />
+
+          {user?.role_name !== 'ncc' &&
+            SidebarConstants?.map((row, index) => (
+              <List
+                key={row?.header}
+                subheader={<Box sx={{ fontSize: '11px', padding: '5px 12px' }}>{row?.header} </Box>}
+                sx={{ mb: '1rem' }}>
+                {row?.items?.map((item, index) => {
+                  const filterData = item?.roles?.includes(user?.role_name);
+                  if (filterData) {
+                    return (
+                      <ListItem
+                        key={item?.label}
+                        disablePadding
+                        sx={{ display: 'block', paddingBottom: '5px' }}
+                        className={classes.nav}>
+                        <NavLink
+                          to={!item?.children?.length && item?.url}
+                          className={({ isActive }) =>
+                            isActive &&
+                            (item?.children?.length
+                              ? item?.children?.some((nestedItem) =>
+                                  window.location.pathname.includes(nestedItem.url)
+                                )
+                                ? classes.activeClass
+                                : {}
+                              : classes.activeClass)
+                          }>
+                          {({ isActive }) => (
+                            <ListItemButton
+                              className={classes.listItemButton}
+                              onClick={() =>
+                                item?.children?.length !== 0 ? handleClick(item) : handleClick()
+                              }
+                              style={{
+                                background: open === item?.label && '#f6f6f6'
                               }}>
-                              <img
-                                style={{ height: '20px', width: '20px' }}
-                                src={
-                                  isActive
-                                    ? item?.children?.length
-                                      ? item?.children?.some((nestedItem) =>
-                                          window.location.pathname.includes(nestedItem.url)
-                                        )
-                                        ? item?.activeIcon
-                                        : item?.icon
-                                      : item?.activeIcon
-                                    : item?.icon
-                                }
-                              />
-                            </ListItemIcon>
-
-                            <ListItemText primary={item?.label} />
-                            {item?.children?.length !== 0 && (
-                              <ExpandMore
+                              <ListItemIcon
                                 sx={{
-                                  transition: 'transform 0.3s',
-                                  transform:
-                                    open === item?.label ? 'rotate(-180deg)' : 'rotate(0deg)'
-                                }}
-                              />
-                            )}
-                          </ListItemButton>
-                        )}
-                      </NavLink>
+                                  minWidth: 0,
+                                  mr: 2,
+                                  justifyContent: 'center'
+                                }}>
+                                <img
+                                  style={{ height: '20px', width: '20px' }}
+                                  src={
+                                    isActive
+                                      ? item?.children?.length
+                                        ? item?.children?.some((nestedItem) =>
+                                            window.location.pathname.includes(nestedItem.url)
+                                          )
+                                          ? item?.activeIcon
+                                          : item?.icon
+                                        : item?.activeIcon
+                                      : item?.icon
+                                  }
+                                />
+                              </ListItemIcon>
 
-                      <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
-                        <Box className={classes.childContainer}>
-                          {item?.children?.map((child, index) => (
-                            <ChildComponent child={child} key={index} classes={classes} />
-                          ))}
-                        </Box>
-                      </Collapse>
-                    </ListItem>
-                  );
-                } else return false;
-              })}
-            </List>
-          ))}
+                              <ListItemText primary={item?.label} />
+                              {item?.children?.length !== 0 && (
+                                <ExpandMore
+                                  sx={{
+                                    transition: 'transform 0.3s',
+                                    transform:
+                                      open === item?.label ? 'rotate(-180deg)' : 'rotate(0deg)'
+                                  }}
+                                />
+                              )}
+                            </ListItemButton>
+                          )}
+                        </NavLink>
+
+                        <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
+                          <Box className={classes.childContainer}>
+                            {item?.children?.map((child, index) => (
+                              <ChildComponent child={child} key={index} classes={classes} />
+                            ))}
+                          </Box>
+                        </Collapse>
+                      </ListItem>
+                    );
+                  } else return false;
+                })}
+              </List>
+            ))}
         </Box>
       </Drawer>
     </Box>
   );
 }
+
+const NavBarByRoles = ({ role_details, user, handleClick }) => {
+  const classes = useStyles();
+
+  return (
+    <>
+      {user?.role_name === 'ncc' &&
+        role_details === 'member' &&
+        SidebarConstants?.map((row, index) => (
+          <List
+            key={row?.header}
+            subheader={<Box sx={{ fontSize: '11px', padding: '5px 12px' }}>{row?.header} </Box>}
+            sx={{ mb: '1rem' }}>
+            {row?.items?.map((item, index) => {
+              const filterData = item?.memberProfile?.includes('memberProfile');
+              if (filterData) {
+                return (
+                  <ListItem
+                    key={item?.label}
+                    disablePadding
+                    sx={{ display: 'block', paddingBottom: '5px' }}
+                    className={classes.nav}>
+                    <NavLink
+                      to={!item?.children?.length && item?.url}
+                      className={({ isActive }) =>
+                        isActive &&
+                        (item?.children?.length
+                          ? item?.children?.some((nestedItem) =>
+                              window.location.pathname.includes(nestedItem.url)
+                            )
+                            ? classes.activeClass
+                            : {}
+                          : classes.activeClass)
+                      }>
+                      {({ isActive }) => (
+                        <ListItemButton
+                          className={classes.listItemButton}
+                          onClick={() =>
+                            item?.children?.length !== 0 ? handleClick(item) : handleClick()
+                          }
+                          style={{
+                            background: open === item?.label && '#f6f6f6'
+                          }}>
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              mr: 2,
+                              justifyContent: 'center'
+                            }}>
+                            <img
+                              style={{ height: '20px', width: '20px' }}
+                              src={
+                                isActive
+                                  ? item?.children?.length
+                                    ? item?.children?.some((nestedItem) =>
+                                        window.location.pathname.includes(nestedItem.url)
+                                      )
+                                      ? item?.activeIcon
+                                      : item?.icon
+                                    : item?.activeIcon
+                                  : item?.icon
+                              }
+                            />
+                          </ListItemIcon>
+
+                          <ListItemText primary={item?.label} />
+                          {item?.children?.length !== 0 && (
+                            <ExpandMore
+                              sx={{
+                                transition: 'transform 0.3s',
+                                transform: open === item?.label ? 'rotate(-180deg)' : 'rotate(0deg)'
+                              }}
+                            />
+                          )}
+                        </ListItemButton>
+                      )}
+                    </NavLink>
+
+                    <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
+                      <Box className={classes.childContainer}>
+                        {item?.children?.map((child, index) => (
+                          <ChildComponent child={child} key={index} classes={classes} />
+                        ))}
+                      </Box>
+                    </Collapse>
+                  </ListItem>
+                );
+              } else return false;
+            })}
+          </List>
+        ))}{' '}
+    </>
+  );
+};
+const NavBarByRoleNCC = ({ role_details, user, handleClick }) => {
+  const classes = useStyles();
+
+  return (
+    <>
+      {user?.role_name === 'ncc' &&
+        role_details === 'ncc' &&
+        SidebarConstants?.map((row, index) => (
+          <List
+            key={row?.header}
+            subheader={<Box sx={{ fontSize: '11px', padding: '5px 12px' }}>{row?.header} </Box>}
+            sx={{ mb: '1rem' }}>
+            {row?.items?.map((item, index) => {
+              const filterData = item?.memberProfileNCC?.includes('memberProfileNCC');
+              if (filterData) {
+                return (
+                  <ListItem
+                    key={item?.label}
+                    disablePadding
+                    sx={{ display: 'block', paddingBottom: '5px' }}
+                    className={classes.nav}>
+                    <NavLink
+                      to={!item?.children?.length && item?.url}
+                      className={({ isActive }) =>
+                        isActive &&
+                        (item?.children?.length
+                          ? item?.children?.some((nestedItem) =>
+                              window.location.pathname.includes(nestedItem.url)
+                            )
+                            ? classes.activeClass
+                            : {}
+                          : classes.activeClass)
+                      }>
+                      {({ isActive }) => (
+                        <ListItemButton
+                          className={classes.listItemButton}
+                          onClick={() =>
+                            item?.children?.length !== 0 ? handleClick(item) : handleClick()
+                          }
+                          style={{
+                            background: open === item?.label && '#f6f6f6'
+                          }}>
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              mr: 2,
+                              justifyContent: 'center'
+                            }}>
+                            <img
+                              style={{ height: '20px', width: '20px' }}
+                              src={
+                                isActive
+                                  ? item?.children?.length
+                                    ? item?.children?.some((nestedItem) =>
+                                        window.location.pathname.includes(nestedItem.url)
+                                      )
+                                      ? item?.activeIcon
+                                      : item?.icon
+                                    : item?.activeIcon
+                                  : item?.icon
+                              }
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={item?.label} />
+
+                          {item?.children?.length !== 0 && (
+                            <ExpandMore
+                              sx={{
+                                transition: 'transform 0.3s',
+                                transform: open === item?.label ? 'rotate(-180deg)' : 'rotate(0deg)'
+                              }}
+                            />
+                          )}
+                        </ListItemButton>
+                      )}
+                    </NavLink>
+
+                    <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
+                      <Box className={classes.childContainer}>
+                        {item?.children?.map((child, index) => (
+                          <ChildComponentNCC child={child} key={index} classes={classes} />
+                        ))}
+                      </Box>
+                    </Collapse>
+                  </ListItem>
+                );
+              } else return false;
+            })}
+          </List>
+        ))}{' '}
+    </>
+  );
+};
+
+const ChildComponentNCC = ({ child, classes }) => {
+  const { user } = useSelector((state) => state.auth);
+  const filterData = child?.roles?.includes(user?.role_name);
+  if (filterData) {
+    return (
+      <>
+        <List
+          key={child?.label}
+          component="div"
+          disablePadding
+          sx={{ paddingBottom: '5px' }}
+          className={classes.nav}>
+          <NavLink to={child?.url}>
+            {({ isActive }) => (
+              <ListItemButton
+                className={[classes.listItemButtonChild, isActive && classes.activeChildClass]}>
+                <ListItemText
+                  disableTypography
+                  primary={<Typography variant="body2">{child?.label}</Typography>}
+                  className="active"
+                  primaryTypographyProps="h2"
+                />
+              </ListItemButton>
+            )}
+          </NavLink>
+        </List>
+      </>
+    );
+  } else return false;
+};
 
 const ChildComponent = ({ child, classes }) => {
   const { user } = useSelector((state) => state.auth);

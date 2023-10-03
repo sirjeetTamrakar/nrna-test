@@ -15,7 +15,14 @@ export const getSiteSettingsApi = (data) => {
 export const getAllNewsApi = (data) => {
   const type = data?.type ? `?newsable_type=${data?.type}` : '';
   const id = data?.id ? `&newsable_id=${data?.id}` : '';
-  return axiosInstance().get(`/api/news${type}${id}`);
+  const limit = data?.type
+    ? data?.limit
+      ? `&pagination_limit=${data?.limit}`
+      : ''
+    : data?.limit
+    ? `?pagination_limit=${data?.limit}`
+    : '';
+  return axiosInstance().get(`/api/news${type}${id}${limit}`);
 };
 
 // get news category

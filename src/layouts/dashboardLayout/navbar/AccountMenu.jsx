@@ -15,14 +15,19 @@ import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import IconTooltip from 'components/common/CustomTooltips/IconTooltip';
 import * as React from 'react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout } from 'redux/auth/actions';
+import { logout, saveRoleDetails } from 'redux/auth/actions';
 import useStyles from './Styles';
 
 export default function AccountMenu() {
+  const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [changeEl, setChangeEl] = useState(null);
+  const [userRole, setUserRole] = useState('member');
+  const { user, role_details } = useSelector((state) => state.auth);
+  console.log({ role_details, userRole });
 
   const open = Boolean(anchorEl);
   const roleOpen = Boolean(changeEl);
@@ -55,6 +60,17 @@ export default function AccountMenu() {
   const goToHome = () => {
     navigate('/');
   };
+
+  const handleRoleNcc = () => {
+    userRole === 'member' && setUserRole('ncc');
+  };
+  const handleRoleMember = () => {
+    userRole === 'ncc' && setUserRole('member');
+  };
+  useEffect(() => {
+    dispatch(saveRoleDetails(userRole));
+  }, [userRole]);
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -63,19 +79,23 @@ export default function AccountMenu() {
 
         {/* <input type="color" onChange={(e) => handleColorChange(e)} /> */}
         <Box className={classes.userWrapper}>
-          <Tooltip title="Switch User Mode">
-            <IconButton
-              onClick={handleRoleClick}
-              size="small"
-              aria-controls={roleOpen ? 'role-menu' : undefined}
-              aria-haspopup="true"
-              aria-expanded={roleOpen ? 'true' : undefined}>
-              <ChangeCircleIcon />
-            </IconButton>
-          </Tooltip>
+          {user?.role_name === 'ncc' && (
+            <Tooltip title="Switch User Mode">
+              <IconButton
+                onClick={handleRoleClick}
+                size="small"
+                aria-controls={roleOpen ? 'role-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={roleOpen ? 'true' : undefined}>
+                <ChangeCircleIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           <Box>
-            <p className={classes.name}>Bishwo Raj Raut </p>
-            <p className={classes.role}>NCC </p>
+            <p className={classes.name}>{user?.full_name} </p>
+            <p className={classes.role} style={{ width: '100px' }}>
+              {role_details === 'member' ? 'Personal Profile' : 'NCC'}{' '}
+            </p>
           </Box>
 
           <Tooltip title="Account settings">
@@ -186,13 +206,13 @@ export default function AccountMenu() {
         }}
         transformOrigin={{ horizontal: 'right', vertical: 'top' }}
         anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-        <MenuItem>
+        <MenuItem onClick={handleRoleNcc}>
           <ListItemIcon>
             <PublicIcon fontSize="small" />
           </ListItemIcon>
           NCC
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={handleRoleMember}>
           <ListItemIcon>
             <Person4Icon fontSize="small" />
           </ListItemIcon>

@@ -33,7 +33,9 @@ const Register = ({ handleClose, selected }) => {
     //   typeData = { category_id: selected };
     // }
 
-    dispatch(postNewsOrder({ ...data, _method: 'PATCH' }, handleClose));
+    dispatch(
+      postNewsOrder({ ...data, category_id: selected === 'All' ? selected : '' }, handleClose)
+    );
   };
 
   return (

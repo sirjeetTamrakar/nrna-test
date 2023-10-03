@@ -13,7 +13,9 @@ const defaultState = {
   update_category_loading: false,
   category_status_loading: false,
   news_order_loading: false,
-  delete_news_order_loading: false
+  delete_news_order_loading: false,
+  newsOrderData: [],
+  get_news_order_loading: false
 };
 
 const newsReducer = (state = defaultState, action) => {
@@ -126,6 +128,18 @@ const newsReducer = (state = defaultState, action) => {
     case actions.DELETE_NEWS_ORDER_SUCCESS:
     case actions.DELETE_NEWS_ORDER_ERROR:
       return { ...state, delete_news_order_loading: false };
+
+    case actions.GET_NEWS_ORDER_BEGIN:
+      return {
+        ...state,
+        get_news_order_loading: true
+      };
+
+    case actions.GET_NEWS_ORDER_SUCCESS:
+      return { ...state, get_news_order_loading: false, newsOrderData: action.payload };
+
+    case actions.GET_NEWS_ORDER_ERROR:
+      return { ...state, get_news_order_loading: false };
 
     default:
       return state;
