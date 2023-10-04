@@ -93,9 +93,11 @@ export default function AccountMenu() {
           )}
           <Box>
             <p className={classes.name}>{user?.full_name} </p>
-            <p className={classes.role} style={{ width: '100px' }}>
-              {role_details === 'member' ? 'Personal Profile' : 'NCC'}{' '}
-            </p>
+            {user?.role_name === 'ncc' && (
+              <p className={classes.role} style={{ width: '100px' }}>
+                {role_details === 'member' ? 'Personal Profile' : 'NCC'}{' '}
+              </p>
+            )}
           </Box>
 
           <Tooltip title="Account settings">

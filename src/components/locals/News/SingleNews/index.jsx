@@ -38,37 +38,6 @@ const SingleNews = () => {
   //   }
   // }, [news, selected, news_category]);
 
-  // const category = [
-  //   {
-  //     title: 'Tech & IT',
-  //     slug: 'advisory_board'
-  //   },
-  //   {
-  //     title: 'Business',
-  //     slug: 'board_of_directors'
-  //   },
-  //   {
-  //     title: 'Science',
-  //     slug: 'general_members'
-  //   },
-  //   {
-  //     title: 'Health',
-  //     slug: 'task_force'
-  //   },
-  //   {
-  //     title: 'lifeStyle',
-  //     slug: 'travel'
-  //   },
-  //   {
-  //     title: 'Health',
-  //     slug: 'education'
-  //   },
-  //   {
-  //     title: 'Entertainment',
-  //     slug: 'entertainment'
-  //   }
-  // ];
-  // const [selected, setSelected] = useState(category?.[0]?.slug);
   return (
     <>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
@@ -95,11 +64,6 @@ const SingleNews = () => {
                   {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Created by:{' '}
                   {single_news?.created_by?.full_name}
                 </div>
-                {/* <div className="single_news_page_short">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum
-              has been the industry's standard dummy text ever since the 1500s, when an unknown
-              printer took a galley of type and scrambled it to make a type specimen book.
-            </div> */}
 
                 <div
                   className="single_news_page_long"

@@ -61,7 +61,8 @@ const News = () => {
   const handleShowMore = () => {
     setNewsLimit(newsLimit + 4);
   };
-  console.log({ newsLimit });
+  console.log({ news });
+
   return (
     <>
       <SecondaryNav
@@ -180,6 +181,21 @@ const News = () => {
                   </div>
                 )}
               </div>
+              {/* <div className="row">
+                <div className="col-md-12 text-center">
+                  <ul className="pagination">
+                    {Array.from({ length: totalPages }).map((_, index) => (
+                      <li
+                        key={index}
+                        className={`page-item ${currentPage === index + 1 ? 'active' : ''}`}>
+                        <button className="page-link" onClick={() => handlePageChange(index + 1)}>
+                          {index + 1}
+                        </button>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div> */}
             </>
           )}
         </div>

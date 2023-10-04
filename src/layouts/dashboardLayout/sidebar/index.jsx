@@ -82,8 +82,18 @@ export default function Sidebar() {
             </Box>
           </DrawerHeader>
 
-          <NavBarByRoles role_details={role_details} user={user} handleClick={handleClick} />
-          <NavBarByRoleNCC role_details={role_details} user={user} handleClick={handleClick} />
+          <NavBarByRoles
+            open={open}
+            role_details={role_details}
+            user={user}
+            handleClick={handleClick}
+          />
+          <NavBarByRoleNCC
+            open={open}
+            role_details={role_details}
+            user={user}
+            handleClick={handleClick}
+          />
 
           {user?.role_name !== 'ncc' &&
             SidebarConstants?.map((row, index) => (
@@ -176,7 +186,7 @@ export default function Sidebar() {
   );
 }
 
-const NavBarByRoles = ({ role_details, user, handleClick }) => {
+const NavBarByRoles = ({ role_details, user, handleClick, open }) => {
   const classes = useStyles();
 
   return (
@@ -269,7 +279,7 @@ const NavBarByRoles = ({ role_details, user, handleClick }) => {
     </>
   );
 };
-const NavBarByRoleNCC = ({ role_details, user, handleClick }) => {
+const NavBarByRoleNCC = ({ role_details, user, handleClick, open }) => {
   const classes = useStyles();
 
   return (
@@ -349,7 +359,7 @@ const NavBarByRoleNCC = ({ role_details, user, handleClick }) => {
                     <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
                       <Box className={classes.childContainer}>
                         {item?.children?.map((child, index) => (
-                          <ChildComponentNCC child={child} key={index} classes={classes} />
+                          <ChildComponent child={child} key={index} classes={classes} />
                         ))}
                       </Box>
                     </Collapse>
@@ -361,37 +371,6 @@ const NavBarByRoleNCC = ({ role_details, user, handleClick }) => {
         ))}{' '}
     </>
   );
-};
-
-const ChildComponentNCC = ({ child, classes }) => {
-  const { user } = useSelector((state) => state.auth);
-  const filterData = child?.roles?.includes(user?.role_name);
-  if (filterData) {
-    return (
-      <>
-        <List
-          key={child?.label}
-          component="div"
-          disablePadding
-          sx={{ paddingBottom: '5px' }}
-          className={classes.nav}>
-          <NavLink to={child?.url}>
-            {({ isActive }) => (
-              <ListItemButton
-                className={[classes.listItemButtonChild, isActive && classes.activeChildClass]}>
-                <ListItemText
-                  disableTypography
-                  primary={<Typography variant="body2">{child?.label}</Typography>}
-                  className="active"
-                  primaryTypographyProps="h2"
-                />
-              </ListItemButton>
-            )}
-          </NavLink>
-        </List>
-      </>
-    );
-  } else return false;
 };
 
 const ChildComponent = ({ child, classes }) => {

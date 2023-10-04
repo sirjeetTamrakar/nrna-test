@@ -22,6 +22,7 @@ export const getAllNewsApi = (data) => {
     : data?.limit
     ? `?pagination_limit=${data?.limit}`
     : '';
+
   return axiosInstance().get(`/api/news${type}${id}${limit}`);
 };
 
