@@ -223,7 +223,7 @@ const NewsManagement = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={newsData?.data}
+          tableData={filteredNews}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

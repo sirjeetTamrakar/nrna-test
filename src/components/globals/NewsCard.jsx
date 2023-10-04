@@ -1,10 +1,13 @@
 import { TimeAgo } from 'components/common/CustomTime/CustomTime';
 import { Link } from 'react-router-dom';
 
-const NewsCard = ({ news, linkUrl, gridLayout, gridOne }) => {
+const NewsCard = ({ news, linkUrl, gridLayout, gridOne, belowNews }) => {
   return (
     <div className={gridLayout ? '' : 'col-md-4 col-lg-3 col-sm-6 col-12'}>
-      <Link to={linkUrl} className="news_card">
+      <Link
+        to={linkUrl}
+        className="news_card"
+        style={belowNews && { marginTop: '20px', marginBottom: '20px' }}>
         <div className={gridOne ? 'img_wrapper_grid_one' : 'img_wrapper'}>
           <img src={news?.feature_image} alt="" />
         </div>

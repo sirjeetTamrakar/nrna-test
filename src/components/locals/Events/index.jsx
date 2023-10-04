@@ -28,14 +28,14 @@ const Events = () => {
     dispatch(getEventsCategory());
   }, []);
 
-  useEffect(() => {
-    if (events) {
-      const allNewEvents = events?.filter((list) =>
-        list?.title?.toLowerCase()?.includes(search?.toLowerCase())
-      );
-      setAllFilteredEvents(allNewEvents);
-    }
-  }, [search, events]);
+  // useEffect(() => {
+  //   if (events) {
+  //     const allNewEvents = events?.filter((list) =>
+  //       list?.title?.toLowerCase()?.includes(search?.toLowerCase())
+  //     );
+  //     setAllFilteredEvents(allNewEvents);
+  //   }
+  // }, [search, events]);
 
   useEffect(() => {
     if (events) {
@@ -44,7 +44,7 @@ const Events = () => {
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.event_category_id == Number(selected)
       );
-      setFilteredEvents(selected === 'ALL' ? allFilteredEvents : newEvents);
+      setFilteredEvents(selected === 'ALL' ? events : newEvents);
     }
   }, [search, events, selected, events_category]);
 

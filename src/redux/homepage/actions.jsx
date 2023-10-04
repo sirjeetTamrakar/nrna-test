@@ -225,11 +225,11 @@ export const getContinents = () => (dispatch) => {
     });
 };
 
-export const getBusiness = () => (dispatch) => {
+export const getBusiness = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_BUSINESS_BEGIN });
-  getBusinessApi()
+  getBusinessApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_BUSINESS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_BUSINESS_SUCCESS, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_BUSINESS_ERROR });

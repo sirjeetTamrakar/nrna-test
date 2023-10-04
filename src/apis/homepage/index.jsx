@@ -22,8 +22,9 @@ export const getAllNewsApi = (data) => {
     : data?.limit
     ? `?pagination_limit=${data?.limit}`
     : '';
+  const category_id = data?.category_id ? `&category_id=${data?.category_id}` : '';
 
-  return axiosInstance().get(`/api/news${type}${id}${limit}`);
+  return axiosInstance().get(`/api/news${type}${id}${limit}${category_id}`);
 };
 
 // get news category
@@ -131,8 +132,9 @@ export const getContinentsApi = () => {
 };
 
 // get business
-export const getBusinessApi = () => {
-  return axiosInstance().get(`/api/businesses`);
+export const getBusinessApi = (data) => {
+  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
+  return axiosInstance().get(`/api/businesses${limit}`);
 };
 
 // get single business

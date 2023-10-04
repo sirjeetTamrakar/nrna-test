@@ -63,9 +63,11 @@ export default function AccountMenu() {
 
   const handleRoleNcc = () => {
     userRole === 'member' && setUserRole('ncc');
+    navigate(`/dashboard`);
   };
   const handleRoleMember = () => {
     userRole === 'ncc' && setUserRole('member');
+    navigate(`/dashboard`);
   };
   useEffect(() => {
     dispatch(saveRoleDetails(userRole));

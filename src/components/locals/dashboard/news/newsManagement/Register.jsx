@@ -16,6 +16,7 @@ const Register = ({ handleClose, selected }) => {
   const classes = useStyles();
   const { news_order_loading } = useSelector((state) => state.news);
   const onSubmit = (data) => {
+    console.log('gagggg', { data });
     // const formData = new FormData();
     // formData.append('order_number', data?.order_number);
     // formData.append('news_id', data?.news_id);
@@ -33,9 +34,19 @@ const Register = ({ handleClose, selected }) => {
     //   typeData = { category_id: selected };
     // }
 
-    dispatch(
-      postNewsOrder({ ...data, category_id: selected === 'All' ? selected : '' }, handleClose)
-    );
+    if (selected === 'ALL') {
+      dispatch(postNewsOrder(data, handleClose));
+    } else {
+      const finalData = {
+        ...data,
+        category_id: selected
+      };
+      dispatch(postNewsOrder(finalData, handleClose));
+    }
+
+    // dispatch(
+    //   postNewsOrder({ ...data, category_id: selected !== 'All' ? selected : '' }, handleClose)
+    // );
   };
 
   return (
