@@ -34,12 +34,15 @@ export const SidebarConstants = [
         url: '/dashboard/user-management',
         icon: UserManagement,
         activeIcon: ActiveSettingsIcon,
-        roles: [Roles.Admin, Roles.SuperAdmin],
+        memberProfileNCC: 'memberProfileNCC',
+
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
             label: 'Member',
             url: '/dashboard/user-management/member',
-            roles: [Roles.Admin, Roles.SuperAdmin]
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
+            memberProfileNCC: 'memberProfileNCC'
           }
           // {
           //   label: 'Permission',

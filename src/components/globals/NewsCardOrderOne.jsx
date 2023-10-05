@@ -8,8 +8,8 @@ const NewsCardOrderOne = ({ news, linkUrl, gridLayout, gridOne }) => {
         <div className={'img_wrapper_grid_one'}>
           <img src={news?.feature_image} alt="" />
         </div>
-        <div className="news_card_featured_news_box_grid_one">Featured News</div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
+          <div className="news_card_featured_news_box_grid_one">Featured News</div>
           <div className="news_card_title_grid_one">{news.title}</div>
           {news?.excerpt !== '' && (
             <div className="news_card_text_desc_grid_one">{news?.excerpt}</div>

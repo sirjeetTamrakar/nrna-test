@@ -11,10 +11,10 @@ import { updateGlobalUser } from 'redux/auth/actions';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getAllUsers = (data) => (dispatch) => {
+export const getAllUsers = (data, roleData) => (dispatch) => {
   dispatch({ type: actions.FETCH_USERS_BEGIN });
 
-  getAllUsersApi(data)
+  getAllUsersApi(data, roleData)
     .then((res) => {
       dispatch({ type: actions.FETCH_USERS_SUCCESS, payload: res.data });
     })

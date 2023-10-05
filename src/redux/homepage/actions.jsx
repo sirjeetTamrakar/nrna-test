@@ -86,7 +86,7 @@ export const getAllEvents = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_EVENTS_BEGIN });
   getAllEventsApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_EVENTS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_EVENTS_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

@@ -1,13 +1,15 @@
 import { axiosInstance } from 'apis/_axios';
 
 // get users
-export const getAllUsersApi = (data) => {
+export const getAllUsersApi = (data, roleData) => {
+  console.log('hhjjjssssjjs', { roleData });
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
   const search = data?.search ? `&search=${data?.search}` : '';
-  return axiosInstance().get(`/admin/users${page}${pagination_limit}${search}`);
+  const country = roleData?.country ? `&country=${roleData?.country}` : '';
+  return axiosInstance().get(`/admin/users${page}${pagination_limit}${search}${country}`);
 };
 
 // create users

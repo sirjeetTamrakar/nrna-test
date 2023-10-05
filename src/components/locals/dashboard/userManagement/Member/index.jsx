@@ -17,6 +17,7 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
+import { getNCC } from '../../ncc/redux/actions';
 import {
   changeApproval,
   changeStatus,
@@ -45,12 +46,32 @@ const Member = () => {
     approve_user_loading,
     change_role_loading
   } = useSelector((state) => state.user);
-  console.log({ users });
+  const { user } = useSelector((state) => state.auth);
+  const { nccData } = useSelector((state) => state.ncc);
+  console.log({ user, users, nccData });
+  const [roleIDData, setRoleIDData] = useState();
+
+  // const findNCCUserId = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
+
+  useEffect(() => {
+    const newArray = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
+    const newObj = {};
+
+    newArray?.forEach((item, index) => {
+      newObj[`roleId${index + 1}`] = item;
+    });
+    setRoleIDData(newObj);
+  }, [nccData?.data]);
+  console.log('ssssss', roleIDData);
+
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   // const [userSearch, setUserSearch] = useState('');
   const classes = useStyles();
+  useEffect(() => {
+    dispatch(getNCC());
+  }, []);
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
     {
@@ -94,7 +115,16 @@ const Member = () => {
     {
       title: 'Role',
       minWidth: 100,
-      field: 'role_name'
+      field: (row) => {
+        return (
+          <>
+            <Typography variant="body2">{`${row?.role_name}`}</Typography>
+            <Typography variant="body2">{`${
+              roleIDData?.roleId1?.admin?.id === row?.id ? 'Admin' : ''
+            }`}</Typography>
+          </>
+        );
+      }
     },
     {
       title: 'Approved',
@@ -157,11 +187,21 @@ const Member = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleEdit(row)}>Edit Member </li>
               <li onClick={() => handleView(row)}>View Details</li>
-              <li onClick={() => handleRole(row)}>Change role</li>
-              <li onClick={() => handleApprove(row)}>Approve User</li>
-              <li onClick={() => handleDelete(row)}>Delete</li>
+              {roleIDData?.roleId1?.admin?.id === user?.id && (
+                <>
+                  <li onClick={() => handleEdit(row)}>Edit Member </li>
+                  <li onClick={() => handleRole(row)}>Change role</li>
+                  <li onClick={() => handleApprove(row)}>Approve User</li>
+                  <li onClick={() => handleDelete(row)}>Delete</li>
+                </>
+              )}
+              {roleIDData?.roleId1?.admin?.id !== user?.id && user?.id === row?.id && (
+                <>
+                  <li onClick={() => handleEdit(row)}>Edit Member </li>
+                  <li onClick={() => handleDelete(row)}>Delete</li>
+                </>
+              )}
             </ul>
           </CustomPopover>
         );
@@ -253,11 +293,23 @@ const Member = () => {
 
   const filterData = { page: page + 1, pagination_limit: rowsPerPage, search: user_search };
   const refetch = () => {
-    dispatch(getAllUsers(filterData));
+    let roleData;
+    if (user?.role_name === 'ncc') {
+      const roleData = { country: user?.ncc?.slug };
+      dispatch(getAllUsers(filterData, roleData));
+    } else {
+      dispatch(getAllUsers(filterData));
+    }
   };
 
   useEffect(() => {
-    dispatch(getAllUsers(filterData));
+    let roleData;
+    if (user?.role_name === 'ncc') {
+      const roleData = { country: user?.ncc?.slug };
+      dispatch(getAllUsers(filterData, roleData));
+    } else {
+      dispatch(getAllUsers(filterData));
+    }
   }, [JSON.stringify(filterData)]);
 
   useEffect(() => {

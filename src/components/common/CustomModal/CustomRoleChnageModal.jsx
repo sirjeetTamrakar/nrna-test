@@ -1,6 +1,7 @@
 import { Delete } from '@mui/icons-material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
+import { useSelector } from 'react-redux';
 import CustomAutoComplete from '../Form/CustomAutoComplete';
 import CustomForm from '../Form/CustomForm';
 import CustomFormProvider from '../Form/CustomFormProvider';
@@ -15,8 +16,14 @@ const CustomRoleChangeModal = ({
   modalTitle
 }) => {
   const defaultValues = { role: role };
+  const { user } = useSelector((state) => state.auth);
   const roleData = [
     { value: 'admin', label: 'Admin' },
+    { value: 'member', label: 'Member' },
+    { value: 'ncc', label: 'NCC' },
+    { value: '', label: 'None' }
+  ];
+  const roleDataNcc = [
     { value: 'member', label: 'Member' },
     { value: 'ncc', label: 'NCC' },
     { value: '', label: 'None' }
@@ -95,7 +102,11 @@ const CustomRoleChangeModal = ({
           <CustomFormProvider defaultValues={defaultValues}>
             <CustomForm onSubmit={submitHandler}>
               <Box sx={{ padding: '20px  50px 5px' }}>
-                <CustomAutoComplete name="role" label="Select a role" options={roleData ?? []} />
+                <CustomAutoComplete
+                  name="role"
+                  label="Select a role"
+                  options={(user?.role_name === 'ncc' ? roleDataNcc : roleData) ?? []}
+                />
               </Box>
               <Box
                 style={{

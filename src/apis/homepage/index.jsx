@@ -44,8 +44,9 @@ export const getSingleNewsApi = (slug) => {
 
 export const getAllEventsApi = (data) => {
   // const type = data?.type ? `?newsable_type=${data?.type}` : '';
-  const id = data?.ncc_id ? `?ncc_id=${data?.ncc_id}` : '';
-  return axiosInstance().get(`/api/events${id}`);
+  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
+  const id = data?.ncc_id ? `&ncc_id=${data?.ncc_id}` : '';
+  return axiosInstance().get(`/api/events${limit}${id}`);
 };
 
 // get events category
