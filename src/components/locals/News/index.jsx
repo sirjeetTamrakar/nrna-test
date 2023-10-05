@@ -20,7 +20,7 @@ const News = () => {
 
   const [filteredNews, setFilteredNews] = useState();
   const [allFilteredNews, setAllFilteredNews] = useState();
-  const [newsLimit, setNewsLimit] = useState(7);
+  const [newsLimit, setNewsLimit] = useState(11);
 
   const [selected, setSelected] = useState();
   console.log('ww------', { filteredNews });
