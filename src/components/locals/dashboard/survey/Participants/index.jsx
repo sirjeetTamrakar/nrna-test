@@ -1,3 +1,4 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
 import { useEffect, useState } from 'react';
@@ -5,6 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { changeDateFormat } from 'utils/dateUtils';
 import { getParticipants } from '../redux/actions';
+
 const Participants = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -85,10 +87,15 @@ const Participants = () => {
         <Box
           sx={{
             display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
+            justifyContent: 'flex-start',
+            flexDirection: 'column',
+            // alignItems: 'center',
             marginBottom: '15px'
           }}>
+          <ArrowBackIcon
+            style={{ cursor: 'pointer', color: '#2196f3', marginBottom: '20px' }}
+            onClick={() => navigate(-1)}
+          />
           <Box>Survey Participants</Box>
         </Box>
         <CustomTable

@@ -9,7 +9,7 @@ const View = ({ data }) => {
       <li style={{ padding: '5px 0' }}>
         <div style={{ display: 'flex' }}>
           <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>Name:</span>
-          <div style={{ fontSize: '16px' }}>{data?.name ? data?.name : '-'}</div>
+          <div style={{ fontSize: '16px' }}>{data?.full_name ? data?.full_name : '-'}</div>
         </div>
       </li>
       <li style={{ padding: '5px 0' }}>

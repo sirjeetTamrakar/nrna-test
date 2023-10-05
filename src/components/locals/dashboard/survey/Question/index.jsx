@@ -1,4 +1,5 @@
 import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PsychologyAltIcon from '@mui/icons-material/PsychologyAlt';
 import { Box, Button } from '@mui/material';
@@ -10,7 +11,7 @@ import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { changeStatus, deleteQuestion, getAllQuestions } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
@@ -28,6 +29,7 @@ const Questions = () => {
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
+  const navigate = useNavigate();
 
   useEffect(() => {
     dispatch(getAllQuestions());
@@ -132,10 +134,16 @@ const Questions = () => {
           sx={{
             display: 'flex',
             justifyContent: 'space-between',
-            alignItems: 'center',
+            alignItems: 'end',
             marginBottom: '15px'
           }}>
-          <Box>Questions</Box>
+          <Box>
+            <ArrowBackIcon
+              style={{ cursor: 'pointer', color: '#2196f3', marginBottom: '20px' }}
+              onClick={() => navigate(-1)}
+            />
+            <Box>Questions</Box>
+          </Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"

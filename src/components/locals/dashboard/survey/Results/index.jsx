@@ -1,11 +1,13 @@
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Typography } from '@mui/material';
 import CollapseTable from 'components/common/CollapseableTable';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { getSurveyResult } from '../redux/actions';
 import OverallResult from './OverallResult';
 import { useStyles } from './styles';
+
 const Results = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
@@ -15,6 +17,7 @@ const Results = () => {
   const [singleSurveyQuestion, setSingleSurveyQuestion] = useState([]);
   const location = useLocation();
   console.log({ location });
+  const navigate = useNavigate();
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -64,6 +67,10 @@ const Results = () => {
   return (
     <>
       <Box>
+        <ArrowBackIcon
+          style={{ cursor: 'pointer', color: '#2196f3', marginBottom: '20px' }}
+          onClick={() => navigate(-1)}
+        />
         <OverallResult />
         <CollapseTable
           tableHeads={tableHeads}
