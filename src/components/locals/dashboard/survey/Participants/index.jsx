@@ -65,7 +65,7 @@ const Participants = () => {
               color="success"
               sx={{ width: '100px' }}
               onClick={() =>
-                navigate(`/dashboard/survey/participants/${row?.id}`, {
+                navigate(`/dashboard/survey/result/participants/${row?.id}`, {
                   state: location
                 })
               }>

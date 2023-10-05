@@ -174,7 +174,7 @@ const SurveyList = () => {
 
   const handleShowQuestions = (row) => {
     setDetail(row);
-    navigate(`/dashboard/survey/questions`, { state: row });
+    navigate(`/dashboard/survey/site/questions`, { state: row });
     // openQuestionsFunction();
   };
 

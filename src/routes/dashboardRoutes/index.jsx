@@ -133,7 +133,7 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'survey/questions',
+    path: 'survey/site/questions',
     component: (
       <Protected>
         <QuestionsPage />
@@ -149,7 +149,7 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'survey/result-list',
+    path: 'survey/result/result-list',
     component: (
       <Protected>
         <ResultsPage />
@@ -157,7 +157,7 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'survey/participants',
+    path: 'survey/result/participants',
     component: (
       <Protected>
         <ParticipantsPage />
@@ -165,7 +165,7 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'survey/participants/:participant_id',
+    path: 'survey/result/participants/:participant_id',
     component: (
       <Protected>
         <ParticipantResultPage />

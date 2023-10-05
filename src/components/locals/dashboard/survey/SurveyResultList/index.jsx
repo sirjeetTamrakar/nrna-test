@@ -1,4 +1,3 @@
-import AddIcon from '@mui/icons-material/Add';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button } from '@mui/material';
@@ -186,12 +185,12 @@ const SurveyListResult = () => {
   const handleShowQuestions = (row) => {
     console.log('jjjsjsjsjs', { row });
     setDetail(row);
-    navigate(`/dashboard/survey/result-list`, { state: row });
+    navigate(`/dashboard/survey/result/result-list`, { state: row });
   };
 
   const handleShowParticipants = (row) => {
     setDetail(row);
-    navigate(`/dashboard/survey/participants`, { state: row });
+    navigate(`/dashboard/survey/result/participants`, { state: row });
   };
 
   const refetch = () => {
@@ -216,13 +215,13 @@ const SurveyListResult = () => {
             marginBottom: '15px'
           }}>
           <Box>Result according to survey</Box>
-          <Button
+          {/* <Button
             startIcon={<AddIcon />}
             variant="contained"
             display="flex"
             onClick={formOpenFunction}>
             Add Survey
-          </Button>
+          </Button> */}
         </Box>
         <CustomTable
           tableHeads={tableHeads}
