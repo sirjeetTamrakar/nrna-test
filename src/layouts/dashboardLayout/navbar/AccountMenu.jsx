@@ -1,8 +1,6 @@
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
-import HelpOutlineOutlinedIcon from '@mui/icons-material/HelpOutlineOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import Logout from '@mui/icons-material/Logout';
-import NotificationsOutlinedIcon from '@mui/icons-material/NotificationsOutlined';
 import Person4Icon from '@mui/icons-material/Person4';
 import PublicIcon from '@mui/icons-material/Public';
 import Settings from '@mui/icons-material/Settings';
@@ -13,7 +11,7 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
-import IconTooltip from 'components/common/CustomTooltips/IconTooltip';
+import noProfile from 'assets/images/noProfile.jpg';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -76,8 +74,8 @@ export default function AccountMenu() {
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
-        <IconTooltip data={{ title: 'Notification', icon: <NotificationsOutlinedIcon /> }} />
-        <IconTooltip data={{ title: 'Help', icon: <HelpOutlineOutlinedIcon /> }} />
+        {/* <IconTooltip data={{ title: 'Notification', icon: <NotificationsOutlinedIcon /> }} />
+        <IconTooltip data={{ title: 'Help', icon: <HelpOutlineOutlinedIcon /> }} /> */}
 
         {/* <input type="color" onChange={(e) => handleColorChange(e)} /> */}
         <Box className={classes.userWrapper}>
@@ -111,7 +109,7 @@ export default function AccountMenu() {
               aria-expanded={open ? 'true' : undefined}>
               <Avatar sx={{ width: 32, height: 32 }}>
                 <img
-                  src="https://img.freepik.com/free-photo/bohemian-man-with-his-arms-crossed_1368-3542.jpg?w=826&t=st=1677817259~exp=1677817859~hmac=889759eb12ed9ba12b130c6593041de22ccdae866391831762a29aa17f36e0c0"
+                  src={user?.profile_image !== '' ? user?.profile_image : noProfile}
                   alt="Profile Image"
                   style={{ objectFit: 'cover' }}
                   height="32"

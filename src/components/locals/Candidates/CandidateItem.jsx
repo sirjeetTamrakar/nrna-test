@@ -6,7 +6,7 @@ const CandidateItem = ({ candidate }) => {
       <div className="img_container">
         <img src={candidate?.image} alt="" />
       </div>
-      <div className="political_item_title text-center">{candidate?.member?.name}</div>
+      <div className="political_item_title text-center">{candidate?.member?.full_name}</div>
       <div className="political_item_subtitle text-center">{candidate?.designation}</div>
     </Link>
   );

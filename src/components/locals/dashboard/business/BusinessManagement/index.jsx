@@ -19,7 +19,7 @@ import Register from './Register';
 import SecondaryNav from './SecondaryNav';
 import { useStyles } from './styles';
 
-const NewsManagement = () => {
+const BusinessManagement = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
@@ -279,4 +279,4 @@ const NewsManagement = () => {
   );
 };
 
-export default NewsManagement;
+export default BusinessManagement;

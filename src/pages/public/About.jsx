@@ -26,7 +26,8 @@ const AboutPage = () => {
   }));
   const options = [
     { title: 'Home', value: 'home', clickFunction: () => handleFunction('/') },
-    { title: 'About', value: 'about', clickFunction: () => handleFunction('/about') }
+    { title: 'About', value: 'about', clickFunction: () => handleFunction('/about') },
+    { title: 'Candidate', value: 'candidate', clickFunction: () => handleFunction('/candidate') }
   ];
   const contact = [
     { title: 'Contact', value: 'contact', clickFunction: () => handleFunction('/contact') }

@@ -12,6 +12,8 @@ const ProfileForm = ({ profileImage, bannerImage }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { categoryData } = useSelector((state) => state.business);
+  const { countries_list } = useSelector((state) => state.ncc);
+
   useEffect(() => {
     dispatch(getCategory());
   }, []);
@@ -19,6 +21,11 @@ const ProfileForm = ({ profileImage, bannerImage }) => {
   const businessCategory = categoryData?.map((item) => ({
     label: item?.title,
     value: item?.id
+  }));
+
+  const countryList = countries_list?.map((item, index) => ({
+    label: item,
+    value: item
   }));
 
   return (
@@ -66,11 +73,19 @@ const ProfileForm = ({ profileImage, bannerImage }) => {
         <Grid item sm={4}>
           <CustomInput name="twitter_url" label="Twitter url" required />
         </Grid>
-        <Grid item sm={12}>
+        <Grid item sm={6}>
           <CustomAutoComplete
             name="business_category_id"
             label="Select business category"
-            options={businessCategory}
+            options={businessCategory ?? []}
+            required
+          />
+        </Grid>
+        <Grid item sm={6}>
+          <CustomAutoComplete
+            name="country"
+            label="Select country of residence"
+            options={countryList ?? []}
             required
           />
         </Grid>

@@ -1,19 +1,18 @@
 import SecondaryNav from 'components/globals/SecondaryNav';
-import Home from 'components/locals/Homepage';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllHomeData } from 'redux/homepage/actions';
+import Candidates from './Candidates';
 
-export const Homepage = () => {
-  const [selected, setSelected] = useState('home');
+const CandidatePage = () => {
+  const [selected, setSelected] = useState('about');
   console.log({ selected });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
-
   const dispatch = useDispatch();
   const { home_data } = useSelector((state) => state.homepage);
   console.log('bbbvbvbv', { home_data });
@@ -25,7 +24,6 @@ export const Homepage = () => {
     value: item?.slug,
     clickFunction: () => handleFunction(`/${item.slug}`)
   }));
-
   const options = [
     { title: 'Home', value: 'home', clickFunction: () => handleFunction('/') },
     { title: 'About', value: 'about', clickFunction: () => handleFunction('/about') },
@@ -45,7 +43,9 @@ export const Homepage = () => {
         setSelected={setSelected}
         selected={selected}
       />
-      <Home />
+      <Candidates />;
     </>
   );
 };
+
+export default CandidatePage;

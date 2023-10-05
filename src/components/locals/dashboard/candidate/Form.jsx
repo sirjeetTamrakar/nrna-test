@@ -1,11 +1,14 @@
 import { Box, Grid } from '@mui/material';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../userManagement/redux/actions';
 import { useStyles } from './styles';
 
 const CandidateForm = () => {
   const classes = useStyles();
+  const dispatch = useDispatch();
 
   const { users } = useSelector((state) => state.user);
 
@@ -13,6 +16,10 @@ const CandidateForm = () => {
     label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
   }));
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
 
   return (
     <Box className={classes.root}>

@@ -1,6 +1,6 @@
 import AboutPage from 'pages/public/About';
 import BusinessPage from 'pages/public/Business';
-import Candidates from 'pages/public/Candidates';
+import CandidatePage from 'pages/public/Candidate';
 import ChnagePasswordDashboard from 'pages/public/changePass';
 import ContactPage from 'pages/public/Contact';
 import EventsPage from 'pages/public/events';
@@ -22,10 +22,10 @@ const AuthRoutes = [
     path: '/',
     component: <Homepage />
   },
-  {
-    path: '/candidates',
-    component: <Candidates />
-  },
+  // {
+  //   path: '/candidates',
+  //   component: <Candidates />
+  // },
   {
     path: '/ncc',
     component: <NCCPage />
@@ -53,6 +53,10 @@ const AuthRoutes = [
   {
     path: '/about',
     component: <AboutPage />
+  },
+  {
+    path: '/candidate',
+    component: <CandidatePage />
   },
   {
     path: '/our-team',

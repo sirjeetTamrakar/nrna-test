@@ -201,14 +201,22 @@ export const SidebarConstants = [
           },
           {
             label: 'Business',
-            url: '/dashboard/business',
+            url: '/dashboard/business/business-list',
+            memberProfile: 'memberProfile',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
+          },
+
+          {
+            label: 'Contact',
+            url: '/dashboard/business/contact',
             memberProfile: 'memberProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
           },
           {
-            label: 'Contact',
-            url: '/dashboard/business/contact',
+            label: 'Business Mangement',
+            url: '/dashboard/business/business-management',
             memberProfile: 'memberProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]

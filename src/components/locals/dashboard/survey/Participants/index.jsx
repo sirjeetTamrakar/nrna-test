@@ -46,7 +46,6 @@ const Participants = () => {
         return <Typography variant="body2">{` ${row?.country_of_residence}`}</Typography>;
       }
     },
-
     {
       title: 'Participated Date',
       minWidth: 120,

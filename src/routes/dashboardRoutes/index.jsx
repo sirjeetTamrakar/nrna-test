@@ -2,6 +2,7 @@ import Protected from 'components/globals/protected';
 import AdvicePage from 'pages/private/Advice';
 import BannerPage from 'pages/private/BannerPage';
 import BusinessPage from 'pages/private/business';
+import BusinessManagementPage from 'pages/private/business/BusinessManagementPage';
 import CategoryPage from 'pages/private/business/Category';
 import BusinessContactPage from 'pages/private/business/Contact';
 import CandidatePage from 'pages/private/CandidatePage';
@@ -182,7 +183,7 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'business',
+    path: 'business/business-list',
     component: (
       <Protected>
         <BusinessPage />
@@ -194,6 +195,14 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <BusinessContactPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'business/business-management',
+    component: (
+      <Protected>
+        <BusinessManagementPage />
       </Protected>
     )
   },
