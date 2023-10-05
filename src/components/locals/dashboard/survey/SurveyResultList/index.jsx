@@ -215,7 +215,7 @@ const SurveyListResult = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>Survey list</Box>
+          <Box>Result according to survey</Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"
