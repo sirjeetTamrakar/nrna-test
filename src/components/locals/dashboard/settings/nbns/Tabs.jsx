@@ -5,12 +5,9 @@ import Typography from '@mui/material/Typography';
 import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './about';
-import Mission from './mission';
 import NbnsHomeData from './nbnsHomeData';
 import SettingsData from './settingsData';
 import Survey from './survey';
-import Tagline from './tagline';
-import Vision from './vision';
 
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -57,11 +54,11 @@ const BasicTabs = () => {
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Settings Data" {...a11yProps(0)} />
           <Tab label="About" {...a11yProps(1)} />
-          <Tab label="Mission" {...a11yProps(2)} />
+          {/* <Tab label="Mission" {...a11yProps(2)} />
           <Tab label="Vision" {...a11yProps(3)} />
-          <Tab label="Tagline" {...a11yProps(4)} />
-          <Tab label="Survey" {...a11yProps(5)} />
-          <Tab label="Home Data" {...a11yProps(6)} />
+          <Tab label="Tagline" {...a11yProps(2)} /> */}
+          <Tab label="Survey" {...a11yProps(2)} />
+          <Tab label="Home Data" {...a11yProps(3)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -70,19 +67,19 @@ const BasicTabs = () => {
       <CustomTabPanel value={value} index={1}>
         <About />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={2}>
+      {/* <CustomTabPanel value={value} index={2}>
         <Mission />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={3}>
         <Vision />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={4}>
+      <CustomTabPanel value={value} index={2}>
         <Tagline />
-      </CustomTabPanel>
-      <CustomTabPanel value={value} index={5}>
+      </CustomTabPanel> */}
+      <CustomTabPanel value={value} index={2}>
         <Survey />
       </CustomTabPanel>
-      <CustomTabPanel value={value} index={6}>
+      <CustomTabPanel value={value} index={3}>
         <NbnsHomeData />
       </CustomTabPanel>
     </Box>

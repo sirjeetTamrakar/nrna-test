@@ -3,6 +3,7 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
+import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
@@ -16,7 +17,9 @@ const SettingsDataForm = () => {
     address: '',
     phone: '',
     email: '',
-    region_logo: ''
+    region_logo: '',
+    tagline_author: '',
+    tagline_description: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
@@ -28,6 +31,8 @@ const SettingsDataForm = () => {
       setValue('address', site_settings?.address);
       setValue('email', site_settings?.email);
       setValue('phone', site_settings?.phone);
+      setValue('tagline_author', site_settings?.tagline_author);
+      setValue('tagline_description', site_settings?.tagline_description);
     }
   }, [site_settings]);
 
@@ -36,6 +41,8 @@ const SettingsDataForm = () => {
     formData.append('address', data?.address);
     formData.append('phone', data?.phone);
     formData.append('email', data?.email);
+    formData.append('tagline_author', data?.tagline_author);
+    formData.append('tagline_description', data?.tagline_description);
     formData.append('settingable_type', 'nbns');
     formData.append('settingable_id', 1);
 
@@ -64,6 +71,18 @@ const SettingsDataForm = () => {
           </Grid>
           <Grid item sm={12}>
             <CustomInput name="phone" label="Phone" type="text" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput name="tagline_author" label="Tagline Author" required />
+          </Grid>
+
+          <Grid item sm={12}>
+            <CustomTextArea
+              name="tagline_description"
+              label="Tagline Description"
+              required
+              rows={2}
+            />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

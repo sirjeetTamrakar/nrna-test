@@ -18,7 +18,7 @@ const ContactPage = () => {
     dispatch(getAllHomeData());
   }, []);
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
-    title: item?.title,
+    title: item?.tabtitle,
     value: item?.slug,
     clickFunction: () => handleFunction(`/${item.slug}`)
   }));
