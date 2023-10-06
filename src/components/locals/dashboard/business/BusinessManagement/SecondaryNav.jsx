@@ -22,7 +22,7 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
   //   };
   const handleSetSelected = (slug) => {
     setSelected(slug);
-    navigate(`/dashboard/news/news-management`, { state: slug });
+    navigate(`/dashboard/business/business-management`, { state: slug });
   };
 
   return (

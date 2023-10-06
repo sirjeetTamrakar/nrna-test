@@ -15,11 +15,13 @@ const CandidateSite = () => {
 
   const { candidate } = useParams();
 
+  const data = useParams();
+
   const { single_user } = useSelector((state) => state.homepage);
   const { countries_list } = useSelector((state) => state.ncc);
   const [filteredData, setFilteredData] = useState('');
 
-  console.log({ candidate, single_user });
+  console.log({ candidate, single_user, data });
   useEffect(() => {
     dispatch(getSingleUser(candidate));
     dispatch(getCountries());

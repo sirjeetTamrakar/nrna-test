@@ -80,3 +80,13 @@ export const deleteBusinessServiceApi = (data) => {
 export const updateBusinessServiceApi = (data, slug) => {
   return axiosInstance().post(`/admin/business-services/${slug}`, data);
 };
+
+// post business order
+export const postBusinessOrderApi = (data) => {
+  return axiosInstance().post(`/admin/business-order`, data);
+};
+
+// get business
+export const getBusinessOrderApi = () => {
+  return axiosInstance().get('/admin/business-order');
+};

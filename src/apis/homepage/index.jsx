@@ -45,7 +45,14 @@ export const getSingleNewsApi = (slug) => {
 export const getAllEventsApi = (data) => {
   // const type = data?.type ? `?newsable_type=${data?.type}` : '';
   const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
-  const id = data?.ncc_id ? `&ncc_id=${data?.ncc_id}` : '';
+  // const id = data?.ncc_id ? `&ncc_id=${data?.ncc_id}` : '';
+  const id = data?.limit
+    ? data?.ncc_id
+      ? `&ncc_id=${data?.ncc_id}`
+      : ''
+    : data?.ncc_id
+    ? `?ncc_id=${data?.ncc_id}`
+    : '';
   return axiosInstance().get(`/api/events${limit}${id}`);
 };
 
@@ -107,8 +114,9 @@ export const getSingleTeamsApi = (slug) => {
 };
 
 // get candidates
-export const getCandidatesApi = () => {
-  return axiosInstance().get(`/api/ncc-candidates`);
+export const getCandidatesApi = (data) => {
+  const country = data?.country ? `?country=${data?.country}` : '';
+  return axiosInstance().get(`/api/ncc-candidates${country}`);
 };
 
 // get ncc
@@ -135,7 +143,14 @@ export const getContinentsApi = () => {
 // get business
 export const getBusinessApi = (data) => {
   const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
-  return axiosInstance().get(`/api/businesses${limit}`);
+  const country = data?.limit
+    ? data?.country
+      ? `&country=${data?.country}`
+      : ''
+    : data?.country
+    ? `?country=${data?.country}`
+    : '';
+  return axiosInstance().get(`/api/businesses${limit}${country}`);
 };
 
 // get single business
@@ -198,4 +213,9 @@ export const postCheckEmailApi = (data) => {
 // get questions public
 export const getAllSurveyApi = () => {
   return axiosInstance().get('/api/surveys');
+};
+
+// get countries with country code list
+export const getCountriesCodeApi = () => {
+  return axiosInstance().get(`/api/countries-code`);
 };

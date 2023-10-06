@@ -5,7 +5,7 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import NewsManagementForm from './Form';
+import BusinessManagementForm from './Form';
 import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
 
@@ -43,7 +43,7 @@ const EditForm = ({ detail, handleClose }) => {
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <NewsManagementForm featureImage={detail?.feature_image} />
+      <BusinessManagementForm featureImage={detail?.feature_image} />
       <Box className={classes.footerRoot}>
         <CustomButton buttonName="Update" loading={update_news_loading} />
       </Box>
@@ -53,7 +53,7 @@ const EditForm = ({ detail, handleClose }) => {
 const Edit = ({ data, handleClose }) => {
   const defaultValues = {
     order_number: data?.order_number,
-    news_id: data?.news_id
+    business_id: data?.news_id
   };
 
   return (

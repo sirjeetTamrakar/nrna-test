@@ -19,7 +19,11 @@ const defaultState = {
   business_service: [],
   get_business_service_loading: false,
   delete_business_service_loading: false,
-  update_business_service_loading: false
+  update_business_service_loading: false,
+  businessOrderData: [],
+  get_business_order_loading: false,
+  delete_business_order_loading: false,
+  business_order_loading: false
 };
 
 const businessReducer = (state = defaultState, action) => {
@@ -163,6 +167,35 @@ const businessReducer = (state = defaultState, action) => {
     case actions.UPDATE_BUSINESS_SERVICE_SUCCESS:
     case actions.UPDATE_BUSINESS_SERVICE_ERROR:
       return { ...state, update_business_service_loading: false };
+
+    case actions.POST_BUSINESS_ORDER_BEGIN:
+      return {
+        ...state,
+        business_order_loading: true
+      };
+
+    case actions.POST_BUSINESS_ORDER_SUCCESS:
+    case actions.POST_BUSINESS_ORDER_ERROR:
+      return { ...state, business_order_loading: false };
+
+    case actions.DELETE_BUSINESS_ORDER_BEGIN:
+      return { ...state, delete_business_order_loading: true };
+
+    case actions.DELETE_BUSINESS_ORDER_SUCCESS:
+    case actions.DELETE_BUSINESS_ORDER_ERROR:
+      return { ...state, delete_business_order_loading: false };
+
+    case actions.GET_BUSINESS_ORDER_BEGIN:
+      return {
+        ...state,
+        get_business_order_loading: true
+      };
+
+    case actions.GET_BUSINESS_ORDER_SUCCESS:
+      return { ...state, get_business_order_loading: false, businessOrderData: action.payload };
+
+    case actions.GET_BUSINESS_ORDER_ERROR:
+      return { ...state, get_business_order_loading: false };
 
     default:
       return state;

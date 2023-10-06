@@ -13,6 +13,7 @@ import {
   getCandidatesApi,
   getContactUsApi,
   getContinentsApi,
+  getCountriesCodeApi,
   getDepartmentApi,
   getEventsCategoryApi,
   getNccApi,
@@ -181,9 +182,9 @@ export const getSingleTeams = (slug) => (dispatch) => {
     });
 };
 
-export const getCandidates = () => (dispatch) => {
+export const getCandidates = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_CANDIDATE_BEGIN });
-  getCandidatesApi()
+  getCandidatesApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_CANDIDATE_SUCCESS, payload: res.data.data });
     })
@@ -415,5 +416,18 @@ export const getAllSurvey = () => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_SURVEY_ERROR });
+    });
+};
+
+// get counties list with code
+export const getCountriesCode = () => (dispatch) => {
+  dispatch({ type: actions.GET_COUNTRIES_LIST_CODE_BEGIN });
+  getCountriesCodeApi()
+    .then((res) => {
+      dispatch({ type: actions.GET_COUNTRIES_LIST_CODE_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_COUNTRIES_LIST_CODE_ERROR });
     });
 };

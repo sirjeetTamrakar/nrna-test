@@ -1,6 +1,7 @@
 import AboutPage from 'pages/public/About';
 import BusinessPage from 'pages/public/Business';
 import CandidatePage from 'pages/public/Candidate';
+import CandidateSiteSingleHome from 'pages/public/CandidateSingle';
 import ChnagePasswordDashboard from 'pages/public/changePass';
 import ContactPage from 'pages/public/Contact';
 import EventsPage from 'pages/public/events';
@@ -57,6 +58,10 @@ const AuthRoutes = [
   {
     path: '/candidate',
     component: <CandidatePage />
+  },
+  {
+    path: '/candidate/:slug',
+    component: <CandidateSiteSingleHome />
   },
   {
     path: '/our-team',

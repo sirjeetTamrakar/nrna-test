@@ -55,7 +55,9 @@ const defaultState = {
   survey_loading: false,
   survey: [],
   email_check_loading: false,
-  details: {}
+  details: {},
+  countries_list_code: [],
+  get_countries_list_code_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -358,6 +360,23 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_SURVEY_ERROR:
       return { ...state, survey_loading: false };
+
+    // get countries
+    case actions.GET_COUNTRIES_LIST_CODE_BEGIN:
+      return {
+        ...state,
+        get_countries_list_code_loading: true
+      };
+
+    case actions.GET_COUNTRIES_LIST_CODE_SUCCESS:
+      return {
+        ...state,
+        get_countries_list_code_loading: false,
+        countries_list_code: action.payload
+      };
+
+    case actions.GET_COUNTRIES_LIST_CODE_ERROR:
+      return { ...state, get_countries_list_code_loading: false };
 
     default:
       return state;

@@ -40,11 +40,34 @@ const Profile = () => {
   const { user } = useSelector((state) => state.auth);
   console.log('userreerr', { user });
 
+  // const refetch = () => {
+  //   const data = {
+  //     user_id: user?.ncc?.id
+  //   };
+  //   dispatch(getBusiness(data));
+  // };
+
   const refetch = () => {
-    const data = {
-      user_id: user?.role_name !== Roles.SuperAdmin && user?.id
-    };
-    dispatch(getBusiness(data));
+    if (user?.role_name == Roles?.Member) {
+      const data = {
+        page: page + 1,
+        pagination_limit: rowsPerPage,
+        type: 'member',
+        user_id: user?.id
+      };
+      dispatch(getBusiness(data));
+    } else if (user?.role_name == Roles?.NCC) {
+      const data = {
+        page: page + 1,
+        pagination_limit: rowsPerPage,
+        type: 'ncc',
+        user_id: user?.ncc?.id
+      };
+      dispatch(getBusiness(data));
+    } else {
+      const data = { page: page + 1, pagination_limit: rowsPerPage };
+      dispatch(getBusiness(data));
+    }
   };
 
   useEffect(() => {
@@ -175,17 +198,42 @@ const Profile = () => {
     }
   ];
 
+  // const handleConfirm = (slug) => {
+  //   dispatch(deleteBusiness(slug, deleteOpenFunction));
+  // };
+
+  // const handleStatusConfirm = (slug) => {
+  //   const finalData = {
+  //     slug: slug,
+  //     status: detail?.status === 'Active' ? 'inactive' : 'active',
+  //     _method: 'PATCH'
+  //   };
+  //   dispatch(changeBusinessStatus(finalData, statusOpenFunction));
+  // };
+
   const handleConfirm = (slug) => {
-    dispatch(deleteBusiness(slug, deleteOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.Member) {
+      typeData = { type: 'member', user_id: user?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(deleteBusiness(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
-      status: detail?.status === 'Active' ? 'inactive' : 'active',
+      status: detail?.status === 0 ? 1 : 0,
       _method: 'PATCH'
     };
-    dispatch(changeBusinessStatus(finalData, statusOpenFunction));
+    let typeData;
+    if (user?.role_name == Roles?.Member) {
+      typeData = { type: 'member', user_id: user?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    }
+    dispatch(changeBusinessStatus(finalData, statusOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {

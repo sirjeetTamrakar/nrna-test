@@ -10,6 +10,7 @@ const SecondaryNav = ({
   id,
   news,
   events,
+  business,
   teams,
   color
 }) => {
@@ -35,6 +36,7 @@ const SecondaryNav = ({
     news && navigate(`/ncc/${id}/news`, { state: slug });
     events && navigate(`/ncc/${id}/events`, { state: slug });
     teams && navigate(`/ncc/${id}/committee`, { state: slug });
+    business && navigate(`/ncc/${id}/business`, { state: slug });
   };
   return (
     <Box className={classes.root} sx={color && { backgroundColor: color }}>

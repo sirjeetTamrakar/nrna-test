@@ -68,6 +68,18 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction(`/ncc/${ncc}/about`)
     },
     {
+      title: 'Candidates',
+      value: 'candidate',
+      path: `/ncc/${ncc}/candidate`,
+      clickFunction: () => handleFunction(`/ncc/${ncc}/candidate`)
+    },
+    {
+      title: 'Business',
+      value: 'business',
+      path: `/ncc/${ncc}/business`,
+      clickFunction: () => handleFunction(`/ncc/${ncc}/business`)
+    },
+    {
       title: 'Our Team',
       value: 'team',
       path: `/ncc/${ncc}/committee`,

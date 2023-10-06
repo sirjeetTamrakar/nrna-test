@@ -1,4 +1,8 @@
+import BusinessNcc from 'components/locals/NCC/NccSite/Business';
+import CandidateSiteSingleNcc from 'components/locals/NCC/NccSite/CandidateSingle';
+import SingleBusiness from 'components/locals/NCC/NccSite/SingleBusiness';
 import AboutPage from 'pages/public/nccSite/About';
+import CandidatePage from 'pages/public/nccSite/Candidate';
 import CommitteePage from 'pages/public/nccSite/Committee';
 import Contact from 'pages/public/nccSite/Contact';
 import EventsPage from 'pages/public/nccSite/Events';
@@ -21,6 +25,14 @@ export const nccRoute = [
     component: <AboutPage />
   },
   {
+    path: '/ncc/:ncc/candidate',
+    component: <CandidatePage />
+  },
+  {
+    path: '/ncc/:ncc/candidate/:slug',
+    component: <CandidateSiteSingleNcc />
+  },
+  {
     path: '/ncc/:ncc/mission',
     component: <MissionPage />
   },
@@ -35,6 +47,14 @@ export const nccRoute = [
   {
     path: '/ncc/:ncc/news/:slug',
     component: <SingleNewsNCC />
+  },
+  {
+    path: '/ncc/:ncc/business',
+    component: <BusinessNcc />
+  },
+  {
+    path: '/ncc/:ncc/business/:slug',
+    component: <SingleBusiness />
   },
   {
     path: '/ncc/:ncc/contact',

@@ -2,18 +2,13 @@ import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button, Typography } from '@mui/material';
-import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
-import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
-import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
-import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeNewsStatus, deleteNewsOrder, getCategory, getNews } from '../redux/actions';
-import Edit from './Edit';
+import { getBusiness, getCategory } from '../redux/actions';
 // import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
 import Register from './Register';
 import SecondaryNav from './SecondaryNav';
@@ -31,19 +26,19 @@ const BusinessManagement = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
-  const [filteredNews, setFilteredNews] = useState();
-  const [allFilteredNews, setAllFilteredNews] = useState();
+  const [filteredBusiness, setFilteredBusiness] = useState();
+  const [allFilteredBusiness, setAllFilteredBusiness] = useState();
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
 
   const {
-    newsData,
-    newsOrderData,
+    businessData,
+    businessOrderData,
     categoryData,
-    get_news_loading,
-    news_status_loading,
-    delete_news_loading
-  } = useSelector((state) => state.news);
+    get_business_loading,
+    business_status_loading,
+    delete_business_loading
+  } = useSelector((state) => state.business);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -51,13 +46,19 @@ const BusinessManagement = () => {
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
     {
-      title: 'News',
+      title: 'Business',
       minWidth: 250,
-      field: 'title'
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">{row?.fullname}</Typography>
+          </Box>
+        );
+      }
     },
 
     {
-      title: 'News order',
+      title: 'Business order',
       minWidth: 120,
       field: (row) => {
         return (
@@ -88,30 +89,30 @@ const BusinessManagement = () => {
     }
   ];
 
-  const handleConfirm = (slug) => {
-    let typeData;
-    if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
-    } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
-    }
-    dispatch(deleteNewsOrder(slug, deleteOpenFunction, typeData));
-  };
+  // const handleConfirm = (slug) => {
+  //   let typeData;
+  //   if (user?.role_name == Roles?.Member) {
+  //     typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+  //   } else if (user?.role_name == Roles?.NCC) {
+  //     typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+  //   }
+  //   dispatch(deleteNewsOrder(slug, deleteOpenFunction, typeData));
+  // };
 
-  const handleStatusConfirm = (slug) => {
-    const finalData = {
-      slug: slug,
-      status: detail?.status === 0 ? 1 : 0,
-      _method: 'PATCH'
-    };
-    let typeData;
-    if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
-    } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
-    }
-    dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
-  };
+  // const handleStatusConfirm = (slug) => {
+  //   const finalData = {
+  //     slug: slug,
+  //     status: detail?.status === 0 ? 1 : 0,
+  //     _method: 'PATCH'
+  //   };
+  //   let typeData;
+  //   if (user?.role_name == Roles?.Member) {
+  //     typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+  //   } else if (user?.role_name == Roles?.NCC) {
+  //     typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+  //   }
+  //   dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
+  // };
 
   const handleEdit = (row) => {
     setDetail(row);
@@ -167,32 +168,32 @@ const BusinessManagement = () => {
   }, [location?.state, categoryData]);
 
   useEffect(() => {
-    dispatch(getNews());
+    dispatch(getBusiness());
     dispatch(getCategory());
   }, []);
 
-  console.log({ filteredNews, allFilteredNews, categoryData });
+  console.log({ filteredBusiness, allFilteredBusiness, categoryData });
 
   // useEffect(() => {
-  //   if (newsData) {
-  //     const allNewNews = newsData?.data?.filter((list) =>
+  //   if (businessData) {
+  //     const allNewBusiness = businessData?.data?.filter((list) =>
   //       list?.title?.toLowerCase()?.includes(search?.toLowerCase())
   //     );
-  //     setAllFilteredNews(allNewNews);
+  //     setAllFilteredBusiness(allNewBusiness);
   //   }
-  // }, [search, newsData]);
+  // }, [search, businessData]);
 
   useEffect(() => {
-    if (newsData) {
-      const newNews = newsData?.data?.filter(
+    if (businessData) {
+      const newBusiness = businessData?.data?.filter(
         (list) =>
-          list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
-          list?.news_category_id == Number(selected)
+          list?.fullname?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          Number(list?.business_category_id) == Number(selected)
       );
-      setFilteredNews(selected === 'ALL' ? newsData?.data : newNews);
+      setFilteredBusiness(selected === 'ALL' ? businessData?.data : newBusiness);
     }
-  }, [search, newsData, selected, categoryData]);
-  console.log({ newsOrderData });
+  }, [search, businessData?.data, selected, categoryData]);
+  console.log({ businessOrderData });
 
   return (
     <>
@@ -212,44 +213,44 @@ const BusinessManagement = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>News Management</Box>
+          <Box>Business Management</Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"
             display="flex"
             onClick={formOpenFunction}>
-            Add News Order
+            Add Business Order
           </Button>
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={filteredNews}
+          tableData={filteredBusiness}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={filteredNews?.length}
+          total={filteredBusiness?.length}
           // total={newsData?.meta?.total}
-          loading={get_news_loading ? true : false}
+          loading={get_business_loading ? true : false}
         />
         <CustomModal
           open={openForm}
           handleClose={formOpenFunction}
-          modalTitle="Create News Order"
+          modalTitle="Create Business Order"
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
           <Register handleClose={formOpenFunction} selected={selected} />
         </CustomModal>
-        <CustomModal
+        {/* <CustomModal
           open={openEdit}
           handleClose={editOpenFunction}
-          modalTitle={`Update News order`}
+          modalTitle={`Update Business order`}
           modalSubtitle=""
           icon={<PersonAddIcon />}
           width={`40rem`}>
           <Edit data={detail} handleClose={editOpenFunction} />
-        </CustomModal>
+        </CustomModal> */}
         {/* <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
@@ -258,22 +259,22 @@ const BusinessManagement = () => {
           width={`40rem`}>
           <View data={detail} />
         </CustomModal> */}
-        <CustomDeleteModal
+        {/* <CustomDeleteModal
           handleConfirm={handleConfirm}
           slug={detail?.slug}
           open={openDelete}
-          isLoading={delete_news_loading}
+          isLoading={delete_business_loading}
           handleClose={deleteOpenFunction}
         />
         <CustomStatusModal
           open={openStatus}
-          isLoading={news_status_loading}
+          isLoading={business_status_loading}
           handleClose={statusOpenFunction}
           status={detail?.status == 1 ? 'Active' : 'Inactive'}
           id={detail?.slug}
           handleConfirm={handleStatusConfirm}
         />
-        <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} />
+        <CustomApproveModal open={openApprove} handleClose={approveOpenFunction} row={detail} /> */}
       </Box>
     </>
   );

@@ -27,8 +27,12 @@ const Register = ({ handleClose }) => {
     formData.append('instagram_url', data?.instagram_url);
     formData.append('twitter_url', data?.twitter_url);
     formData.append('description', data?.description);
-    if (user?.role_name !== Roles?.SuperAdmin) {
+    formData.append('country', data?.country);
+    if (user?.role_name === Roles?.Member) {
       formData.append('user_id', user?.id);
+    }
+    if (user?.role_name === Roles?.NCC) {
+      formData.append('user_id', user?.ncc?.id);
     }
     formData.append('business_category_id', data?.business_category_id);
 
@@ -39,7 +43,14 @@ const Register = ({ handleClose }) => {
       formData.append('banner_image', data?.banner_image?.[0]);
     }
 
-    dispatch(postBusiness(formData, handleClose));
+    let typeData;
+    if (user?.role_name == Roles?.Member) {
+      typeData = { type: 'member', user_id: user?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.NCC) {
+      typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    }
+
+    dispatch(postBusiness(formData, handleClose, typeData));
   };
 
   return (

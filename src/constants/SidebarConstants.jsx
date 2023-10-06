@@ -240,6 +240,20 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
+            label: 'NCC Setting',
+            url: '/dashboard/settings/ncc-site',
+            // memberProfileNCC: 'memberProfileNCC',
+
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'Business Setting',
+            url: '/dashboard/settings/business-site',
+            // memberProfileNCC: 'memberProfileNCC',
+
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
             label: 'Banner',
             url: '/dashboard/settings/banner',
             memberProfile: 'memberProfile',

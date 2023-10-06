@@ -5,6 +5,7 @@ import BusinessPage from 'pages/private/business';
 import BusinessManagementPage from 'pages/private/business/BusinessManagementPage';
 import CategoryPage from 'pages/private/business/Category';
 import BusinessContactPage from 'pages/private/business/Contact';
+import BusinessSiteSettingsPage from 'pages/private/BusinessSiteSettingsPage';
 import CandidatePage from 'pages/private/CandidatePage';
 import ContactPage from 'pages/private/ContactPage';
 import DepartmentPage from 'pages/private/Department';
@@ -14,6 +15,7 @@ import MemberPage from 'pages/private/MemberPage';
 import NBNSBannerPage from 'pages/private/NBNSBanner';
 import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
+import NccSiteSettingsPage from 'pages/private/NccSiteSettings';
 import NewsCategoryPage from 'pages/private/news/Category';
 import NewsManagementPage from 'pages/private/news/NewsManagementPage';
 import NewsPage from 'pages/private/news/NewsPage';
@@ -212,6 +214,22 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <SiteSettingsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'settings/ncc-site',
+    component: (
+      <Protected>
+        <NccSiteSettingsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'settings/business-site',
+    component: (
+      <Protected>
+        <BusinessSiteSettingsPage />
       </Protected>
     )
   },

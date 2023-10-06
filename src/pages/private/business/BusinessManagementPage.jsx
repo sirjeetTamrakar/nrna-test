@@ -1,6 +1,6 @@
 // import News from 'components/locals/dashboard/News';
 
-import NewsManagement from 'components/locals/dashboard/news/newsManagement';
+import BusinessManagement from 'components/locals/dashboard/business/BusinessManagement';
 
 // import NewsManagement from 'components/locals/dashboard/news/newsManagement';
 
@@ -9,7 +9,7 @@ import NewsManagement from 'components/locals/dashboard/news/newsManagement';
 const BusinessManagementPage = () => {
   return (
     <div>
-      <NewsManagement />
+      <BusinessManagement />
     </div>
   );
 };

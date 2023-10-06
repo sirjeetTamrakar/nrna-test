@@ -4,8 +4,8 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
-import { postNewsOrder } from '../redux/actions';
-import NewsManagementForm from './Form';
+import { postBusinessOrder } from '../redux/actions';
+import BusinessManagementForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
@@ -14,7 +14,7 @@ const Register = ({ handleClose, selected }) => {
   const dispatch = useDispatch();
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
-  const { news_order_loading } = useSelector((state) => state.news);
+  const { business_order_loading } = useSelector((state) => state.business);
   const onSubmit = (data) => {
     console.log('gagggg', { data });
     // const formData = new FormData();
@@ -35,13 +35,13 @@ const Register = ({ handleClose, selected }) => {
     // }
 
     if (selected === 'ALL') {
-      dispatch(postNewsOrder(data, handleClose));
+      dispatch(postBusinessOrder(data, handleClose));
     } else {
       const finalData = {
         ...data,
         category_id: selected
       };
-      dispatch(postNewsOrder(finalData, handleClose));
+      dispatch(postBusinessOrder(finalData, handleClose));
     }
 
     // dispatch(
@@ -55,9 +55,9 @@ const Register = ({ handleClose, selected }) => {
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
-          <NewsManagementForm />
+          <BusinessManagementForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={news_order_loading} />
+            <CustomButton buttonName="Submit" loading={business_order_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

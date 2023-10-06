@@ -6,7 +6,7 @@ import { getAllHomeData } from 'redux/homepage/actions';
 import Candidates from './Candidates';
 
 const CandidatePage = () => {
-  const [selected, setSelected] = useState('about');
+  const [selected, setSelected] = useState('candidate');
   console.log({ selected });
 
   const navigate = useNavigate();

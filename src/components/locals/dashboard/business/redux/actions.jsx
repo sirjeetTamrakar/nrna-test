@@ -7,9 +7,11 @@ import {
   deleteCategoryApi,
   getBusinessApi,
   getBusinessContactApi,
+  getBusinessOrderApi,
   getBusinessServicesApi,
   getCategoryApi,
   postBusinessApi,
+  postBusinessOrderApi,
   postBusinessServiceApi,
   postCategoryApi,
   updateBusinessApi,
@@ -109,13 +111,15 @@ export const getBusiness = (data) => (dispatch) => {
     });
 };
 
-export const postBusiness = (data, handleSuccess) => (dispatch) => {
+export const postBusiness = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.POST_BUSINESS_BEGIN });
   postBusinessApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_BUSINESS_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getBusiness());
+      console.log({ typeData });
+
+      dispatch(getBusiness(typeData));
       successToast('Business added successfully');
     })
     .catch((error) => {
@@ -124,7 +128,7 @@ export const postBusiness = (data, handleSuccess) => (dispatch) => {
     });
 };
 
-export const deleteBusiness = (Data, handleSuccess) => async (dispatch) => {
+export const deleteBusiness = (Data, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.DELETE_BUSINESS_BEGIN });
 
   try {
@@ -133,7 +137,7 @@ export const deleteBusiness = (Data, handleSuccess) => async (dispatch) => {
       type: actions.DELETE_BUSINESS_SUCCESS,
       payload: ''
     });
-    dispatch(getBusiness());
+    dispatch(getBusiness(typeData));
     handleSuccess && handleSuccess();
     successToast('Business has been deleted');
   } catch (error) {
@@ -142,7 +146,7 @@ export const deleteBusiness = (Data, handleSuccess) => async (dispatch) => {
   }
 };
 
-export const updateBusiness = (Data, slug, handleSuccess) => async (dispatch) => {
+export const updateBusiness = (Data, slug, handleSuccess, typeData) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_BUSINESS_BEGIN });
 
   try {
@@ -151,7 +155,7 @@ export const updateBusiness = (Data, slug, handleSuccess) => async (dispatch) =>
       type: actions.UPDATE_BUSINESS_SUCCESS,
       payload: ''
     });
-    dispatch(getBusiness());
+    dispatch(getBusiness(typeData));
     handleSuccess && handleSuccess();
     successToast('Business has been updated');
   } catch (error) {
@@ -160,13 +164,13 @@ export const updateBusiness = (Data, slug, handleSuccess) => async (dispatch) =>
   }
 };
 
-export const changeBusinessStatus = (data, handleSuccess) => (dispatch) => {
+export const changeBusinessStatus = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.CHANGE_BUSINESS_STATUS_BEGIN });
   changeBusinessStatusApi(data)
     .then((res) => {
       dispatch({ type: actions.CHANGE_BUSINESS_STATUS_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getBusiness());
+      dispatch(getBusiness(typeData));
       successToast('Status has been changed');
     })
     .catch((error) => {
@@ -268,4 +272,50 @@ export const updateBusinessService = (Data, slug, handleSuccess) => async (dispa
     dispatch({ type: actions.UPDATE_BUSINESS_SERVICE_ERROR });
     errorToast(error);
   }
+};
+
+export const postBusinessOrder = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_BUSINESS_ORDER_BEGIN });
+  postBusinessOrderApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_BUSINESS_ORDER_SUCCESS });
+      handleSuccess && handleSuccess();
+      // dispatch(getNews(typeData));
+      successToast('Your message sent successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_BUSINESS_ORDER_ERROR });
+    });
+};
+
+// export const deleteBusinessOrder = (Data, handleSuccess, typeData) => async (dispatch) => {
+//   dispatch({ type: actions.DELETE_BUSINESS_ORDER_BEGIN });
+
+//   try {
+//     await deleteBusinessOrderApi(Data);
+//     dispatch({
+//       type: actions.DELETE_BUSINESS_ORDER_SUCCESS,
+//       payload: ''
+//     });
+//     dispatch(getNews(typeData));
+//     handleSuccess && handleSuccess();
+//     successToast('News order has been deleted');
+//   } catch (error) {
+//     dispatch({ type: actions.DELETE_BUSINESS_ORDER_ERROR });
+//     errorToast(error);
+//   }
+// };
+
+export const getBusinessOrder = () => (dispatch) => {
+  dispatch({ type: actions.GET_BUSINESS_ORDER_BEGIN });
+  getBusinessOrderApi()
+    .then((res) => {
+      console.log({ res });
+      dispatch({ type: actions.GET_BUSINESS_ORDER_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_BUSINESS_ORDER_ERROR });
+    });
 };

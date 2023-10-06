@@ -13,7 +13,7 @@ const Candidates = () => {
   return (
     <div className="main_content">
       <section className="all_events">
-        <div className="all_events_title">All Candidates</div>
+        {/* <div className="all_events_title">All Candidates</div> */}
         <div className="container">
           {candidate_loading ? (
             <Box display="flex" justifyContent="center" height="60vh" alignItems="center">
@@ -23,7 +23,7 @@ const Candidates = () => {
             <div className="row">
               {candidates?.length > 0 ? (
                 candidates?.map((candidate) => (
-                  <div key={candidate.id} className="col-md-4">
+                  <div key={candidate.id} className="col-md-3">
                     <CandidateItem candidate={candidate} />
                   </div>
                 ))

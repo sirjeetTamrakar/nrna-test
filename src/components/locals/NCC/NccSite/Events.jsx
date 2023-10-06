@@ -31,12 +31,12 @@ const Events = () => {
 
   useEffect(() => {
     if (events) {
-      const newEvents = events?.filter(
+      const newEvents = events?.data?.filter(
         (list) =>
           list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.event_category_id == Number(selected)
       );
-      setFilteredEvents(selected === 'ALL' ? events : newEvents);
+      setFilteredEvents(selected === 'ALL' ? events?.data : newEvents);
     }
   }, [search, events, selected, events_category]);
 
@@ -54,7 +54,7 @@ const Events = () => {
       />
       <div className="main_content">
         <section className="all_events">
-          <div className="all_events_title">Events</div>
+          {/* <div className="all_events_title">Events</div> */}
           <div className="container">
             <div className="row">
               {filteredEvents?.length > 0 ? (

@@ -60,7 +60,7 @@ const News = () => {
       />
       <div className="main_content">
         <section className="all_events">
-          <div className="all_events_title">News</div>
+          {/* <div className="all_events_title">News</div> */}
           <div className="container">
             <div className="row">
               {filteredNews?.length > 0 ? (
