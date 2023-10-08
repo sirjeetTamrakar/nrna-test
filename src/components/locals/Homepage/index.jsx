@@ -54,7 +54,13 @@ const Homepage = () => {
           taglineAuthor={settings?.tagline_author}
         />
       )}
-      {settings?.about && <AboutSection about={settings?.about} image={settings?.about_image} />}
+      {settings?.about && (
+        <AboutSection
+          about={settings?.about}
+          image={settings?.about_image}
+          title="बारेमा (About)"
+        />
+      )}
       {renderSections()}
     </>
   );

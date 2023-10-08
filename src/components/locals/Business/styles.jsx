@@ -39,5 +39,8 @@ export const useStyles = makeStyles((theme) => ({
         borderBottom: '4px solid #fff'
       }
     }
+  },
+  serviceRoot: {
+    padding: '30px'
   }
 }));

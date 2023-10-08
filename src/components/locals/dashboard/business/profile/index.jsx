@@ -1,6 +1,7 @@
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
+import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Box, Button, Typography } from '@mui/material';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
@@ -119,13 +120,22 @@ const Profile = () => {
       minWidth: 100,
       field: (row) => {
         return (
-          <Button
-            sx={{ width: '100px' }}
-            variant="contained"
-            color="primary"
-            onClick={() => handleService(row)}>
-            Add
-          </Button>
+          <Box display={'flex'} columnGap={'10px'}>
+            <Button
+              sx={{ width: '40px' }}
+              variant="contained"
+              onClick={() => handleTableServices(row)}>
+              <VisibilityIcon />
+            </Button>
+            <Button
+              size="small"
+              sx={{ minWidth: '40px', padding: '20px 10px !important' }}
+              variant="contained"
+              color="primary"
+              onClick={() => handleService(row)}>
+              <AddIcon />
+            </Button>
+          </Box>
         );
       }
     },

@@ -6,8 +6,8 @@ import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
-import Login from 'components/globals/login';
 import PageBanner from 'components/globals/PageBanner';
+import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
@@ -101,7 +101,11 @@ const Survey = () => {
 
   return (
     <>
-      <PageBanner image={nbns_settings?.survey_banner} title={nbns_settings?.survey_title} />
+      <PageBanner
+        image={nbns_settings?.survey_banner}
+        title={nbns_settings?.survey_title}
+        subtitle="नेपाल र नेपालीलाई समृद्ध बनाउन के गर्न सकिन्छ ? विश्वभर छरिएर रहेका नेपालीहरुले विदेशमा आर्जन गरेको शिक्षा, सम्पत्ति, सीप, सम्पर्क र सञ्जाललाई नेपालको हितमा कसरी उपायोग गर्नुपर्छ ? तपाईंसँग कुनै विचार वा उपाय छ भने यहाँ सुझाउनुहोस् ।"
+      />
 
       <Container>
         <Box className={classes.root}>
@@ -191,21 +195,9 @@ const Survey = () => {
             </Box>
             <Box marginTop={4}>
               <Typography className={classes.description}>
-                Join hands with us in making a lasting impact through our transformative survey.
-                Your participation isn't just a response; it's a powerful statement that you believe
-                in the strength of collective action for our cause.
-              </Typography>
-              <Typography className={classes.description}>
-                By participating, you're not just sharing your opinions; you're contributing to a
-                movement. A movement that seeks to break down barriers, foster inclusivity, and sow
-                the seeds of positive transformation. Each response ignites a ripple effect,
-                inspiring others to stand up and be heard.
-              </Typography>
-              <Typography className={classes.description}>
-                Your voice, alongside countless others, will shape policies, influence decisions,
-                and champion causes that demand attention. Together, we're not just answering
-                questions; we're taking action. Let's rise above the ordinary and work towards an
-                extraordinary society. Participate now, and be the change we all aspire to see."
+                नेपाल र नेपालीलाई समृद्ध बनाउन के गर्न सकिन्छ ? विश्वभर छरिएर रहेका नेपालीहरुले
+                विदेशमा आर्जन गरेको शिक्षा, सम्पत्ति, सीप, सम्पर्क र सञ्जाललाई नेपालको हितमा कसरी
+                उपायोग गर्नुपर्छ ? तपाईंसँग कुनै विचार वा उपाय छ भने यहाँ सुझाउनुहोस् ।
               </Typography>
             </Box>
           </Box>
