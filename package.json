@@ -1,6 +1,6 @@
 {
   "name": "NRNA",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "private": true,
   "dependencies": {
     "@ckeditor/ckeditor5-build-classic": "^39.0.1",

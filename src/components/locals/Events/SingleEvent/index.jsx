@@ -158,8 +158,8 @@ const SingleEvent = () => {
           <div className="single_event_page_sidebar">
             <div className="recent_events">
               <div className="recent_events_title">Recent Event</div>
-              {recentEvent.length > 0 ? (
-                recentEvent.map((recent) => (
+              {recentEvent?.length > 0 ? (
+                recentEvent?.map((recent) => (
                   <Link
                     key={recent.id}
                     to={`/events/${recent?.slug}`}
