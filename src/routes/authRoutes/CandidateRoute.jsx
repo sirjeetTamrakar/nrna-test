@@ -10,20 +10,20 @@ export const candidateRoute = [
     component: <CandidateSitePage />
   },
   {
-    path: 'our-team/:candidate/news',
+    path: '/:candidate/news',
     component: <News />
   },
   {
-    path: 'our-team/:candidate/business',
+    path: '/:candidate/business',
     component: <BusinessListPage />
   },
   {
-    path: 'our-team/:candidate/contact',
+    path: '/:candidate/contact',
     component: <Contact />
   },
 
   {
-    path: 'our-team/:candidate/news/:slug',
+    path: '/:candidate/news/:slug',
     component: <SingleNewsCandidate />
   }
 ];

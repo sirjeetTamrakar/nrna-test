@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const CandidateItem = ({ candidate }) => {
   return (
-    <Link to={`/our-team/${candidate?.member?.username}`} className="political_item">
+    <Link to={`/${candidate?.member?.username}`} className="political_item">
       <div className="img_container">
         <img src={candidate?.member?.profile_image} alt="" />
       </div>

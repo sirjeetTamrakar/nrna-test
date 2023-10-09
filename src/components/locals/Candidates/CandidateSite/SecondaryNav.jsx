@@ -22,7 +22,7 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch, id }) => {
   };
   const handleSetSelected = (slug) => {
     setSelected(slug);
-    navigate(`/our-team/${id}/news`, { state: slug });
+    navigate(`/${id}/news`, { state: slug });
   };
   return (
     <Box className={classes.root}>
