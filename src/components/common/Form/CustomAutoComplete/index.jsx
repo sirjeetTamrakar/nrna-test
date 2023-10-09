@@ -27,7 +27,8 @@ const CustomAutoComplete = ({
   options = [],
   tooltipLabel = '',
   disabled = false,
-  required
+  required,
+  onCountrySelection
 }) => {
   const {
     control,
@@ -69,7 +70,17 @@ const CustomAutoComplete = ({
             className={classes.autoCompleteField}
             isOptionEqualToValue={(option) => option.value}
             getOptionLabel={(option) => option.label}
-            onChange={(e, data) => onChange(data?.value)}
+            // onChange={(e, data) => onChange(data?.value)}
+            onChange={(e, data) => {
+              onChange(data?.value);
+
+              // Call the callback function to pass the selected country value to the parent
+              if (data?.value) {
+                onCountrySelection(data?.code); // Pass the selected country label
+              } else {
+                onCountrySelection(''); // Clear the selected country value if nothing is selected
+              }
+            }}
             renderInput={(params) => (
               <TextField
                 className={classes.inputField}

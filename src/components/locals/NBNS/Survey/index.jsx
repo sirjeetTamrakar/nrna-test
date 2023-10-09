@@ -21,30 +21,11 @@ import useStyles from './styles';
 const validationSchema = Yup.object({
   first_name: Yup.string().required('Please enter first name'),
   last_name: Yup.string().required('Please enter last name'),
-  phone: Yup.string().required('Please enter phone').min(10).max(10),
+  phone: Yup.string().required('Please enter phone').min(10),
   email: Yup.string().required('Please enter email'),
   country_of_residence: Yup.string().required('Please select a country')
 });
 const Survey = () => {
-  const cardData = [
-    {
-      title: 'Web development covers a broad range of services',
-      desc: 'Communications covers a broad range of services — from data to voice and video calls. An IT provider can configure your communication systems.'
-    },
-    {
-      title: 'Web development',
-      desc: 'Communications covers a broad range of services — from data to voice and video calls. An IT provider can configure your communication systems.'
-    },
-    {
-      title: 'Web development',
-      desc: 'Communications covers a broad range of services — from data to voice and video calls. An IT provider can configure your communication systems.'
-    },
-    {
-      title: 'Web development',
-      desc: 'Communications covers a broad range of services'
-    }
-  ];
-
   const dispatch = useDispatch();
   const classes = useStyles();
   const navigate = useNavigate();
@@ -54,6 +35,7 @@ const Survey = () => {
   const [userFormDetails, setUserFormDetails] = useState([]);
   const [surveyID, setSurveyID] = useState();
   const [surveySlug, setSurveySlug] = useState();
+  const [number, setNumber] = useState('');
 
   // console.log({ userFormDetails });
   const startSurvey = (id, slug) => {
@@ -68,14 +50,15 @@ const Survey = () => {
   console.log('dsadsdddddddddd', { nbns_settings });
   console.log({ user });
   const { countries_list_code } = useSelector((state) => state.homepage);
-  console.log({ countries_list_code });
+  console.log({ countries_list_code, number });
 
   // const { watch } = useFormContext({});
   // console.log('watchh--', watch());
 
   const countryList = countries_list_code?.map((item, index) => ({
     label: item?.name,
-    value: item?.name
+    value: item?.name,
+    code: item?.dial_code
   }));
 
   useEffect(() => {
@@ -88,7 +71,7 @@ const Survey = () => {
   };
   const onSubmitDetails = (data) => {
     console.log({ details: data });
-    setUserFormDetails(data);
+    setUserFormDetails({ ...data });
     dispatch(emailCheck({ email: data?.email }, () => refetch(data)));
   };
   const handleCancel = () => {
@@ -155,7 +138,7 @@ const Survey = () => {
                                   }}>
                                   {item?.title?.length < 49
                                     ? item?.title
-                                    : `${item?.title.substring(0, 50)}...`}
+                                    : `${item?.title?.substring(0, 50)}...`}
                                 </p>
                                 <p
                                   style={{
@@ -166,7 +149,7 @@ const Survey = () => {
                                   }}>
                                   {item?.description?.length < 44
                                     ? item?.description
-                                    : `${item?.description.substring(0, 45)}...`}
+                                    : `${item?.description?.substring(0, 45)}...`}
                                 </p>
                               </div>
                               <Button
@@ -229,9 +212,11 @@ const Survey = () => {
         <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
           <CustomForm onSubmit={onSubmitDetails}>
             <FormComponent
-              handle={handleCancel}
+              handleCancel={handleCancel}
               countryList={countryList}
               email_check_loading={email_check_loading}
+              setNumber={setNumber}
+              number={number}
             />
           </CustomForm>
         </CustomFormProvider>
@@ -240,7 +225,17 @@ const Survey = () => {
   );
 };
 
-const FormComponent = ({ handleCancel, countryList, email_check_loading }) => {
+const FormComponent = ({ handleCancel, countryList, email_check_loading, number, setNumber }) => {
+  const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
+  // const classes = useStyles();
+
+  const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
+  console.log({ selectedCountry, lowercaseString });
+
+  const handleCountrySelection = (selectedValue) => {
+    setSelectedCountry(selectedValue);
+  };
+
   return (
     <Grid container spacing={2}>
       <Grid item sm={6}>
@@ -275,16 +270,28 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading }) => {
           label="Country of residence"
           options={countryList ?? []}
           required
+          onCountrySelection={handleCountrySelection}
         />
       </Grid>
+
       <Grid item sm={12}>
         <CustomInput
           name="phone"
           label="Phone Number"
-          type="phone"
           placeholder="Enter your phone number"
           required
+          defaultValue={selectedCountry}
         />
+        {/* <div className={classes.phoneInput}>
+          <PhoneInput
+            name="phone"
+            country={lowercaseString}
+            value={number}
+            placeholder="Enter phone"
+            onChange={(value) => setNumber(value)}
+            countryCodeEditable={false}
+          />
+        </div> */}
       </Grid>
 
       <Grid item sm={6} sx={{ marginTop: '20px' }}>

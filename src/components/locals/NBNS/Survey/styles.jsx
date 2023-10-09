@@ -76,6 +76,11 @@ const useStyles = makeStyles((theme) => ({
         padding: '10px'
       }
     }
+  },
+  phoneInput: {
+    '& .react-tel-input .form-control': {
+      width: '100%'
+    }
   }
 }));
 
