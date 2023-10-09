@@ -1,4 +1,5 @@
 import { Box, Grid } from '@mui/material';
+import CustomEditor from 'components/common/CustomEditor';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
@@ -38,7 +39,8 @@ const NbnsHomeDataForm = ({ banner_image, image }) => {
           <CustomTextArea name="tagline" label="Tagline" />
         </Grid>
         <Grid item sm={12}>
-          <CustomTextArea name="description" label="Description" />
+          {/* <CustomTextArea name="description" label="Description" /> */}
+          <CustomEditor name="description" />
         </Grid>
       </Grid>
     </Box>

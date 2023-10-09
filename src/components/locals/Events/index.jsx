@@ -14,6 +14,8 @@ const Events = () => {
     (state) => state.homepage
   );
 
+  console.log({ events });
+
   const [filteredEvents, setFilteredEvents] = useState();
   const [allFilteredEvents, setAllFilteredEvents] = useState();
   const [eventLimit, setEventLimit] = useState(6);
@@ -71,7 +73,7 @@ const Events = () => {
             {filteredEvents?.length > 0 ? (
               <>
                 <>
-                  {filteredEvents.map((event) => (
+                  {filteredEvents?.map((event) => (
                     <EventCard key={event.id} event={event} linkUrl={`/events/${event.slug}`} />
                   ))}
                 </>

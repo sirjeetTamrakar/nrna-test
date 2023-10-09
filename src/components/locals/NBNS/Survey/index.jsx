@@ -6,8 +6,8 @@ import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
-import PageBanner from 'components/globals/PageBanner';
 import Login from 'components/globals/login';
+import PageBanner from 'components/globals/PageBanner';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
@@ -262,6 +262,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
           label="Country of residence"
           options={countryList ?? []}
           required
+          // phoneSelect
           onCountrySelection={handleCountrySelection}
         />
       </Grid>

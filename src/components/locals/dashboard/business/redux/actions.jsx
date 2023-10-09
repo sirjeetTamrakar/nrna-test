@@ -180,9 +180,9 @@ export const changeBusinessStatus = (data, handleSuccess, typeData) => (dispatch
 };
 
 // get business contact
-export const getBusinessContact = () => (dispatch) => {
+export const getBusinessContact = (data) => (dispatch) => {
   dispatch({ type: actions.GET_CONTACT_BEGIN });
-  getBusinessContactApi()
+  getBusinessContactApi(data)
     .then((res) => {
       dispatch({ type: actions.GET_CONTACT_SUCCESS, payload: res.data.data });
     })

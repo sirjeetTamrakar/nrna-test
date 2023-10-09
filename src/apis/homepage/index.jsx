@@ -23,8 +23,9 @@ export const getAllNewsApi = (data) => {
     ? `?pagination_limit=${data?.limit}`
     : '';
   const category_id = data?.category_id ? `&category_id=${data?.category_id}` : '';
+  const status = data?.status ? `&status=${data?.status}` : '';
 
-  return axiosInstance().get(`/api/news${type}${id}${limit}${category_id}`);
+  return axiosInstance().get(`/api/news${type}${id}${limit}${category_id}${status}`);
 };
 
 // get news category

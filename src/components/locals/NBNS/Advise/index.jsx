@@ -12,6 +12,8 @@ const Advise = () => {
   const dispatch = useDispatch();
   const [adviceData, setAdviceData] = useState();
   const { home_data } = useSelector((state) => state.homepage);
+  const { nbns_settings } = useSelector((state) => state.homepage);
+
   console.log('bttttt', { adviceData });
   useEffect(() => {
     const data = {
@@ -34,9 +36,12 @@ const Advise = () => {
   return (
     <>
       <PageBanner
-        title={adviceData?.advice1?.title}
-        subtitle={adviceData?.advice1?.subtitle}
-        image={adviceData?.advice1?.banner_image}
+        title={nbns_settings?.advice_title}
+        subtitle={nbns_settings?.advice_subtitle}
+        image={nbns_settings?.advice_banner}
+        // title={adviceData?.advice1?.title}
+        // subtitle={adviceData?.advice1?.subtitle}
+        // image={adviceData?.advice1?.banner_image}
       />
 
       <Container>

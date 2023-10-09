@@ -23,16 +23,20 @@ export const Homepage = () => {
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
     title: item?.tabtitle,
     value: item?.slug,
-    clickFunction: () => handleFunction(`/${item.slug}`)
+    clickFunction: () => handleFunction(`/nrna/${item.slug}`)
   }));
 
   const options = [
     { title: 'Home', value: 'home', clickFunction: () => handleFunction('/') },
-    { title: 'About', value: 'about', clickFunction: () => handleFunction('/about') },
-    { title: 'Candidate', value: 'candidate', clickFunction: () => handleFunction('/candidate') }
+    { title: 'About', value: 'about', clickFunction: () => handleFunction('/nrna/about') },
+    {
+      title: 'Candidate',
+      value: 'candidate',
+      clickFunction: () => handleFunction('/nrna/candidate')
+    }
   ];
   const contact = [
-    { title: 'Contact', value: 'contact', clickFunction: () => handleFunction('/contact') }
+    { title: 'Contact', value: 'contact', clickFunction: () => handleFunction('/nrna/contact') }
   ];
 
   const allOptions = [...options, ...homeOptions, ...contact];

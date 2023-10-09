@@ -55,7 +55,8 @@ const CandidateHome = ({ siteSettingImages, about, title }) => {
                     <div key={candidate.id} className="col-md-3">
                       {/* <CandidateItem candidate={candidate} /> */}
                       <Link
-                        to={`/candidate/${candidate?.member?.username}`}
+                        // to={`/candidate/${candidate?.member?.username}`}
+                        to={`/${candidate?.member?.username}`}
                         className="political_item">
                         <div className="img_container">
                           <img src={candidate?.member?.profile_image} alt="" />

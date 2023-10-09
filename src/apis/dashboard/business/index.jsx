@@ -52,8 +52,9 @@ export const changeBusinessStatusApi = (data) => {
 };
 
 // get business contact
-export const getBusinessContactApi = () => {
-  return axiosInstance().get('/admin/business-contact');
+export const getBusinessContactApi = (data) => {
+  const user_id = data?.user_id ? `?user_id=${data?.user_id}` : '';
+  return axiosInstance().get(`/admin/business-contact${user_id}`);
 };
 
 // delete business contact

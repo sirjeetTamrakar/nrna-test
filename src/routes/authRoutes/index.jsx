@@ -48,15 +48,15 @@ const AuthRoutes = [
     component: <SingleEventPage />
   },
   {
-    path: '/contact',
+    path: '/nrna/contact',
     component: <ContactPage />
   },
   {
-    path: '/about',
+    path: '/nrna/about',
     component: <AboutPage />
   },
   {
-    path: '/candidate',
+    path: '/nrna/candidate',
     component: <CandidatePage />
   },
   {
@@ -87,8 +87,12 @@ const AuthRoutes = [
   { path: '/password-reset', component: <ChnagePasswordDashboard /> },
   { path: '/forgot-password', component: <Forgot /> },
   { path: '/verify-mail', component: <VerifyEmail /> },
+  // {
+  //   path: '/:slug',
+  //   component: <CandidateSiteSingleHome />
+  // },
   {
-    path: `/:slug`,
+    path: `/nrna/:slug`,
     component: <HomeDataComponentPage />
   }
 ];

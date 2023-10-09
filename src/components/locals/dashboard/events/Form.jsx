@@ -1,8 +1,8 @@
 import { Box, Grid } from '@mui/material';
+import CustomEditor from 'components/common/CustomEditor';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
-import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getCategory } from './redux/actions';
@@ -86,7 +86,7 @@ const EventForm = ({ image }) => {
           />
         </Grid>
         <Grid item sm={12}>
-          <CustomTextArea rows={8} name="description" label="Description" />
+          <CustomEditor name="description" />
         </Grid>
       </Grid>
     </Box>

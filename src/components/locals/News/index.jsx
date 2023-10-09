@@ -32,16 +32,19 @@ const News = () => {
   useEffect(() => {
     if (selected === 'ALL') {
       const finalData = {
-        limit: newsLimit
+        limit: newsLimit,
+        status: 1
       };
       dispatch(getAllNews(finalData));
     } else {
       const finalData = {
         limit: newsLimit,
-        category_id: selected
+        category_id: selected,
+        status: 1
       };
       dispatch(getAllNews(finalData));
     }
+
     dispatch(getNewsCategory());
   }, [newsLimit, selected]);
 

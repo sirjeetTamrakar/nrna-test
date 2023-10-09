@@ -28,7 +28,8 @@ const CustomAutoComplete = ({
   tooltipLabel = '',
   disabled = false,
   required,
-  onCountrySelection
+  onCountrySelection,
+  phoneSelect
 }) => {
   const {
     control,
@@ -72,14 +73,14 @@ const CustomAutoComplete = ({
             getOptionLabel={(option) => option.label}
             // onChange={(e, data) => onChange(data?.value)}
             onChange={(e, data) => {
+              // if (!phoneSelect) {
               onChange(data?.value);
+              // }
 
               // Call the callback function to pass the selected country value to the parent
-              if (data?.value) {
-                onCountrySelection(data?.code); // Pass the selected country label
-              } else {
-                onCountrySelection(''); // Clear the selected country value if nothing is selected
-              }
+              // if (phoneSelect) {
+              //   onCountrySelection(data?.code); // Pass the selected country label
+              // }
             }}
             renderInput={(params) => (
               <TextField

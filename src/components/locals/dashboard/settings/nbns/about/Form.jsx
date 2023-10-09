@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
+import CustomEditor from 'components/common/CustomEditor';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
@@ -89,7 +90,8 @@ const AboutForm = () => {
             <CustomTextArea name="about_tagline" label="Tagline" required />
           </Grid>
           <Grid item sm={12}>
-            <CustomTextArea name="about" label="About Description" required rows={15} />
+            {/* <CustomTextArea name="about" label="About Description" required rows={15} /> */}
+            <CustomEditor name="about" />
           </Grid>
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>

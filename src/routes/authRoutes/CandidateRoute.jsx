@@ -6,7 +6,7 @@ import SingleNewsCandidate from 'pages/public/candidateSite/SingleNews';
 
 export const candidateRoute = [
   {
-    path: 'our-team/:candidate',
+    path: '/:candidate',
     component: <CandidateSitePage />
   },
   {
