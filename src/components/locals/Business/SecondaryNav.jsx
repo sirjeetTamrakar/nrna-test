@@ -36,7 +36,7 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
         </Box>
         <ul className={classes.list}>
           <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>
-            All
+            Home
             {/* {JSON.stringify({ selected })} */}
           </li>
           {category?.map((list, index) => (

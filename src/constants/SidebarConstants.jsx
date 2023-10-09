@@ -233,8 +233,16 @@ export const SidebarConstants = [
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
-            label: 'Site Setting',
+            label: 'NRNA Settings',
             url: '/dashboard/settings/site',
+            // memberProfileNCC: 'memberProfileNCC',
+
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
+          },
+          {
+            label: 'NRNA Banner',
+            url: '/dashboard/settings/banner',
+            memberProfile: 'memberProfile',
             // memberProfileNCC: 'memberProfileNCC',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
@@ -253,16 +261,9 @@ export const SidebarConstants = [
 
             roles: [Roles.Admin, Roles.SuperAdmin]
           },
-          {
-            label: 'Banner',
-            url: '/dashboard/settings/banner',
-            memberProfile: 'memberProfile',
-            // memberProfileNCC: 'memberProfileNCC',
 
-            roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
-          },
           {
-            label: 'NBNS',
+            label: 'NBNS Settings',
             url: '/dashboard/settings/nbns',
             roles: [Roles.Admin, Roles.SuperAdmin]
           },
