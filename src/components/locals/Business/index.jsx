@@ -72,6 +72,7 @@ const Business = () => {
                 <>
                   {filteredBusiness?.map((item) => (
                     <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
+                      {/* <BusinessItem businessItem={item} /> */}
                       <BusinessItem businessItem={item} />
                     </div>
                   ))}

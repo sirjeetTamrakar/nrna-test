@@ -1,9 +1,11 @@
 import PermContactCalendarIcon from '@mui/icons-material/PermContactCalendar';
 import { Box } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import bannerImage from 'assets/images/bannerImage.jpg';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
+import profileImage2 from 'assets/images/profileImage2.jpg';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -47,7 +49,9 @@ const CandidateSite = () => {
         <div
           className="candidate_page_banner"
           style={{
-            backgroundImage: `url('${single_user?.profile_banner}')`,
+            backgroundImage: `url('${
+              single_user?.profile_banner ? single_user?.profile_banner : bannerImage
+            }')`,
             backgroundPosition: 'center',
             backgroundSize: 'cover'
           }}></div>
@@ -56,7 +60,10 @@ const CandidateSite = () => {
             <div className="candidate_page_lower_banner_wrapper">
               <div className="candidate_page_lower_banner_wrapper_box">
                 <div className="img_container_profile">
-                  <img src={single_user?.profile_image} alt="" />
+                  <img
+                    src={single_user?.profile_image ? single_user?.profile_image : profileImage2}
+                    alt=""
+                  />
                 </div>
                 <div className="candidate_name_box">
                   <div className="candidate_name">

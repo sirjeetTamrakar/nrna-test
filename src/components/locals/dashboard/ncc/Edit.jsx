@@ -37,6 +37,7 @@ const EditForm = ({ handleClose, detail }) => {
   );
 };
 const Edit = ({ data, handleClose }) => {
+  console.log('ppooppopp', { data });
   const defaultValues = {
     country_name: data?.country_name,
     admin_id: data?.admin?.id,

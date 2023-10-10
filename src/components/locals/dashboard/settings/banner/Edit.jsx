@@ -29,7 +29,19 @@ const EditForm = ({ detail, handleClose }) => {
     if (user?.role_name === Roles.NCC) {
       formData.append('bannerable_type', 'ncc');
       formData.append('bannerable_id', user?.ncc?.id);
-      typeData = { page: 1, bannerable_type: 'ncc', bannerable_id: user?.ncc?.id };
+      typeData = {
+        page: 1,
+        pagination_limit: 10,
+        bannerable_type: 'ncc',
+        bannerable_id: user?.ncc?.id
+      };
+    }
+
+    if (user?.role_name !== Roles.NCC) {
+      typeData = {
+        page: 1,
+        pagination_limit: 10
+      };
     }
 
     if (data?.image?.length > 0) {

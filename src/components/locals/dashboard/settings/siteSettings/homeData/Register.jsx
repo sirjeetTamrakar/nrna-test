@@ -35,6 +35,13 @@ const Register = ({ handleClose }) => {
       typeData = { page: 1, homedataable_type: 'ncc', homedataable_id: user?.ncc?.id };
     }
 
+    if (user?.role_name !== Roles.NCC) {
+      typeData = {
+        page: 1,
+        pagination_limit: 10
+      };
+    }
+
     if (data?.image?.length > 0) {
       formData.append('image', data?.image?.[0]);
     }

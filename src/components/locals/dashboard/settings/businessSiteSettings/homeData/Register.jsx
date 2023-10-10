@@ -32,7 +32,12 @@ const Register = ({ handleClose }) => {
     if (user?.role_name === Roles.SuperAdmin) {
       formData.append('homedataable_type', 'business');
       formData.append('homedataable_id', user?.id);
-      typeData = { page: 1, homedataable_type: 'business', homedataable_id: user?.id };
+      typeData = {
+        page: 1,
+        pagination_limit: 10,
+        homedataable_type: 'business',
+        homedataable_id: user?.id
+      };
     }
 
     if (data?.image?.length > 0) {

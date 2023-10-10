@@ -1,4 +1,5 @@
 import { Box, CircularProgress } from '@mui/material';
+import profileImage2 from 'assets/images/profileImage2.jpg';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -59,7 +60,14 @@ const CandidateHome = ({ siteSettingImages, about, title }) => {
                         to={`/${candidate?.member?.username}`}
                         className="political_item">
                         <div className="img_container">
-                          <img src={candidate?.member?.profile_image} alt="" />
+                          <img
+                            src={
+                              candidate?.member?.profile_image
+                                ? candidate?.member?.profile_image
+                                : profileImage2
+                            }
+                            alt=""
+                          />
                         </div>
                         <div className="political_item_title text-center">
                           {candidate?.member?.full_name}

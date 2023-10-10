@@ -39,6 +39,7 @@ const NCCForm = ({ logo }) => {
             label="Assign NCC admin"
             options={createdByUsers ?? []}
             required
+            key={createdByUsers}
           />
         </Grid>
         <Grid item sm={3}>

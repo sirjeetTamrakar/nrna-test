@@ -1,10 +1,13 @@
 import { Box, Grid } from '@mui/material';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../userManagement/redux/actions';
 import { useStyles } from './styles';
 
 const OurTeamForm = () => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const { users } = useSelector((state) => state.user);
@@ -19,6 +22,10 @@ const OurTeamForm = () => {
     value: item?.id
   }));
 
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
+
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
@@ -28,6 +35,7 @@ const OurTeamForm = () => {
             label="Member"
             options={createdByUsers || []}
             required
+            key={createdByUsers}
           />
         </Grid>
         <Grid item sm={6}>
@@ -36,6 +44,7 @@ const OurTeamForm = () => {
             label="Department"
             options={department || []}
             required
+            key={department}
           />
         </Grid>
         <Grid item sm={6}>

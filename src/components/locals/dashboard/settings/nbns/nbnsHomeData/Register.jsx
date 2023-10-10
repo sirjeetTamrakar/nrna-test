@@ -31,7 +31,7 @@ const Register = ({ handleClose }) => {
     // if (user?.role_name === Roles.NCC) {
     formData.append('homedataable_type', 'nbns');
     formData.append('homedataable_id', 1);
-    typeData = { page: 1, homedataable_type: 'nbns', homedataable_id: 1 };
+    typeData = { page: 1, pagination_limit: 10, homedataable_type: 'nbns', homedataable_id: 1 };
     // }
 
     if (data?.image?.length > 0) {

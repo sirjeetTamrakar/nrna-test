@@ -188,6 +188,15 @@ const Member = () => {
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
               <li onClick={() => handleView(row)}>View Details</li>
+
+              {(user?.role_name === 'superadmin' || user?.role_name === 'admin') && (
+                <>
+                  <li onClick={() => handleEdit(row)}>Edit Member </li>
+                  <li onClick={() => handleRole(row)}>Change role</li>
+                  <li onClick={() => handleApprove(row)}>Approve User</li>
+                  <li onClick={() => handleDelete(row)}>Delete</li>
+                </>
+              )}
               {roleIDData?.roleId1?.admin?.id === user?.id && (
                 <>
                   <li onClick={() => handleEdit(row)}>Edit Member </li>

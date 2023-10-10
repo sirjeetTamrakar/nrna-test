@@ -30,6 +30,7 @@ const CandidateForm = () => {
             label="Member"
             options={createdByUsers || []}
             required
+            key={createdByUsers}
           />
         </Grid>
         <Grid item sm={6}>

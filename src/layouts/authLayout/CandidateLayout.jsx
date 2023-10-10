@@ -66,7 +66,7 @@ const SecondaryNavWrapper = () => {
   ];
   return (
     <SecondaryNav
-      title={single_user?.username}
+      title={single_user?.full_name}
       options={options}
       setSelected={setSelected}
       selected={selected}

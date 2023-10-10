@@ -30,7 +30,7 @@ const EditForm = ({ detail, handleClose }) => {
     // if (user?.role_name === Roles.NCC) {
     formData.append('bannerable_type', 'nbns');
     formData.append('bannerable_id', 1);
-    typeData = { page: 1, homedataable_type: 'nbns', homedataable_id: 1 };
+    typeData = { page: 1, pagination_limit: 10, homedataable_type: 'nbns', homedataable_id: 1 };
     // }
 
     if (data?.image?.length > 0) {
