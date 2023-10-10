@@ -1,3 +1,6 @@
+import BusinessDataComponent from 'components/locals/Business/BusinessDataComponent';
+import BusinessItemOneSingle from 'components/locals/Business/BusinessItemOneSingle';
+import NccItemOneSingle from 'components/locals/NCC/NccSite/NccItemSingleOne';
 import AboutPage from 'pages/public/About';
 import BusinessPage from 'pages/public/Business';
 import CandidatePage from 'pages/public/Candidate';
@@ -58,6 +61,19 @@ const AuthRoutes = [
   {
     path: '/nrna/candidate',
     component: <CandidatePage />
+  },
+  {
+    path: '/nrna/business',
+    component: <BusinessItemOneSingle />
+  },
+  {
+    path: '/nrna/ncc',
+    component: <NccItemOneSingle />
+  },
+
+  {
+    path: '/nrna/business/:slug',
+    component: <BusinessDataComponent />
   },
   {
     path: '/candidate/:slug',

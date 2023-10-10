@@ -1,20 +1,19 @@
-import { Box, Button, CircularProgress } from '@mui/material';
+import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBusiness, getBusinessCategory } from 'redux/homepage/actions';
+import { getBusiness, getBusinessCategory, getSiteSettings } from 'redux/homepage/actions';
 import BusinessItem from './BusinessItem';
+import BusinessItemOne from './BusinessItemOne';
 import SecondaryNav from './SecondaryNav';
 
 const Business = () => {
   const dispatch = useDispatch();
-  const { business, business_category, business_loading, business_category_loading } = useSelector(
-    (state) => state.homepage
-  );
+  const { business, business_category, business_loading, business_category_loading, settings } =
+    useSelector((state) => state.homepage);
   console.log('dasldsalda', business_category?.[0]?.id);
   const [filteredBusiness, setFilteredBusiness] = useState();
   const [allFilteredBusiness, setAllFilteredBusiness] = useState();
   const [businessLimit, setBusinessLimit] = useState(4);
-
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
   useEffect(() => {
@@ -55,6 +54,12 @@ const Business = () => {
     setBusinessLimit((prev) => prev + 4);
   };
 
+  useEffect(() => {
+    dispatch(getSiteSettings());
+  }, []);
+
+  console.log({ selected });
+
   console.log('llll', business?.meta?.total);
   return (
     <>
@@ -69,14 +74,76 @@ const Business = () => {
           <div className="row">
             {filteredBusiness?.length > 0 ? (
               <>
-                <>
-                  {filteredBusiness?.map((item) => (
-                    <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
+                {selected === 'ALL' ? (
+                  <>
+                    <Grid container spacing={2} sx={{ marginBottom: '20px' }}>
+                      <Grid item sm={5}>
+                        {/* {filteredBusiness?.slice(0, 1)?.map((item) => ( */}
+                        <div className="">
+                          <BusinessItemOne
+                            settingsData={settings}
+                            mainGrid
+                            linkUrl={`/nrna/business`}
+                          />
+                        </div>
+                        {/* ))} */}
+                      </Grid>
+                      <Grid item sm={7}>
+                        <Grid container spacing={2} item>
+                          <Grid item sm={6}>
+                            {filteredBusiness?.slice(0, 1)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={6}>
+                            {filteredBusiness?.slice(1, 2)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={6}>
+                            {filteredBusiness?.slice(2, 3)?.map((item) => (
+                              // <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={6}>
+                            {filteredBusiness?.slice(3, 4)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                {/* <BusinessItem businessItem={item} /> */}
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                        </Grid>
+                      </Grid>
+                    </Grid>
+                    {filteredBusiness?.slice(4)?.map((item) => (
+                      <div
+                        key={item.id}
+                        className="col-xl-3 col-lg-4 col-sm-6 col-12"
+                        style={{ marginTop: '-30px' }}>
+                        {/* <BusinessItem businessItem={item} /> */}
+                        <BusinessItem businessItem={item} />
+                      </div>
+                    ))}
+                  </>
+                ) : (
+                  filteredBusiness?.map((item) => (
+                    <div
+                      key={item.id}
+                      className="col-xl-3 col-lg-4 col-sm-6 col-12"
+                      style={{ marginTop: '-30px' }}>
                       {/* <BusinessItem businessItem={item} /> */}
                       <BusinessItem businessItem={item} />
                     </div>
-                  ))}
-                </>
+                  ))
+                )}
                 <>
                   {business?.meta?.to !== business?.meta?.total &&
                     !(business_loading || business_category_loading) && (

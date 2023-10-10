@@ -9,6 +9,10 @@ const SecondaryNav = ({ category, selected, setSelected }) => {
       return 'active';
     } else return '';
   };
+  const handleSetSelected = (slug) => {
+    setSelected(slug);
+    // navigate(`/nrna/business`, { state: slug });
+  };
   return (
     <Box className={classes.root}>
       <Container>
@@ -18,11 +22,14 @@ const SecondaryNav = ({ category, selected, setSelected }) => {
           </Typography>
         </Box>
         <ul className={classes.list}>
+          <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>
+            Home
+          </li>
           {category?.map((list, index) => (
             <li
               className={checkActive(list?.slug)}
               key={index}
-              onClick={() => setSelected(list?.slug)}>
+              onClick={() => handleSetSelected(list?.slug)}>
               {list?.title}
             </li>
           ))}

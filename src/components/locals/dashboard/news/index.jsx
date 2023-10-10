@@ -15,7 +15,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeNewsStatus, deleteNews, getNews } from './redux/actions';
+import { changeNewsStatus, deleteNews, getNews, setNewsSearch } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
@@ -33,9 +33,8 @@ const News = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  const { newsData, get_news_loading, news_status_loading, delete_news_loading } = useSelector(
-    (state) => state.news
-  );
+  const { newsData, get_news_loading, news_status_loading, delete_news_loading, news_search } =
+    useSelector((state) => state.news);
 
   const { user } = useSelector((state) => state.auth);
 
@@ -129,6 +128,28 @@ const News = () => {
     }
   ];
 
+  const handleUserSearch = (e) => {
+    setPage(0);
+    dispatch(setNewsSearch(inputValue));
+    e.preventDefault();
+  };
+  const [inputValue, setInputValue] = useState(''); // Track the input field value
+
+  const nameChangeHandler = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue); // Update the input field value
+    const timeout = setTimeout(() => {
+      dispatch(setNewsSearch(e.target.value));
+    }, [1000]);
+    return () => clearTimeout(timeout);
+  };
+
+  const nameClearHandler = () => {
+    setPage(0);
+    setInputValue('');
+    dispatch(setNewsSearch(''));
+  };
+
   const handleConfirm = (slug) => {
     let typeData;
     if (user?.role_name == Roles?.Member) {
@@ -179,27 +200,76 @@ const News = () => {
     viewOpenFunction();
   };
 
+  // const refetch = () => {
+  //   if (user?.role_name == Roles?.Member) {
+  //     const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'member', id: user?.id };
+  //     dispatch(getNews(data));
+  //   } else if (user?.role_name == Roles?.NCC) {
+  //     const data = {
+  //       page: page + 1,
+  //       pagination_limit: rowsPerPage,
+  //       type: 'ncc',
+  //       id: user?.ncc?.id
+  //     };
+  //     dispatch(getNews(data));
+  //   } else {
+  //     const data = { page: page + 1, pagination_limit: rowsPerPage };
+  //     dispatch(getNews(data));
+  //   }
+  // };
+
+  // useEffect(() => {
+  //   user && refetch();
+  // }, [page, rowsPerPage, user]);
+
+  const filterDataMember = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    type: 'member',
+    id: user?.id,
+    search: news_search
+  };
+  const filterDataNCC = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    type: 'ncc',
+    id: user?.ncc?.id,
+    search: news_search
+  };
+  const filterDataHome = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    search: news_search
+  };
   const refetch = () => {
     if (user?.role_name == Roles?.Member) {
-      const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'member', id: user?.id };
-      dispatch(getNews(data));
+      dispatch(getNews(filterDataMember));
     } else if (user?.role_name == Roles?.NCC) {
-      const data = {
-        page: page + 1,
-        pagination_limit: rowsPerPage,
-        type: 'ncc',
-        id: user?.ncc?.id
-      };
-      dispatch(getNews(data));
+      dispatch(getNews(filterDataNCC));
     } else {
-      const data = { page: page + 1, pagination_limit: rowsPerPage };
-      dispatch(getNews(data));
+      dispatch(getNews(filterDataHome));
     }
+
+    // if (user?.role_name === 'ncc') {
+    //   dispatch(getNews(filterData, roleData));
+    // } else {
+    //   dispatch(getNews(filterData));
+    // }
   };
 
   useEffect(() => {
-    user && refetch();
-  }, [page, rowsPerPage, user]);
+    if (user?.role_name === 'member') {
+      dispatch(getNews(filterDataMember));
+    } else if (user?.role_name === 'ncc') {
+      dispatch(getNews(filterDataNCC));
+    } else {
+      dispatch(getNews(filterDataHome));
+    }
+  }, [JSON.stringify(filterDataMember)]);
+
+  useEffect(() => {
+    // refetch();
+  }, [page, rowsPerPage]);
 
   return (
     <>
@@ -211,7 +281,46 @@ const News = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>News</Box>
+          <Box>
+            <Box>News</Box>
+            <Box sx={{ marginTop: '10px' }}>
+              <form onClick={handleUserSearch}>
+                <input
+                  style={{
+                    padding: '5px 10px',
+                    width: '250px',
+                    border: 'none',
+                    outline: 'none'
+                    // borderRadius: '4px'
+                  }}
+                  type="text"
+                  value={inputValue}
+                  onChange={nameChangeHandler}
+                  placeholder="Search news"
+                />
+
+                <button
+                  onClick={nameClearHandler}
+                  style={
+                    inputValue
+                      ? {
+                          padding: '5px 10px',
+                          border: 'none',
+                          backgroundColor: '#fff',
+                          color: 'red'
+                        }
+                      : {
+                          padding: '5px 10px',
+                          border: 'none',
+                          backgroundColor: '#fff',
+                          color: '#fff'
+                        }
+                  }>
+                  x
+                </button>
+              </form>
+            </Box>
+          </Box>
           <Button
             startIcon={<AddIcon />}
             variant="contained"

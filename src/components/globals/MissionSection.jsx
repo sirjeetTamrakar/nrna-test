@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const MissionSection = ({ image, linkUrl, title, description }) => {
+const MissionSection = ({ image, linkUrl, title, description, viewAll }) => {
   return (
     <section className="mission" id="mission_main">
       <div className="container">
@@ -12,9 +12,11 @@ const MissionSection = ({ image, linkUrl, title, description }) => {
               dangerouslySetInnerHTML={{ __html: description || '' }}
             />
 
-            <Link to={linkUrl || `/mission`} className="view_more">
-              View More
-            </Link>
+            {!viewAll && (
+              <Link to={linkUrl || `/mission`} className="view_more">
+                View More
+              </Link>
+            )}
           </div>
           <div className="col-lg-5 col-xl-5">
             <div className="img_container text-center">

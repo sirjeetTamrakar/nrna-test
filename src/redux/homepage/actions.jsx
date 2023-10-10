@@ -193,11 +193,11 @@ export const getCandidates = (data) => (dispatch) => {
     });
 };
 
-export const getNcc = () => (dispatch) => {
+export const getNcc = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_NCC_BEGIN });
-  getNccApi()
+  getNccApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_NCC_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_NCC_SUCCESS, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_NCC_ERROR });

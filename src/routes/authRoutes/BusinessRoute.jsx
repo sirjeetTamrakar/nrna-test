@@ -7,6 +7,7 @@ export const businessRoute = [
     path: '/business/:slug',
     component: <BusinessSitePage />
   },
+
   {
     path: '/business/:slug/services',
     component: <ServiceListPage />

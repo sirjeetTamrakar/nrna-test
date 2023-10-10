@@ -15,7 +15,8 @@ const defaultState = {
   news_order_loading: false,
   delete_news_order_loading: false,
   newsOrderData: [],
-  get_news_order_loading: false
+  get_news_order_loading: false,
+  news_search: ''
 };
 
 const newsReducer = (state = defaultState, action) => {
@@ -140,6 +141,9 @@ const newsReducer = (state = defaultState, action) => {
 
     case actions.GET_NEWS_ORDER_ERROR:
       return { ...state, get_news_order_loading: false };
+
+    case actions.SEARCH_NEWS:
+      return { ...state, news_search: action.payload };
 
     default:
       return state;

@@ -216,3 +216,7 @@ export const getNewsOrder = () => (dispatch) => {
       dispatch({ type: actions.GET_NEWS_ORDER_ERROR });
     });
 };
+
+export const setNewsSearch = (data) => (dispatch) => {
+  dispatch({ type: actions.SEARCH_NEWS, payload: data });
+};

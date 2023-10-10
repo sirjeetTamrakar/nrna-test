@@ -20,6 +20,7 @@ export const nccRoute = [
     path: '/ncc/:ncc',
     component: <NccSitePage />
   },
+
   {
     path: '/ncc/:ncc/about',
     component: <AboutPage />

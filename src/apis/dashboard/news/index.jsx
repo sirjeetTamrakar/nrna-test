@@ -34,7 +34,8 @@ export const getNewsApi = (data) => {
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
   const type = data?.type ? `&newsable_type=${data?.type}&newsable_id=${data?.id}` : '';
-  return axiosInstance().get(`/admin/news${page}${pagination_limit}${type}`);
+  const search = data?.search ? `&search=${data?.search}` : '';
+  return axiosInstance().get(`/admin/news${page}${pagination_limit}${type}${search}`);
 };
 
 // post news
