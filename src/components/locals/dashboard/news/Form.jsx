@@ -7,6 +7,7 @@ import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../userManagement/redux/actions';
 import { getCategory } from './redux/actions';
 import { useStyles } from './styles';
 
@@ -29,6 +30,7 @@ const NewsForm = ({ featureImage }) => {
 
   useEffect(() => {
     dispatch(getCategory());
+    dispatch(getAllUsers());
   }, []);
 
   return (

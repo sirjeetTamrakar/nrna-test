@@ -18,7 +18,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const CustomAutoComplete = ({
+const CustomPhoneAutoComplete = ({
   name,
   label,
   placeholder = '',
@@ -77,9 +77,9 @@ const CustomAutoComplete = ({
               onChange(data?.value);
               // }
 
-              // if (phoneSelect) {
-              //   onCountrySelection(data?.code); // Pass the selected country label
-              // }
+              //   if (phoneSelect) {
+              onCountrySelection(data?.code); // Pass the selected country label
+              //   }
             }}
             renderInput={(params) => (
               <TextField
@@ -97,4 +97,4 @@ const CustomAutoComplete = ({
   );
 };
 
-export default CustomAutoComplete;
+export default CustomPhoneAutoComplete;

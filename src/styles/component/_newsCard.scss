@@ -50,12 +50,12 @@
       text-decoration: underline;
     }
   }
-  &:hover {
-    text-decoration: none;
-    .news_card_title_grid_one_business {
-      text-decoration: underline;
-    }
-  }
+  // &:hover {
+  //   text-decoration: none;
+  //   .news_card_title_grid_one_business {
+  //     text-decoration: underline;
+  //   }
+  // }
   &_content {
     flex: 1;
   }
@@ -87,6 +87,14 @@
     overflow: hidden;
     line-clamp: 2;
     height: 41px;
+  }
+  &_text_description_ncc {
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    line-clamp: 7;
+    height: 145px;
   }
   &_title_grid_one_business {
     font-size: 24px;
@@ -152,9 +160,9 @@
   &:hover &_title_grid_one {
     color: #1a518d;
   }
-  &:hover &_title_grid_one_business {
-    color: #1a518d;
-  }
+  // &:hover &_title_grid_one_business {
+  //   color: #1a518d;
+  // }
   .img_wrapper {
     width: 100%;
     height: 140px;

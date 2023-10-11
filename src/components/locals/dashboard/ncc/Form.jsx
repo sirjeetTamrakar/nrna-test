@@ -2,12 +2,14 @@ import { Box, Grid } from '@mui/material';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
-import { useSelector } from 'react-redux';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getAllUsers } from '../userManagement/redux/actions';
 import { useStyles } from './styles';
 
 const NCCForm = ({ logo }) => {
   const classes = useStyles();
-
+  const dispatch = useDispatch();
   const { countries_list } = useSelector((state) => state.ncc);
   const { users } = useSelector((state) => state.user);
 
@@ -20,6 +22,11 @@ const NCCForm = ({ logo }) => {
     label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
   }));
+
+  useEffect(() => {
+    dispatch(getAllUsers());
+  }, []);
+
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>

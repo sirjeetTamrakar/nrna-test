@@ -1,4 +1,4 @@
-import { Grid } from '@mui/material';
+import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNcc, getSiteSettings } from 'redux/homepage/actions';
@@ -10,14 +10,22 @@ const AllNCCSection = () => {
   const dispatch = useDispatch();
   const { ncc, ncc_loading, settings } = useSelector((state) => state.homepage);
   const [filteredNcc, setFilteredNcc] = useState([]);
-  const [nccLimit, setNccLimit] = useState(8);
+  const [nccLimit, setNccLimit] = useState(9);
+  const [selected, setSelected] = useState();
 
   useEffect(() => {
-    const finalData = {
-      limit: nccLimit
-    };
-    dispatch(getNcc(finalData));
-  }, []);
+    if (selected === 'ALL') {
+      const finalData = {
+        limit: nccLimit
+      };
+      dispatch(getNcc(finalData));
+    } else {
+      const finalData = {
+        continent: selected
+      };
+      dispatch(getNcc(finalData));
+    }
+  }, [nccLimit, selected]);
 
   const category = [
     {
@@ -45,7 +53,6 @@ const AllNCCSection = () => {
       slug: 'Australia'
     }
   ];
-  const [selected, setSelected] = useState();
   console.log('selected', { selected });
 
   useEffect(() => {
@@ -67,7 +74,7 @@ const AllNCCSection = () => {
   }, []);
 
   const handleShowMore = () => {
-    setNccLimit((prev) => prev + 4);
+    setNccLimit((prev) => prev + 6);
   };
 
   return (
@@ -90,21 +97,21 @@ const AllNCCSection = () => {
                       </Grid>
                       <Grid item sm={7}>
                         <Grid container spacing={2} item>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredNcc?.slice(0, 1)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredNcc?.slice(1, 2)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredNcc?.slice(2, 3)?.map((item) => (
                               // <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
@@ -112,8 +119,43 @@ const AllNCCSection = () => {
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredNcc?.slice(3, 4)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <NCCItem nccItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredNcc?.slice(4, 5)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <NCCItem nccItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredNcc?.slice(5, 6)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <NCCItem nccItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredNcc?.slice(6, 7)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <NCCItem nccItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredNcc?.slice(7, 8)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                                <NCCItem nccItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredNcc?.slice(8, 9)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
@@ -122,12 +164,11 @@ const AllNCCSection = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {filteredNcc?.slice(4)?.map((item) => (
+                    {filteredNcc?.slice(9)?.map((item) => (
                       <div
                         key={item.id}
-                        className="col-xl-3 col-lg-4 col-sm-6 col-12"
+                        className="col-xl-2 col-lg-3 col-sm-6 col-12"
                         style={{ marginTop: '-30px' }}>
-                        {/* <BusinessItem businessItem={item} /> */}
                         <NCCItem nccItem={item} />
                       </div>
                     ))}
@@ -143,6 +184,30 @@ const AllNCCSection = () => {
                     </div>
                   ))
                 )}
+                <>
+                  {ncc?.meta?.to !== ncc?.meta?.total && !ncc_loading && (
+                    <div
+                      style={{
+                        marginTop: '20px',
+                        marginBottom: '20px',
+                        width: '100%',
+                        display: 'flex',
+                        justifyContent: 'center'
+                      }}>
+                      <Button
+                        style={{
+                          border: 'none',
+                          backgroundColor: '#E1F5FF',
+                          color: '#6F83CE',
+                          padding: '10px 20px',
+                          borderRadius: '4px'
+                        }}
+                        onClick={handleShowMore}>
+                        Show More
+                      </Button>
+                    </div>
+                  )}
+                </>
               </>
             ) : (
               ''
@@ -167,6 +232,17 @@ const AllNCCSection = () => {
             </div>
           )} */}
           </div>
+          {ncc_loading ? (
+            <Box display="flex" justifyContent="center" alignItems="center">
+              <CircularProgress size={24} />
+            </Box>
+          ) : (
+            filteredNcc?.length === 0 && (
+              <div className="col-md-12 mt-5 mb-5">
+                <h3 className="text-center">No ncc available</h3>
+              </div>
+            )
+          )}
         </div>
       </section>
     </>

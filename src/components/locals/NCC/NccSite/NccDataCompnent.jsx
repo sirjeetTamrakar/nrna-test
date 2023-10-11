@@ -4,8 +4,9 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
 import { getAllHomeData, getSingleHomeData, getSiteSettings } from 'redux/homepage/actions';
-import BusinessNav from './BusinessNav';
-const BusinessDataComponent = () => {
+import NccNav from './NccNav';
+
+const NccDataComponent = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
 
@@ -13,7 +14,7 @@ const BusinessDataComponent = () => {
   console.log('ssssssss', { home_data, slug });
   useEffect(() => {
     const finalData = {
-      type: 'business',
+      type: 'ncc',
       id: 1
     };
     dispatch(getAllHomeData(finalData));
@@ -31,7 +32,7 @@ const BusinessDataComponent = () => {
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
     title: item?.tabtitle,
     value: item?.slug,
-    clickFunction: () => handleFunction(`/nrna/business/${item.slug}`)
+    clickFunction: () => handleFunction(`/nrna/ncc/${item.slug}`)
   }));
   // const options = [
   //   { title: 'Home', value: 'home', clickFunction: () => handleFunction('/nrna/business') }
@@ -44,7 +45,7 @@ const BusinessDataComponent = () => {
   const allOptions = [...homeOptions];
   return (
     <>
-      <BusinessNav
+      <NccNav
         category={allOptions}
         setSelected={setSelected}
         selected={selected}
@@ -83,4 +84,4 @@ const BusinessDataComponent = () => {
   );
 };
 
-export default BusinessDataComponent;
+export default NccDataComponent;

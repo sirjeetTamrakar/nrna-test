@@ -122,8 +122,21 @@ export const getCandidatesApi = (data) => {
 
 // get ncc
 export const getNccApi = (data) => {
-  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
-  return axiosInstance().get(`/api/ncc${limit}`);
+  const limit = data?.continent
+    ? data?.limit
+      ? `&pagination_limit=${data?.limit}`
+      : ''
+    : data?.limit
+    ? `?pagination_limit=${data?.limit}`
+    : '';
+  const continent = data?.limit
+    ? data?.continent
+      ? `&continent=${data?.continent}`
+      : ''
+    : data?.continent
+    ? `?continent=${data?.continent}`
+    : '';
+  return axiosInstance().get(`/api/ncc${limit}${continent}`);
 };
 
 // get single news

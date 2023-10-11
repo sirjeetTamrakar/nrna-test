@@ -1,7 +1,7 @@
 import { Box, Grid } from '@mui/material';
+import CustomEditor from 'components/common/CustomEditor';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
-import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useStyles } from './styles';
 
 const BannerForm = ({ banner_image }) => {
@@ -29,7 +29,8 @@ const BannerForm = ({ banner_image }) => {
           />
         </Grid>
         <Grid item sm={12}>
-          <CustomTextArea name="description" label="Description" />
+          {/* <CustomTextArea name="description" label="Description" /> */}
+          <CustomEditor name="description" />
         </Grid>
       </Grid>
     </Box>

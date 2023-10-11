@@ -13,7 +13,7 @@ const Business = () => {
   console.log('dasldsalda', business_category?.[0]?.id);
   const [filteredBusiness, setFilteredBusiness] = useState();
   const [allFilteredBusiness, setAllFilteredBusiness] = useState();
-  const [businessLimit, setBusinessLimit] = useState(4);
+  const [businessLimit, setBusinessLimit] = useState(9);
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
   useEffect(() => {
@@ -90,21 +90,21 @@ const Business = () => {
                       </Grid>
                       <Grid item sm={7}>
                         <Grid container spacing={2} item>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredBusiness?.slice(0, 1)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <BusinessItem businessItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredBusiness?.slice(1, 2)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <BusinessItem businessItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredBusiness?.slice(2, 3)?.map((item) => (
                               // <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
@@ -112,9 +112,49 @@ const Business = () => {
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={6}>
+                          <Grid item sm={4}>
                             {filteredBusiness?.slice(3, 4)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-30px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                                {/* <BusinessItem businessItem={item} /> */}
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredBusiness?.slice(4, 5)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                                {/* <BusinessItem businessItem={item} /> */}
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredBusiness?.slice(5, 6)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                                {/* <BusinessItem businessItem={item} /> */}
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredBusiness?.slice(6, 7)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                                {/* <BusinessItem businessItem={item} /> */}
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredBusiness?.slice(7, 8)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                                {/* <BusinessItem businessItem={item} /> */}
+                                <BusinessItem businessItem={item} />
+                              </div>
+                            ))}
+                          </Grid>
+                          <Grid item sm={4}>
+                            {filteredBusiness?.slice(8, 9)?.map((item) => (
+                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>
@@ -123,7 +163,7 @@ const Business = () => {
                         </Grid>
                       </Grid>
                     </Grid>
-                    {filteredBusiness?.slice(4)?.map((item) => (
+                    {filteredBusiness?.slice(9)?.map((item) => (
                       <div
                         key={item.id}
                         className="col-xl-3 col-lg-4 col-sm-6 col-12"

@@ -2,10 +2,10 @@ import { Box, Button, Container, Grid, Typography } from '@mui/material';
 import CircularProgress from '@mui/material/CircularProgress';
 import Tooltip from '@mui/material/Tooltip';
 import CustomModal from 'components/common/CustomModal/CustomModal';
-import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
+import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoComplete';
 import Login from 'components/globals/login';
 import PageBanner from 'components/globals/PageBanner';
 import Register from 'components/globals/register';
@@ -256,7 +256,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
         />
       </Grid>
       <Grid item sm={6}>
-        <CustomAutoComplete
+        <CustomPhoneAutoComplete
           placeholder="Country of residence"
           name="country_of_residence"
           label="Country of residence"

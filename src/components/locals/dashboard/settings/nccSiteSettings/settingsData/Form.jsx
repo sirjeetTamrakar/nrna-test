@@ -30,7 +30,7 @@ const SettingsDataForm = () => {
       setValue('ncc_title', site_settings?.ncc_title);
       setValue('ncc_banner_title', site_settings?.ncc_banner_title);
       setValue('ncc_banner_subtitle', site_settings?.ncc_banner_subtitle);
-      setValue('ncc_description', site_settings?.tagline_author);
+      setValue('ncc_description', site_settings?.ncc_description);
     }
   }, [site_settings]);
 

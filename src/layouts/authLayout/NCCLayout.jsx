@@ -14,7 +14,7 @@ const NCCLayout = () => {
   const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    const single = ncc?.find((list) => list?.slug == slug);
+    const single = ncc?.data?.find((list) => list?.slug == slug);
 
     single?.id && dispatch(getSiteSettings({ type: 'ncc', id: single?.id }));
   }, [ncc]);
