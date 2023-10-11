@@ -167,7 +167,7 @@ const AllNCCSection = () => {
                     {filteredNcc?.slice(9)?.map((item) => (
                       <div
                         key={item.id}
-                        className="col-xl-2 col-lg-3 col-sm-6 col-12"
+                        className="col-xl-3 col-lg-3 col-sm-6 col-12"
                         style={{ marginTop: '-30px' }}>
                         <NCCItem nccItem={item} />
                       </div>

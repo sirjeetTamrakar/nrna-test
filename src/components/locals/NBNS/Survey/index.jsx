@@ -6,8 +6,8 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoComplete';
-import Login from 'components/globals/login';
 import PageBanner from 'components/globals/PageBanner';
+import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
@@ -93,14 +93,14 @@ const Survey = () => {
       <Container>
         <Box className={classes.root}>
           <Box>
-            <Box className={classes.headerWrapper}>
+            {/* <Box className={classes.headerWrapper}>
               <Typography className={classes.title}>
                 Elevate Your Voice: Join Our Survey Today!
               </Typography>
               <Typography className={classes.subtitle}>
                 Nepali Lineage Citizenship Association
               </Typography>
-            </Box>
+            </Box> */}
             <Box textAlign="center" marginTop={4}>
               {/* {isLoggedIn() ? ( */}
               {/* <Button variant="contained" onClick={startSurvey}>
@@ -133,7 +133,7 @@ const Survey = () => {
                                 }}>
                                 <p
                                   style={{
-                                    fontSize: '14px',
+                                    fontSize: '20px',
                                     fontWeight: '600',
                                     marginTop: '13px',
                                     marginBottom: '6px',
@@ -146,14 +146,11 @@ const Survey = () => {
                                 </p>
                                 <p
                                   style={{
-                                    fontSize: '12px',
+                                    fontSize: '16px',
                                     fontWeight: '400',
-                                    height: '35px',
                                     textAlign: 'start'
                                   }}>
-                                  {item?.description?.length < 44
-                                    ? item?.description
-                                    : `${item?.description?.substring(0, 45)}...`}
+                                  {item?.description}
                                 </p>
                               </div>
                               <Button

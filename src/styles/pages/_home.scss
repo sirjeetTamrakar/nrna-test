@@ -246,22 +246,26 @@
       img {
         height: inherit;
         width: inherit;
-        object-fit: cover;
+        object-fit: contain;
         overflow: hidden;
       }
     }
     &_title {
-      font-size: 16px;
+      font-size: 15px;
       font-weight: '600';
       color: $secondary-text;
-      padding: 2px 5px 0px 5px;
+      padding: 2px 8px 0px 8px;
+      display: -webkit-box;
+      -webkit-line-clamp: 1;
+      -webkit-box-orient: vertical;  
+      overflow: hidden;
     }
     &_smallTitle {
       font-size: 11px;
       font-weight: '400';
-      color: #a3a3a3;
+      color: #615f5f;
       // color: $secondary-text;
-      padding: 2px 5px 0px 5px;
+      padding: 2px 8px 0px 8px;
     }
     &_subtitle {
       padding: 0px 15px 15px 15px;
