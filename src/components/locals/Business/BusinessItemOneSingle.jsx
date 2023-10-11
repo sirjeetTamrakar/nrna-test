@@ -9,6 +9,7 @@ import BusinessNav from './BusinessNav';
 
 const BusinessItemOneSingle = () => {
   const dispatch = useDispatch();
+
   const { settings, banners, home_data } = useSelector((state) => state.homepage);
   console.log('ssssssss', { home_data });
   useEffect(() => {

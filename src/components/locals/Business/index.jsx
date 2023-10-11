@@ -114,7 +114,7 @@ const Business = () => {
                           </Grid>
                           <Grid item sm={4}>
                             {filteredBusiness?.slice(3, 4)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-60px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>
@@ -122,7 +122,7 @@ const Business = () => {
                           </Grid>
                           <Grid item sm={4}>
                             {filteredBusiness?.slice(4, 5)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-60px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>
@@ -130,7 +130,7 @@ const Business = () => {
                           </Grid>
                           <Grid item sm={4}>
                             {filteredBusiness?.slice(5, 6)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-60px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>
@@ -138,7 +138,7 @@ const Business = () => {
                           </Grid>
                           <Grid item sm={4}>
                             {filteredBusiness?.slice(6, 7)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-60px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>
@@ -146,7 +146,7 @@ const Business = () => {
                           </Grid>
                           <Grid item sm={4}>
                             {filteredBusiness?.slice(7, 8)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-60px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>
@@ -154,7 +154,7 @@ const Business = () => {
                           </Grid>
                           <Grid item sm={4}>
                             {filteredBusiness?.slice(8, 9)?.map((item) => (
-                              <div key={item.id} className="" style={{ marginTop: '-50px' }}>
+                              <div key={item.id} className="" style={{ marginTop: '-60px' }}>
                                 {/* <BusinessItem businessItem={item} /> */}
                                 <BusinessItem businessItem={item} />
                               </div>

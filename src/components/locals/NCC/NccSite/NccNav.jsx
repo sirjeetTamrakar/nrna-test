@@ -5,7 +5,7 @@ import { useStyles } from './styles';
 const NccNav = ({ category, selected, setSelected, setSearch }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  console.log({ category });
+  console.log({ category, selected });
 
   const checkActive = (slug) => {
     if (selected) {
@@ -18,9 +18,9 @@ const NccNav = ({ category, selected, setSelected, setSearch }) => {
       return '';
     }
   };
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
+  // const handleSearch = (e) => {
+  //   setSearch(e.target.value);
+  // };
   const handleSetSelected = (slug) => {
     setSelected(slug);
 

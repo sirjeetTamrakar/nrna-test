@@ -161,6 +161,12 @@ const HomeData = () => {
     if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
+    typeData = {
+      homedataable_type: 'business',
+      homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id,
+      page: 1,
+      pagination_limit: 10
+    };
     dispatch(updateHomeDataStatus(finalData, statusOpenFunction, typeData));
   };
 
@@ -169,6 +175,13 @@ const HomeData = () => {
     if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
+    typeData = {
+      homedataable_type: 'business',
+      homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id,
+      page: 1,
+      pagination_limit: 10
+    };
+
     dispatch(deleteHomeData(slug, deleteOpenFunction, typeData));
   };
 

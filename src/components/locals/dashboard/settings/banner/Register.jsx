@@ -24,7 +24,7 @@ const Register = ({ handleClose }) => {
     formData.append('title', data?.title);
     formData.append('subtitle', data?.subtitle);
     formData.append('description', data?.description);
-    formData.append('link', data?.link);
+    formData.append('link', data?.link ?? '');
     formData.append('status', 1);
 
     if (user?.role_name === Roles.NCC) {

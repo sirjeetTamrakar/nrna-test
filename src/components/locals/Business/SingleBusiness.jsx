@@ -55,6 +55,12 @@ const BusinessProfile = () => {
           backgroundPosition: 'center',
           backgroundSize: 'cover'
         }}></div>
+      {/* <BannerBusinessSection
+        banners={single_business?.banner_image}
+        data={single_business}
+        singleBanner
+      /> */}
+
       <div className="container">
         <div className="candidate_page">
           <div className="candidate_page_lower_banner">

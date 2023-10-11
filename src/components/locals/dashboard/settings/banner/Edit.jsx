@@ -22,7 +22,7 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('title', data?.title);
     formData.append('subtitle', data?.subtitle);
     formData.append('description', data?.description);
-    formData.append('link', data?.link);
+    formData.append('link', data?.link ?? '');
     formData.append('status', 1);
     formData.append('_method', 'PUT');
 

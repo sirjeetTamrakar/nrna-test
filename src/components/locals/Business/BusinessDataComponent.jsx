@@ -3,7 +3,7 @@ import TaglineSection from 'components/globals/TaglineSection';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate, useParams } from 'react-router';
-import { getAllHomeData, getSingleHomeData, getSiteSettings } from 'redux/homepage/actions';
+import { getAllHomeData, getSingleHomeData } from 'redux/homepage/actions';
 import BusinessNav from './BusinessNav';
 const BusinessDataComponent = () => {
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const BusinessDataComponent = () => {
       id: 1
     };
     dispatch(getAllHomeData(finalData));
-    dispatch(getSiteSettings());
+    // dispatch(getSiteSettings());
   }, []);
 
   const [selected, setSelected] = useState('home');
