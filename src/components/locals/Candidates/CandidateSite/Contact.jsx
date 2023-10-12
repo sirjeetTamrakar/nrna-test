@@ -109,16 +109,16 @@ const FormComponent = ({ singleUser, loading }) => {
     <Box className={classes.contactRoot}>
       <CustomForm onSubmit={submitHandler}>
         <Grid container spacing={2} sx={{ marginTop: '20px' }}>
-          <Grid item sm={12}>
+          <Grid item className="col-md-12" style={{ paddingRight: '0px' }}>
             <CustomInput name="name" label="Name" placeholder="Enter your name" />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item className="col-md-12 col-lg-6" style={{ paddingRight: '0px' }}>
             <CustomInput name="email" label="Email" type="email" placeholder="Enter your email" />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item className="col-md-12 col-lg-6" style={{ paddingRight: '0px' }}>
             <CustomInput name="phone" type="text" label="Phone" placeholder="Enter your phone" />
           </Grid>
-          <Grid item sm={12}>
+          <Grid item className="col-md-12" style={{ paddingRight: '0px' }}>
             <CustomTextArea
               name="message"
               label="Description"
@@ -126,7 +126,7 @@ const FormComponent = ({ singleUser, loading }) => {
               rows={5}
             />
           </Grid>
-          <Grid item sm={12}>
+          <Grid item className="col-md-12">
             <Box className={classes.footerRoot}>
               <CustomButton buttonName="Submit Form" loading={loading} />
             </Box>

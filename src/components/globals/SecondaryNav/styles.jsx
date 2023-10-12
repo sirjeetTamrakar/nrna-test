@@ -2,7 +2,10 @@ import { makeStyles } from '@mui/styles';
 
 export const useStyles = makeStyles((theme) => ({
   root: {
-    background: '#276fc4'
+    background: '#276fc4',
+    [theme.breakpoints.down('md')]: {
+      // background: 'red'
+    }
   },
   header: {
     display: 'flex',
@@ -21,7 +24,10 @@ export const useStyles = makeStyles((theme) => ({
     color: '#fff',
     fontWeight: '600 !important',
     lineHeight: '25px !important',
-    paddingTop: '15px'
+    paddingTop: '15px',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '22px !important'
+    }
   },
   list: {
     listStyle: 'none',
@@ -40,6 +46,11 @@ export const useStyles = makeStyles((theme) => ({
       '&.active': {
         borderBottom: '4px solid #fff'
       }
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '90%',
+      overflow: 'scroll',
+      overflowY: 'hidden'
     }
   }
 }));

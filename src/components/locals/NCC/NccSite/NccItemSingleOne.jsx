@@ -9,6 +9,12 @@ import NccNav from './NccNav';
 
 const NccItemOneSingle = () => {
   const dispatch = useDispatch();
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const { settings, banners, home_data } = useSelector((state) => state.homepage);
   console.log('ssssssss', { home_data });
   useEffect(() => {

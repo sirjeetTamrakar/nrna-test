@@ -22,19 +22,19 @@ const Form = ({ defaultValues }) => {
     <Box className="contact_form">
       <CustomForm onSubmit={onSubmit}>
         <Grid container spacing={2}>
-          <Grid item sm={12}>
+          <Grid item className="col-md-12" style={{ paddingRight: '0px' }}>
             <CustomInput name="name" label="Full Name" required />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item className="col-md-6" style={{ paddingRight: '0px' }}>
             <CustomInput name="email" label="Email" type="email" required />
           </Grid>
-          <Grid item sm={6}>
+          <Grid item className="col-md-6" style={{ paddingRight: '0px' }}>
             <CustomInput name="phone" label="Phone Number" type="text" />
           </Grid>
-          <Grid item sm={12}>
+          <Grid item className="col-md-12" style={{ paddingRight: '0px' }}>
             <CustomInput name="subject" label="Subject" required />
           </Grid>
-          <Grid item sm={12}>
+          <Grid item className="col-md-12" style={{ paddingRight: '0px' }}>
             <CustomInput name="message" label="Message" multiline rows={4} required />
           </Grid>
         </Grid>
@@ -47,7 +47,7 @@ const Form = ({ defaultValues }) => {
               </Box>
             </button>
           ) : (
-            <button type="submit" className="btn-md">
+            <button type="submit" className="btn-md col-md-2" style={{ justifyContent: 'center' }}>
               Send
             </button>
           )}

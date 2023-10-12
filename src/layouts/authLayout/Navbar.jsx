@@ -20,6 +20,7 @@ import useStyles from './styles';
 
 function Navbar({ isHomePage, currentUser, sticky }) {
   const navigate = useNavigate();
+
   const openNav = () => {
     // Implement openNav logic here
   };
@@ -94,7 +95,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 </Link>
               </li>
 
-              <li>
+              <li className="navbar-dashboard-btn">
                 {isLoggedIn() ? (
                   <button className="btn-md" onClick={goToDashboard}>
                     Dashboard
@@ -112,7 +113,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
               </li>
 
               <li className="d-block d-lg-none">
-                <span onClick={openNav}>
+                <span onClick={() => openNav()}>
                   <SegmentIcon />
                 </span>
               </li>

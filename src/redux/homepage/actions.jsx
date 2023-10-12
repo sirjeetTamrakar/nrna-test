@@ -163,7 +163,7 @@ export const getTeams = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_OUR_TEAM_BEGIN });
   getTeamsApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_OUR_TEAM_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_OUR_TEAM_SUCCESS, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_OUR_TEAM_ERROR });
@@ -186,7 +186,7 @@ export const getCandidates = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_CANDIDATE_BEGIN });
   getCandidatesApi(data)
     .then((res) => {
-      dispatch({ type: actions.FETCH_CANDIDATE_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.FETCH_CANDIDATE_SUCCESS, payload: res.data });
     })
     .catch((err) => {
       dispatch({ type: actions.FETCH_CANDIDATE_ERROR });

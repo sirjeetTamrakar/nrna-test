@@ -106,7 +106,15 @@ export const getBannerApi = (data) => {
 
 export const getTeamsApi = (data) => {
   const id = data?.ncc_id ? `?ncc_id=${data?.ncc_id}` : '';
-  return axiosInstance().get(`/api/our-teams${id}`);
+  const limit = data?.id
+    ? data?.limit
+      ? `&pagination_limit=${data?.limit}`
+      : ''
+    : data?.limit
+    ? `?pagination_limit=${data?.limit}`
+    : '';
+  const category_id = data?.category_id ? `&category_id=${data?.category_id}` : '';
+  return axiosInstance().get(`/api/our-teams${id}${limit}${category_id}`);
 };
 
 // get single news
@@ -116,8 +124,15 @@ export const getSingleTeamsApi = (slug) => {
 
 // get candidates
 export const getCandidatesApi = (data) => {
-  const country = data?.country ? `?country=${data?.country}` : '';
-  return axiosInstance().get(`/api/ncc-candidates${country}`);
+  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
+  const country = data?.limit
+    ? data?.country
+      ? `&country=${data?.country}`
+      : ''
+    : data?.country
+    ? `?country=${data?.country}`
+    : '';
+  return axiosInstance().get(`/api/ncc-candidates${country}${limit}`);
 };
 
 // get ncc

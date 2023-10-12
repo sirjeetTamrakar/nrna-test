@@ -104,7 +104,7 @@ const CandidateSite = () => {
           </div>
           <div className="candidate_page_wrapper">
             <Grid container spacimg={2}>
-              <Grid item sm={4}>
+              <Grid item className="col-lg-4">
                 <div className="candidate_page_sidebar">
                   <ul className="contact_list" style={{ width: '330px' }}>
                     <li className="contact_list_title_box">
@@ -137,9 +137,10 @@ const CandidateSite = () => {
                   </ul>
                 </div>
               </Grid>
-              <Grid item sm={8}>
+              <Grid item className="col-lg-8 about_data">
                 {/* <CandidateTabs /> */}
-                <Box sx={{ backgroundColor: '#F9F9FB', marginTop: '12px', padding: '20px' }}>
+                <Box
+                  sx={{ backgroundColor: '#F9F9FB', marginTop: '12px', padding: '20px', order: 2 }}>
                   <About data={single_user?.description} />
                 </Box>
               </Grid>

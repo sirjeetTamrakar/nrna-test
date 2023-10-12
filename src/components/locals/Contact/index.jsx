@@ -17,24 +17,24 @@ const Contact = ({ siteSettings, handleSubmit }) => {
       <section className="contact_page" id="contact_main">
         <div className="container">
           <div className="row">
-            <div className="col-md-3 offset-md-1">
+            <div className="col-md-3 offset-md-1 contact_content_box">
               <div className="contact_content">
                 <div className="contact_content_title">Contact Information</div>
                 <div className="contact_content_subtitle">
                   Fill up the form to get in touch with the NRNA Global team.
                 </div>
                 <ul className="contact_list">
-                  <li>
+                  <li className="contact_list_item_box">
                     <LocationOnIcon />
                     <span className="contact_list_item">{settings?.address || ''}</span>
                   </li>
-                  <li>
+                  <li className="contact_list_item_box">
                     <PhoneIcon />
                     <span className="contact_list_item">{settings?.phone || ''}</span>
                   </li>
-                  <li>
+                  <li className="contact_list_item_box">
                     <EmailIcon />
-                    <span className="contact_list_item">{settings?.email || ''}</span>
+                    <span className="contact_list_item">{settings?.email || ''}kkkkk</span>
                   </li>
                 </ul>
               </div>

@@ -32,7 +32,12 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
           <Typography variant="h5" className={classes.title}>
             Business
           </Typography>
-          <TextField placeholder="Search" name="search" onChange={handleSearch} />
+          <TextField
+            className={classes.search_bar}
+            placeholder="Search"
+            name="search"
+            onChange={handleSearch}
+          />
         </Box>
         <ul className={classes.list}>
           <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>

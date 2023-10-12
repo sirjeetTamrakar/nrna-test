@@ -28,16 +28,16 @@ const SecondaryNav = ({ options, selected, title, color, setSelected }) => {
     }
   };
   return (
-    <Box className={classes.root} sx={color && { backgroundColor: color }}>
+    <Box className={`${classes.root} second-nav-root`} sx={color && { backgroundColor: color }}>
       <Container>
         {title && (
-          <Box className={classes.header}>
+          <Box className={`${classes.header} second-nav-title`}>
             <Typography variant="h5" className={classes.title}>
               {title}
             </Typography>
           </Box>
         )}
-        <ul className={classes.list}>
+        <ul className={`${classes.list} second-nav-list`}>
           {options?.map((list, index) => (
             <li
               className={checkActive(list?.value)}

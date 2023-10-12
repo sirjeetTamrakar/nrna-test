@@ -6,8 +6,8 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoComplete';
-import PageBanner from 'components/globals/PageBanner';
 import Login from 'components/globals/login';
+import PageBanner from 'components/globals/PageBanner';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
@@ -82,6 +82,10 @@ const Survey = () => {
     dispatch(getAllSurvey());
   }, []);
 
+  const defaultValues = {
+    country_of_residence: ''
+  };
+
   return (
     <>
       <PageBanner
@@ -114,7 +118,7 @@ const Survey = () => {
                   {survey?.length !== 0 ? (
                     survey?.map((item) => {
                       return (
-                        <Grid item sm={3} key={survey?.id}>
+                        <Grid item className="col-sm-6 col-md-4" key={survey?.id}>
                           <div
                             style={{
                               boxShadow: '0px 8px 20px 0px rgba(18, 17, 39, 0.10)',
@@ -137,6 +141,7 @@ const Survey = () => {
                                     fontWeight: '600',
                                     marginTop: '13px',
                                     marginBottom: '6px',
+                                    paddingBottom: '60px',
                                     height: '40px',
                                     textAlign: 'start'
                                   }}>
@@ -198,7 +203,9 @@ const Survey = () => {
         padding
         titlePadding
         width={`40rem`}>
-        <CustomFormProvider resolver={useYupValidationResolver(validationSchema)}>
+        <CustomFormProvider
+          resolver={useYupValidationResolver(validationSchema)}
+          defaultValues={defaultValues}>
           <CustomForm onSubmit={onSubmitDetails}>
             <FormComponent
               handleCancel={handleCancel}
@@ -227,7 +234,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
 
   return (
     <Grid container spacing={2}>
-      <Grid item sm={6}>
+      <Grid item className="col-md-6" style={{ marginRight: '0px' }}>
         <CustomInput
           name="first_name"
           label="First Name"
@@ -235,7 +242,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
           required
         />
       </Grid>
-      <Grid item sm={6}>
+      <Grid item className="col-md-6" style={{ marginRight: '0px' }}>
         <CustomInput
           name="last_name"
           label="Last Name"
@@ -243,7 +250,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
           required
         />
       </Grid>
-      <Grid item sm={6}>
+      <Grid item className="col-md-6" style={{ marginRight: '0px' }}>
         <CustomInput
           name="email"
           label="Email"
@@ -252,7 +259,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
           required
         />
       </Grid>
-      <Grid item sm={6}>
+      <Grid item className="col-md-6" style={{ marginRight: '0px' }}>
         <CustomPhoneAutoComplete
           placeholder="Country of residence"
           name="country_of_residence"
@@ -264,7 +271,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
         />
       </Grid>
 
-      <Grid item sm={12}>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
         <CustomInput
           name="phone"
           label="Phone Number"
@@ -284,7 +291,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
         </div> */}
       </Grid>
 
-      <Grid item sm={6} sx={{ marginTop: '20px' }}>
+      <Grid item className="col-md-6" sx={{ marginTop: '20px' }}>
         <Button
           onClick={() => handleCancel()}
           variant="outlined"
@@ -293,7 +300,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
           Cancel
         </Button>
       </Grid>
-      <Grid item sm={6} sx={{ marginTop: '20px' }}>
+      <Grid item className="col-md-6" sx={{ marginTop: '20px' }}>
         <Tooltip title={'Fill up all the fields before submitting'}>
           <Button
             type="submit"

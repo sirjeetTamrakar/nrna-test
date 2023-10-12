@@ -4,6 +4,8 @@ import { useStyles } from './styles';
 const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
   const classes = useStyles();
 
+  console.log({ departments });
+
   const checkActive = (slug) => {
     if (selected) {
       if (slug === selected) {
@@ -19,6 +21,9 @@ const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+  const handleSetSelected = (slug) => {
+    setSelected(slug);
+  };
   return (
     <Box className={classes.root}>
       <Container>
@@ -30,7 +35,10 @@ const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
         </Box>
         <ul className={classes.list}>
           {departments?.map((list, index) => (
-            <li className={checkActive(list?.id)} key={index} onClick={() => setSelected(list?.id)}>
+            <li
+              className={checkActive(list?.id)}
+              key={index}
+              onClick={() => handleSetSelected(list?.id)}>
               {list?.title}
             </li>
           ))}

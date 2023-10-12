@@ -37,7 +37,7 @@ const BannerSection = ({ banners }) => {
                               className="btn-lg"
                               rel="noreferrer">
                               View More
-                              <EastIcon />
+                              <EastIcon className="button_wrapper_icon" />
                             </a>
                           </div>
                         )}

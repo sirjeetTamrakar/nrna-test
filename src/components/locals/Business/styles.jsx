@@ -20,8 +20,14 @@ export const useStyles = makeStyles((theme) => ({
     fontSize: '24px !important',
     color: '#fff',
     fontWeight: '600 !important',
-    lineHeight: '80% !important'
+    lineHeight: '80% !important',
+    [theme.breakpoints.down('sm')]: {
+      fontSize: '22px !important'
+    }
   },
+  // search_bar: {
+  //   [theme.breakpoints.down('sm')]: {}
+  // },
   list: {
     listStyle: 'none',
     display: 'flex',
@@ -38,6 +44,11 @@ export const useStyles = makeStyles((theme) => ({
       '&.active': {
         borderBottom: '4px solid #fff'
       }
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '90%',
+      overflow: 'scroll',
+      overflowY: 'hidden'
     }
   },
   serviceRoot: {
