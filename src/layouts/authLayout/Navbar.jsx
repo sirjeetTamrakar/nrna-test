@@ -14,6 +14,7 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
+import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { isLoggedIn } from 'utils';
 import useStyles from './styles';
@@ -21,12 +22,17 @@ import useStyles from './styles';
 function Navbar({ isHomePage, currentUser, sticky }) {
   const navigate = useNavigate();
 
+  const [isSidenavOpen, setIsSidenavOpen] = useState(false); // State to track sidenav open/close
+  const [activeLink, setActiveLink] = useState(null); // State to track the active link
+
   const openNav = () => {
     // Implement openNav logic here
+    setIsSidenavOpen(true); // Open the sidenav
   };
 
   const closeNav = () => {
     // Implement closeNav logic here
+    setIsSidenavOpen(false); // Close the sidenav
   };
   const classes = useStyles();
 
@@ -36,6 +42,32 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   const goToDashboard = () => {
     navigate('/dashboard');
   };
+
+  const handleLinkClick = (link) => {
+    setActiveLink(link);
+    setIsSidenavOpen(false);
+  };
+
+  const handleLoginClick = () => {
+    closeNav(); // Close the sidenav when "Login" is clicked
+    openFunction(); // Open the login modal
+  };
+
+  const handleRegisterClick = () => {
+    closeNav(); // Close the sidenav when "Register" is clicked
+    openFunctionRegister(); // Open the register modal
+  };
+
+  const sideNavItems = [
+    { title: 'Home', link: '/', value: 'home' },
+    { title: 'NBNS', link: '/nbns', value: 'nbns' },
+    { title: 'Our Team', link: '/our-team', value: 'our-team' },
+    { title: 'Business', link: '/business', value: 'business' },
+    { title: 'NCC', link: '/ncc', value: 'ncc' },
+    { title: 'News', link: '/news', value: 'news' },
+    { title: 'Events', link: '/events', value: 'events' },
+    { title: 'Contact', link: '/nrna/contact', value: 'contact' }
+  ];
 
   return (
     <>
@@ -121,20 +153,33 @@ function Navbar({ isHomePage, currentUser, sticky }) {
           </div>
         </div>
       </div>
-      <div id="mySidenav" className="sidenav">
+      <div id="mySidenav" className={`sidenav ${isSidenavOpen ? 'open' : ''}`}>
         <a className="closebtn" onClick={closeNav}>
           &times;
         </a>
-        <a href="#">Home</a>
-        <a href="#about_main">About</a>
-        <a href="#">Candidates</a>
-        <a href="#">NCC</a>
-        <a href="#">News</a>
-        <a href="#">Event</a>
-        <a href="#contact_main">Contact</a>
-        <a href="#" className="btn-md">
+        {sideNavItems?.map((item, index) => {
+          return (
+            <Link
+              key={index}
+              to={item?.link}
+              onClick={() => handleLinkClick(item?.value)}
+              className={activeLink === item?.value ? 'active' : ''}>
+              {item?.title}
+            </Link>
+          );
+        })}
+
+        <Box className="sideNavRegisterBox">
+          <button className="col-6 btn-md sidebarLogin" onClick={handleLoginClick}>
+            <PersonIcon /> Login
+          </button>
+          <button className="col-6 btn-md-contained sidebarRegister" onClick={handleRegisterClick}>
+            <PersonAddIcon /> Join Us
+          </button>
+        </Box>
+        {/* <a href="#" className="btn-md">
           Back To Home
-        </a>
+        </a> */}
       </div>
       <CustomModal open={open} handleClose={openFunction} width={`22rem`}>
         <Login handleClose={openFunction} registerOpen={openFunctionRegister} />
