@@ -77,7 +77,7 @@ const Business = () => {
                 {selected === 'ALL' ? (
                   <>
                     <Grid container spacing={0} sx={{ marginBottom: '20px' }}>
-                      <Grid item className="col-md-12 col-lg-5">
+                      <Grid item className="col-md-12 col-lg-5 business_grid_one">
                         {/* {filteredBusiness?.slice(0, 1)?.map((item) => ( */}
                         <div className="businessGridOne">
                           <BusinessItemOne

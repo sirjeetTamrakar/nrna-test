@@ -9,6 +9,7 @@ import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoCompl
 import Login from 'components/globals/login';
 import PageBanner from 'components/globals/PageBanner';
 import Register from 'components/globals/register';
+import useScreenSize from 'hooks/useScreenSize';
 import useToggle from 'hooks/useToggle';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
@@ -86,6 +87,9 @@ const Survey = () => {
     country_of_residence: ''
   };
 
+  const screenSize = useScreenSize();
+  console.log({ screenSize });
+
   return (
     <>
       <PageBanner
@@ -150,6 +154,7 @@ const Survey = () => {
                                     : `${item?.title?.substring(0, 50)}...`}
                                 </p>
                                 <p
+                                  className="survey_description"
                                   style={{
                                     fontSize: '16px',
                                     fontWeight: '400',
@@ -202,7 +207,7 @@ const Survey = () => {
         nonClose
         padding
         titlePadding
-        width={`40rem`}>
+        width={`${screenSize?.width < 710 ? '20rem' : '40rem'}`}>
         <CustomFormProvider
           resolver={useYupValidationResolver(validationSchema)}
           defaultValues={defaultValues}>

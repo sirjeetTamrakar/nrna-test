@@ -1,4 +1,4 @@
-import { Box, CircularProgress } from '@mui/material';
+import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
@@ -9,6 +9,11 @@ import SecondaryNav from '../SecondaryNav';
 const SingleNews = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const { news, news_category, single_news, single_news_loading } = useSelector(
     (state) => state.homepage
@@ -44,61 +49,69 @@ const SingleNews = () => {
 
       <div className="container">
         <div className="single_news_page">
-          <div className="single_news_page_content">
-            {single_news_loading ? (
-              <Box
-                display="flex"
-                justifyContent="center"
-                alignItems="center"
-                sx={{ height: '60vh' }}>
-                <CircularProgress size={30} />
-              </Box>
-            ) : (
-              <>
-                <div className="single_news_page_imgwrap">
-                  <img src={single_news?.feature_image} alt={single_news?.title} />
-                </div>
-                <div className="single_news_page_title">{single_news?.title}</div>
-
-                <div className="single_news_page_date">
-                  {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Created by:{' '}
-                  {single_news?.created_by?.full_name}
-                </div>
-
-                <div
-                  className="single_news_page_long"
-                  dangerouslySetInnerHTML={{ __html: single_news?.description }}></div>
-              </>
-            )}
-          </div>
-
-          <div className="single_news_page_sidebar">
-            <div className="recent_news">
-              <div className="recent_news_title">Recent News</div>
-              {recentNews?.length > 0 ? (
-                recentNews.map((recent) => (
-                  <Link key={recent.id} to={`/news/${recent?.slug}`} className="recent_news_item">
-                    <div className="img_wrapper">
-                      <img src={recent?.feature_image} alt="" />
+          <Grid container className="news_main_grid">
+            <Grid item md={8}>
+              <div className="single_news_page_content">
+                {single_news_loading ? (
+                  <Box
+                    display="flex"
+                    justifyContent="center"
+                    alignItems="center"
+                    sx={{ height: '60vh' }}>
+                    <CircularProgress size={30} />
+                  </Box>
+                ) : (
+                  <>
+                    <div className="single_news_page_imgwrap">
+                      <img src={single_news?.feature_image} alt={single_news?.title} />
                     </div>
-                    <div className="item_content">
-                      <div className="item_content_title">{recent?.title}</div>
-                      <div className="item_content_date">{recent?.created_date}</div>
+                    <div className="single_news_page_title">{single_news?.title}</div>
+
+                    <div className="single_news_page_date">
+                      {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Created by:{' '}
+                      {single_news?.created_by?.full_name}
                     </div>
-                  </Link>
-                ))
-              ) : (
-                <div className="button_wrap">
-                  <h3 className="text-center">No News available.</h3>
-                </div>
-              )}
-              <div className="button_wrap">
-                <Link to={`/news`} className="btn-sm">
-                  View All
-                </Link>
+
+                    <div
+                      className="single_news_page_long"
+                      dangerouslySetInnerHTML={{ __html: single_news?.description }}></div>
+                  </>
+                )}
               </div>
-            </div>
-          </div>
+            </Grid>
+            <Grid item md={4} className="recent_news">
+              <div className="single_news_page_sidebar">
+                <div className="recent_news">
+                  <div className="recent_news_title">Recent News</div>
+                  {recentNews?.length > 0 ? (
+                    recentNews.map((recent) => (
+                      <Link
+                        key={recent.id}
+                        to={`/news/${recent?.slug}`}
+                        className="recent_news_item">
+                        <div className="img_wrapper">
+                          <img src={recent?.feature_image} alt="" />
+                        </div>
+                        <div className="item_content">
+                          <div className="item_content_title">{recent?.title}</div>
+                          <div className="item_content_date">{recent?.created_date}</div>
+                        </div>
+                      </Link>
+                    ))
+                  ) : (
+                    <div className="button_wrap">
+                      <h3 className="text-center">No News available.</h3>
+                    </div>
+                  )}
+                  <div className="button_wrap">
+                    <Link to={`/news`} className="btn-sm">
+                      View All
+                    </Link>
+                  </div>
+                </div>
+              </div>
+            </Grid>
+          </Grid>
         </div>
       </div>
     </>

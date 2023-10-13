@@ -1,6 +1,6 @@
 import { Box, Container, Grid, Typography } from '@mui/material';
 import PageBanner from 'components/globals/PageBanner';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllHomeData } from 'redux/homepage/actions';
 import AdviceForm from './Form';
@@ -10,11 +10,11 @@ const Advise = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  const [adviceData, setAdviceData] = useState();
-  const { home_data } = useSelector((state) => state.homepage);
+  // const [adviceData, setAdviceData] = useState();
+  // const { home_data } = useSelector((state) => state.homepage);
   const { nbns_settings } = useSelector((state) => state.homepage);
 
-  console.log('bttttt', { adviceData });
+  // console.log('bttttt', { adviceData });
   useEffect(() => {
     const data = {
       type: 'nbns',
@@ -23,15 +23,15 @@ const Advise = () => {
     dispatch(getAllHomeData(data));
   }, []);
 
-  useEffect(() => {
-    const newArray = home_data?.data?.filter((item) => item?.slug === 'advice');
-    const newObj = {};
+  // useEffect(() => {
+  //   const newArray = home_data?.data?.filter((item) => item?.slug === 'advice');
+  //   const newObj = {};
 
-    newArray.forEach((item, index) => {
-      newObj[`advice${index + 1}`] = item;
-    });
-    setAdviceData(newObj);
-  }, [home_data?.data]);
+  //   newArray.forEach((item, index) => {
+  //     newObj[`advice${index + 1}`] = item;
+  //   });
+  //   setAdviceData(newObj);
+  // }, [home_data?.data]);
 
   return (
     <>

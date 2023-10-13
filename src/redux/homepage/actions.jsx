@@ -431,3 +431,7 @@ export const getCountriesCode = () => (dispatch) => {
       dispatch({ type: actions.GET_COUNTRIES_LIST_CODE_ERROR });
     });
 };
+
+export const setActiveLink = (data) => (dispatch) => {
+  dispatch({ type: actions.SET_ACTIVE_LINK, payload: data });
+};

@@ -57,7 +57,8 @@ const defaultState = {
   email_check_loading: false,
   details: {},
   countries_list_code: [],
-  get_countries_list_code_loading: false
+  get_countries_list_code_loading: false,
+  set_active: null
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -377,6 +378,9 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.GET_COUNTRIES_LIST_CODE_ERROR:
       return { ...state, get_countries_list_code_loading: false };
+
+    case actions.SET_ACTIVE_LINK:
+      return { ...state, set_active: action.payload };
 
     default:
       return state;

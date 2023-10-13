@@ -38,6 +38,10 @@ export const useStyles = makeStyles((theme) => ({
       '&.active': {
         borderBottom: '4px solid #fff'
       }
+    },
+    [theme.breakpoints.down('md')]: {
+      overflow: 'scroll',
+      overflowY: 'hidden'
     }
   }
 }));

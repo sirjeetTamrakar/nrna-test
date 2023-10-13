@@ -29,15 +29,15 @@ const CommitteeMembers = () => {
   }, []);
 
   useEffect(() => {
-    if (teams) {
-      const newTeams = teams?.filter(
+    if (teams?.data) {
+      const newTeams = teams?.data?.filter(
         (list) =>
           list?.member?.name?.toLowerCase()?.includes(search?.toLowerCase()) &&
           list?.our_team_category_id == Number(selected)
       );
       setFilteredTeams(newTeams);
     }
-  }, [search, teams, selected, department]);
+  }, [search, teams?.data, selected, department]);
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
   }, [ncc]);

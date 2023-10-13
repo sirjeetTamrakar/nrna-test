@@ -15,7 +15,6 @@ const Support = () => {
   const { home_data } = useSelector((state) => state.homepage);
   const { nbns_settings } = useSelector((state) => state.homepage);
 
-  console.log('bttttt', { home_data });
   useEffect(() => {
     const data = {
       type: 'nbns',
@@ -39,9 +38,6 @@ const Support = () => {
         title={nbns_settings?.support_title}
         subtitle={nbns_settings?.support_subtitle}
         image={nbns_settings?.support_banner}
-        // title={supportData?.support1?.title}
-        // subtitle={supportData?.support1?.subtitle}
-        // image={supportData?.support1?.banner_image}
       />
 
       <Container>

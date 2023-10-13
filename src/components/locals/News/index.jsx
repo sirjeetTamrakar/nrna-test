@@ -12,6 +12,11 @@ import SecondaryNav from './SecondaryNav';
 const News = () => {
   const location = useLocation();
   console.log({ location });
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const dispatch = useDispatch();
   const { news, news_loading, news_category, news_category_loading } = useSelector(
@@ -20,7 +25,7 @@ const News = () => {
 
   const [filteredNews, setFilteredNews] = useState();
   const [allFilteredNews, setAllFilteredNews] = useState();
-  const [newsLimit, setNewsLimit] = useState(11);
+  const [newsLimit, setNewsLimit] = useState(7);
 
   const [selected, setSelected] = useState();
   console.log('ww------', { filteredNews });
@@ -88,8 +93,8 @@ const News = () => {
           <div className="row">
             {filteredNews?.length > 0 ? (
               <>
-                <Grid container spacing={2} sx={{ marginBottom: '20px' }}>
-                  <Grid item sm={5}>
+                <Grid container spacing={0} sx={{ marginBottom: '20px' }}>
+                  <Grid item className="col-md-12 col-xl-5 main_card_news">
                     {filteredNews?.slice(0, 1)?.map((item) => (
                       <NewsCardOrderOne
                         gridOne
@@ -100,9 +105,11 @@ const News = () => {
                       />
                     ))}
                   </Grid>
-                  <Grid item sm={7}>
-                    <Grid container spacing={2} item>
-                      <Grid item sm={4}>
+                  <Grid item className="col-md-12 col-xl-7">
+                    <Grid container spacing={0} item>
+                      <Grid
+                        item
+                        className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                         {filteredNews?.slice(1, 2)?.map((item) => (
                           <NewsCard
                             gridLayout
@@ -112,7 +119,9 @@ const News = () => {
                           />
                         ))}
                       </Grid>
-                      <Grid item sm={4}>
+                      <Grid
+                        item
+                        className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                         {filteredNews?.slice(2, 3)?.map((item) => (
                           <NewsCard
                             gridLayout
@@ -122,7 +131,9 @@ const News = () => {
                           />
                         ))}
                       </Grid>
-                      <Grid item sm={4}>
+                      <Grid
+                        item
+                        className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                         {filteredNews?.slice(3, 4)?.map((item) => (
                           <NewsCard
                             gridLayout
@@ -132,7 +143,9 @@ const News = () => {
                           />
                         ))}
                       </Grid>
-                      <Grid item sm={4}>
+                      <Grid
+                        item
+                        className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                         {filteredNews?.slice(4, 5)?.map((item) => (
                           <NewsCard
                             gridLayout
@@ -142,7 +155,9 @@ const News = () => {
                           />
                         ))}
                       </Grid>
-                      <Grid item sm={4}>
+                      <Grid
+                        item
+                        className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile_fifth">
                         {filteredNews?.slice(5, 6)?.map((item) => (
                           <NewsCard
                             gridLayout
@@ -152,7 +167,7 @@ const News = () => {
                           />
                         ))}
                       </Grid>
-                      <Grid item sm={4}>
+                      <Grid item className="col-12 col-sm-6 col-sm-6 col-md-4 col-lg-4">
                         {filteredNews?.slice(6, 7)?.map((item) => (
                           <NewsCard
                             gridLayout

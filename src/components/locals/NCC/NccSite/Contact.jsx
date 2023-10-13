@@ -81,7 +81,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                   <Box>
                     <CustomForm onSubmit={submitHandler}>
                       <Grid container spacing={2} sx={{ marginTop: '20px' }}>
-                        <Grid item sm={12}>
+                        <Grid item className="col-lg-12" style={{ marginRight: '0px' }}>
                           <CustomInput
                             name="name"
                             label="Name"
@@ -89,7 +89,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                             rows={15}
                           />
                         </Grid>
-                        <Grid item sm={6}>
+                        <Grid item className="col-lg-6" sx={{ marginRight: '0px' }}>
                           <CustomInput
                             name="email"
                             label="Email address"
@@ -98,7 +98,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                             rows={15}
                           />
                         </Grid>
-                        <Grid item sm={6}>
+                        <Grid item className="col-lg-6" sx={{ marginRight: '0px' }}>
                           <CustomInput
                             name="phone"
                             label="Phone"
@@ -106,7 +106,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                             rows={15}
                           />
                         </Grid>
-                        <Grid item sm={12}>
+                        <Grid item className="col-lg-12" style={{ marginRight: '0px' }}>
                           <CustomInput
                             name="subject"
                             label="Subject"
@@ -114,7 +114,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                             rows={15}
                           />
                         </Grid>
-                        <Grid item sm={12}>
+                        <Grid item className="col-lg-12" style={{ marginRight: '0px' }}>
                           <CustomTextArea
                             name="message"
                             label="Message"
@@ -122,7 +122,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                             rows={5}
                           />
                         </Grid>
-                        <Grid item sm={12}>
+                        <Grid item className="col-lg-12" style={{ marginRight: '0px' }}>
                           <Box>
                             <CustomButton buttonName="Submit Form" loading={contact_loading} />
                           </Box>

@@ -12,9 +12,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { postAdvice } from 'redux/homepage/actions';
 
 import * as Yup from 'yup';
+import useStyles from './styles';
 
 const Form = () => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const { countries_list } = useSelector((state) => state.ncc);
   const { advice_loading } = useSelector((state) => state.advice);
   console.log({ countries_list });
@@ -41,11 +43,11 @@ const Form = () => {
   };
   return (
     <CustomForm onSubmit={onSubmit}>
-      <Grid container spacing={3}>
-        <Grid item sm={6}>
+      <Grid container spacing={3} className={classes.advice_submit_form_container}>
+        <Grid item className="col-lg-6" style={{ paddingRight: '0px' }}>
           <CustomInput name="name" label="Full Name" required />
         </Grid>
-        <Grid item sm={6}>
+        <Grid item className="col-lg-6" style={{ paddingRight: '0px' }}>
           <CustomAutoComplete
             placeholder="Country of residence"
             name="country_of_residence"
@@ -55,33 +57,22 @@ const Form = () => {
           />
           {/* <CustomInput name="country_of_residence" label="Country of Residence" required /> */}
         </Grid>
-        <Grid item sm={6}>
+        <Grid item className="col-lg-6" style={{ paddingRight: '0px' }}>
           <CustomInput name="email" label="Email" type="email" required />
         </Grid>
-        <Grid item sm={6}>
+        <Grid item className="col-lg-6" style={{ paddingRight: '0px' }}>
           <CustomInput name="phone" label="Phone" type="text" required />
         </Grid>
-        {/* <Grid item sm={12}>
-          <FileUploader
-            title="News Image"
-            imageText="Resolution: height: 1024 x width: 768"
-            // control={control}
-            name="logo"
-            label="Select Photo"
-            setValue={setValue}
-            widthFull
-            // errors={errors}
-            // clearErrors={clearErrors}
-            // required={true}
-            imageLink={watch('logo') || ''}
-          />
-        </Grid> */}
-        <Grid item sm={12}>
+        <Grid item className="col-12" style={{ paddingRight: '0px' }}>
           <CustomInput name="advice" label="Advice" required multiline rows={8} />
         </Grid>
-        <Grid item sm={12}>
-          <Box display="flex" justifyContent="flex-end">
-            <CustomButton buttonName="Share Your Wisdom" loading={advice_loading} />
+        <Grid item className="col-12" style={{ paddingRight: '0px' }}>
+          <Box className={classes.submit_btn_box}>
+            <CustomButton
+              className={classes.submit_btn}
+              buttonName="Share Your Wisdom"
+              loading={advice_loading}
+            />
           </Box>
         </Grid>
       </Grid>

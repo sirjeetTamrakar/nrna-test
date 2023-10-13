@@ -64,12 +64,12 @@ const BusinessProfile = () => {
       <div className="container">
         <div className="candidate_page">
           <div className="candidate_page_lower_banner">
-            <div className="candidate_page_lower_banner_wrapper">
+            <div className="business_page_lower_banner_wrapper">
               <div className="candidate_page_lower_banner_wrapper_box">
                 <div className="img_container">
                   <img src={single_business?.image} alt="" />
                 </div>
-                <div className="candidate_name_box">
+                <div className="business_name_box">
                   <div className="candidate_name">{single_business?.fullname}</div>
                   <div className="candidate_designation">
                     {filteredSingleBusiness?.category1?.title}
@@ -78,33 +78,33 @@ const BusinessProfile = () => {
               </div>
             </div>
             <div className="candidate_social">
-              <div className="candidate_social_wrapper_box">
+              <div className="business_social_wrapper_box">
                 <div className="candidate_social_wrapper">
-                  <div className="candidate_social_icons_box">
-                    <a href={single_business?.facebook_url} target="_blank" rel="noreferrer">
+                  <a href={single_business?.facebook_url} target="_blank" rel="noreferrer">
+                    <div className="candidate_social_icons_box">
                       <img src={facebook} alt="" className="candidate_social_icons" />
+                    </div>
+                  </a>
+                  <div className="candidate_social_icons_box">
+                    <a href={single_business?.instagram_url} target="_blank" rel="noreferrer">
+                      <img src={insta} alt="" className="candidate_social_icons" />
                     </a>
                   </div>
-                  <a href={single_business?.instagram_url} target="_blank" rel="noreferrer">
-                    <div className="candidate_social_icons_box">
-                      <img src={insta} alt="" className="candidate_social_icons" />
-                    </div>
-                  </a>
-                  <a href={single_business?.twitter_url} target="_blank" rel="noreferrer">
-                    <div className="candidate_social_icons_box">
+                  <div className="candidate_social_icons_box">
+                    <a href={single_business?.twitter_url} target="_blank" rel="noreferrer">
                       <img src={linkedin} alt="" className="candidate_social_icons" />
-                    </div>
-                  </a>
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
           <div>
-            <hr />
+            <hr className="business_horizontaline" />
           </div>
           <div className="candidate_page_wrapper">
             <Grid container spacimg={2}>
-              <Grid item sm={5}>
+              <Grid item className="col-md-5" sx={{ width: '100%' }}>
                 <div className="candidate_page_sidebar">
                   <ul className="contact_list">
                     <li className="contact_list_title_box">
@@ -131,15 +131,14 @@ const BusinessProfile = () => {
                           style={{ width: '100%', height: '100%', overflow: 'hidden' }}
                           dangerouslySetInnerHTML={{ __html: single_business?.google_map_link }}
                         />
-
-                        {/* <iframe
+                      </div>
+                      {/* <span className="contact_list_item">{candidateData?.address ?? ''}</span> */}
+                      {/* <iframe
                           width="100%"
                           height="220"
                           frameBorder="0"
                           allowFullScreen
                           src={single_business?.google_map_link}></iframe> */}
-                      </div>
-                      {/* <span className="contact_list_item">{candidateData?.address ?? ''}</span> */}
                     </li>
                   </ul>
                   {/* <div className="social_links">
@@ -156,7 +155,7 @@ const BusinessProfile = () => {
                 </div>
               </Grid>
 
-              <Grid item sm={7}>
+              <Grid item className="col-md-7">
                 {/* <CandidateTabs /> */}
                 <Box sx={{ backgroundColor: '#F9F9FB', marginTop: '12px', padding: '20px' }}>
                   <About data={single_business?.description} />

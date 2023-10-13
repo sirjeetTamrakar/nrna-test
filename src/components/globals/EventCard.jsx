@@ -3,7 +3,7 @@ import { changeDateFormat } from 'utils/dateUtils';
 
 const EventCard = ({ event, linkUrl }) => {
   return (
-    <div className="col-md-6">
+    <div className="col-12 col-md-6">
       <div className="event_card_title">{event?.title}</div>
       <div className="event_card">
         <div className="event_card_content">

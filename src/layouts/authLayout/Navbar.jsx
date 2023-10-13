@@ -1,3 +1,4 @@
+import LogoutIcon from '@mui/icons-material/Logout';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SegmentIcon from '@mui/icons-material/Segment';
@@ -16,23 +17,22 @@ import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
+import { logout } from 'redux/auth/actions';
 import { isLoggedIn } from 'utils';
 import useStyles from './styles';
 
 function Navbar({ isHomePage, currentUser, sticky }) {
   const navigate = useNavigate();
 
-  const [isSidenavOpen, setIsSidenavOpen] = useState(false); // State to track sidenav open/close
-  const [activeLink, setActiveLink] = useState(null); // State to track the active link
+  const [isSidenavOpen, setIsSidenavOpen] = useState(false);
+  const [activeLink, setActiveLink] = useState(null);
 
   const openNav = () => {
-    // Implement openNav logic here
-    setIsSidenavOpen(true); // Open the sidenav
+    setIsSidenavOpen(true);
   };
 
   const closeNav = () => {
-    // Implement closeNav logic here
-    setIsSidenavOpen(false); // Close the sidenav
+    setIsSidenavOpen(false);
   };
   const classes = useStyles();
 
@@ -49,13 +49,19 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   };
 
   const handleLoginClick = () => {
-    closeNav(); // Close the sidenav when "Login" is clicked
-    openFunction(); // Open the login modal
+    closeNav();
+    openFunction();
   };
 
   const handleRegisterClick = () => {
-    closeNav(); // Close the sidenav when "Register" is clicked
-    openFunctionRegister(); // Open the register modal
+    closeNav();
+    openFunctionRegister();
+  };
+
+  const handleLogout = () => {
+    logout();
+    navigate(`/`);
+    closeNav();
   };
 
   const sideNavItems = [
@@ -83,50 +89,49 @@ function Navbar({ isHomePage, currentUser, sticky }) {
             </Link>
 
             <ul className="nav_wrapper">
-              <li className={` d-none d-lg-block`}>
+              <li className={` d-none d-lg-block menu_items`}>
                 <Link to="/" className={classes.navIcon}>
                   <img src={HomeIcon} />
                   <span>Home</span>
                 </Link>
               </li>
-              <li className="d-none d-lg-block">
+              <li className="d-none d-lg-block menu_items">
                 <Link to="/nbns" className={classes.navIcon}>
                   <img src={NBNSIcon} />
                   <span>NBNS</span>
                 </Link>
               </li>
-              <li className="d-none d-lg-block">
+              <li className="d-none d-lg-block menu_items">
                 <Link to="/our-team" className={classes.navIcon}>
                   <img src={TeamIcon} />
                   <span>Our Team</span>
                 </Link>
               </li>
 
-              <li className="d-none d-lg-block">
+              <li className="d-none d-lg-block menu_items">
                 <Link to="/business" className={classes.navIcon}>
                   <img src={BusinessIcon} />
                   <span>Business</span>
                 </Link>
               </li>
-              <li className="d-none d-lg-block">
+              <li className="d-none d-lg-block menu_items">
                 <Link to="/ncc" className={classes.navIcon}>
                   <img src={NCCIcon} />
                   <span>NCC</span>
                 </Link>
               </li>
-              <li className="d-none d-lg-block">
+              <li className="d-none d-lg-block menu_items">
                 <Link to="/news" className={classes.navIcon}>
                   <img src={NewsIcon} />
                   <span>News</span>
                 </Link>
               </li>
-              <li className="d-none d-lg-block">
+              <li className="d-none d-lg-block menu_items">
                 <Link to="/events" className={classes.navIcon}>
                   <img src={EventIcon} />
                   <span>Events</span>
                 </Link>
               </li>
-
               <li className="navbar-dashboard-btn">
                 {isLoggedIn() ? (
                   <button className="btn-md" onClick={goToDashboard}>
@@ -144,7 +149,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 )}
               </li>
 
-              <li className="d-block d-lg-none">
+              <li className="d-block d-xl-none hamburger_icon">
                 <span onClick={() => openNav()}>
                   <SegmentIcon />
                 </span>
@@ -168,15 +173,33 @@ function Navbar({ isHomePage, currentUser, sticky }) {
             </Link>
           );
         })}
-
-        <Box className="sideNavRegisterBox">
+        {isLoggedIn() ? (
+          <Box className="sideNavRegisterBox">
+            <button className="col-6 btn-md sidebarLogin" onClick={() => handleLogout()}>
+              <LogoutIcon />
+              Logout
+            </button>
+          </Box>
+        ) : (
+          <Box className="sideNavRegisterBox">
+            <button className="col-6 btn-md sidebarLogin" onClick={handleLoginClick}>
+              <PersonIcon /> Login
+            </button>
+            <button
+              className="col-6 btn-md-contained sidebarRegister"
+              onClick={handleRegisterClick}>
+              <PersonAddIcon /> Join Us
+            </button>
+          </Box>
+        )}
+        {/* <Box className="sideNavRegisterBox">
           <button className="col-6 btn-md sidebarLogin" onClick={handleLoginClick}>
             <PersonIcon /> Login
           </button>
           <button className="col-6 btn-md-contained sidebarRegister" onClick={handleRegisterClick}>
             <PersonAddIcon /> Join Us
           </button>
-        </Box>
+        </Box> */}
         {/* <a href="#" className="btn-md">
           Back To Home
         </a> */}

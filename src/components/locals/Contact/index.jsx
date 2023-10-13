@@ -34,7 +34,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                   </li>
                   <li className="contact_list_item_box">
                     <EmailIcon />
-                    <span className="contact_list_item">{settings?.email || ''}kkkkk</span>
+                    <span className="contact_list_item">{settings?.email || ''}</span>
                   </li>
                 </ul>
               </div>

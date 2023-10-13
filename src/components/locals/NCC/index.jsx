@@ -87,31 +87,31 @@ const AllNCCSection = () => {
               <>
                 {selected === 'ALL' ? (
                   <>
-                    <Grid container spacing={2} sx={{ marginBottom: '20px' }}>
-                      <Grid item sm={5}>
+                    <Grid container spacing={0} sx={{ marginBottom: '20px' }}>
+                      <Grid item className="col-md-12 col-lg-5 ncc_grid_one">
                         {/* {filteredBusiness?.slice(0, 1)?.map((item) => ( */}
-                        <div className="">
+                        <div>
                           <NccItemOne settingsData={settings} mainGrid linkUrl={`/nrna/ncc`} />
                         </div>
                         {/* ))} */}
                       </Grid>
-                      <Grid item sm={7}>
+                      <Grid item className=" col-md-12 col-lg-7">
                         <Grid container spacing={2} item>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(0, 1)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(1, 2)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(2, 3)?.map((item) => (
                               // <div key={item.id} className="col-xl-3 col-lg-4 col-sm-6 col-12">
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
@@ -119,42 +119,42 @@ const AllNCCSection = () => {
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(3, 4)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(4, 5)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(5, 6)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(6, 7)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(7, 8)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
                               </div>
                             ))}
                           </Grid>
-                          <Grid item sm={4}>
+                          <Grid item className="col-6 col-sm-6 col-md-4 col-lg-4">
                             {filteredNcc?.slice(8, 9)?.map((item) => (
                               <div key={item.id} className="" style={{ marginTop: '-30px' }}>
                                 <NCCItem nccItem={item} />
@@ -167,7 +167,7 @@ const AllNCCSection = () => {
                     {filteredNcc?.slice(9)?.map((item) => (
                       <div
                         key={item.id}
-                        className="col-xl-3 col-lg-3 col-sm-6 col-12"
+                        className="col-6 col-md-4 col-lg-3 col-sm-6"
                         style={{ marginTop: '-30px' }}>
                         <NCCItem nccItem={item} />
                       </div>
