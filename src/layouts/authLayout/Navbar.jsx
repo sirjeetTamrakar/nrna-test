@@ -16,7 +16,7 @@ import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { logout } from 'redux/auth/actions';
 import { isLoggedIn } from 'utils';
 import useStyles from './styles';
@@ -25,7 +25,6 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   const navigate = useNavigate();
 
   const [isSidenavOpen, setIsSidenavOpen] = useState(false);
-  const [activeLink, setActiveLink] = useState(null);
 
   const openNav = () => {
     setIsSidenavOpen(true);
@@ -36,8 +35,11 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   };
   const classes = useStyles();
 
+  const { pathname } = useLocation();
+  console.log({ pathname });
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
+  const [activeLink, setActiveLink] = useState(pathname);
 
   const goToDashboard = () => {
     navigate('/dashboard');
@@ -65,14 +67,14 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   };
 
   const sideNavItems = [
-    { title: 'Home', link: '/', value: 'home' },
-    { title: 'NBNS', link: '/nbns', value: 'nbns' },
-    { title: 'Our Team', link: '/our-team', value: 'our-team' },
-    { title: 'Business', link: '/business', value: 'business' },
-    { title: 'NCC', link: '/ncc', value: 'ncc' },
-    { title: 'News', link: '/news', value: 'news' },
-    { title: 'Events', link: '/events', value: 'events' },
-    { title: 'Contact', link: '/nrna/contact', value: 'contact' }
+    { title: 'Home', link: '/', value: '/' },
+    { title: 'NBNS', link: '/nbns', value: '/nbns' },
+    { title: 'Our Team', link: '/our-team', value: '/our-team' },
+    { title: 'Business', link: '/business', value: '/business' },
+    { title: 'NCC', link: '/ncc', value: '/ncc' },
+    { title: 'News', link: '/news', value: '/news' },
+    { title: 'Events', link: '/events', value: '/events' },
+    { title: 'Contact', link: '/nrna/contact', value: '/nrna/contact' }
   ];
 
   return (
