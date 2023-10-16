@@ -1,21 +1,27 @@
-.footer{
+.footer {
   background-color: #046fc4;
-  &_wrapper{
+  &_wrapper {
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
     color: $primary-text;
-    .copyright{
+    .copyright {
       font-size: 14px;
     }
-    .designed_by{
+    .designed_by {
       font-size: 14px;
-      a{
+      a {
         color: $primary-text;
-        &:hover{
+        &:hover {
           color: $primary-light-text;
         }
       }
+    }
+
+    .terms {
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
     }
   }
 }

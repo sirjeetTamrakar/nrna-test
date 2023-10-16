@@ -11,6 +11,10 @@ import { getBanner } from 'redux/homepage/actions';
 const NccSite = () => {
   const { ncc: slug } = useParams();
   const dispatch = useDispatch();
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const { user } = useSelector((state) => state.auth);
   const { settings, banners, ncc } = useSelector((state) => state.homepage);
   useEffect(() => {

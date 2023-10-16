@@ -2,6 +2,7 @@ import { Container } from '@mui/material';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CustomModal from 'components/common/CustomModal/CustomModal';
+import useScreenSize from 'hooks/useScreenSize';
 import useToggle from 'hooks/useToggle';
 import ServiceView from './ServiceView';
 
@@ -29,10 +30,12 @@ export default ServicesList;
 
 const ServiceItem = ({ item }) => {
   const [open, openFunction] = useToggle(false);
+  const screenSize = useScreenSize();
+
   console.log(item);
   return (
     <>
-      <Grid item sm={3}>
+      <Grid item sm={6} md={4} lg={3}>
         <div
           onClick={openFunction}
           style={{
@@ -67,16 +70,20 @@ const ServiceItem = ({ item }) => {
               style={{
                 fontSize: '12px',
                 fontWeight: '400',
-                height: '60px'
+                height: '65px'
               }}>
-              {item?.description?.length < 129
+              {item?.description?.length < 114
                 ? item?.description
-                : `${item?.description.substring(0, 130)}...`}
+                : `${item?.description.substring(0, 115)}...`}
             </p>
           </div>
         </div>
       </Grid>
-      <CustomModal open={open} handleClose={openFunction} modalTitle={item?.title}>
+      <CustomModal
+        open={open}
+        handleClose={openFunction}
+        modalTitle={item?.title}
+        width={`${screenSize?.width < 710 ? '20rem' : '40rem'}`}>
         <ServiceView item={item} />
       </CustomModal>
     </>

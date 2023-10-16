@@ -139,7 +139,7 @@ const SecondaryNavWrapper = () => {
 
   return (
     <SecondaryNav
-      title={single_ncc?.country_name}
+      title={`NCC > ${single_ncc?.country_name}`}
       color={single_ncc?.color}
       options={allOptions}
       setSelected={setSelected}

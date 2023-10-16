@@ -7,6 +7,10 @@ import EventCard from '../../globals/EventCard';
 import SecondaryNav from './SecondaryNav';
 
 const Events = () => {
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const location = useLocation();
   console.log({ location });
   const dispatch = useDispatch();

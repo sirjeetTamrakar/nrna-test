@@ -31,7 +31,7 @@ const Services = () => {
       <Grid container spacing={3}>
         {cardData?.map((item, index) => {
           return (
-            <Grid item sm={4} key={index}>
+            <Grid item lg={4} key={index}>
               <div
                 style={{
                   padding: '20px',

@@ -8,6 +8,10 @@ import SecondaryNav from './secondaryNav';
 
 const OurTeam = () => {
   const dispatch = useDispatch();
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const { teams, team_loading, department, department_loading } = useSelector(
     (state) => state.homepage
   );

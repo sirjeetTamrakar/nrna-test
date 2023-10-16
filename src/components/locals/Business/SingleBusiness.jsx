@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
+import useScreenSize from 'hooks/useScreenSize';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
@@ -12,7 +13,13 @@ import About from './About';
 
 const BusinessProfile = () => {
   const dispatch = useDispatch();
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const { slug } = useParams();
+  const screenSize = useScreenSize();
+
   const [filteredSingleBusiness, setFilteredSingleBusiness] = useState();
   const { single_business, business_category } = useSelector((state) => state.homepage);
   console.log({ filteredSingleBusiness });
@@ -64,12 +71,20 @@ const BusinessProfile = () => {
       <div className="container">
         <div className="candidate_page">
           <div className="candidate_page_lower_banner">
-            <div className="business_page_lower_banner_wrapper">
+            <div
+              className={`${
+                screenSize?.width < 993
+                  ? 'business_page_lower_banner_wrapper'
+                  : 'candidate_page_lower_banner_wrapper'
+              }`}>
               <div className="candidate_page_lower_banner_wrapper_box">
                 <div className="img_container">
                   <img src={single_business?.image} alt="" />
                 </div>
-                <div className="business_name_box">
+                <div
+                  className={`${
+                    screenSize?.width < 993 ? 'business_name_box' : 'candidate_name_box'
+                  }`}>
                   <div className="candidate_name">{single_business?.fullname}</div>
                   <div className="candidate_designation">
                     {filteredSingleBusiness?.category1?.title}
@@ -78,7 +93,12 @@ const BusinessProfile = () => {
               </div>
             </div>
             <div className="candidate_social">
-              <div className="business_social_wrapper_box">
+              <div
+                className={`${
+                  screenSize?.width < 993
+                    ? 'business_social_wrapper_box'
+                    : 'candidate_social_wrapper_box'
+                }`}>
                 <div className="candidate_social_wrapper">
                   <a href={single_business?.facebook_url} target="_blank" rel="noreferrer">
                     <div className="candidate_social_icons_box">

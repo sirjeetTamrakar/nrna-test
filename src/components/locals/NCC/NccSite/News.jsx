@@ -55,7 +55,7 @@ const News = () => {
         selected={selected}
         setSearch={setSearch}
         id={ncc}
-        color={single_ncc?.color}
+        color={'#fff'}
         news
       />
       <div className="main_content">

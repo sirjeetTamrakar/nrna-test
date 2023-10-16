@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import NewsCardOrderOne from 'components/globals/NewsCardOrderOne';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { getAllNews, getNewsCategory } from 'redux/homepage/actions';
 import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
@@ -12,8 +12,9 @@ import SecondaryNav from './SecondaryNav';
 const News = () => {
   const location = useLocation();
   console.log({ location });
+  const { candidate } = useParams();
+  console.log({ candidate });
   const pathname = window.location.pathname;
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
@@ -40,6 +41,7 @@ const News = () => {
         limit: newsLimit,
         status: 1
       };
+
       dispatch(getAllNews(finalData));
     } else {
       const finalData = {

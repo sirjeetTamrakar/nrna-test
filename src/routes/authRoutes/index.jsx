@@ -18,7 +18,9 @@ import NCCPage from 'pages/public/NCC';
 import NewsPage from 'pages/public/news';
 import SingleNewsPage from 'pages/public/news/SingleNews';
 import OurTeamPage from 'pages/public/OurTeam';
+import PrivacyPolicyPage from 'pages/public/PrivacyPolicyPage';
 import ResetPassword from 'pages/public/reset';
+import TermsAndConditionsPage from 'pages/public/TermsAndConditionsPage';
 import VerifyEmail from 'pages/public/verify';
 import VisionPage from 'pages/public/Vision';
 
@@ -34,6 +36,14 @@ const AuthRoutes = [
   {
     path: '/ncc',
     component: <NCCPage />
+  },
+  {
+    path: '/privacy-policy',
+    component: <PrivacyPolicyPage />
+  },
+  {
+    path: '/terms-and-conditions',
+    component: <TermsAndConditionsPage />
   },
   {
     path: '/news',

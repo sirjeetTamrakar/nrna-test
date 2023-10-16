@@ -1,6 +1,6 @@
 import { Box, Container } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { useStyles } from '../styles';
+import { useStyles } from './styles';
 
 const SecondaryNav = ({
   category,
@@ -49,7 +49,10 @@ const SecondaryNav = ({
         </Box>
         <ul className={classes.list}>
           {!teams && (
-            <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>
+            <li
+              style={{ color: '#000' }}
+              className={selected === 'ALL' && 'active'}
+              onClick={() => handleSetSelected('ALL')}>
               All
               {/* {JSON.stringify({ selected })} */}
             </li>
@@ -57,6 +60,7 @@ const SecondaryNav = ({
 
           {category?.map((list, index) => (
             <li
+              style={{ color: '#000' }}
               className={checkActive(list?.id)}
               key={index}
               onClick={() => handleSetSelected(list?.id)}>

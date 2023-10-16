@@ -56,7 +56,7 @@ const BusinessNcc = () => {
         selected={selected}
         setSearch={setSearch}
         id={ncc}
-        color={single_ncc?.color}
+        color={'#fff'}
         business
       />
       <div className="main_content">

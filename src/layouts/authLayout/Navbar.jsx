@@ -34,12 +34,12 @@ function Navbar({ isHomePage, currentUser, sticky }) {
     setIsSidenavOpen(false);
   };
   const classes = useStyles();
-
   const { pathname } = useLocation();
+  const [activeLink, setActiveLink] = useState(pathname);
+
   console.log({ pathname });
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
-  const [activeLink, setActiveLink] = useState(pathname);
 
   const goToDashboard = () => {
     navigate('/dashboard');

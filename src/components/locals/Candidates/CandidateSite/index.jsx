@@ -15,6 +15,11 @@ import About from './About';
 const CandidateSite = () => {
   const dispatch = useDispatch();
 
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const { candidate } = useParams();
 
   const data = useParams();

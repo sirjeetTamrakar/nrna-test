@@ -3,6 +3,9 @@
   justify-content: flex-start;
   display: flex;
   flex-wrap: wrap;
+  .event_main_grid {
+    place-content: center;
+  }
   .event_list_wrapper {
     background-color: #f1f0f0;
     padding: 15px 45px;
@@ -15,10 +18,13 @@
     border-radius: 4px;
   }
   .map-container {
-    display: flex;
-    justify-content: space-between;
+    // display: flex;
+    // justify-content: space-between;
     column-gap: 60px;
     margin-top: 45px;
+    &_item {
+      padding: 0px 10px !important;
+    }
   }
 
   .event_list {
@@ -38,8 +44,8 @@
   }
   &_content {
     margin-right: 60px;
-    flex: 1;
-    max-width: calc(100% - 300px);
+    // flex: 1;
+    // max-width: calc(100% - 300px);
   }
   &_imgwrap {
     height: 360px;

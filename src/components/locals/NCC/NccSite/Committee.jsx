@@ -55,7 +55,7 @@ const CommitteeMembers = () => {
         setSearch={setSearch}
         id={ncc}
         teams
-        color={single_ncc?.color}
+        color={'#fff'}
       />
       <div className="main_content">
         <section className="all_events">

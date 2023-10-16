@@ -8,6 +8,10 @@ import SecondaryNav from './SecondaryNav';
 
 const Business = () => {
   const dispatch = useDispatch();
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const { business, business_category, business_loading, business_category_loading, settings } =
     useSelector((state) => state.homepage);
   console.log('dasldsalda', business_category?.[0]?.id);

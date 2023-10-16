@@ -30,10 +30,10 @@ const EventCard = ({ event, linkUrl }) => {
             </li>
             <li>
               <div className="title">Email</div>
-              <div className="value">{event?.contact_email}</div>
+              <div className="value email">{event?.contact_email}</div>
             </li>
           </ul>
-          <Link className="btn-sm" to={linkUrl}>
+          <Link className="btn-sm event_btn" to={linkUrl}>
             View Detail
           </Link>
         </div>

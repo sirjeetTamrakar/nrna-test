@@ -10,10 +10,10 @@ const NccNav = ({ category, selected, setSelected, setSearch }) => {
   const checkActive = (slug) => {
     if (selected) {
       if (slug === selected) {
-        return 'active';
+        return 'navActive';
       } else return '';
     } else if (slug === category?.[0]?.value) {
-      return 'active';
+      return 'navActive';
     } else {
       return '';
     }
@@ -37,7 +37,9 @@ const NccNav = ({ category, selected, setSelected, setSearch }) => {
           {/* <TextField placeholder="Search" name="search" onChange={handleSearch} /> */}
         </Box>
         <ul className={classes.list}>
-          <li className={selected === 'home' && 'active'} onClick={() => handleSetSelected('home')}>
+          <li
+            className={selected === 'home' && 'navActive'}
+            onClick={() => handleSetSelected('home')}>
             Home
             {/* {JSON.stringify({ selected })} */}
           </li>

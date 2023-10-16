@@ -74,10 +74,10 @@ const Form = () => {
                 <Box className={classes.contactRoot}>
                   <CustomForm onSubmit={submitHandler}>
                     <Grid container spacing={2} sx={{ marginTop: '20px' }}>
-                      <Grid item sm={6}>
+                      <Grid item className="col-lg-6">
                         <CustomInput name="name" label="Name" placeholder="Guy Hawkins" rows={15} />
                       </Grid>
-                      <Grid item sm={6}>
+                      <Grid item className="col-lg-6">
                         <CustomInput
                           name="email"
                           label="Email address"
@@ -86,7 +86,7 @@ const Form = () => {
                           rows={15}
                         />
                       </Grid>
-                      <Grid item sm={12}>
+                      <Grid item className="col-lg-12">
                         <CustomInput
                           name="subject"
                           label="Subject"
@@ -94,7 +94,7 @@ const Form = () => {
                           rows={15}
                         />
                       </Grid>
-                      <Grid item sm={12}>
+                      <Grid item className="col-lg-12">
                         <CustomTextArea
                           name="description"
                           label="Description"
@@ -102,7 +102,7 @@ const Form = () => {
                           rows={5}
                         />
                       </Grid>
-                      <Grid item sm={12}>
+                      <Grid item className="col-lg-12">
                         <Box className={classes.footerRoot}>
                           <CustomButton
                             buttonName="Submit Form"

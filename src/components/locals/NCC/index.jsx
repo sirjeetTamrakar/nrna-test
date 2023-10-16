@@ -8,6 +8,10 @@ import SecondaryNav from './SecondaryNav';
 
 const AllNCCSection = () => {
   const dispatch = useDispatch();
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const { ncc, ncc_loading, settings } = useSelector((state) => state.homepage);
   const [filteredNcc, setFilteredNcc] = useState([]);
   const [nccLimit, setNccLimit] = useState(9);
