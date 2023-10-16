@@ -6,7 +6,9 @@ const Footer = () => {
       <div className="container">
         <div className="footer_wrapper">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <div className="copyright">Copyright &copy; 2021. All right Reserved. | NRNA</div>
+            <div className="copyright">
+              Copyright &copy; 2021. All right Reserved. | NRNA Global
+            </div>
             <div className="terms">
               <Link to="/privacy-policy" className="copyright" style={{ color: '#bffbff' }}>
                 Privacy Policy
