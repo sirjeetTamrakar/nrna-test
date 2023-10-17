@@ -38,7 +38,7 @@ const Events = () => {
       );
       setFilteredEvents(selected === 'ALL' ? events?.data : newEvents);
     }
-  }, [search, events, selected, events_category]);
+  }, [search, events?.data, selected, events_category]);
 
   console.log('cxcxcxcxcxcx', { ncc });
   return (
@@ -51,6 +51,7 @@ const Events = () => {
         id={ncc}
         events
         color={'#fff'}
+        data={events?.data}
       />
       <div className="main_content">
         <section className="all_events">

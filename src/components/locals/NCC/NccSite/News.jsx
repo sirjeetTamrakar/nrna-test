@@ -44,7 +44,7 @@ const News = () => {
       );
       setFilteredNews(selected === 'ALL' ? news?.data : newNews);
     }
-  }, [search, news, selected, news_category]);
+  }, [search, news?.data, selected, news_category]);
 
   console.log('cxcxcxcxcxcx', { ncc });
   return (
@@ -57,6 +57,7 @@ const News = () => {
         id={ncc}
         color={'#fff'}
         news
+        data={news?.data}
       />
       <div className="main_content">
         <section className="all_events">

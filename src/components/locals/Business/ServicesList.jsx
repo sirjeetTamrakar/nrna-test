@@ -35,7 +35,7 @@ const ServiceItem = ({ item }) => {
   console.log(item);
   return (
     <>
-      <Grid item sm={6} md={4} lg={3}>
+      <Grid item sm={6} md={4} lg={3} sx={{ width: '100%' }}>
         <div
           onClick={openFunction}
           style={{

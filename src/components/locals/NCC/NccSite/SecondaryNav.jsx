@@ -12,10 +12,13 @@ const SecondaryNav = ({
   events,
   business,
   teams,
-  color
+  color,
+  data
 }) => {
   const classes = useStyles();
   const navigate = useNavigate();
+
+  console.log({ category });
 
   const checkActive = (slug) => {
     if (selected) {
@@ -47,27 +50,29 @@ const SecondaryNav = ({
           </Typography> */}
           {/* {setSearch && <TextField placeholder="Search" name="search" onChange={handleSearch} />} */}
         </Box>
-        <ul className={classes.list}>
-          {!teams && (
-            <li
-              style={{ color: '#000' }}
-              className={selected === 'ALL' && 'active'}
-              onClick={() => handleSetSelected('ALL')}>
-              All
-              {/* {JSON.stringify({ selected })} */}
-            </li>
-          )}
+        {data?.length > 0 && (
+          <ul className={classes.list}>
+            {!teams && (
+              <li
+                style={{ color: '#000' }}
+                className={selected === 'ALL' && 'active'}
+                onClick={() => handleSetSelected('ALL')}>
+                All
+                {/* {JSON.stringify({ selected })} */}
+              </li>
+            )}
 
-          {category?.map((list, index) => (
-            <li
-              style={{ color: '#000' }}
-              className={checkActive(list?.id)}
-              key={index}
-              onClick={() => handleSetSelected(list?.id)}>
-              {list?.title}
-            </li>
-          ))}
-        </ul>
+            {category?.map((list, index) => (
+              <li
+                style={{ color: '#000' }}
+                className={checkActive(list?.id)}
+                key={index}
+                onClick={() => handleSetSelected(list?.id)}>
+                {list?.title}
+              </li>
+            ))}
+          </ul>
+        )}
       </Container>
     </Box>
   );

@@ -313,11 +313,7 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
             // disabled={!isFormValid}
             style={{ color: '#fff', backgroundColor: '#1769AA', width: '100%' }}>
             {' '}
-            {email_check_loading ? (
-              <CircularProgress style={{ color: 'red', fontSize: '' }} />
-            ) : (
-              'Next'
-            )}
+            {email_check_loading ? <CircularProgress /> : 'Next'}
           </Button>
         </Tooltip>
       </Grid>

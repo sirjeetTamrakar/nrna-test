@@ -56,6 +56,7 @@ const CommitteeMembers = () => {
         id={ncc}
         teams
         color={'#fff'}
+        data={teams?.data}
       />
       <div className="main_content">
         <section className="all_events">

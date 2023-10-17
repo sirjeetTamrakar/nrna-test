@@ -18,7 +18,10 @@ const useStyles = makeStyles((theme) => ({
     padding: '30px 45px 30px',
     border: '1px solid grey',
     marginTop: '30px',
-    borderRadius: '5px'
+    borderRadius: '5px',
+    [theme.breakpoints.down('md')]: {
+      padding: '30px 25px 30px'
+    }
   },
   title: {
     fontSize: '32px !important',

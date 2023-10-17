@@ -58,6 +58,7 @@ const BusinessNcc = () => {
         id={ncc}
         color={'#fff'}
         business
+        data={business?.data}
       />
       <div className="main_content">
         <section className="all_events">

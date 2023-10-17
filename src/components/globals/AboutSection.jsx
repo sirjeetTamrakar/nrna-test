@@ -14,7 +14,7 @@ const AboutSection = ({ image, linkUrl, title = 'About', about }) => {
             <div className="about_title">{title}</div>
             <div className="about_description" dangerouslySetInnerHTML={{ __html: about || '' }} />
 
-            <Link to={linkUrl || `/about`} className="view_more">
+            <Link to={linkUrl || `/nrna/about`} className="view_more">
               View More
             </Link>
           </div>

@@ -10,7 +10,7 @@ const NccItemOne = ({ settingsData, nccItem, linkUrl, gridLayout, gridOne }) => 
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {/* <div className="news_card_featured_news_box_grid_one">Featured News</div> */}
-          <div className="news_card_title_grid_one_business">{settingsData.ncc_title}</div>
+          <div className="news_card_title_grid_one_business">{settingsData?.ncc_title}</div>
           {settingsData?.ncc_description !== '' && (
             <div
               className="news_card_text_description_ncc"

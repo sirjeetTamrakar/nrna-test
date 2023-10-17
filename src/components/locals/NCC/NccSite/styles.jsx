@@ -36,21 +36,16 @@ export const useStyles = makeStyles((theme) => ({
       paddingBottom: '5px',
       cursor: 'pointer',
       '&.active': {
-        borderBottom: '4px solid #000',
-        [theme.breakpoints.down('md')]: {
-          width: '90%',
-          overflow: 'scroll',
-          overflowY: 'hidden'
-        }
+        borderBottom: '4px solid #000'
       },
       '&.navActive': {
-        borderBottom: '4px solid #fff',
-        [theme.breakpoints.down('md')]: {
-          width: '90%',
-          overflow: 'scroll',
-          overflowY: 'hidden'
-        }
+        borderBottom: '4px solid #fff'
       }
+    },
+    [theme.breakpoints.down('md')]: {
+      width: '90%',
+      overflow: 'scroll',
+      overflowY: 'hidden'
     }
   },
   serviceRoot: {
