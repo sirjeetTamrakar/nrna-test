@@ -1,10 +1,6 @@
 import BannerImage from 'assets/images/banner.jpg';
 
-const PageBanner = ({
-  image = BannerImage,
-  title = 'Welcome to NRNA Global',
-  subtitle = 'Home thee Non-Resident Nepali Association (NRNA) is an organization that aims to connect and serve Nepali expatriates around the world. Established in 2003'
-}) => {
+const PageBanner = ({ image = BannerImage, title = 'Welcome to NRNA Global', subtitle = '' }) => {
   return (
     <div className="page_banner">
       <img src={image && image} alt="" style={{ objectFit: 'cover' }} />

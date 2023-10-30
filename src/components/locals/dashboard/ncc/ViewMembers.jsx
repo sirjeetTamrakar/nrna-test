@@ -30,7 +30,9 @@ const ViewMembers = ({ data }) => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.first_name}</Typography>
+            <Typography variant="body2">
+              {row?.first_name} {row?.last_name}
+            </Typography>
           </Box>
         );
       }

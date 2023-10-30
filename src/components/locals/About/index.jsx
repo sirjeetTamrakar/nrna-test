@@ -7,7 +7,7 @@ const About = () => {
     <>
       <PageBanner
         image={settings?.about_banner}
-        title={settings?.title}
+        title={settings?.about_title}
         subtitle={settings?.about_subtitle}
       />
       {settings?.about_tagline && (

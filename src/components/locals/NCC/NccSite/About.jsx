@@ -8,7 +8,7 @@ const About = ({ siteSettingImages, about, title }) => {
     <>
       <PageBanner
         image={settings?.about_banner}
-        title={settings?.title}
+        title={settings?.about_title}
         subtitle={settings?.about_subtitle}
       />
 

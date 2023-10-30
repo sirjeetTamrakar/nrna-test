@@ -28,8 +28,8 @@ const Register = ({ handleClose }) => {
     formData.append('event_time', data?.event_time);
     formData.append('contact_email', data?.contact_email);
     formData.append('contact_phone', data?.contact_phone);
-    formData.append('map_url', data?.map_url);
-    formData.append('youtube_url', data?.youtube_url);
+    formData.append('map_url', data?.map_url ?? '');
+    formData.append('youtube_url', data?.youtube_url ?? '');
     formData.append('event_category_id', data?.event_category_id);
 
     if (data?.feature_image?.length > 0) {

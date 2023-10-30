@@ -72,6 +72,9 @@ const SingleEvent = () => {
   ];
   // const [selected, setSelected] = useState(category?.[0]?.slug);
 
+  const youtubeLink = 'swFfcZ-n2XE?si=S41st9A9Ss84DZ3G';
+
+  console.log('sdsad', single_event?.youtube_url);
   return (
     <>
       <SecondaryNav category={events_category} setSelected={setSelected} selected={selected} />
@@ -149,9 +152,9 @@ const SingleEvent = () => {
                     />
                     <div className="map-container">
                       <Grid container style={{ width: '100%' }}>
-                        <Grid item lg={6} className="map-container_item">
+                        <Grid item lg={6} className="map-container_item map">
                           {single_event?.map_url && (
-                            <div style={{ width: '50%', height: '290px' }}>
+                            <div style={{ width: '100%', height: '290px' }}>
                               <div
                                 style={{ width: '100%', height: '100%', overflow: 'hidden' }}
                                 dangerouslySetInnerHTML={{ __html: single_event?.map_url }}
@@ -159,16 +162,20 @@ const SingleEvent = () => {
                             </div>
                           )}
                         </Grid>
-                        <Grid item lg={6} className="map-container_item">
-                          {event?.youtube_url !== '' && (
-                            <iframe
-                              width="100%"
-                              height="290"
-                              src={`https://www.youtube.com/embed/${event?.youtube_url}`}
-                              title="YouTube video player"
-                              frameBorder="0"
-                              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                              allowFullScreen></iframe>
+                        <Grid item lg={6} className="map-container_item tube">
+                          {single_event?.youtube_url && (
+                            <div style={{ width: '100%', height: '290px' }}>
+                              <iframe
+                                width="100%"
+                                height="290"
+                                src={`https://www.youtube.com/embed/${single_event?.youtube_url}`}
+                                // src={`https://www.youtube.com/embed/${youtubeLink}`}
+                                // src="https://www.youtube.com/watch?v=swFfcZ-n2XE&ab_channel=Tech4All"
+                                title="YouTube video player"
+                                frameBorder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowFullScreen></iframe>
+                            </div>
                           )}
                         </Grid>
                       </Grid>

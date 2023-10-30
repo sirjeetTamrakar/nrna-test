@@ -21,6 +21,10 @@ const EventForm = ({ image }) => {
     dispatch(getCategory());
   }, []);
 
+  var today = new Date();
+  const todayDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
+
+  console.log({ todayDate });
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
@@ -58,7 +62,7 @@ const EventForm = ({ image }) => {
         <Grid item sm={12}>
           <CustomInput name="youtube_url" label="Youtube Url" placeholder="iaUspumK5ZU" />
           <div className={classes.example}>
-            Eg: https://www.youtube.com/watch?v=
+            Eg: https://www.youtube.com/embed/
             <span style={{ color: '#2196F3' }}>iaUspumK5ZU</span> | Add highlighted portion only
           </div>
         </Grid>
@@ -68,7 +72,7 @@ const EventForm = ({ image }) => {
             label="Event date"
             type="date"
             inputProps={{
-              inputProps: { min: '2023-09-21' }
+              inputProps: { min: todayDate }
             }}
           />
         </Grid>

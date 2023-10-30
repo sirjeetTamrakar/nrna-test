@@ -46,7 +46,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
   return (
     <>
       <PageBanner
-        title={settings?.contact_title}
+        title={'Welcome to Contact section'}
         subtitle={settings?.contact_subtitle}
         image={settings?.contact_banner_image}
       />
