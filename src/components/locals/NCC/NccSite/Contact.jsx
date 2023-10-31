@@ -20,6 +20,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
     name: Yup.string().required('Please enter name'),
     email: Yup.string().required('Please enter email'),
     phone: Yup.string().required('Please enter phone').min(10).max(10),
+    subject: Yup.string().required('Please enter subject'),
     message: Yup.string().required('Please enter description')
   });
 
@@ -46,7 +47,7 @@ const Contact = ({ siteSettings, handleSubmit }) => {
   return (
     <>
       <PageBanner
-        title={'Welcome to Contact section'}
+        title={settings?.contact_title}
         subtitle={settings?.contact_subtitle}
         image={settings?.contact_banner_image}
       />

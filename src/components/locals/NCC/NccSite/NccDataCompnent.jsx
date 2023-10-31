@@ -7,6 +7,12 @@ import { getAllHomeData, getSingleHomeData } from 'redux/homepage/actions';
 import NccNav from './NccNav';
 
 const NccDataComponent = () => {
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const dispatch = useDispatch();
   const { slug } = useParams();
 

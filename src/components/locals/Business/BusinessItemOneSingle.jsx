@@ -54,9 +54,9 @@ const BusinessItemOneSingle = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={item?.slug}
+            linkUrl={`/nrna/business/${item?.slug}`}
             description={item?.description}
-            viewAll
+            // viewAll
           />
         );
       } else {
@@ -66,9 +66,9 @@ const BusinessItemOneSingle = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={item?.slug}
+            linkUrl={`/nrna/business/${item?.slug}`}
             description={item?.description}
-            viewAll
+            // viewAll
           />
         );
       }

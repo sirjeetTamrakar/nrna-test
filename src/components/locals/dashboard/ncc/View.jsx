@@ -1,4 +1,5 @@
 import AccessTimeOutlinedIcon from '@mui/icons-material/AccessTimeOutlined';
+import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { changeDateFormat } from 'utils/dateUtils';
 const View = ({ data }) => {
@@ -38,6 +39,18 @@ const View = ({ data }) => {
         <span style={{ padding: '5px 0px' }}>
           {' '}
           <LocationOnOutlinedIcon /> {data?.country_name && data?.country_name}
+        </span>
+        <span style={{ padding: '5px 0px' }}>
+          {' '}
+          <ColorLensOutlinedIcon />{' '}
+          <span
+            style={{
+              padding: '2px 20px',
+              borderRadius: '10px',
+              backgroundColor: data?.color,
+              marginLeft: '2px'
+            }}></span>
+          <span style={{ marginLeft: '5px' }}>({`${data?.country_name}'s navbar color`})</span>
         </span>
       </div>
       <div style={{ padding: '10px 0' }}>

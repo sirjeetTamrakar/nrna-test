@@ -74,7 +74,7 @@ const CandidateSite = () => {
                   <div className="candidate_name">
                     {single_user?.full_name !== '' ? single_user?.full_name : single_user?.username}
                   </div>
-                  <div className="candidate_designation">{single_user?.role_name ?? ''}</div>
+                  <div className="candidate_designation">{single_user?.designation ?? ''}</div>
                 </div>
               </div>
             </div>

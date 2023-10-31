@@ -6,6 +6,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { getAllHomeData } from 'redux/homepage/actions';
 
 const HomeDataComponentPage = () => {
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const { slug } = useParams();
   console.log({ slug });
   const [selected, setSelected] = useState(slug);

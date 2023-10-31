@@ -6,6 +6,12 @@ import { useNavigate, useParams } from 'react-router';
 import { getAllHomeData, getSingleHomeData } from 'redux/homepage/actions';
 import BusinessNav from './BusinessNav';
 const BusinessDataComponent = () => {
+  const pathname = window.location.pathname;
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+
   const dispatch = useDispatch();
   const { slug } = useParams();
 

@@ -35,6 +35,7 @@ const SingleEvent = () => {
       ? parseInt(single_event?.event_category_id)
       : events_category?.[0]?.id
   );
+
   useEffect(() => {
     slug && dispatch(getSingleEvent(slug));
     dispatch(getAllEvents());
@@ -72,9 +73,6 @@ const SingleEvent = () => {
   ];
   // const [selected, setSelected] = useState(category?.[0]?.slug);
 
-  const youtubeLink = 'swFfcZ-n2XE?si=S41st9A9Ss84DZ3G';
-
-  console.log('sdsad', single_event?.youtube_url);
   return (
     <>
       <SecondaryNav category={events_category} setSelected={setSelected} selected={selected} />
@@ -170,7 +168,6 @@ const SingleEvent = () => {
                                 height="290"
                                 src={`https://www.youtube.com/embed/${single_event?.youtube_url}`}
                                 // src={`https://www.youtube.com/embed/${youtubeLink}`}
-                                // src="https://www.youtube.com/watch?v=swFfcZ-n2XE&ab_channel=Tech4All"
                                 title="YouTube video player"
                                 frameBorder="0"
                                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"

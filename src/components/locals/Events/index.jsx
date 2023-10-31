@@ -21,7 +21,7 @@ const Events = () => {
   console.log({ events });
 
   const [filteredEvents, setFilteredEvents] = useState();
-  const [allFilteredEvents, setAllFilteredEvents] = useState();
+  // const [allFilteredEvents, setAllFilteredEvents] = useState();
   const [eventLimit, setEventLimit] = useState(6);
 
   const [selected, setSelected] = useState();

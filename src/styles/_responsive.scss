@@ -389,6 +389,18 @@
   }
 }
 
+@media screen and (min-width: 276px) and (max-width: 1057px) {
+  .Navbar {
+    &_wrapper {
+      .nav_wrapper {
+        .navbar-dashboard-btn {
+          display: none !important;
+        }
+      }
+    }
+  }
+}
+
 @media screen and (min-width: 276px) and (max-width: 767px) {
   .Navbar {
     &_wrapper {
@@ -419,9 +431,6 @@
         align-items: center;
         justify-content: flex-start;
         column-gap: 30px;
-        .navbar-dashboard-btn {
-          display: none !important;
-        }
       }
     }
   }

@@ -55,9 +55,9 @@ const NccItemOneSingle = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={item?.slug}
+            linkUrl={`/nrna/ncc/${item?.slug}`}
             description={item?.description}
-            viewAll
+            // viewAll
           />
         );
       } else {
@@ -67,9 +67,9 @@ const NccItemOneSingle = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={item?.slug}
+            linkUrl={`/nrna/ncc/${item?.slug}`}
             description={item?.description}
-            viewAll
+            // viewAll
           />
         );
       }

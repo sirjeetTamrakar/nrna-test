@@ -14,7 +14,7 @@ const SiteSettings = () => {
     let typeData;
     if (user) {
       if (user?.role_name == Roles?.NCC) {
-        typeData = { settingable_type: user?.role_name, settingable_id: user?.id };
+        typeData = { settingable_type: user?.role_name, settingable_id: user?.ncc?.id };
       }
       dispatch(getSiteSettings(typeData));
     }

@@ -78,7 +78,7 @@ const AllNCCSection = () => {
   }, []);
 
   const handleShowMore = () => {
-    setNccLimit((prev) => prev + 6);
+    setNccLimit((prev) => prev + 8);
   };
 
   return (
