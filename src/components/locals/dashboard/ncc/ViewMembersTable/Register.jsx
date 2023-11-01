@@ -2,30 +2,24 @@ import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
-import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
-import CandidateForm from './Form';
-import { postCandidate } from './redux/actions';
+import { createUser } from '../../userManagement/redux/actions';
+// import { createUser } from '../redux/actions';
+import MemberForm from './Form';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
-const Register = ({ handleClose }) => {
-  const dispatch = useDispatch();
-  const defaultValues = {};
+const Register = ({ handleClose, countrySlug }) => {
+  const defaultValues = {
+    country_of_residence: countrySlug
+  };
   const classes = useStyles();
-  const { candidate_loading } = useSelector((state) => state.candidate);
-  const { user } = useSelector((state) => state.auth);
-
+  const dispatch = useDispatch();
+  const { create_user_loading } = useSelector((state) => state.user);
   const onSubmit = (data) => {
-    let typeData;
-    if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
-      dispatch(postCandidate({ ...data, ncc_id: user?.ncc?.id }, handleClose, typeData));
-    } else {
-      typeData = { page: 1, pagination_limit: 10 };
-      dispatch(postCandidate(data, handleClose, typeData));
-    }
+    const roleData = { country: countrySlug };
+    dispatch(createUser(data, roleData, handleClose));
   };
 
   return (
@@ -34,9 +28,9 @@ const Register = ({ handleClose }) => {
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
-          <CandidateForm />
+          <MemberForm countrySlug={countrySlug} />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Candidate" loading={candidate_loading} />
+            <CustomButton buttonName="Create Member" loading={create_user_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

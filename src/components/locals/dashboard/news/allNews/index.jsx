@@ -1,4 +1,3 @@
-import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
@@ -14,13 +13,13 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
+import { changeNewsStatus, deleteNews, getNews, setNewsSearch } from '../redux/actions';
 import Edit from './Edit';
-import { changeNewsStatus, deleteNews, getNews, setNewsSearch } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
 
-const News = () => {
+const AllNews = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
@@ -37,8 +36,6 @@ const News = () => {
     useSelector((state) => state.news);
 
   const { user } = useSelector((state) => state.auth);
-
-  console.log('user_details', { user });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -154,11 +151,13 @@ const News = () => {
 
   const handleConfirm = (slug) => {
     let typeData;
-    if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
-    } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
-    }
+    // if (user?.role_name == Roles?.Member) {
+    //   typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+    // } else if (user?.role_name == Roles?.NCC) {
+    //   typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    // }
+    typeData = { page: 1, pagination_limit: 10 };
+
     dispatch(deleteNews(slug, deleteOpenFunction, typeData));
   };
 
@@ -169,11 +168,13 @@ const News = () => {
       _method: 'PATCH'
     };
     let typeData;
-    if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
-    } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
-    }
+    // if (user?.role_name == Roles?.Member) {
+    //   typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
+    // } else if (user?.role_name == Roles?.NCC) {
+    //   typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    // }
+    typeData = { page: 1, pagination_limit: 10 };
+
     dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
   };
 
@@ -240,35 +241,37 @@ const News = () => {
   };
   const filterDataHome = {
     page: page + 1,
-    pagination_limit: 100,
-    search: news_search,
-    user_id: user?.id
+    pagination_limit: rowsPerPage,
+    search: news_search
   };
   const refetch = () => {
-    if (user?.role_name == Roles?.Member) {
-      dispatch(getNews(filterDataMember));
-    } else if (user?.role_name == Roles?.NCC) {
-      dispatch(getNews(filterDataNCC));
-    } else {
-      dispatch(getNews(filterDataHome));
-    }
+    // if (user?.role_name == Roles?.Member) {
+    //   dispatch(getNews(filterDataMember));
+    // } else if (user?.role_name == Roles?.NCC) {
+    //   dispatch(getNews(filterDataNCC));
+    // } else {
+    //   dispatch(getNews(filterDataHome));
+    // }
 
     // if (user?.role_name === 'ncc') {
     //   dispatch(getNews(filterData, roleData));
     // } else {
     //   dispatch(getNews(filterData));
     // }
+
+    dispatch(getNews(filterDataHome));
   };
 
   useEffect(() => {
-    if (user?.role_name === 'member') {
-      dispatch(getNews(filterDataMember));
-    } else if (user?.role_name === 'ncc') {
-      dispatch(getNews(filterDataNCC));
-    } else {
-      dispatch(getNews(filterDataHome));
-    }
-  }, [JSON.stringify(filterDataMember)]);
+    // if (user?.role_name === 'member') {
+    //   dispatch(getNews(filterDataMember));
+    // } else if (user?.role_name === 'ncc') {
+    //   dispatch(getNews(filterDataNCC));
+    // } else {
+    //   dispatch(getNews(filterDataHome));
+    // }
+    dispatch(getNews(filterDataHome));
+  }, [JSON.stringify(filterDataHome)]);
 
   useEffect(() => {
     // refetch();
@@ -285,7 +288,7 @@ const News = () => {
             marginBottom: '15px'
           }}>
           <Box>
-            <Box>My News</Box>
+            <Box>All News</Box>
             <Box sx={{ marginTop: '10px' }}>
               <form onClick={handleUserSearch}>
                 <input
@@ -324,13 +327,13 @@ const News = () => {
               </form>
             </Box>
           </Box>
-          <Button
+          {/* <Button
             startIcon={<AddIcon />}
             variant="contained"
             display="flex"
             onClick={formOpenFunction}>
             Add News
-          </Button>
+          </Button> */}
         </Box>
         <CustomTable
           tableHeads={tableHeads}
@@ -389,4 +392,4 @@ const News = () => {
   );
 };
 
-export default News;
+export default AllNews;

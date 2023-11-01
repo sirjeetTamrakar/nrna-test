@@ -1,7 +1,8 @@
 import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getNcc, getSiteSettings } from 'redux/homepage/actions';
+import { useParams } from 'react-router-dom';
+import { getNcc } from 'redux/homepage/actions';
 import NCCItem from './NCCItem';
 import NccItemOne from './NccSite/NccCardOne';
 import SecondaryNav from './SecondaryNav';
@@ -12,6 +13,7 @@ const AllNCCSection = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  const { ncc: slug } = useParams();
   const { ncc, ncc_loading, settings } = useSelector((state) => state.homepage);
   const [filteredNcc, setFilteredNcc] = useState([]);
   const [nccLimit, setNccLimit] = useState(9);
@@ -73,9 +75,9 @@ const AllNCCSection = () => {
     }
   }, [ncc, selected]);
 
-  useEffect(() => {
-    dispatch(getSiteSettings());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getSiteSettings());
+  // }, []);
 
   const handleShowMore = () => {
     setNccLimit((prev) => prev + 8);

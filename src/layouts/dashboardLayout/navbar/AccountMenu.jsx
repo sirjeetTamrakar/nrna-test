@@ -1,31 +1,47 @@
 import ChangeCircleIcon from '@mui/icons-material/ChangeCircle';
 import HomeIcon from '@mui/icons-material/Home';
 import Logout from '@mui/icons-material/Logout';
+import PersonIcon from '@mui/icons-material/Person';
 import Person4Icon from '@mui/icons-material/Person4';
 import PublicIcon from '@mui/icons-material/Public';
 import Settings from '@mui/icons-material/Settings';
-import { Box, Button } from '@mui/material';
+import { Box, Button, Grid } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
+import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Menu from '@mui/material/Menu';
 import MenuItem from '@mui/material/MenuItem';
 import Tooltip from '@mui/material/Tooltip';
 import noProfile from 'assets/images/noProfile.jpg';
+import CustomModal from 'components/common/CustomModal/CustomModal';
+import { getNCC } from 'components/locals/dashboard/ncc/redux/actions';
+import useToggle from 'hooks/useToggle';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { logout, saveRoleDetails } from 'redux/auth/actions';
+import {
+  logout,
+  saveAdminNccIdDetails,
+  saveAdminRoleDetails,
+  saveRoleDetails
+} from 'redux/auth/actions';
 import useStyles from './Styles';
 
 export default function AccountMenu() {
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
   const [changeEl, setChangeEl] = useState(null);
+  const [openForm, formOpenFunction] = useToggle(false);
   const [userRole, setUserRole] = useState('member');
-  const { user, role_details } = useSelector((state) => state.auth);
-  console.log({ role_details, userRole });
+  const [nccID, setNccID] = useState(null);
+  const [superadminUserRole, setSuperadminUserRole] = useState('admin');
+  const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
+    (state) => state.auth
+  );
+  console.log({ role_details, userRole, admin_ncc_id_details });
+  const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
 
   const open = Boolean(anchorEl);
   const roleOpen = Boolean(changeEl);
@@ -39,10 +55,16 @@ export default function AccountMenu() {
   const handleRoleClick = (event) => {
     setChangeEl(event.currentTarget);
   };
+  const handleSuperadminRoleClick = (event) => {
+    setChangeEl(event.currentTarget);
+  };
   const handleClose = () => {
     setAnchorEl(null);
   };
   const handleRoleClose = () => {
+    setChangeEl(null);
+  };
+  const handleSuperadminRoleClose = () => {
     setChangeEl(null);
   };
 
@@ -71,6 +93,35 @@ export default function AccountMenu() {
     dispatch(saveRoleDetails(userRole));
   }, [userRole]);
 
+  // superadmin role
+
+  const handleSuperadminRoleNcc = () => {
+    // superadminUserRole === 'admin' && setSuperadminUserRole('ncc');
+    navigate(`/dashboard`);
+    formOpenFunction();
+  };
+  const handleSuperadminRoleMember = () => {
+    superadminUserRole === 'ncc' && setSuperadminUserRole('admin');
+    navigate(`/dashboard`);
+  };
+
+  useEffect(() => {
+    dispatch(saveAdminRoleDetails(superadminUserRole));
+  }, [superadminUserRole]);
+
+  useEffect(() => {
+    dispatch(getNCC());
+  }, []);
+
+  const handleSelectNccID = (item) => {
+    setNccID(item?.id);
+    // dispatch(saveAdminNccIdDetails())
+  };
+
+  useEffect(() => {
+    dispatch(saveAdminNccIdDetails(nccID));
+  }, [nccID]);
+
   return (
     <React.Fragment>
       <Box sx={{ display: 'flex', alignItems: 'center', textAlign: 'center' }}>
@@ -91,11 +142,28 @@ export default function AccountMenu() {
               </IconButton>
             </Tooltip>
           )}
+          {user?.role_name === 'superadmin' && (
+            <Tooltip title="Switch User Mode">
+              <IconButton
+                onClick={handleSuperadminRoleClick}
+                size="small"
+                aria-controls={roleOpen ? 'role-menu' : undefined}
+                aria-haspopup="true"
+                aria-expanded={roleOpen ? 'true' : undefined}>
+                <ChangeCircleIcon />
+              </IconButton>
+            </Tooltip>
+          )}
           <Box>
             <p className={classes.name}>{user?.full_name} </p>
             {user?.role_name === 'ncc' && (
               <p className={classes.role} style={{ width: '100px' }}>
                 {role_details === 'member' ? 'Personal Profile' : 'NCC'}{' '}
+              </p>
+            )}
+            {user?.role_name === 'superadmin' && (
+              <p className={classes.role} style={{ width: '100px' }}>
+                {admin_role_details === 'admin' ? 'Superadmin' : 'NCC'}{' '}
               </p>
             )}
           </Box>
@@ -174,53 +242,136 @@ export default function AccountMenu() {
           Logout
         </MenuItem>
       </Menu>
-      <Menu
-        anchorEl={changeEl}
-        id="role-menu"
-        open={roleOpen}
-        onClose={handleRoleClose}
-        onClick={handleRoleClose}
-        PaperProps={{
-          elevation: 0,
-          sx: {
-            overflow: 'visible',
-            filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
-            mt: 1.5,
-            '& .MuiAvatar-root': {
-              width: 32,
-              height: 32,
-              ml: -0.5,
-              mr: 1
-            },
-            '&:before': {
-              content: '""',
-              display: 'block',
-              position: 'absolute',
-              top: 0,
-              right: 14,
-              width: 10,
-              height: 10,
-              bgcolor: 'background.paper',
-              transform: 'translateY(-50%) rotate(45deg)',
-              zIndex: 0
+      {user?.role_name === 'ncc' && (
+        <Menu
+          anchorEl={changeEl}
+          id="role-menu"
+          open={roleOpen}
+          onClose={handleRoleClose}
+          onClick={handleRoleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1
+              },
+              '&:before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0
+              }
             }
-          }
-        }}
-        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
-        <MenuItem onClick={handleRoleNcc}>
-          <ListItemIcon>
-            <PublicIcon fontSize="small" />
-          </ListItemIcon>
-          NCC
-        </MenuItem>
-        <MenuItem onClick={handleRoleMember}>
-          <ListItemIcon>
-            <Person4Icon fontSize="small" />
-          </ListItemIcon>
-          Personal Profile
-        </MenuItem>
-      </Menu>
+          }}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+          <MenuItem onClick={handleRoleNcc}>
+            <ListItemIcon>
+              <PublicIcon fontSize="small" />
+            </ListItemIcon>
+            NCC
+          </MenuItem>
+          <MenuItem onClick={handleRoleMember}>
+            <ListItemIcon>
+              <Person4Icon fontSize="small" />
+            </ListItemIcon>
+            Personal Profile
+          </MenuItem>
+        </Menu>
+      )}
+      {user?.role_name === 'superadmin' && (
+        <Menu
+          anchorEl={changeEl}
+          id="role-menu"
+          open={roleOpen}
+          onClose={handleSuperadminRoleClose}
+          onClick={handleSuperadminRoleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: 'visible',
+              filter: 'drop-shadow(0px 2px 8px rgba(0,0,0,0.12))',
+              mt: 1.5,
+              '& .MuiAvatar-root': {
+                width: 32,
+                height: 32,
+                ml: -0.5,
+                mr: 1
+              },
+              '&:before': {
+                content: '""',
+                display: 'block',
+                position: 'absolute',
+                top: 0,
+                right: 14,
+                width: 10,
+                height: 10,
+                bgcolor: 'background.paper',
+                transform: 'translateY(-50%) rotate(45deg)',
+                zIndex: 0
+              }
+            }
+          }}
+          transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+          anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+          <MenuItem onClick={handleSuperadminRoleNcc}>
+            <ListItemIcon>
+              <PublicIcon fontSize="small" />
+            </ListItemIcon>
+            NCC
+          </MenuItem>
+          <MenuItem onClick={handleSuperadminRoleMember}>
+            <ListItemIcon>
+              <Person4Icon fontSize="small" />
+            </ListItemIcon>
+            Superadmin
+          </MenuItem>
+        </Menu>
+      )}
+
+      <CustomModal
+        open={openForm}
+        handleClose={formOpenFunction}
+        modalTitle="Select any NCC to proceed"
+        modalSubtitle=""
+        icon={<PersonIcon />}
+        width={`60rem`}>
+        {/* <Register handleClose={formOpenFunction} /> */}
+        <Box sx={{ padding: '40px' }}>
+          {get_ncc_loading ? (
+            <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+              <CircularProgress />
+            </Box>
+          ) : (
+            <Grid container>
+              {nccData?.data?.map((item) => {
+                return (
+                  <Grid item md={2.4} sx={{ padding: '10px' }}>
+                    <Button
+                      variant="contained"
+                      sx={{ width: '100%' }}
+                      onClick={() => handleSelectNccID(item)}>
+                      {item?.country_name}
+                    </Button>
+                  </Grid>
+                );
+              })}
+            </Grid>
+          )}
+        </Box>
+      </CustomModal>
     </React.Fragment>
   );
 }

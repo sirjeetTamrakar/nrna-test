@@ -146,3 +146,11 @@ export const changePassword = (data, handleRedirect) => (dispatch) => {
 export const saveRoleDetails = (data) => (dispatch) => {
   dispatch({ type: actions.STORE_ROLE_DETAILS, payload: data });
 };
+
+export const saveAdminRoleDetails = (data) => (dispatch) => {
+  dispatch({ type: actions.STORE_ADMIN_ROLE_DETAILS, payload: data });
+};
+
+export const saveAdminNccIdDetails = (data) => (dispatch) => {
+  dispatch({ type: actions.STORE_ADMIN_NCC_ID_DETAILS, payload: data });
+};

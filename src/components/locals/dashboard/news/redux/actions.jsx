@@ -16,7 +16,7 @@ import {
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
 
-export const getNews = (data) => (dispatch) => {
+export const getNews = (data, typeData) => (dispatch) => {
   dispatch({ type: actions.GET_NEWS_BEGIN });
   getNewsApi(data)
     .then((res) => {

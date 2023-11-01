@@ -6,8 +6,8 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { updateNews } from '../redux/actions';
 import NewsForm from './Form';
-import { updateNews } from './redux/actions';
 import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
 
@@ -25,7 +25,7 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('title', data?.title);
     formData.append('description', data?.description);
     formData.append('excerpt', data?.excerpt);
-    formData.append('created_by', user?.id);
+    formData.append('created_by', data?.created_by);
     formData.append('_method', 'PUT');
     formData.append('news_category_id', data?.news_category_id);
 
@@ -37,21 +37,9 @@ const EditForm = ({ detail, handleClose }) => {
   };
   useEffect(() => {
     if (user?.role_name == Roles?.Member) {
-      setTypeData({
-        type: 'member',
-        id: user?.id,
-        page: 1,
-        pagination_limit: 10,
-        user_id: user?.id
-      });
+      setTypeData({ type: 'member', id: user?.id, page: 1, pagination_limit: 10 });
     } else if (user?.role_name == Roles?.NCC) {
-      setTypeData({
-        type: 'ncc',
-        id: user?.ncc?.id,
-        page: 1,
-        pagination_limit: 10,
-        user_id: user?.id
-      });
+      setTypeData({ type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 });
     }
   }, []);
 

@@ -1,3 +1,6 @@
+import EmailIcon from '@mui/icons-material/Email';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import PhoneIcon from '@mui/icons-material/Phone';
 import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import CustomButton from 'components/common/CustomButton/CustomButton';
@@ -61,17 +64,17 @@ const Contact = ({ siteSettings, handleSubmit }) => {
                   Fill up the form to get in touch with the NRNA Global team.
                 </div>
                 <ul className="contact_list">
-                  <li>
-                    <i className="fa fa-map-marker-alt"></i>
-                    <span className="contact_list_item">{single_ncc?.address || ''}</span>
+                  <li className="contact_list_item_box">
+                    <LocationOnIcon />
+                    <span className="contact_list_item">{settings?.address || ''}</span>
                   </li>
-                  <li>
-                    <i className="fa fa-phone"></i>
-                    <span className="contact_list_item">{siteSettings?.phone || ''}</span>
+                  <li className="contact_list_item_box">
+                    <PhoneIcon />
+                    <span className="contact_list_item">{settings?.phone || ''}</span>
                   </li>
-                  <li>
-                    <i className="fa fa-envelope"></i>
-                    <span className="contact_list_item">{siteSettings?.email || ''}</span>
+                  <li className="contact_list_item_box">
+                    <EmailIcon />
+                    <span className="contact_list_item">{settings?.email || ''}</span>
                   </li>
                 </ul>
               </div>

@@ -17,7 +17,7 @@ import { changeNCCStatus, deleteNCC, getNCC } from './redux/actions';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
-import ViewMembers from './ViewMembers';
+import ViewMembersTable from './ViewMembersTable';
 
 const NCC = () => {
   const dispatch = useDispatch();
@@ -179,6 +179,8 @@ const NCC = () => {
     refetch();
   }, [page, rowsPerPage]);
 
+  console.log('ncc-details', { detail });
+
   return (
     <>
       <Box>
@@ -241,7 +243,8 @@ const NCC = () => {
           padding
           icon={<PersonIcon />}
           width={`60rem`}>
-          <ViewMembers data={detail} />
+          {/* <ViewMembers data={detail} /> */}
+          <ViewMembersTable countrySlug={detail?.country_name} />
         </CustomModal>
         <CustomDeleteModal
           handleConfirm={handleConfirm}

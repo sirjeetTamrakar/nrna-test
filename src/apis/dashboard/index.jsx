@@ -236,3 +236,8 @@ export const deleteHomeDataApi = (banner_id) => {
 export const updateHomeDataStatusApi = (data) => {
   return axiosInstance().post(`/admin/homedata/${data?.slug}/status`, data);
 };
+
+// delete users
+export const deleteUsersApi = (data) => {
+  return axiosInstance().delete(`/admin/users/${data}`);
+};

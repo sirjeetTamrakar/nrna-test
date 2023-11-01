@@ -61,19 +61,24 @@ export const SidebarConstants = [
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: [
           {
-            label: 'News List',
-            url: '/dashboard/news/news-list',
+            label: 'My News List',
+            url: '/dashboard/news/my-news-list',
             memberProfile: 'memberProfile',
             memberProfileNCC: 'memberProfileNCC',
-
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC, Roles.Member]
+          },
+          {
+            label: 'All News List',
+            url: '/dashboard/news/all-news-list',
+            memberProfile: 'memberProfile',
+            memberProfileNCC: 'memberProfileNCC',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           },
           {
             label: 'News Management',
             url: '/dashboard/news/news-management',
             memberProfile: 'memberProfile',
             memberProfileNCC: 'memberProfileNCC',
-
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC, Roles.Member]
           }
         ]

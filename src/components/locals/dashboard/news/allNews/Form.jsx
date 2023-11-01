@@ -4,10 +4,13 @@ import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
+import { Roles } from 'constants/RoleConstant';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../userManagement/redux/actions';
-import { getCategory } from './redux/actions';
+import { getAllUsers } from '../../userManagement/redux/actions';
+import { getCategory } from '../redux/actions';
+// import { getAllUsers } from '../userManagement/redux/actions';
+// import { getCategory } from './redux/actions';
 import { useStyles } from './styles';
 
 const NewsForm = ({ featureImage }) => {
@@ -64,7 +67,7 @@ const NewsForm = ({ featureImage }) => {
         <Grid item sm={12}>
           <CustomEditor name="description" />
         </Grid>
-        {/* {user?.role_name != Roles.Member && (
+        {user?.role_name != Roles.Member && (
           <Grid item sm={12}>
             <CustomAutoComplete
               placeholder="Created By"
@@ -74,7 +77,7 @@ const NewsForm = ({ featureImage }) => {
               required
             />
           </Grid>
-        )} */}
+        )}
       </Grid>
     </Box>
   );

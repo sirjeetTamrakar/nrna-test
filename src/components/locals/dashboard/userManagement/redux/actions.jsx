@@ -1,3 +1,4 @@
+import { deleteUsersApi } from 'apis/dashboard';
 import {
   changeApprovalApi,
   changeStatusApi,
@@ -24,14 +25,14 @@ export const getAllUsers = (data, roleData) => (dispatch) => {
     });
 };
 
-export const createUser = (data, handleSuccess) => (dispatch) => {
+export const createUser = (data, roleData, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.CREATE_USER_BEGIN });
 
   createUserApi(data)
     .then((res) => {
       dispatch({ type: actions.CREATE_USER_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getAllUsers());
+      dispatch(getAllUsers(roleData));
       successToast('User has been created');
     })
     .catch((error) => {
@@ -113,6 +114,24 @@ export const updateProfile = (slug, data) => (dispatch) => {
       dispatch({ type: actions.UPDATE_PROFILE_ERROR });
       errorToast(error);
     });
+};
+
+export const deleteUsers = (Data, handleSuccess, typeData) => async (dispatch) => {
+  dispatch({ type: actions.DELETE_USERS_BEGIN });
+
+  try {
+    await deleteUsersApi(Data);
+    dispatch({
+      type: actions.DELETE_USERS_SUCCESS,
+      payload: ''
+    });
+    dispatch(getAllUsers(typeData));
+    handleSuccess && handleSuccess();
+    successToast('User has been deleted');
+  } catch (error) {
+    dispatch({ type: actions.DELETE_USERS_ERROR });
+    errorToast(error);
+  }
 };
 
 export const setUserSearch = (data) => (dispatch) => {

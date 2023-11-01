@@ -5,7 +5,9 @@ const defaultState = {
   loading: false,
   register_loading: false,
   get_users_loading: false,
-  role_details: ''
+  role_details: '',
+  admin_role_details: '',
+  admin_ncc_id_details: null
 };
 
 const authReducer = (state = defaultState, action) => {
@@ -49,6 +51,12 @@ const authReducer = (state = defaultState, action) => {
 
     case actions.STORE_ROLE_DETAILS:
       return { ...state, role_details: action.payload };
+
+    case actions.STORE_ADMIN_ROLE_DETAILS:
+      return { ...state, admin_role_details: action.payload };
+
+    case actions.STORE_ADMIN_NCC_ID_DETAILS:
+      return { ...state, admin_ncc_id_details: action.payload };
 
     default:
       return state;

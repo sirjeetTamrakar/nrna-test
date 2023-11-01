@@ -8,7 +8,8 @@ const defaultState = {
   update_user_loading: false,
   change_role_loading: false,
   profile_update_loading: false,
-  user_search: ''
+  user_search: '',
+  delete_users_loading: false
 };
 
 const userReducer = (state = defaultState, action) => {
@@ -81,6 +82,13 @@ const userReducer = (state = defaultState, action) => {
 
     case actions.SEARCH_USER:
       return { ...state, user_search: action.payload };
+
+    case actions.DELETE_USERS_BEGIN:
+      return { ...state, delete_users_loading: true };
+
+    case actions.DELETE_USERS_SUCCESS:
+    case actions.DELETE_USERS_ERROR:
+      return { ...state, delete_users_loading: false };
 
     default:
       return state;

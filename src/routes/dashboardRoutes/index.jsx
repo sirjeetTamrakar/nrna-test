@@ -16,6 +16,7 @@ import NBNSBannerPage from 'pages/private/NBNSBanner';
 import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
 import NccSiteSettingsPage from 'pages/private/NccSiteSettings';
+import AllNewsPage from 'pages/private/news/AllNewsPage';
 import NewsCategoryPage from 'pages/private/news/Category';
 import NewsManagementPage from 'pages/private/news/NewsManagementPage';
 import NewsPage from 'pages/private/news/NewsPage';
@@ -47,10 +48,26 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'news/news-list',
+    path: 'news/my-news-list',
     component: (
       <Protected>
         <NewsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'news/all-news-list',
+    component: (
+      <Protected>
+        <AllNewsPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'news/all-news-list',
+    component: (
+      <Protected>
+        <AllNewsPage />
       </Protected>
     )
   },
