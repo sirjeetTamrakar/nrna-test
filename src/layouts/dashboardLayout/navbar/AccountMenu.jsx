@@ -5,7 +5,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Person4Icon from '@mui/icons-material/Person4';
 import PublicIcon from '@mui/icons-material/Public';
 import Settings from '@mui/icons-material/Settings';
-import { Box, Button, Grid } from '@mui/material';
+import { Box, Button, Grid, TextField } from '@mui/material';
 import Avatar from '@mui/material/Avatar';
 import CircularProgress from '@mui/material/CircularProgress';
 import IconButton from '@mui/material/IconButton';
@@ -36,18 +36,39 @@ export default function AccountMenu() {
   const [openForm, formOpenFunction] = useToggle(false);
   const [userRole, setUserRole] = useState('member');
   const [nccID, setNccID] = useState(null);
+  const [filteredNcc, setFilteredNcc] = useState();
+  const [filteredNccData, setFilteredNccData] = useState();
   const [superadminUserRole, setSuperadminUserRole] = useState('admin');
+  const [search, setSearch] = useState('');
+
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
   );
-  console.log({ role_details, userRole, admin_ncc_id_details });
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
+  console.log({
+    role_details,
+    admin_role_details,
+    userRole,
+    admin_ncc_id_details,
+    filteredNcc,
+    nccData
+  });
 
   const open = Boolean(anchorEl);
   const roleOpen = Boolean(changeEl);
 
   const navigate = useNavigate();
   const classes = useStyles();
+
+  useEffect(() => {
+    const newArray = nccData?.data?.filter((item) => item?.id === admin_ncc_id_details);
+    const newObj = {};
+
+    newArray?.forEach((item, index) => {
+      newObj[`nccID${index + 1}`] = item;
+    });
+    setFilteredNcc(newObj);
+  }, [nccData?.data, admin_ncc_id_details]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -113,14 +134,30 @@ export default function AccountMenu() {
     dispatch(getNCC());
   }, []);
 
+  useEffect(() => {
+    if (nccData?.data) {
+      const newNccData = nccData?.data?.filter((list) =>
+        list?.country_name?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      setFilteredNccData(newNccData);
+    }
+  }, [search, nccData?.data]);
+
   const handleSelectNccID = (item) => {
     setNccID(item?.id);
     // dispatch(saveAdminNccIdDetails())
+    superadminUserRole === 'admin' && setSuperadminUserRole('ncc');
+    formOpenFunction();
+    setSearch('');
   };
 
   useEffect(() => {
     dispatch(saveAdminNccIdDetails(nccID));
   }, [nccID]);
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
 
   return (
     <React.Fragment>
@@ -162,8 +199,10 @@ export default function AccountMenu() {
               </p>
             )}
             {user?.role_name === 'superadmin' && (
-              <p className={classes.role} style={{ width: '100px' }}>
-                {admin_role_details === 'admin' ? 'Superadmin' : 'NCC'}{' '}
+              <p className={classes.role} style={{ minWidth: '100px', width: 'auto' }}>
+                {admin_role_details === 'admin'
+                  ? 'Superadmin'
+                  : `${filteredNcc?.nccID1?.country_name}'s NCC`}{' '}
               </p>
             )}
           </Box>
@@ -355,20 +394,30 @@ export default function AccountMenu() {
               <CircularProgress />
             </Box>
           ) : (
-            <Grid container>
-              {nccData?.data?.map((item) => {
-                return (
-                  <Grid item md={2.4} sx={{ padding: '10px' }}>
-                    <Button
-                      variant="contained"
-                      sx={{ width: '100%' }}
-                      onClick={() => handleSelectNccID(item)}>
-                      {item?.country_name}
-                    </Button>
-                  </Grid>
-                );
-              })}
-            </Grid>
+            <Box>
+              <TextField
+                // className={classes.search_bar}
+                placeholder="Search NCC"
+                name="search"
+                onChange={handleSearch}
+                sx={{ marginBottom: '10px', marginLeft: '10px' }}
+              />
+
+              <Grid container>
+                {filteredNccData?.map((item) => {
+                  return (
+                    <Grid item md={2.4} sx={{ padding: '10px' }}>
+                      <Button
+                        variant="contained"
+                        sx={{ width: '100%' }}
+                        onClick={() => handleSelectNccID(item)}>
+                        {item?.country_name}
+                      </Button>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Box>
           )}
         </Box>
       </CustomModal>

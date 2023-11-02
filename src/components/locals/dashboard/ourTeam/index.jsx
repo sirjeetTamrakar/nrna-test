@@ -13,6 +13,7 @@ import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { getNCC } from '../ncc/redux/actions';
 import Edit from './Edit';
 import { changeTeamsStatus, deleteTeams, getTeams } from './redux/actions';
 import Register from './Register';
@@ -27,6 +28,7 @@ const OurTeam = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
+  const [nccInfo, setNccInfo] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
@@ -34,8 +36,25 @@ const OurTeam = () => {
   const { teamsData, get_teams_loading, delete_teams_loading } = useSelector(
     (state) => state.teams
   );
-  const { user } = useSelector((state) => state.auth);
-  console.log('ccdcddddee', { user });
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+  const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
+
+  useEffect(() => {
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getNCC(data));
+  }, []);
+
+  useEffect(() => {
+    const newArray = nccData?.data?.filter((item) => item?.id === admin_ncc_id_details);
+    const newObj = {};
+
+    newArray?.forEach((item, index) => {
+      newObj[`nccInfo${index + 1}`] = item;
+    });
+    setNccInfo(newObj);
+  }, [nccData?.data]);
+
+  console.log('ccdcddddee', { user, nccInfo });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -130,6 +149,12 @@ const OurTeam = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = {
+        id: admin_ncc_id_details,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }
@@ -145,6 +170,12 @@ const OurTeam = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = {
+        id: admin_ncc_id_details,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }
@@ -177,6 +208,13 @@ const OurTeam = () => {
       typeData = {
         id: user?.ncc?.id,
         country: user?.ncc?.country_name,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = {
+        id: admin_ncc_id_details,
+        country: nccInfo?.nccInfo1?.country_name,
         page: page + 1,
         pagination_limit: rowsPerPage
       };

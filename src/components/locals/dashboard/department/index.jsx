@@ -28,7 +28,7 @@ const Department = () => {
   const { departmentData, get_department_loading, delete_department_loading } = useSelector(
     (state) => state.department
   );
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },

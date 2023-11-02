@@ -25,7 +25,7 @@ const SettingsDataForm = () => {
   const { setValue } = useFormContext({ defaultValues });
 
   const { site_settings, site_settings_loading } = useSelector((state) => state.settings);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   useEffect(() => {
     if (site_settings) {
@@ -49,6 +49,12 @@ const SettingsDataForm = () => {
       formData.append('settingable_type', 'ncc');
       formData.append('settingable_id', user?.ncc?.id);
       typeData = { settingable_type: 'ncc', settingable_id: user?.ncc?.id };
+    }
+
+    if (user?.role_name === Roles.SuperAdmin && admin_role_details === 'ncc') {
+      formData.append('settingable_type', 'ncc');
+      formData.append('settingable_id', admin_ncc_id_details);
+      typeData = { settingable_type: 'ncc', settingable_id: admin_ncc_id_details };
     }
 
     if (data?.region_logo?.length > 0) {

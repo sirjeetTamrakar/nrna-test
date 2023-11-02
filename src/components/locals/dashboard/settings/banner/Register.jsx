@@ -16,7 +16,7 @@ const Register = ({ handleClose }) => {
   const classes = useStyles();
 
   const { banner_loading } = useSelector((state) => state.banner);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -35,6 +35,16 @@ const Register = ({ handleClose }) => {
         pagination_limit: 10,
         bannerable_type: 'ncc',
         bannerable_id: user?.ncc?.id
+      };
+    }
+    if (user?.role_name === Roles.SuperAdmin && admin_role_details === 'ncc') {
+      formData.append('bannerable_type', 'ncc');
+      formData.append('bannerable_id', admin_ncc_id_details);
+      typeData = {
+        page: 1,
+        pagination_limit: 10,
+        bannerable_type: 'ncc',
+        bannerable_id: admin_ncc_id_details
       };
     }
 

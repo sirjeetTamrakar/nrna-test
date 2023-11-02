@@ -21,9 +21,10 @@ const Contact = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+
   const [detail, setDetail] = useState();
   const classes = useStyles();
-  const { user } = useSelector((state) => state.auth);
   const { contact, contact_loading, contact_delete_loading } = useSelector(
     (state) => state.homepage
   );
@@ -100,6 +101,13 @@ const Contact = () => {
       typeData = { type: 'member', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
     } else if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = {
+        type: 'ncc',
+        id: admin_ncc_id_details,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     }
     dispatch(deleteContact(detail?.id, deleteOpenFunction, typeData));
   };
@@ -110,6 +118,13 @@ const Contact = () => {
       data = { type: 'member', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
     } else if (user?.role_name == Roles?.NCC) {
       data = { type: 'ncc', id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      data = {
+        type: 'ncc',
+        id: admin_ncc_id_details,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     } else {
       data = { page: page + 1, pagination_limit: rowsPerPage };
     }

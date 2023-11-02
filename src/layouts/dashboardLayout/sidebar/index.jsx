@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles';
 import Logo from 'assets/images/nrna.png';
 import { SidebarConstants } from 'constants/SidebarConstants';
 import * as React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import useStyles from './styles';
 
@@ -62,6 +62,7 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidebar() {
+  const dispatch = useDispatch();
   const classes = useStyles();
   const [open, setOpen] = React.useState(sessionStorage.getItem('active'));
 
@@ -70,7 +71,7 @@ export default function Sidebar() {
     setOpen((prev) => (prev === item?.label ? '' : item?.label));
   };
 
-  const { user, role_details } = useSelector((state) => state.auth);
+  const { user, role_details, admin_role_details } = useSelector((state) => state.auth);
 
   return (
     <Box sx={{ display: 'flex', '& .MuiDrawer-paper': { border: 'none' } }}>
@@ -81,7 +82,6 @@ export default function Sidebar() {
               <img src={Logo} />
             </Box>
           </DrawerHeader>
-
           <NavBarByRoles
             open={open}
             role_details={role_details}
@@ -94,8 +94,16 @@ export default function Sidebar() {
             user={user}
             handleClick={handleClick}
           />
-
+          {admin_role_details !== 'admin' && (
+            <NavBarByRoleSuperadmin
+              open={open}
+              role_details={admin_role_details}
+              user={user}
+              handleClick={handleClick}
+            />
+          )}
           {user?.role_name !== 'ncc' &&
+            admin_role_details === 'admin' &&
             SidebarConstants?.map((row, index) => (
               <List
                 key={row?.header}
@@ -372,8 +380,106 @@ const NavBarByRoleNCC = ({ role_details, user, handleClick, open }) => {
     </>
   );
 };
+const NavBarByRoleSuperadmin = ({ admin_role_details, user, handleClick, open }) => {
+  const classes = useStyles();
 
-const ChildComponent = ({ child, classes }) => {
+  return (
+    <>
+      {user?.role_name === 'superadmin' &&
+        admin_role_details !== 'admin' &&
+        SidebarConstants?.map((row, index) => (
+          <List
+            key={row?.header}
+            subheader={<Box sx={{ fontSize: '11px', padding: '5px 12px' }}>{row?.header} </Box>}
+            sx={{ mb: '1rem' }}>
+            {row?.items?.map((item, index) => {
+              const filterData = item?.adminProfile?.includes('adminProfile');
+              if (filterData) {
+                return (
+                  <ListItem
+                    key={item?.label}
+                    disablePadding
+                    sx={{ display: 'block', paddingBottom: '5px' }}
+                    className={classes.nav}>
+                    <NavLink
+                      to={!item?.children?.length && item?.url}
+                      className={({ isActive }) =>
+                        isActive &&
+                        (item?.children?.length
+                          ? item?.children?.some((nestedItem) =>
+                              window.location.pathname.includes(nestedItem.url)
+                            )
+                            ? classes.activeClass
+                            : {}
+                          : classes.activeClass)
+                      }>
+                      {({ isActive }) => (
+                        <ListItemButton
+                          className={classes.listItemButton}
+                          onClick={() =>
+                            item?.children?.length !== 0 ? handleClick(item) : handleClick()
+                          }
+                          style={{
+                            background: open === item?.label && '#f6f6f6'
+                          }}>
+                          <ListItemIcon
+                            sx={{
+                              minWidth: 0,
+                              mr: 2,
+                              justifyContent: 'center'
+                            }}>
+                            <img
+                              style={{ height: '20px', width: '20px' }}
+                              src={
+                                isActive
+                                  ? item?.children?.length
+                                    ? item?.children?.some((nestedItem) =>
+                                        window.location.pathname.includes(nestedItem.url)
+                                      )
+                                      ? item?.activeIcon
+                                      : item?.icon
+                                    : item?.activeIcon
+                                  : item?.icon
+                              }
+                            />
+                          </ListItemIcon>
+                          <ListItemText primary={item?.label} />
+
+                          {item?.children?.length !== 0 && (
+                            <ExpandMore
+                              sx={{
+                                transition: 'transform 0.3s',
+                                transform: open === item?.label ? 'rotate(-180deg)' : 'rotate(0deg)'
+                              }}
+                            />
+                          )}
+                        </ListItemButton>
+                      )}
+                    </NavLink>
+
+                    <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
+                      <Box className={classes.childContainer}>
+                        {item?.children?.map((child, index) => (
+                          <ChildComponent
+                            child={child}
+                            key={index}
+                            classes={classes}
+                            admin_role_details={admin_role_details}
+                          />
+                        ))}
+                      </Box>
+                    </Collapse>
+                  </ListItem>
+                );
+              } else return false;
+            })}
+          </List>
+        ))}{' '}
+    </>
+  );
+};
+
+const ChildComponent = ({ child, classes, admin_role_details, role_details }) => {
   const { user } = useSelector((state) => state.auth);
   const filterData = child?.roles?.includes(user?.role_name);
   if (filterData) {

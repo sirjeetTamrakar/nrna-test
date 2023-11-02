@@ -45,7 +45,7 @@ const NewsManagement = () => {
     delete_news_loading
   } = useSelector((state) => state.news);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -166,8 +166,48 @@ const NewsManagement = () => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, categoryData]);
 
+  const filterDataMember = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    type: 'member',
+    id: user?.id
+  };
+  const filterDataNCC = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    type: 'ncc',
+    id: user?.ncc?.id
+  };
+  const filterDataHome = {
+    // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
+    page: page + 1,
+    pagination_limit: 100,
+    user_id: user?.id
+  };
+  const filterDataHomeAdminNcc = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    type: 'ncc',
+    id: admin_ncc_id_details
+  };
+
+  const filterDataHomeAll = {
+    // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
+    page: page + 1,
+    pagination_limit: 100
+  };
+
   useEffect(() => {
-    dispatch(getNews());
+    if (user?.role_name === 'ncc') {
+      dispatch(getNews(filterDataNCC));
+    } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
+      dispatch(getNews(filterDataHomeAdminNcc));
+    } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
+      dispatch(getNews(filterDataHome));
+    } else {
+      dispatch(getNews());
+    }
+    // dispatch(getNews());
     dispatch(getCategory());
   }, []);
 

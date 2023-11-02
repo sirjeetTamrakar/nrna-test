@@ -36,7 +36,7 @@ const News = () => {
   const { newsData, get_news_loading, news_status_loading, delete_news_loading, news_search } =
     useSelector((state) => state.news);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
 
   console.log('user_details', { user });
 
@@ -158,6 +158,10 @@ const News = () => {
       typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { type: 'ncc', id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
+      typeData = { page: 1, pagination_limit: 10 };
     }
     dispatch(deleteNews(slug, deleteOpenFunction, typeData));
   };
@@ -173,6 +177,10 @@ const News = () => {
       typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { type: 'ncc', id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
+      typeData = { page: 1, pagination_limit: 10 };
     }
     dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
   };
@@ -239,18 +247,39 @@ const News = () => {
     search: news_search
   };
   const filterDataHome = {
+    // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
     page: page + 1,
     pagination_limit: 100,
     search: news_search,
     user_id: user?.id
   };
+  const filterDataHomeAdminNcc = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    type: 'ncc',
+    id: admin_ncc_id_details,
+    search: news_search
+  };
+
+  const filterDataHomeAll = {
+    // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
+    page: page + 1,
+    pagination_limit: 100,
+    search: news_search
+  };
+
+  console.log({ admin_ncc_id_details, admin_role_details });
   const refetch = () => {
     if (user?.role_name == Roles?.Member) {
       dispatch(getNews(filterDataMember));
     } else if (user?.role_name == Roles?.NCC) {
       dispatch(getNews(filterDataNCC));
-    } else {
+    } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
+      dispatch(getNews(filterDataHomeAdminNcc));
+    } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
       dispatch(getNews(filterDataHome));
+    } else {
+      dispatch(getNews(filterDataHomeAll));
     }
 
     // if (user?.role_name === 'ncc') {
@@ -265,8 +294,12 @@ const News = () => {
       dispatch(getNews(filterDataMember));
     } else if (user?.role_name === 'ncc') {
       dispatch(getNews(filterDataNCC));
-    } else {
+    } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
+      dispatch(getNews(filterDataHomeAdminNcc));
+    } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
       dispatch(getNews(filterDataHome));
+    } else {
+      dispatch(getNews(filterDataHomeAll));
     }
   }, [JSON.stringify(filterDataMember)]);
 

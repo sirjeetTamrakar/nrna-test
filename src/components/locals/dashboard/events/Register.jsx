@@ -15,7 +15,8 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { events_loading } = useSelector((state) => state.events);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+
   console.log('cxcxddddd', { user });
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -39,6 +40,13 @@ const Register = ({ handleClose }) => {
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
       formData.append('ncc_id', user?.ncc?.id);
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = {
+        id: admin_ncc_id_details,
+        page: 1,
+        pagination_limit: 10
+      };
+      formData.append('ncc_id', admin_ncc_id_details);
     } else {
       typeData = { page: 1, pagination_limit: 10 };
     }

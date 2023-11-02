@@ -36,7 +36,7 @@ const Events = () => {
   const { eventsData, get_events_loading, events_status_loading, delete_events_loading } =
     useSelector((state) => state.events);
 
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -186,6 +186,10 @@ const Events = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.ncc?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { type: 'ncc', id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
+      typeData = { page: 1, pagination_limit: 10 };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }

@@ -14,7 +14,7 @@ const EditForm = ({ id, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { update_candidate_loading } = useSelector((state) => state.candidate);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     let typeData;
@@ -22,6 +22,15 @@ const EditForm = ({ id, handleClose }) => {
       typeData = { id: user?.id, page: 1, pagination_limit: 10 };
       dispatch(
         updateCandidate({ ...data, ncc_id: user?.id, _method: 'PUT' }, id, handleClose, typeData)
+      );
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+      dispatch(
+        updateCandidate(
+          { ...data, ncc_id: admin_ncc_id_details, _method: 'PUT' },
+          handleClose,
+          typeData
+        )
       );
     } else {
       typeData = { page: 1, pagination_limit: 10 };

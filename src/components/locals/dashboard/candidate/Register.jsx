@@ -15,13 +15,16 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { candidate_loading } = useSelector((state) => state.candidate);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
       dispatch(postCandidate({ ...data, ncc_id: user?.ncc?.id }, handleClose, typeData));
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+      dispatch(postCandidate({ ...data, ncc_id: admin_ncc_id_details }, handleClose, typeData));
     } else {
       typeData = { page: 1, pagination_limit: 10 };
       dispatch(postCandidate(data, handleClose, typeData));

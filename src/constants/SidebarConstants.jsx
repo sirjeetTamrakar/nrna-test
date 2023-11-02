@@ -25,6 +25,7 @@ export const SidebarConstants = [
         icon: DashboardIcon,
         memberProfile: 'memberProfile',
         memberProfileNCC: 'memberProfileNCC',
+        adminProfile: 'adminProfile',
         activeIcon: ActiveDashboardIcon,
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
@@ -35,14 +36,15 @@ export const SidebarConstants = [
         icon: UserManagement,
         activeIcon: ActiveSettingsIcon,
         memberProfileNCC: 'memberProfileNCC',
-
+        adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
             label: 'Member',
             url: '/dashboard/user-management/member',
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
-            memberProfileNCC: 'memberProfileNCC'
+            memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile'
           }
           // {
           //   label: 'Permission',
@@ -57,7 +59,7 @@ export const SidebarConstants = [
         activeIcon: ActiveDashboardIcon,
         memberProfile: 'memberProfile',
         memberProfileNCC: 'memberProfileNCC',
-
+        adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: [
           {
@@ -65,6 +67,7 @@ export const SidebarConstants = [
             url: '/dashboard/news/my-news-list',
             memberProfile: 'memberProfile',
             memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC, Roles.Member]
           },
           {
@@ -72,6 +75,8 @@ export const SidebarConstants = [
             url: '/dashboard/news/all-news-list',
             memberProfile: 'memberProfile',
             memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
+
             roles: [Roles.Admin, Roles.SuperAdmin]
           },
           {
@@ -79,6 +84,7 @@ export const SidebarConstants = [
             url: '/dashboard/news/news-management',
             memberProfile: 'memberProfile',
             memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC, Roles.Member]
           }
         ]
@@ -89,7 +95,7 @@ export const SidebarConstants = [
         icon: Events,
         activeIcon: ActiveDashboardIcon,
         memberProfileNCC: 'memberProfileNCC',
-
+        adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: []
       },
@@ -100,7 +106,7 @@ export const SidebarConstants = [
         memberProfile: 'memberProfile',
         activeIcon: ActiveDashboardIcon,
         memberProfileNCC: 'memberProfileNCC',
-
+        adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: []
       },
@@ -135,13 +141,14 @@ export const SidebarConstants = [
         icon: Team,
         activeIcon: ActiveDashboardIcon,
         memberProfileNCC: 'memberProfileNCC',
-
+        adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
             label: 'Team',
             url: '/dashboard/our-team',
             memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
@@ -149,6 +156,7 @@ export const SidebarConstants = [
             label: 'Department',
             url: '/dashboard/our-team/department',
             memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           }
@@ -160,6 +168,7 @@ export const SidebarConstants = [
         icon: Candidate,
         activeIcon: ActiveDashboardIcon,
         memberProfileNCC: 'memberProfileNCC',
+        adminProfile: 'adminProfile',
 
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: []
@@ -234,6 +243,7 @@ export const SidebarConstants = [
         icon: SettingsIcon,
         activeIcon: ActiveSettingsIcon,
         memberProfileNCC: 'memberProfileNCC',
+        adminProfile: 'adminProfile',
 
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
@@ -241,6 +251,7 @@ export const SidebarConstants = [
             label: 'NRNA Settings',
             url: '/dashboard/settings/site',
             // memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
@@ -249,6 +260,7 @@ export const SidebarConstants = [
             url: '/dashboard/settings/banner',
             memberProfile: 'memberProfile',
             // memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },

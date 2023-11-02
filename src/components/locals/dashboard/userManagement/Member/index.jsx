@@ -38,6 +38,7 @@ const Member = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
+  const [filteredNcc, setFilteredNcc] = useState();
   const {
     users,
     user_search,
@@ -46,7 +47,9 @@ const Member = () => {
     approve_user_loading,
     change_role_loading
   } = useSelector((state) => state.user);
-  const { user } = useSelector((state) => state.auth);
+  const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
+    (state) => state.auth
+  );
   const { nccData } = useSelector((state) => state.ncc);
   console.log({ user, users, nccData });
   const [roleIDData, setRoleIDData] = useState();
@@ -61,17 +64,30 @@ const Member = () => {
       newObj[`roleId${index + 1}`] = item;
     });
     setRoleIDData(newObj);
-  }, [nccData?.data]);
+  }, [nccData?.data, user?.ncc?.slug]);
   console.log('ssssss', roleIDData);
 
+  console.log({ filteredNcc });
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   // const [userSearch, setUserSearch] = useState('');
   const classes = useStyles();
+
   useEffect(() => {
     dispatch(getNCC());
   }, []);
+
+  useEffect(() => {
+    const newArray = nccData?.data?.filter((item) => item?.id === admin_ncc_id_details);
+    const newObj = {};
+
+    newArray?.forEach((item, index) => {
+      newObj[`nccID${index + 1}`] = item;
+    });
+    setFilteredNcc(newObj);
+  }, [nccData?.data, admin_ncc_id_details]);
+
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
     {
@@ -306,6 +322,9 @@ const Member = () => {
     if (user?.role_name === 'ncc') {
       const roleData = { country: user?.ncc?.slug };
       dispatch(getAllUsers(filterData, roleData));
+    } else if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
+      const roleData = { country: filteredNcc?.nccID1?.country_name };
+      dispatch(getAllUsers(filterData, roleData));
     } else {
       dispatch(getAllUsers(filterData));
     }
@@ -315,6 +334,9 @@ const Member = () => {
     let roleData;
     if (user?.role_name === 'ncc') {
       const roleData = { country: user?.ncc?.slug };
+      dispatch(getAllUsers(filterData, roleData));
+    } else if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
+      const roleData = { country: filteredNcc?.nccID1?.country_name };
       dispatch(getAllUsers(filterData, roleData));
     } else {
       dispatch(getAllUsers(filterData));

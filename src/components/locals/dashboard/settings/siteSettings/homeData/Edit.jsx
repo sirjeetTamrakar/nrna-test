@@ -14,7 +14,7 @@ const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { update_home_data_loading } = useSelector((state) => state.settings);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -29,9 +29,14 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('_method', 'PUT');
 
     if (user?.role_name === Roles.NCC) {
-      formData.append('bannerable_type', 'ncc');
-      formData.append('bannerable_id', user?.ncc?.id);
+      formData.append('homedataable_type', 'ncc');
+      formData.append('homedataable_id', user?.ncc?.id);
       typeData = { page: 1, homedataable_type: 'ncc', homedataable_id: user?.ncc?.id };
+    }
+    if (user?.role_name === Roles.SuperAdmin && admin_ncc_id_details === 'ncc') {
+      formData.append('homedataable_type', 'ncc');
+      formData.append('homedataable_id', admin_ncc_id_details);
+      typeData = { page: 1, homedataable_type: 'ncc', homedataable_id: admin_ncc_id_details };
     }
 
     if (user?.role_name !== Roles.NCC) {

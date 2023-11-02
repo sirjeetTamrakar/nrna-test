@@ -31,7 +31,7 @@ const SettingsBanner = () => {
   const classes = useStyles();
   const { bannerData, banner_status_loading, delete_banner_loading, get_banner_loading } =
     useSelector((state) => state.banner);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -151,6 +151,15 @@ const SettingsBanner = () => {
       bannerable_type: user?.role_name === Roles.NCC ? Roles.NCC : '',
       bannerable_id: user?.ncc?.id
     };
+    const adminData = {
+      page: page + 1,
+      pagination_limit: rowsPerPage,
+      bannerable_type: 'ncc',
+      bannerable_id: admin_ncc_id_details
+    };
+    if (user?.role_name === Roles.SuperAdmin && admin_role_details === 'ncc') {
+      dispatch(getBanner(adminData));
+    }
     dispatch(getBanner(data));
   };
 

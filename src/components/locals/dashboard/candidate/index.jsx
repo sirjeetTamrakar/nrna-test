@@ -37,7 +37,7 @@ const Candidate = () => {
   const { candidateData, get_candidate_loading, delete_candidate_loading } = useSelector(
     (state) => state.candidate
   );
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -132,7 +132,9 @@ const Candidate = () => {
   const handleConfirm = (slug) => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+      typeData = { id: user?.ncc?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { id: admin_ncc_id_details, page: page + 1, pagination_limit: rowsPerPage };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }
@@ -148,6 +150,8 @@ const Candidate = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { id: admin_ncc_id_details, page: page + 1, pagination_limit: rowsPerPage };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }
@@ -177,7 +181,9 @@ const Candidate = () => {
   const refetch = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { id: user?.id, page: page + 1, pagination_limit: rowsPerPage };
+      typeData = { id: user?.ncc?.id, page: page + 1, pagination_limit: rowsPerPage };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { id: admin_ncc_id_details, page: page + 1, pagination_limit: rowsPerPage };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };
     }

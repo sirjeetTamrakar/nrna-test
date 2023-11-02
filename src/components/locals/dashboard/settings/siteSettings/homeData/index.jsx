@@ -31,7 +31,7 @@ const HomeData = () => {
   const classes = useStyles();
   const { home_data, banner_home_data_loading, delete_home_data_loading, get_home_data_loading } =
     useSelector((state) => state.settings);
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -161,6 +161,9 @@ const HomeData = () => {
     if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
+    if (user?.role_name === Roles.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { type: 'ncc', id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+    }
     dispatch(updateHomeDataStatus(finalData, statusOpenFunction, typeData));
   };
 
@@ -168,6 +171,9 @@ const HomeData = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+    }
+    if (user?.role_name === Roles.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = { type: 'ncc', id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
     }
     dispatch(deleteHomeData(slug, deleteOpenFunction, typeData));
   };
@@ -183,7 +189,17 @@ const HomeData = () => {
       homedataable_type: user?.role_name === Roles.NCC ? Roles.NCC : '',
       homedataable_id: user?.ncc?.id
     };
-    dispatch(getHomeData(data));
+    const adminData = {
+      page: page + 1,
+      pagination_limit: rowsPerPage,
+      homedataable_type: 'ncc',
+      homedataable_id: admin_ncc_id_details
+    };
+    if (user?.role_name === Roles.SuperAdmin && admin_role_details === 'ncc') {
+      dispatch(getHomeData(adminData));
+    } else {
+      dispatch(getHomeData(data));
+    }
   };
 
   useEffect(() => {

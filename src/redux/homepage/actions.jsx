@@ -151,6 +151,7 @@ export const deleteContact = (id, handleSuccess, typeData) => (dispatch) => {
     .then((res) => {
       dispatch({ type: actions.DELETE_CONTACT_SUCCESS });
       handleSuccess && handleSuccess();
+      successToast('Contact deleted successfully');
       dispatch(getContact(typeData));
     })
     .catch((error) => {

@@ -11,7 +11,7 @@ import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
-  const { user } = useSelector((state) => state.auth);
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
@@ -35,6 +35,20 @@ const Register = ({ handleClose }) => {
       typeData = {
         type: 'ncc',
         id: user?.ncc?.id,
+        page: 1,
+        pagination_limit: 10,
+        user_id: user?.id
+      };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+      typeData = {
+        type: 'ncc',
+        id: admin_ncc_id_details,
+        page: 1,
+        pagination_limit: 10,
+        user_id: user?.id
+      };
+    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
+      typeData = {
         page: 1,
         pagination_limit: 10,
         user_id: user?.id
