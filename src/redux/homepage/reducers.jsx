@@ -58,7 +58,8 @@ const defaultState = {
   details: {},
   countries_list_code: [],
   get_countries_list_code_loading: false,
-  set_active: null
+  set_active: null,
+  business_join_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -381,6 +382,16 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.SET_ACTIVE_LINK:
       return { ...state, set_active: action.payload };
+
+    case actions.POST_BUSINESS_JOIN_BEGIN:
+      return {
+        ...state,
+        business_join_loading: true
+      };
+
+    case actions.POST_BUSINESS_JOIN_SUCCESS:
+    case actions.POST_BUSINESS_JOIN_ERROR:
+      return { ...state, business_join_loading: false };
 
     default:
       return state;

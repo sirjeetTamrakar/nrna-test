@@ -63,6 +63,8 @@ const SecondaryNavWrapper = () => {
       options={options}
       setSelected={setSelected}
       selected={selected}
+      business
+      single_business={single_business}
     />
   );
 };

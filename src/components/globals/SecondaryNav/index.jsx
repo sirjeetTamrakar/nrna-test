@@ -1,11 +1,59 @@
 import { Box, Container, Typography } from '@mui/material';
+import CustomModal from 'components/common/CustomModal/CustomModal';
+import Register from 'components/globals/register';
+import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 import { useStyles } from './styles';
 
-const SecondaryNav = ({ options, selected, title, color, setSelected }) => {
+import { postBusinessJoin } from 'redux/homepage/actions';
+import { isLoggedIn } from 'utils';
+
+const SecondaryNav = ({
+  options,
+  selected,
+  title,
+  color,
+  setSelected,
+  ncc,
+  business,
+  nbns,
+  single_business
+}) => {
+  const dispatch = useDispatch();
   const classes = useStyles();
 
   const [localSelected, setLocalSelected] = useState(selected);
+  const [open, openFunction] = useToggle(false);
+  const [openRegister, openFunctionRegister] = useToggle(false);
+  const [filteredNcc, setFilteredNcc] = useState();
+
+  console.log('kkkskkkksss', { single_business });
+
+  const { ncc: nccData } = useSelector((state) => state.homepage);
+  const { user } = useSelector((state) => state.auth);
+  console.log('kdlaskjndu', { user });
+  const defaultValues = {};
+
+  const { ncc: slug } = useParams();
+  const { slug: businessSlug } = useParams();
+
+  console.log('params_data', { slug, businessSlug });
+
+  useEffect(() => {
+    const newArray = nccData?.data?.filter((item) => item?.slug === slug);
+    const newObj = {};
+
+    newArray?.forEach((item, index) => {
+      newObj[`nccID${index + 1}`] = item;
+    });
+    setFilteredNcc(newObj);
+  }, [nccData?.data, slug]);
+
+  const handleRegisterClick = () => {
+    openFunctionRegister();
+  };
 
   useEffect(() => {
     setLocalSelected(selected);
@@ -27,31 +75,119 @@ const SecondaryNav = ({ options, selected, title, color, setSelected }) => {
       return '';
     }
   };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    if (business) {
+      const formDataBusiness = new FormData();
+      formDataBusiness.append('business_id', single_business?.id);
+      formDataBusiness.append('user_id', user?.id);
+
+      dispatch(postBusinessJoin(formDataBusiness));
+    } else if (nbns) {
+      const formDataNbns = new FormData();
+      formDataNbns.append('nbns', 1);
+      formDataNbns.append('user_id', user?.id);
+
+      dispatch(postBusinessJoin(formDataNbns));
+    } else {
+      return '';
+    }
+    // alert('sdad');
+
+    // dispatch(postBusinessJoin(formData, handleClose, typeData));
+  };
+
   return (
-    <Box className={`${classes.root} second-nav-root`} sx={color && { backgroundColor: color }}>
-      <Container>
-        {title && (
-          <Box className={`${classes.header} second-nav-title`}>
-            <Typography variant="h5" className={classes.title}>
-              {title}
-            </Typography>
+    <>
+      <Box className={`${classes.root} second-nav-root`} sx={color && { backgroundColor: color }}>
+        <Container>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            {title && (
+              <Typography variant="h5" className={classes.title}>
+                {title}
+              </Typography>
+            )}
+            {ncc && (
+              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                <Box className={`${classes.header} second-nav-title`}>
+                  <button
+                    variant="contained"
+                    className={classes.joinBtnNavbar}
+                    onClick={handleRegisterClick}
+                    style={
+                      color && {
+                        backgroundColor: color
+                      }
+                    }>
+                    {' '}
+                    Join
+                  </button>
+                </Box>
+              </Box>
+            )}
+            {business && isLoggedIn() && (
+              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                <Box className={`${classes.header} second-nav-title`}>
+                  <form onSubmit={onSubmit}>
+                    <button
+                      variant="contained"
+                      className={classes.joinBtnNavbar}
+                      type="submit"
+                      // onClick={handleRegisterClick}
+                      style={{
+                        backgroundColor: '#276FC4'
+                      }}>
+                      {' '}
+                      Follow
+                    </button>
+                  </form>
+                </Box>
+              </Box>
+            )}
+            {nbns && isLoggedIn() && (
+              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                <Box className={`${classes.header} second-nav-title`}>
+                  <form onSubmit={onSubmit}>
+                    <button
+                      variant="contained"
+                      className={classes.joinBtnNavbar}
+                      type="submit"
+                      // onClick={handleRegisterClick}
+                      style={{
+                        backgroundColor: '#276FC4'
+                      }}>
+                      {' '}
+                      Follow
+                    </button>
+                  </form>
+                </Box>
+              </Box>
+            )}
           </Box>
-        )}
-        <ul className={`${classes.list} second-nav-list`}>
-          {options?.map((list, index) => (
-            <li
-              className={checkActive(list?.value)}
-              key={index}
-              onClick={() => {
-                handleOptionClick(list.value);
-                list.clickFunction();
-              }}>
-              {list?.title}
-            </li>
-          ))}
-        </ul>
-      </Container>
-    </Box>
+          <ul className={`${classes.list} second-nav-list`}>
+            {options?.map((list, index) => (
+              <li
+                className={checkActive(list?.value)}
+                key={index}
+                onClick={() => {
+                  handleOptionClick(list.value);
+                  list.clickFunction();
+                }}>
+                {list?.title}
+              </li>
+            ))}
+          </ul>
+        </Container>
+      </Box>
+      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`22rem`}>
+        <Register
+          handleClose={openFunctionRegister}
+          loginOpen={openFunction}
+          defaultNccCountry={filteredNcc?.nccID1?.country_name}
+        />
+      </CustomModal>
+    </>
   );
 };
 

@@ -52,5 +52,13 @@ export const useStyles = makeStyles((theme) => ({
       overflow: 'scroll',
       overflowY: 'hidden'
     }
+  },
+  joinBtnNavbar: {
+    width: '100px',
+    border: '2px solid #fff',
+    padding: '8px',
+    boxShadow: 'none',
+    color: '#fff',
+    borderRadius: '4px'
   }
 }));

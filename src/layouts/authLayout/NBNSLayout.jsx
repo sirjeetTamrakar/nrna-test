@@ -102,6 +102,12 @@ const SecondaryNavWrapper = () => {
   const allOptions = [...options, ...homeOptions];
 
   return (
-    <SecondaryNav title="NBNS" options={allOptions} setSelected={setSelected} selected={selected} />
+    <SecondaryNav
+      title="NBNS"
+      options={allOptions}
+      setSelected={setSelected}
+      selected={selected}
+      nbns
+    />
   );
 };

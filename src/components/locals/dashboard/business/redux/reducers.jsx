@@ -23,7 +23,9 @@ const defaultState = {
   businessOrderData: [],
   get_business_order_loading: false,
   delete_business_order_loading: false,
-  business_order_loading: false
+  business_order_loading: false,
+  get_business_follow_loading: false,
+  businessFollowData: []
 };
 
 const businessReducer = (state = defaultState, action) => {
@@ -196,6 +198,18 @@ const businessReducer = (state = defaultState, action) => {
 
     case actions.GET_BUSINESS_ORDER_ERROR:
       return { ...state, get_business_order_loading: false };
+
+    case actions.GET_BUSINESS_FOLLOW_BEGIN:
+      return {
+        ...state,
+        get_business_follow_loading: true
+      };
+
+    case actions.GET_BUSINESS_FOLLOW_SUCCESS:
+      return { ...state, get_business_follow_loading: false, businessFollowData: action.payload };
+
+    case actions.GET_BUSINESS_FOLLOW_ERROR:
+      return { ...state, get_business_follow_loading: false };
 
     default:
       return state;

@@ -1,5 +1,6 @@
 import AddIcon from '@mui/icons-material/Add';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import { Box, Button, Typography } from '@mui/material';
@@ -20,6 +21,7 @@ import Register from './Register';
 import Service from './Service';
 import ServiceTable from './ServiceTable';
 import { useStyles } from './styles';
+import ViewFollowerTable from './ViewFollowersTable';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -29,6 +31,7 @@ const Profile = () => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openService, serviceOpenFunction] = useToggle(false);
+  const [openFollowers, openFollowersFunction] = useToggle(false);
   const [openServicesTable, servicesTableOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
@@ -87,6 +90,17 @@ const Profile = () => {
             <Typography variant="body2">{row?.fullname}</Typography>
             <Typography variant="subtitle1">{row?.address}</Typography>
           </Box>
+        );
+      }
+    },
+    {
+      title: 'Followers',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Button variant="contained" color="primary" onClick={() => handleShowFollowers(row)}>
+            {row?.business_follower_count}
+          </Button>
         );
       }
     },
@@ -195,19 +209,6 @@ const Profile = () => {
     }
   ];
 
-  const business = [
-    {
-      name: 'Scodus Innovations',
-      address: 'Dillibazar, Kathmandu',
-      email: 'info@scodus.com',
-      phone: '9841587582',
-      status: 'Active',
-      approve_by: 'Yogen Bahadur Chhetri',
-      created_by: 'Bishwo Raj Raut',
-      created_at: '20-Sep-2023'
-    }
-  ];
-
   // const handleConfirm = (slug) => {
   //   dispatch(deleteBusiness(slug, deleteOpenFunction));
   // };
@@ -244,6 +245,11 @@ const Profile = () => {
       typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }
     dispatch(changeBusinessStatus(finalData, statusOpenFunction, typeData));
+  };
+
+  const handleShowFollowers = (row) => {
+    setDetail(row);
+    openFollowersFunction();
   };
 
   const handleEdit = (row) => {
@@ -340,6 +346,17 @@ const Profile = () => {
           icon={<PersonAddIcon />}
           width={`60rem`}>
           <Service data={detail} handleClose={serviceOpenFunction} />
+        </CustomModal>
+
+        <CustomModal
+          open={openFollowers}
+          handleClose={openFollowersFunction}
+          modalTitle={`Follower`}
+          padding
+          icon={<PersonIcon />}
+          width={`60rem`}>
+          {/* <ViewMembers data={detail} /> */}
+          <ViewFollowerTable businessId={detail?.id} />
         </CustomModal>
 
         <CustomDeleteModal

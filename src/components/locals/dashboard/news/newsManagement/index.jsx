@@ -181,8 +181,8 @@ const NewsManagement = () => {
   const filterDataHome = {
     // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
     page: page + 1,
-    pagination_limit: 100,
-    user_id: user?.id
+    pagination_limit: 100
+    // user_id: user?.id
   };
   const filterDataHomeAdminNcc = {
     page: page + 1,

@@ -1,5 +1,6 @@
 import {
   businessContactApi,
+  businessJoinApi,
   contactUsApi,
   deleteContactApi,
   getAllEventsApi,
@@ -435,4 +436,18 @@ export const getCountriesCode = () => (dispatch) => {
 
 export const setActiveLink = (data) => (dispatch) => {
   dispatch({ type: actions.SET_ACTIVE_LINK, payload: data });
+};
+
+export const postBusinessJoin = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_BUSINESS_JOIN_BEGIN });
+  businessJoinApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_BUSINESS_JOIN_SUCCESS });
+      successToast('Joined business');
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_BUSINESS_JOIN_ERROR });
+    });
 };

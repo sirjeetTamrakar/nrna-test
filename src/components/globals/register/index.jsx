@@ -12,11 +12,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from 'redux/auth/actions';
 import * as Yup from 'yup';
 
-const Register = ({ loginOpen, handleClose }) => {
-  const defaultValues = {};
+const Register = ({ loginOpen, handleClose, defaultNccCountry }) => {
+  console.log('hhshhshhh', { defaultNccCountry });
+  const defaultValues = { country_of_residence: defaultNccCountry && defaultNccCountry };
+
   const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
   const { register_loading } = useSelector((state) => state.auth);
+
   const validationSchema = Yup.object({
     first_name: Yup.string().required('Firstname is Required'),
     last_name: Yup.string().required('Lastname is Required'),

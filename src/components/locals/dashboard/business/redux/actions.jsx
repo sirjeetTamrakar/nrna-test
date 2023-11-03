@@ -7,6 +7,7 @@ import {
   deleteCategoryApi,
   getBusinessApi,
   getBusinessContactApi,
+  getBusinessFollowApi,
   getBusinessOrderApi,
   getBusinessServicesApi,
   getCategoryApi,
@@ -317,5 +318,18 @@ export const getBusinessOrder = () => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.GET_BUSINESS_ORDER_ERROR });
+    });
+};
+
+export const getBusinessFollow = (data) => (dispatch) => {
+  dispatch({ type: actions.GET_BUSINESS_FOLLOW_BEGIN });
+  getBusinessFollowApi(data)
+    .then((res) => {
+      console.log({ res });
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_ERROR });
     });
 };

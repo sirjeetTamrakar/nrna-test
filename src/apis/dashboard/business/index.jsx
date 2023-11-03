@@ -91,3 +91,13 @@ export const postBusinessOrderApi = (data) => {
 export const getBusinessOrderApi = () => {
   return axiosInstance().get('/admin/business-order');
 };
+
+// get business followers
+export const getBusinessFollowApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  const id = data?.business_id ? `&business_id=${data?.business_id}` : '';
+  return axiosInstance().get(`/admin/business-follow${page}${pagination_limit}${id}`);
+};

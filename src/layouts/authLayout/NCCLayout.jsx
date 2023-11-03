@@ -40,6 +40,7 @@ const SecondaryNavWrapper = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { ncc } = useParams();
+
   const handleFunction = (data) => {
     navigate(data);
   };
@@ -144,6 +145,7 @@ const SecondaryNavWrapper = () => {
       options={allOptions}
       setSelected={setSelected}
       selected={selected}
+      ncc
     />
   );
 };

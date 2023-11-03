@@ -249,3 +249,8 @@ export const getAllSurveyApi = () => {
 export const getCountriesCodeApi = () => {
   return axiosInstance().get(`/api/countries-code`);
 };
+
+// join business post
+export const businessJoinApi = (data) => {
+  return axiosInstance().post(`/api/business-follow`, data);
+};
