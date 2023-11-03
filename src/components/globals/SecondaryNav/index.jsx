@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { useStyles } from './styles';
 
-import { postBusinessJoin } from 'redux/homepage/actions';
+import { getBusinessFollow, postBusinessJoin } from 'redux/homepage/actions';
 import { isLoggedIn } from 'utils';
 
 const SecondaryNav = ({
@@ -31,7 +31,7 @@ const SecondaryNav = ({
 
   console.log('kkkskkkksss', { single_business });
 
-  const { ncc: nccData } = useSelector((state) => state.homepage);
+  const { ncc: nccData, businessFollowData } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
   console.log('kdlaskjndu', { user });
   const defaultValues = {};
@@ -82,21 +82,50 @@ const SecondaryNav = ({
       const formDataBusiness = new FormData();
       formDataBusiness.append('business_id', single_business?.id);
       formDataBusiness.append('user_id', user?.id);
-
-      dispatch(postBusinessJoin(formDataBusiness));
+      formDataBusiness.append('nbns', 0);
+      const fetchData = {
+        user_id: user?.id,
+        business_id: single_business?.id
+      };
+      dispatch(postBusinessJoin(formDataBusiness, fetchData));
     } else if (nbns) {
       const formDataNbns = new FormData();
       formDataNbns.append('nbns', 1);
       formDataNbns.append('user_id', user?.id);
+      const fetchData = {
+        user_id: user?.id
+      };
 
-      dispatch(postBusinessJoin(formDataNbns));
+      dispatch(postBusinessJoin(formDataNbns, fetchData));
     } else {
-      return '';
+      return;
     }
     // alert('sdad');
 
     // dispatch(postBusinessJoin(formData, handleClose, typeData));
   };
+
+  useEffect(() => {
+    if (business) {
+      const data = {
+        user_id: user?.id,
+        business_id: single_business?.id
+      };
+      dispatch(getBusinessFollow(data));
+    } else if (nbns) {
+      const data = {
+        user_id: user?.id
+      };
+      dispatch(getBusinessFollow(data));
+    } else {
+      return;
+    }
+    // const data = {
+    //   user_id: user?.id,
+    //   business_id: single_business?.id
+    // };
+    // dispatch(getBusinessFollow(data));
+  }, [single_business?.id]);
 
   return (
     <>
@@ -127,42 +156,82 @@ const SecondaryNav = ({
               </Box>
             )}
             {business && isLoggedIn() && (
-              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
-                <Box className={`${classes.header} second-nav-title`}>
-                  <form onSubmit={onSubmit}>
-                    <button
-                      variant="contained"
-                      className={classes.joinBtnNavbar}
-                      type="submit"
-                      // onClick={handleRegisterClick}
-                      style={{
-                        backgroundColor: '#276FC4'
-                      }}>
-                      {' '}
-                      Follow
-                    </button>
-                  </form>
-                </Box>
-              </Box>
+              <>
+                {!businessFollowData?.[0]?.business_id ? (
+                  <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                    <Box className={`${classes.header} second-nav-title`}>
+                      <form onSubmit={onSubmit}>
+                        <button
+                          variant="contained"
+                          className={classes.joinBtnNavbar}
+                          type="submit"
+                          // onClick={handleRegisterClick}
+                          style={{
+                            backgroundColor: '#276FC4'
+                          }}>
+                          {' '}
+                          Follow
+                        </button>
+                      </form>
+                    </Box>
+                  </Box>
+                ) : (
+                  <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                    <Box className={`${classes.header} second-nav-title`}>
+                      <button
+                        variant="contained"
+                        className={classes.joinBtnNavbar}
+                        type="submit"
+                        // onClick={handleRegisterClick}
+                        style={{
+                          backgroundColor: '#276FC4'
+                        }}>
+                        {' '}
+                        Followed
+                      </button>
+                    </Box>
+                  </Box>
+                )}
+              </>
             )}
             {nbns && isLoggedIn() && (
-              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
-                <Box className={`${classes.header} second-nav-title`}>
-                  <form onSubmit={onSubmit}>
-                    <button
-                      variant="contained"
-                      className={classes.joinBtnNavbar}
-                      type="submit"
-                      // onClick={handleRegisterClick}
-                      style={{
-                        backgroundColor: '#276FC4'
-                      }}>
-                      {' '}
-                      Follow
-                    </button>
-                  </form>
-                </Box>
-              </Box>
+              <>
+                {businessFollowData?.business_follower_nbns?.length !== '0' ? (
+                  <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                    <Box className={`${classes.header} second-nav-title`}>
+                      <button
+                        variant="contained"
+                        className={classes.joinBtnNavbar}
+                        type="submit"
+                        // onClick={handleRegisterClick}
+                        style={{
+                          backgroundColor: '#276FC4'
+                        }}>
+                        {' '}
+                        Followed
+                      </button>
+                    </Box>
+                  </Box>
+                ) : (
+                  <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                    <Box className={`${classes.header} second-nav-title`}>
+                      <form onSubmit={onSubmit}>
+                        <button
+                          variant="contained"
+                          className={classes.joinBtnNavbar}
+                          type="submit"
+                          // onClick={handleRegisterClick}
+                          style={{
+                            backgroundColor: '#276FC4'
+                          }}>
+                          {' '}
+                          Follow
+                        </button>
+                      </form>
+                    </Box>
+                  </Box>
+                )}
+              </>
             )}
           </Box>
           <ul className={`${classes.list} second-nav-list`}>

@@ -254,3 +254,10 @@ export const getCountriesCodeApi = () => {
 export const businessJoinApi = (data) => {
   return axiosInstance().post(`/api/business-follow`, data);
 };
+
+// get business followers
+export const getBusinessFollowApi = (data) => {
+  const user_id = data?.user_id ? `?user_id=${data?.user_id}` : '';
+  const business_id = data?.business_id ? `&business_id=${data?.business_id}` : '';
+  return axiosInstance().get(`/api/business-follow${user_id}${business_id}`);
+};

@@ -59,7 +59,9 @@ const defaultState = {
   countries_list_code: [],
   get_countries_list_code_loading: false,
   set_active: null,
-  business_join_loading: false
+  business_join_loading: false,
+  get_business_follow_loading: false,
+  businessFollowData: []
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -392,6 +394,18 @@ const homepageReducer = (state = defaultState, action) => {
     case actions.POST_BUSINESS_JOIN_SUCCESS:
     case actions.POST_BUSINESS_JOIN_ERROR:
       return { ...state, business_join_loading: false };
+
+    case actions.GET_BUSINESS_FOLLOW_BEGIN:
+      return {
+        ...state,
+        get_business_follow_loading: true
+      };
+
+    case actions.GET_BUSINESS_FOLLOW_SUCCESS:
+      return { ...state, get_business_follow_loading: false, businessFollowData: action.payload };
+
+    case actions.GET_BUSINESS_FOLLOW_ERROR:
+      return { ...state, get_business_follow_loading: false };
 
     default:
       return state;

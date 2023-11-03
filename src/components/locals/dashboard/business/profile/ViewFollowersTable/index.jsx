@@ -1,9 +1,4 @@
-import CancelIcon from '@mui/icons-material/Cancel';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
-import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Box, Typography } from '@mui/material';
-import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
@@ -47,7 +42,7 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
   const { user, delete_users_loading } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
   const { businessFollowData } = useSelector((state) => state.business);
-  console.log({ user, users, nccData });
+  console.log({ user, users, nccData, businessFollowData });
   const [roleIDData, setRoleIDData] = useState();
 
   // const findNCCUserId = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
@@ -80,11 +75,20 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
         return (
           <Box>
             <Typography variant="body2">
-              {row?.id}
               {row?.user?.first_name && row?.user?.first_name}{' '}
               {row?.user?.first_name && row?.user?.last_name}{' '}
               {!row?.user?.first_name && row?.user?.username}
             </Typography>
+          </Box>
+        );
+      }
+    },
+    {
+      title: 'Created at',
+      minWidth: 150,
+      field: (row) => {
+        return (
+          <Box>
             <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
           </Box>
         );
@@ -96,7 +100,7 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.email}</Typography>
+            <Typography variant="body2">{row?.user?.email}</Typography>
             <Typography variant="subtitle1">{row?.phone}</Typography>
           </Box>
         );
@@ -104,89 +108,11 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     },
 
     {
-      title: 'Address',
+      title: 'Country of residence',
       minWidth: 120,
       field: (row) => {
         return (
-          <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
-        );
-      }
-    },
-
-    {
-      title: 'Role',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <>
-            <Typography variant="body2">{`${row?.role_name}`}</Typography>
-            <Typography variant="body2">{`${
-              roleIDData?.roleId1?.admin?.id === row?.id ? 'Admin' : ''
-            }`}</Typography>
-          </>
-        );
-      }
-    },
-    {
-      title: 'Approved',
-      minWidth: 100,
-      field: (row) => {
-        return (
-          <Box>
-            {row?.approval_status === 'approved' ? (
-              <Box display="flex" columnGap={0.5}>
-                <TaskAltIcon sx={{ color: 'green' }} />
-                <Typography color={'green'}>Approved</Typography>
-              </Box>
-            ) : row?.approval_status === 'rejected' ? (
-              <Box display="flex" columnGap={0.5}>
-                <CancelIcon sx={{ color: 'red' }} />
-                <Typography color={'red'}>Rejected</Typography>
-              </Box>
-            ) : (
-              <Box display="flex" columnGap={0.5}>
-                <PauseCircleFilledIcon sx={{ color: '#2196f3' }} />
-                <Typography color={'#2196f3'}>Pending</Typography>
-              </Box>
-            )}
-          </Box>
-        );
-      }
-    },
-
-    {
-      title: 'Actions',
-      minWidth: 85,
-      field: (row) => {
-        return (
-          <CustomPopover ButtonComponent={<MoreVertIcon />}>
-            <ul className={classes.listWrapper}>
-              <li onClick={() => handleView(row)}>View Details</li>
-
-              {(user?.role_name === 'superadmin' || user?.role_name === 'admin') && (
-                <>
-                  <li onClick={() => handleEdit(row)}>Edit Member </li>
-                  <li onClick={() => handleRole(row)}>Change role</li>
-                  <li onClick={() => handleApprove(row)}>Approve User</li>
-                  <li onClick={() => handleDelete(row)}>Delete</li>
-                </>
-              )}
-              {roleIDData?.roleId1?.admin?.id === user?.id && (
-                <>
-                  <li onClick={() => handleEdit(row)}>Edit Member </li>
-                  <li onClick={() => handleRole(row)}>Change role</li>
-                  <li onClick={() => handleApprove(row)}>Approve User</li>
-                  <li onClick={() => handleDelete(row)}>Delete</li>
-                </>
-              )}
-              {roleIDData?.roleId1?.admin?.id !== user?.id && user?.id === row?.id && (
-                <>
-                  <li onClick={() => handleEdit(row)}>Edit Member </li>
-                  <li onClick={() => handleDelete(row)}>Delete</li>
-                </>
-              )}
-            </ul>
-          </CustomPopover>
+          <Typography variant="body2">{` ${row?.user?.country_of_residence ?? '-'}`}</Typography>
         );
       }
     }
@@ -370,7 +296,7 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={businessFollowData?.data}
+          tableData={businessFollowData}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}

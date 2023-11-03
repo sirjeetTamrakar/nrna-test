@@ -10,7 +10,7 @@ const BusinessItemOne = ({ settingsData, businessItem, linkUrl, gridLayout, grid
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {/* <div className="news_card_featured_news_box_grid_one">Featured News</div> */}
-          <div className="news_card_title_grid_one_business">{settingsData.business_title}</div>
+          {/* <div className="news_card_title_grid_one_business">{settingsData.business_title}</div> */}
           {settingsData?.business_description !== '' && (
             <div
               className="news_card_text_description_ncc"

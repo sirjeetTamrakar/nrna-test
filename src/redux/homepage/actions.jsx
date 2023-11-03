@@ -11,6 +11,7 @@ import {
   getBannerApi,
   getBusinessApi,
   getBusinessCategoryApi,
+  getBusinessFollowApi,
   getCandidatesApi,
   getContactUsApi,
   getContinentsApi,
@@ -438,12 +439,26 @@ export const setActiveLink = (data) => (dispatch) => {
   dispatch({ type: actions.SET_ACTIVE_LINK, payload: data });
 };
 
-export const postBusinessJoin = (data, handleSuccess) => (dispatch) => {
+export const getBusinessFollow = (data) => (dispatch) => {
+  dispatch({ type: actions.GET_BUSINESS_FOLLOW_BEGIN });
+  getBusinessFollowApi(data)
+    .then((res) => {
+      console.log({ res });
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_ERROR });
+    });
+};
+
+export const postBusinessJoin = (data, fetchData, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.POST_BUSINESS_JOIN_BEGIN });
   businessJoinApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_BUSINESS_JOIN_SUCCESS });
       successToast('Joined business');
+      getBusinessFollow(fetchData);
       handleSuccess && handleSuccess();
     })
     .catch((error) => {
