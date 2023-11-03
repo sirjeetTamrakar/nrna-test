@@ -1,4 +1,5 @@
-import { Box, Container, Typography } from '@mui/material';
+import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import { Box, Container, Skeleton, Typography } from '@mui/material';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
@@ -31,13 +32,19 @@ const SecondaryNav = ({
 
   console.log('kkkskkkksss', { single_business });
 
-  const { ncc: nccData, businessFollowData } = useSelector((state) => state.homepage);
+  const {
+    ncc: nccData,
+    businessFollowData,
+    get_business_follow_loading
+  } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
   console.log('kdlaskjndu', { user });
   const defaultValues = {};
 
   const { ncc: slug } = useParams();
   const { slug: businessSlug } = useParams();
+
+  console.log({ businessFollowData });
 
   console.log('params_data', { slug, businessSlug });
 
@@ -170,7 +177,17 @@ const SecondaryNav = ({
                             backgroundColor: '#276FC4'
                           }}>
                           {' '}
-                          Follow
+                          {get_business_follow_loading ? (
+                            <Skeleton
+                              variant="rounded"
+                              width="100%"
+                              height={20}
+                              style={{ backgroundColor: 'gray' }}
+                            />
+                          ) : (
+                            'Follow'
+                          )}
+                          {/* Follow */}
                         </button>
                       </form>
                     </Box>
@@ -184,10 +201,26 @@ const SecondaryNav = ({
                         type="submit"
                         // onClick={handleRegisterClick}
                         style={{
-                          backgroundColor: '#276FC4'
+                          backgroundColor: '#fff',
+                          display: 'flex',
+                          color: '#276FC4'
                         }}>
                         {' '}
-                        Followed
+                        {get_business_follow_loading ? (
+                          <Skeleton
+                            variant="rounded"
+                            width="100%"
+                            height={20}
+                            style={{ backgroundColor: 'gray' }}
+                          />
+                        ) : (
+                          <div style={{ display: 'flex' }}>
+                            Following
+                            <span style={{ marginLeft: '5px' }}>
+                              <CheckCircleIcon sx={{ color: '#276FC4' }} />
+                            </span>
+                          </div>
+                        )}
                       </button>
                     </Box>
                   </Box>
@@ -205,10 +238,26 @@ const SecondaryNav = ({
                         type="submit"
                         // onClick={handleRegisterClick}
                         style={{
-                          backgroundColor: '#276FC4'
+                          backgroundColor: '#fff',
+                          color: '#276FC4',
+                          display: 'flex'
                         }}>
                         {' '}
-                        Followed
+                        {get_business_follow_loading ? (
+                          <Skeleton
+                            variant="rounded"
+                            width="100%"
+                            height={20}
+                            style={{ backgroundColor: 'gray' }}
+                          />
+                        ) : (
+                          <div style={{ display: 'flex' }}>
+                            Following
+                            <span style={{ marginLeft: '5px' }}>
+                              <CheckCircleIcon sx={{ color: '#276FC4' }} />
+                            </span>
+                          </div>
+                        )}{' '}
                       </button>
                     </Box>
                   </Box>
@@ -225,7 +274,16 @@ const SecondaryNav = ({
                             backgroundColor: '#276FC4'
                           }}>
                           {' '}
-                          Follow
+                          {get_business_follow_loading ? (
+                            <Skeleton
+                              variant="rounded"
+                              width="100%"
+                              height={20}
+                              style={{ backgroundColor: 'gray' }}
+                            />
+                          ) : (
+                            'Follow'
+                          )}
                         </button>
                       </form>
                     </Box>
