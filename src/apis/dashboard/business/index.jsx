@@ -105,6 +105,7 @@ export const getBusinessFollowApi = (data) => {
 // post business user aprooval
 export const businessUserApprovalApi = (data) => {
   return axiosInstance().post(
-    `/admin/business-follow/status/${data?.user_id}/${data?.business_id}`
+    `/admin/business-follow/status/${data?.user_id}/${data?.business_id}`,
+    data
   );
 };
