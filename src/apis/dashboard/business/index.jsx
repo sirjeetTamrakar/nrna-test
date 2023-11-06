@@ -101,3 +101,10 @@ export const getBusinessFollowApi = (data) => {
   const id = data?.business_id ? `&business_id=${data?.business_id}` : '';
   return axiosInstance().get(`/admin/business-follow${page}${pagination_limit}${id}`);
 };
+
+// post business user aprooval
+export const businessUserApprovalApi = (data) => {
+  return axiosInstance().post(
+    `/admin/business-follow/status/${data?.user_id}/${data?.business_id}`
+  );
+};

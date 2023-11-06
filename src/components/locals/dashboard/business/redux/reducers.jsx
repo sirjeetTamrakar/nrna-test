@@ -25,7 +25,8 @@ const defaultState = {
   delete_business_order_loading: false,
   business_order_loading: false,
   get_business_follow_loading: false,
-  businessFollowData: []
+  businessFollowData: [],
+  business_user_approval_loading: false
 };
 
 const businessReducer = (state = defaultState, action) => {
@@ -210,6 +211,16 @@ const businessReducer = (state = defaultState, action) => {
 
     case actions.GET_BUSINESS_FOLLOW_ERROR:
       return { ...state, get_business_follow_loading: false };
+
+    case actions.POST_BUSINESS_USER_APPROVAL_BEGIN:
+      return {
+        ...state,
+        business_user_approval_loading: true
+      };
+
+    case actions.POST_BUSINESS_USER_APPROVAL_SUCCESS:
+    case actions.POST_BUSINESS_USER_APPROVAL_ERROR:
+      return { ...state, business_user_approval_loading: false };
 
     default:
       return state;

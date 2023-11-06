@@ -1,4 +1,5 @@
 import {
+  businessUserApprovalApi,
   changeBusinessStatusApi,
   changeCategoryStatusApi,
   deleteBusinessApi,
@@ -331,5 +332,19 @@ export const getBusinessFollow = (data) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.GET_BUSINESS_FOLLOW_ERROR });
+    });
+};
+
+export const postBusinessUserApproval = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_BUSINESS_USER_APPROVAL_BEGIN });
+  businessUserApprovalApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_BUSINESS_USER_APPROVAL_SUCCESS });
+      handleSuccess && handleSuccess();
+      successToast('Changed status successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_BUSINESS_USER_APPROVAL_ERROR });
     });
 };
