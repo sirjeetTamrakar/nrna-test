@@ -6,6 +6,7 @@ import Candidate from 'assets/icon/candidate.svg';
 import Contact from 'assets/icon/contact.svg';
 import DashboardIcon from 'assets/icon/dashboard.svg';
 import Events from 'assets/icon/events.svg';
+import NbnsIcon from 'assets/icon/nbns.svg';
 import Country from 'assets/icon/ncc.svg';
 import News from 'assets/icon/news.svg';
 import Profile from 'assets/icon/profile.svg';
@@ -238,6 +239,33 @@ export const SidebarConstants = [
         ]
       },
       {
+        label: 'NBNS',
+        url: '/dashboard/nbns',
+        icon: NbnsIcon,
+        activeIcon: ActiveSettingsIcon,
+        memberProfileNCC: 'memberProfileNCC',
+        adminProfile: 'adminProfile',
+
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
+        children: [
+          {
+            label: 'NBNS Settings',
+            url: '/dashboard/nbns/nbns-settings',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'NBNS Banner',
+            url: '/dashboard/nbns/nbns-banner',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'NBNS Followers',
+            url: '/dashboard/nbns/nbns-followers',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          }
+        ]
+      },
+      {
         label: 'Settings',
         url: '/dashboard/settings',
         icon: SettingsIcon,
@@ -279,16 +307,16 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin]
           },
 
-          {
-            label: 'NBNS Settings',
-            url: '/dashboard/settings/nbns',
-            roles: [Roles.Admin, Roles.SuperAdmin]
-          },
-          {
-            label: 'NBNS Banner',
-            url: '/dashboard/settings/nbns-banner',
-            roles: [Roles.Admin, Roles.SuperAdmin]
-          },
+          // {
+          //   label: 'NBNS Settings',
+          //   url: '/dashboard/settings/nbns',
+          //   roles: [Roles.Admin, Roles.SuperAdmin]
+          // },
+          // {
+          //   label: 'NBNS Banner',
+          //   url: '/dashboard/settings/nbns-banner',
+          //   roles: [Roles.Admin, Roles.SuperAdmin]
+          // },
           {
             label: 'News Category',
             url: '/dashboard/news/category',

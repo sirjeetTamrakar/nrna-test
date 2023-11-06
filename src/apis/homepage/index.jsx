@@ -261,3 +261,24 @@ export const getBusinessFollowApi = (data) => {
   const business_id = data?.business_id ? `&business_id=${data?.business_id}` : '';
   return axiosInstance().get(`/api/business-follow${user_id}${business_id}`);
 };
+
+// delete business follow
+export const deleteBusinessFollowApi = (data) => {
+  return axiosInstance().delete(`/api/business-follow/${data?.user_id}/${data?.business_id}`);
+};
+
+// join nbns post
+export const nbnsJoinApi = (data) => {
+  return axiosInstance().post(`/api/follow_nbns/${data?.user_id}`);
+};
+
+// get nbns followers
+export const getNbnsFollowApi = (data) => {
+  const user_id = data?.user_id ? `?user_id=${data?.user_id}` : '';
+  return axiosInstance().get(`/api/nbns-followers${user_id}`);
+};
+
+// delete nbns follow
+export const deleteNbnsFollowApi = (data) => {
+  return axiosInstance().post(`/api/unfollow_nbns/${data?.user_id}`);
+};

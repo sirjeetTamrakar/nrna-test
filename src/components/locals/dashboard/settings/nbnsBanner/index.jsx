@@ -12,10 +12,10 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Edit from './Edit';
-import Register from './Register';
-import View from './View';
 import { deleteNBNSBanner, getNBNSBanner, updateNBNSBannerStatus } from './redux/actions';
+import Register from './Register';
 import { useStyles } from './styles';
+import View from './View';
 
 const NBNSBanner = () => {
   const dispatch = useDispatch();

@@ -2,7 +2,9 @@ import {
   businessContactApi,
   businessJoinApi,
   contactUsApi,
+  deleteBusinessFollowApi,
   deleteContactApi,
+  deleteNbnsFollowApi,
   getAllEventsApi,
   getAllHomeDataApi,
   getAllNewsApi,
@@ -18,6 +20,7 @@ import {
   getCountriesCodeApi,
   getDepartmentApi,
   getEventsCategoryApi,
+  getNbnsFollowApi,
   getNccApi,
   getNewsCategoryApi,
   getSingleBusinessApi,
@@ -29,6 +32,7 @@ import {
   getSingleUserApi,
   getSiteSettingsApi,
   getTeamsApi,
+  nbnsJoinApi,
   postAdviceApi,
   postCheckEmailApi,
   postTeamContactApi
@@ -457,12 +461,72 @@ export const postBusinessJoin = (data, fetchData, handleSuccess) => (dispatch) =
   businessJoinApi(data)
     .then((res) => {
       dispatch({ type: actions.POST_BUSINESS_JOIN_SUCCESS });
-      successToast('Joined business');
-      getBusinessFollow(fetchData);
+      successToast('Following');
+      dispatch(getBusinessFollow(fetchData));
       handleSuccess && handleSuccess();
     })
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_BUSINESS_JOIN_ERROR });
+    });
+};
+
+export const deleteBuisnessFollow = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.DELETE_BUSINESS_FOLLOW_BEGIN });
+  deleteBusinessFollowApi(data)
+    .then((res) => {
+      dispatch({ type: actions.DELETE_BUSINESS_FOLLOW_SUCCESS });
+      successToast('Unfollowing');
+      dispatch(getBusinessFollow(data));
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.DELETE_BUSINESS_FOLLOW_ERROR });
+    });
+};
+
+// nbns follow
+
+export const getNBNSFollow = (data) => (dispatch) => {
+  dispatch({ type: actions.GET_NBNS_FOLLOW_BEGIN });
+  getNbnsFollowApi(data)
+    .then((res) => {
+      console.log({ res });
+      dispatch({ type: actions.GET_NBNS_FOLLOW_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_NBNS_FOLLOW_ERROR });
+    });
+};
+
+export const postNBNSJoin = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_NBNS_JOIN_BEGIN });
+  nbnsJoinApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_NBNS_JOIN_SUCCESS });
+      successToast('Following NBNS');
+      dispatch(getNBNSFollow(data));
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_NBNS_JOIN_ERROR });
+    });
+};
+
+export const deleteNBNSFollow = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.DELETE_NBNS_FOLLOW_BEGIN });
+  deleteNbnsFollowApi(data)
+    .then((res) => {
+      dispatch({ type: actions.DELETE_NBNS_FOLLOW_SUCCESS });
+      successToast('Unfollowing NBNS');
+      dispatch(getNBNSFollow(data));
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.DELETE_NBNS_FOLLOW_ERROR });
     });
 };

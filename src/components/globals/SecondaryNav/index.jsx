@@ -1,15 +1,40 @@
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
-import { Box, Container, Skeleton, Typography } from '@mui/material';
+import { Box, Container, Grid, Typography } from '@mui/material';
+import Button from '@mui/material/Button/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Tooltip from '@mui/material/Tooltip';
 import CustomModal from 'components/common/CustomModal/CustomModal';
+import CustomForm from 'components/common/Form/CustomForm';
+import CustomFormProvider from 'components/common/Form/CustomFormProvider';
+import CustomInput from 'components/common/Form/CustomInput';
+import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoComplete';
 import Register from 'components/globals/register';
+import useScreenSize from 'hooks/useScreenSize';
 import useToggle from 'hooks/useToggle';
+import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
+import {
+  deleteBuisnessFollow,
+  deleteNBNSFollow,
+  getBusinessFollow,
+  getCountriesCode,
+  getNBNSFollow,
+  postBusinessJoin,
+  postNBNSJoin
+} from 'redux/homepage/actions';
+import { isLoggedIn } from 'utils';
+import * as Yup from 'yup';
 import { useStyles } from './styles';
 
-import { getBusinessFollow, postBusinessJoin } from 'redux/homepage/actions';
-import { isLoggedIn } from 'utils';
+const validationSchema = Yup.object({
+  first_name: Yup.string().required('Please enter first name'),
+  last_name: Yup.string().required('Please enter last name'),
+  phone: Yup.string().required('Please enter phone').min(10),
+  email: Yup.string().required('Please enter email'),
+  country_of_residence: Yup.string().required('Please select a country')
+});
 
 const SecondaryNav = ({
   options,
@@ -29,22 +54,34 @@ const SecondaryNav = ({
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
   const [filteredNcc, setFilteredNcc] = useState();
+  const [openForm, formOpenFunction] = useToggle(false);
+
+  const joinBusiness = () => {
+    formOpenFunction();
+  };
+  const handleCancel = () => {
+    formOpenFunction();
+  };
 
   console.log('kkkskkkksss', { single_business });
 
   const {
     ncc: nccData,
     businessFollowData,
-    get_business_follow_loading
+    get_business_follow_loading,
+    nbnsFollowData,
+    get_nbns_follow_loading
   } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
+  const { countries_list_code } = useSelector((state) => state.homepage);
+
   console.log('kdlaskjndu', { user });
   const defaultValues = {};
 
   const { ncc: slug } = useParams();
   const { slug: businessSlug } = useParams();
 
-  console.log({ businessFollowData });
+  console.log({ nbnsFollowData });
 
   console.log('params_data', { slug, businessSlug });
 
@@ -96,14 +133,11 @@ const SecondaryNav = ({
       };
       dispatch(postBusinessJoin(formDataBusiness, fetchData));
     } else if (nbns) {
-      const formDataNbns = new FormData();
-      formDataNbns.append('nbns', 1);
-      formDataNbns.append('user_id', user?.id);
       const fetchData = {
         user_id: user?.id
       };
 
-      dispatch(postBusinessJoin(formDataNbns, fetchData));
+      dispatch(postNBNSJoin(fetchData));
     } else {
       return;
     }
@@ -113,26 +147,66 @@ const SecondaryNav = ({
   };
 
   useEffect(() => {
-    if (business) {
+    if (business && user?.id) {
       const data = {
         user_id: user?.id,
         business_id: single_business?.id
       };
       dispatch(getBusinessFollow(data));
-    } else if (nbns) {
+    } else if (nbns && user?.id) {
       const data = {
         user_id: user?.id
       };
-      dispatch(getBusinessFollow(data));
+      dispatch(getNBNSFollow(data));
     } else {
       return;
     }
-    // const data = {
-    //   user_id: user?.id,
-    //   business_id: single_business?.id
-    // };
-    // dispatch(getBusinessFollow(data));
   }, [single_business?.id]);
+
+  console.log({ single_business });
+
+  const onSubmitDelete = (e) => {
+    e.preventDefault();
+    if (business) {
+      const formDataBusiness = {
+        user_id: user?.id,
+        business_id: single_business?.id
+      };
+
+      dispatch(deleteBuisnessFollow(formDataBusiness));
+    } else if (nbns) {
+      const fetchData = {
+        user_id: user?.id
+      };
+
+      dispatch(deleteNBNSFollow(fetchData));
+    } else {
+      return;
+    }
+  };
+
+  const screenSize = useScreenSize();
+
+  const onSubmitDetails = (data) => {
+    // console.log({ details: data });
+    // setUserFormDetails({ ...data });
+    // dispatch(emailCheck({ email: data?.email }, () => refetch(data)));
+    alert('join business');
+  };
+
+  const countryList = countries_list_code?.map((item, index) => ({
+    label: item?.name,
+    value: item?.name,
+    code: item?.dial_code
+  }));
+
+  const defaultValuesJoinForm = {
+    country_of_residence: ''
+  };
+
+  useEffect(() => {
+    dispatch(getCountriesCode());
+  }, []);
 
   return (
     <>
@@ -144,7 +218,7 @@ const SecondaryNav = ({
                 {title}
               </Typography>
             )}
-            {ncc && (
+            {ncc && !isLoggedIn() && (
               <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
                 <Box className={`${classes.header} second-nav-title`}>
                   <button
@@ -172,22 +246,28 @@ const SecondaryNav = ({
                           variant="contained"
                           className={classes.joinBtnNavbar}
                           type="submit"
+                          disabled={get_business_follow_loading}
                           // onClick={handleRegisterClick}
                           style={{
                             backgroundColor: '#276FC4'
                           }}>
                           {' '}
                           {get_business_follow_loading ? (
-                            <Skeleton
-                              variant="rounded"
-                              width="100%"
-                              height={20}
-                              style={{ backgroundColor: 'gray' }}
+                            <CircularProgress
+                              style={{
+                                color: '#fff',
+                                height: '21px',
+                                width: '21px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                margin: 'auto',
+                                alignItems: 'center'
+                              }}
                             />
                           ) : (
                             'Follow'
                           )}
-                          {/* Follow */}
                         </button>
                       </form>
                     </Box>
@@ -195,11 +275,14 @@ const SecondaryNav = ({
                 ) : (
                   <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
                     <Box className={`${classes.header} second-nav-title`}>
+                      {/* <form onSubmit={onSubmitDelete}> */}
                       <button
+                        onClick={onSubmitDelete}
                         variant="contained"
                         className={classes.joinBtnNavbar}
-                        type="submit"
-                        // onClick={handleRegisterClick}
+                        disabled={get_business_follow_loading}
+                        // type="submit"
+
                         style={{
                           backgroundColor: '#fff',
                           display: 'flex',
@@ -207,11 +290,17 @@ const SecondaryNav = ({
                         }}>
                         {' '}
                         {get_business_follow_loading ? (
-                          <Skeleton
-                            variant="rounded"
-                            width="100%"
-                            height={20}
-                            style={{ backgroundColor: 'gray' }}
+                          <CircularProgress
+                            style={{
+                              color: '#276FC4',
+                              height: '21px',
+                              width: '21px',
+                              display: 'flex',
+                              justifyContent: 'center',
+                              textAlign: 'center',
+                              margin: 'auto',
+                              alignItems: 'center'
+                            }}
                           />
                         ) : (
                           <div style={{ display: 'flex' }}>
@@ -222,6 +311,7 @@ const SecondaryNav = ({
                           </div>
                         )}
                       </button>
+                      {/* </form> */}
                     </Box>
                   </Box>
                 )}
@@ -229,36 +319,44 @@ const SecondaryNav = ({
             )}
             {nbns && isLoggedIn() && (
               <>
-                {businessFollowData?.business_follower_nbns?.length !== '0' ? (
+                {nbnsFollowData?.[0]?.follow_nbns === '1' ? (
                   <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
                     <Box className={`${classes.header} second-nav-title`}>
-                      <button
-                        variant="contained"
-                        className={classes.joinBtnNavbar}
-                        type="submit"
-                        // onClick={handleRegisterClick}
-                        style={{
-                          backgroundColor: '#fff',
-                          color: '#276FC4',
-                          display: 'flex'
-                        }}>
-                        {' '}
-                        {get_business_follow_loading ? (
-                          <Skeleton
-                            variant="rounded"
-                            width="100%"
-                            height={20}
-                            style={{ backgroundColor: 'gray' }}
-                          />
-                        ) : (
-                          <div style={{ display: 'flex' }}>
-                            Following
-                            <span style={{ marginLeft: '5px' }}>
-                              <CheckCircleIcon sx={{ color: '#276FC4' }} />
-                            </span>
-                          </div>
-                        )}{' '}
-                      </button>
+                      <form onSubmit={onSubmitDelete}>
+                        <button
+                          variant="contained"
+                          className={classes.joinBtnNavbar}
+                          type="submit"
+                          // onClick={handleRegisterClick}
+                          style={{
+                            backgroundColor: '#fff',
+                            color: '#276FC4',
+                            display: 'flex'
+                          }}>
+                          {' '}
+                          {get_nbns_follow_loading ? (
+                            <CircularProgress
+                              style={{
+                                color: '#276FC4',
+                                height: '21px',
+                                width: '21px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                margin: 'auto',
+                                alignItems: 'center'
+                              }}
+                            />
+                          ) : (
+                            <div style={{ display: 'flex' }}>
+                              Following
+                              <span style={{ marginLeft: '5px' }}>
+                                <CheckCircleIcon sx={{ color: '#276FC4' }} />
+                              </span>
+                            </div>
+                          )}
+                        </button>
+                      </form>
                     </Box>
                   </Box>
                 ) : (
@@ -274,12 +372,18 @@ const SecondaryNav = ({
                             backgroundColor: '#276FC4'
                           }}>
                           {' '}
-                          {get_business_follow_loading ? (
-                            <Skeleton
-                              variant="rounded"
-                              width="100%"
-                              height={20}
-                              style={{ backgroundColor: 'gray' }}
+                          {get_nbns_follow_loading ? (
+                            <CircularProgress
+                              style={{
+                                color: '#fff',
+                                height: '21px',
+                                width: '21px',
+                                display: 'flex',
+                                justifyContent: 'center',
+                                textAlign: 'center',
+                                margin: 'auto',
+                                alignItems: 'center'
+                              }}
                             />
                           ) : (
                             'Follow'
@@ -290,6 +394,46 @@ const SecondaryNav = ({
                   </Box>
                 )}
               </>
+            )}
+            {/* business logged out Join */}
+            {business && !isLoggedIn() && (
+              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                <Box className={`${classes.header} second-nav-title`}>
+                  <button
+                    onClick={joinBusiness}
+                    variant="contained"
+                    className={classes.joinBtnNavbar}
+                    // type="submit"
+                    disabled={get_business_follow_loading}
+                    // onClick={handleRegisterClick}
+                    style={{
+                      backgroundColor: '#276FC4'
+                    }}>
+                    {' '}
+                    Join
+                  </button>
+                </Box>
+              </Box>
+            )}
+            {/* nbns logged out Join */}
+            {nbns && !isLoggedIn() && (
+              <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
+                <Box className={`${classes.header} second-nav-title`}>
+                  <button
+                    onClick={joinBusiness}
+                    variant="contained"
+                    className={classes.joinBtnNavbar}
+                    // type="submit"
+                    disabled={get_business_follow_loading}
+                    // onClick={handleRegisterClick}
+                    style={{
+                      backgroundColor: '#276FC4'
+                    }}>
+                    {' '}
+                    Join
+                  </button>
+                </Box>
+              </Box>
             )}
           </Box>
           <ul className={`${classes.list} second-nav-list`}>
@@ -314,7 +458,106 @@ const SecondaryNav = ({
           defaultNccCountry={filteredNcc?.nccID1?.country_name}
         />
       </CustomModal>
+      <CustomModal
+        open={openForm}
+        handleClose={formOpenFunction}
+        modalTitle={`Submit Information before joining ${business ? 'Business' : 'NBNS'}`}
+        // modalSubtitle=""
+        nonClose
+        padding
+        titlePadding
+        width={`${screenSize?.width < 710 ? '20rem' : '30rem'}`}>
+        <CustomFormProvider
+          resolver={useYupValidationResolver(validationSchema)}
+          defaultValues={defaultValuesJoinForm}>
+          <CustomForm onSubmit={onSubmitDetails}>
+            <FormComponent
+              handleCancel={handleCancel}
+              countryList={countryList}
+              // email_check_loading={email_check_loading}
+              // setNumber={setNumber}
+              // number={number}
+            />
+          </CustomForm>
+        </CustomFormProvider>
+      </CustomModal>
     </>
+  );
+};
+
+const FormComponent = ({ handleCancel, countryList, email_check_loading, number, setNumber }) => {
+  const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
+  // const classes = useStyles();
+
+  const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
+  console.log({ selectedCountry, lowercaseString });
+
+  const handleCountrySelection = (selectedValue) => {
+    setSelectedCountry(selectedValue);
+  };
+
+  return (
+    <Grid container spacing={2}>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
+        <CustomInput
+          name="first_name"
+          label="First Name"
+          placeholder="Enter your first name"
+          required
+        />
+      </Grid>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
+        <CustomInput
+          name="last_name"
+          label="Last Name"
+          placeholder="Enter your last name"
+          required
+        />
+      </Grid>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
+        <CustomInput
+          name="email"
+          label="Email"
+          type="email"
+          placeholder="Enter your email"
+          required
+        />
+      </Grid>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
+        <CustomPhoneAutoComplete
+          placeholder="Country of residence"
+          name="country_of_residence"
+          label="Country of residence"
+          options={countryList ?? []}
+          required
+          // phoneSelect
+          onCountrySelection={handleCountrySelection}
+        />
+      </Grid>
+      <Grid item className="col-md-12" sx={{ marginTop: '20px' }}>
+        <Tooltip title={'Fill up all the fields before submitting'}>
+          <Button
+            type="submit"
+            variant="contained"
+            // disabled={!isFormValid}
+            style={{ color: '#fff', backgroundColor: '#1769AA', width: '100%' }}>
+            {' '}
+            {/* {email_check_loading ? <CircularProgress /> : 'Next'} */}
+            Submit
+          </Button>
+        </Tooltip>
+      </Grid>
+
+      <Grid item className="col-md-12" sx={{ marginTop: '20px' }}>
+        <Button
+          onClick={() => handleCancel()}
+          variant="outlined"
+          style={{ color: '#F10056', borderColor: '#F10056', width: '100%' }}>
+          {' '}
+          Cancel
+        </Button>
+      </Grid>
+    </Grid>
   );
 };
 

@@ -8,7 +8,9 @@ const defaultState = {
   home_data: [],
   delete_home_data_loading: false,
   update_home_data_loading: false,
-  home_data_status_loading: false
+  home_data_status_loading: false,
+  get_nbns_followers_loading: false,
+  nbns_followers: []
 };
 
 const settingsReducer = (state = defaultState, action) => {
@@ -77,6 +79,18 @@ const settingsReducer = (state = defaultState, action) => {
     case actions.UPDATE_HOME_DATA_STATUS_SUCCESS:
     case actions.UPDATE_HOME_DATA_STATUS_ERROR:
       return { ...state, home_data_status_loading: false };
+
+    case actions.GET_NBNS_FOLLOWERS_BEGIN:
+      return {
+        ...state,
+        get_nbns_followers_loading: true
+      };
+
+    case actions.GET_NBNS_FOLLOWERS_SUCCESS:
+      return { ...state, get_nbns_followers_loading: false, nbns_followers: action.payload };
+
+    case actions.GET_NBNS_FOLLOWERS_ERROR:
+      return { ...state, get_nbns_followers_loading: false };
 
     default:
       return state;

@@ -241,3 +241,8 @@ export const updateHomeDataStatusApi = (data) => {
 export const deleteUsersApi = (data) => {
   return axiosInstance().delete(`/admin/users/${data}`);
 };
+
+// get nbns followers
+export const getNbnsFollowersApi = () => {
+  return axiosInstance().get('/admin/nbns-followers');
+};

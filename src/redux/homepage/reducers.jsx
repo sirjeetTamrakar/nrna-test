@@ -61,7 +61,12 @@ const defaultState = {
   set_active: null,
   business_join_loading: false,
   get_business_follow_loading: false,
-  businessFollowData: []
+  businessFollowData: [],
+  delete_business_follow_loading: false,
+  nbns_join_loading: false,
+  get_nbns_follow_loading: false,
+  nbnsFollowData: [],
+  delete_nbns_follow_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -406,6 +411,42 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.GET_BUSINESS_FOLLOW_ERROR:
       return { ...state, get_business_follow_loading: false };
+
+    case actions.DELETE_BUSINESS_FOLLOW_BEGIN:
+      return { ...state, delete_business_follow_loading: true };
+
+    case actions.DELETE_BUSINESS_FOLLOW_SUCCESS:
+    case actions.DELETE_BUSINESS_FOLLOW_ERROR:
+      return { ...state, delete_business_follow_loading: false };
+
+    case actions.POST_NBNS_JOIN_BEGIN:
+      return {
+        ...state,
+        nbns_join_loading: true
+      };
+
+    case actions.POST_NBNS_JOIN_SUCCESS:
+    case actions.POST_NBNS_JOIN_ERROR:
+      return { ...state, nbns_join_loading: false };
+
+    case actions.GET_NBNS_FOLLOW_BEGIN:
+      return {
+        ...state,
+        get_nbns_follow_loading: true
+      };
+
+    case actions.GET_NBNS_FOLLOW_SUCCESS:
+      return { ...state, get_nbns_follow_loading: false, nbnsFollowData: action.payload };
+
+    case actions.GET_NBNS_FOLLOW_ERROR:
+      return { ...state, get_nbns_follow_loading: false };
+
+    case actions.DELETE_NBNS_FOLLOW_BEGIN:
+      return { ...state, delete_nbns_follow_loading: true };
+
+    case actions.DELETE_NBNS_FOLLOW_SUCCESS:
+    case actions.DELETE_NBNS_FOLLOW_ERROR:
+      return { ...state, delete_nbns_follow_loading: false };
 
     default:
       return state;

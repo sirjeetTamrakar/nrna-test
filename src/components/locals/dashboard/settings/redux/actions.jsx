@@ -1,6 +1,7 @@
 import {
   deleteHomeDataApi,
   getHomeDataApi,
+  getNbnsFollowersApi,
   getSiteSettingsApi,
   postHomeDataApi,
   postSiteSettingsApi,
@@ -109,5 +110,17 @@ export const updateHomeDataStatus = (data, handleSuccess, typeData) => (dispatch
     .catch((error) => {
       dispatch({ type: actions.UPDATE_HOME_DATA_STATUS_ERROR });
       errorToast(error);
+    });
+};
+
+export const getNbnsFollowers = () => (dispatch) => {
+  dispatch({ type: actions.GET_NBNS_FOLLOWERS_BEGIN });
+  getNbnsFollowersApi()
+    .then((res) => {
+      dispatch({ type: actions.GET_NBNS_FOLLOWERS_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_NBNS_FOLLOWERS_ERROR });
     });
 };

@@ -13,6 +13,7 @@ import EventCategoryPage from 'pages/private/event/Category';
 import EventsPage from 'pages/private/event/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
 import NBNSBannerPage from 'pages/private/NBNSBanner';
+import NBNSFollowersPage from 'pages/private/NBNSFollowersPage';
 import NBNSPage from 'pages/private/NBNSPage';
 import NCCPage from 'pages/private/NCCPage';
 import NccSiteSettingsPage from 'pages/private/NccSiteSettings';
@@ -251,7 +252,7 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'settings/nbns',
+    path: 'nbns/nbns-settings',
     component: (
       <Protected>
         <NBNSPage />
@@ -267,10 +268,18 @@ const DashboardRoutes = [
     )
   },
   {
-    path: 'settings/nbns-banner',
+    path: 'nbns/nbns-banner',
     component: (
       <Protected>
         <NBNSBannerPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'nbns/nbns-followers',
+    component: (
+      <Protected>
+        <NBNSFollowersPage />
       </Protected>
     )
   },
