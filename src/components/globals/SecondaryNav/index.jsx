@@ -192,7 +192,7 @@ const SecondaryNav = ({
         postBusinessCreateAccount({ ...data, business_id: single_business?.id }, formOpenFunction)
       );
     } else if (nbns) {
-      dispatch(postBusinessCreateAccount({ ...data, status: '1' }, formOpenFunction));
+      dispatch(postBusinessCreateAccount({ ...data, nbns: '1' }, formOpenFunction));
     } else {
       return;
     }
