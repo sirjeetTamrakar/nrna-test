@@ -243,10 +243,10 @@ export const SidebarConstants = [
         url: '/dashboard/nbns',
         icon: NbnsIcon,
         activeIcon: ActiveSettingsIcon,
-        memberProfileNCC: 'memberProfileNCC',
-        adminProfile: 'adminProfile',
+        // memberProfileNCC: 'memberProfileNCC',
+        // adminProfile: 'adminProfile',
 
-        roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
+        roles: [Roles.Admin, Roles.SuperAdmin],
         children: [
           {
             label: 'NBNS Settings',

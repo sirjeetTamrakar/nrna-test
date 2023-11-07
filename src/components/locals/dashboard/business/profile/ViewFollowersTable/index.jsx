@@ -1,9 +1,11 @@
 import CancelIcon from '@mui/icons-material/Cancel';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
+import PersonIcon from '@mui/icons-material/Person';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Box, Typography } from '@mui/material';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
+import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import { Roles } from 'constants/RoleConstant';
@@ -28,6 +30,7 @@ import { getBusinessFollow, postBusinessUserApproval } from '../../redux/actions
 //   setUserSearch
 // } from '../redux/actions';
 import { useStyles } from './styles';
+import View from './View';
 const ViewFollowerTable = ({ countrySlug, businessId }) => {
   const dispatch = useDispatch();
 
@@ -49,6 +52,7 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     useSelector((state) => state.business);
   console.log({ user, users, nccData, businessFollowData });
   const [roleIDData, setRoleIDData] = useState();
+  const [openView, viewOpenFunction] = useToggle(false);
 
   useEffect(() => {
     const newArray = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
@@ -149,13 +153,18 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
               {(user?.role_name === Roles?.SuperAdmin || user?.role_name === Roles?.Admin) && (
                 <li onClick={() => handleApprove(row)}>Approve User</li>
               )}
-              <li>View</li>
+              <li onClick={() => handleView(row)}>View</li>
             </ul>
           </CustomPopover>
         );
       }
     }
   ];
+
+  const handleView = (row) => {
+    setDetail(row);
+    viewOpenFunction();
+  };
 
   const handleApprove = (row) => {
     setDetail(row);
@@ -203,14 +212,23 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={businessFollowData}
+          tableData={businessFollowData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           loading={get_business_follow_loading}
           setPage={setPage}
-          total={businessFollowData?.data?.length}
+          total={businessFollowData?.meta?.total}
         />
+        <CustomModal
+          open={openView}
+          handleClose={viewOpenFunction}
+          modalTitle="Banner detail"
+          // modalSubtitle="Get full detail"
+          icon={<PersonIcon />}
+          width={`40rem`}>
+          <View data={detail} />
+        </CustomModal>
         <CustomApproveModal
           open={openApprove}
           handleClose={approveOpenFunction}

@@ -327,7 +327,7 @@ export const getBusinessFollow = (data) => (dispatch) => {
   getBusinessFollowApi(data)
     .then((res) => {
       console.log({ res });
-      dispatch({ type: actions.GET_BUSINESS_FOLLOW_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);

@@ -27,8 +27,14 @@ export const changeCategoryStatusApi = (data) => {
 
 // get business
 export const getBusinessApi = (data) => {
-  const user_id = data?.user_id ? `?user_id=${data?.user_id}` : '';
-  return axiosInstance().get(`/admin/businesses${user_id}`);
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+
+  const user_id = data?.user_id ? `&user_id=${data?.user_id}` : '';
+  const type = data?.type ? `&type=${data?.type}` : '';
+  return axiosInstance().get(`/admin/businesses${page}${pagination_limit}${user_id}${type}`);
 };
 
 // post business

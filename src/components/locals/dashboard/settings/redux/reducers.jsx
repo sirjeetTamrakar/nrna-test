@@ -10,7 +10,8 @@ const defaultState = {
   update_home_data_loading: false,
   home_data_status_loading: false,
   get_nbns_followers_loading: false,
-  nbns_followers: []
+  nbns_followers: [],
+  nbns_user_approval_loading: false
 };
 
 const settingsReducer = (state = defaultState, action) => {
@@ -91,6 +92,16 @@ const settingsReducer = (state = defaultState, action) => {
 
     case actions.GET_NBNS_FOLLOWERS_ERROR:
       return { ...state, get_nbns_followers_loading: false };
+
+    case actions.POST_NBNS_USER_APPROVAL_BEGIN:
+      return {
+        ...state,
+        nbns_user_approval_loading: true
+      };
+
+    case actions.POST_NBNS_USER_APPROVAL_SUCCESS:
+    case actions.POST_NBNS_USER_APPROVAL_ERROR:
+      return { ...state, nbns_user_approval_loading: false };
 
     default:
       return state;

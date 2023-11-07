@@ -243,6 +243,15 @@ export const deleteUsersApi = (data) => {
 };
 
 // get nbns followers
-export const getNbnsFollowersApi = () => {
-  return axiosInstance().get('/admin/nbns-followers');
+export const getNbnsFollowersApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  return axiosInstance().get(`/admin/nbns-followers${page}${pagination_limit}`);
+};
+
+// post nbns user aprooval
+export const nbnsUserApprovalApi = (data) => {
+  return axiosInstance().post(`/admin/nbns-followers/status/${data?.user_id}`, data);
 };

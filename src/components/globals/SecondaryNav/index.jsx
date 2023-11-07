@@ -92,7 +92,7 @@ const SecondaryNav = ({
     const newObj = {};
 
     newArray?.forEach((item, index) => {
-      newObj[`nccID${index + 1}`] = item;
+      newObj[`nccID$newArray{index + 1}`] = item;
     });
     setFilteredNcc(newObj);
   }, [nccData?.data, slug]);
@@ -143,9 +143,6 @@ const SecondaryNav = ({
     } else {
       return;
     }
-    // alert('sdad');
-
-    // dispatch(postBusinessJoin(formData, handleClose, typeData));
   };
 
   useEffect(() => {
@@ -195,7 +192,7 @@ const SecondaryNav = ({
         postBusinessCreateAccount({ ...data, business_id: single_business?.id }, formOpenFunction)
       );
     } else if (nbns) {
-      dispatch(postBusinessCreateAccount(data, formOpenFunction));
+      dispatch(postBusinessCreateAccount({ ...data, status: '1' }, formOpenFunction));
     } else {
       return;
     }

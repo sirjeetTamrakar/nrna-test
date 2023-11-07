@@ -3,6 +3,7 @@ import {
   getHomeDataApi,
   getNbnsFollowersApi,
   getSiteSettingsApi,
+  nbnsUserApprovalApi,
   postHomeDataApi,
   postSiteSettingsApi,
   updateHomeDataApi,
@@ -113,14 +114,28 @@ export const updateHomeDataStatus = (data, handleSuccess, typeData) => (dispatch
     });
 };
 
-export const getNbnsFollowers = () => (dispatch) => {
+export const getNbnsFollowers = (data) => (dispatch) => {
   dispatch({ type: actions.GET_NBNS_FOLLOWERS_BEGIN });
-  getNbnsFollowersApi()
+  getNbnsFollowersApi(data)
     .then((res) => {
-      dispatch({ type: actions.GET_NBNS_FOLLOWERS_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_NBNS_FOLLOWERS_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.GET_NBNS_FOLLOWERS_ERROR });
+    });
+};
+
+export const postNbnsUserApproval = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_NBNS_USER_APPROVAL_BEGIN });
+  nbnsUserApprovalApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_NBNS_USER_APPROVAL_SUCCESS });
+      handleSuccess && handleSuccess();
+      successToast('Changed status successfully');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_NBNS_USER_APPROVAL_ERROR });
     });
 };

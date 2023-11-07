@@ -34,8 +34,8 @@ const Profile = () => {
   const [openFollowers, openFollowersFunction] = useToggle(false);
   const [openServicesTable, servicesTableOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
   const { businessData, get_business_loading, business_status_loading, delete_business_loading } =
@@ -50,33 +50,6 @@ const Profile = () => {
   //   };
   //   dispatch(getBusiness(data));
   // };
-
-  const refetch = () => {
-    if (user?.role_name == Roles?.Member) {
-      const data = {
-        page: page + 1,
-        pagination_limit: rowsPerPage,
-        type: 'member',
-        user_id: user?.id
-      };
-      dispatch(getBusiness(data));
-    } else if (user?.role_name == Roles?.NCC) {
-      const data = {
-        page: page + 1,
-        pagination_limit: rowsPerPage,
-        type: 'ncc',
-        user_id: user?.ncc?.id
-      };
-      dispatch(getBusiness(data));
-    } else {
-      const data = { page: page + 1, pagination_limit: rowsPerPage };
-      dispatch(getBusiness(data));
-    }
-  };
-
-  useEffect(() => {
-    refetch();
-  }, [page, rowsPerPage]);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -160,7 +133,7 @@ const Profile = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 'Active' ? (
+            {row?.status === '1' ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -225,9 +198,19 @@ const Profile = () => {
   const handleConfirm = (slug) => {
     let typeData;
     if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', user_id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = {
+        type: 'member',
+        user_id: user?.id,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      typeData = {
+        type: 'ncc',
+        user_id: user?.ncc?.id,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     }
     dispatch(deleteBusiness(slug, deleteOpenFunction, typeData));
   };
@@ -235,14 +218,24 @@ const Profile = () => {
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
-      status: detail?.status === 0 ? 1 : 0,
+      status: detail?.status === '0' ? '1' : '0',
       _method: 'PATCH'
     };
     let typeData;
     if (user?.role_name == Roles?.Member) {
-      typeData = { type: 'member', user_id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = {
+        type: 'member',
+        user_id: user?.id,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     } else if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      typeData = {
+        type: 'ncc',
+        user_id: user?.ncc?.id,
+        page: page + 1,
+        pagination_limit: rowsPerPage
+      };
     }
     dispatch(changeBusinessStatus(finalData, statusOpenFunction, typeData));
   };
@@ -282,6 +275,33 @@ const Profile = () => {
     serviceOpenFunction();
   };
 
+  const refetch = () => {
+    if (user?.role_name == Roles?.Member) {
+      const data = {
+        page: page + 1,
+        pagination_limit: rowsPerPage,
+        type: 'member',
+        user_id: user?.id
+      };
+      dispatch(getBusiness(data));
+    } else if (user?.role_name == Roles?.NCC) {
+      const data = {
+        page: page + 1,
+        pagination_limit: rowsPerPage,
+        type: 'ncc',
+        user_id: user?.ncc?.id
+      };
+      dispatch(getBusiness(data));
+    } else {
+      const data = { page: page + 1, pagination_limit: rowsPerPage };
+      dispatch(getBusiness(data));
+    }
+  };
+
+  useEffect(() => {
+    refetch();
+  }, [page, rowsPerPage]);
+
   return (
     <>
       <Box>
@@ -308,7 +328,7 @@ const Profile = () => {
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={businessData?.meta?.total}
           loading={get_business_loading}
         />
         <CustomModal

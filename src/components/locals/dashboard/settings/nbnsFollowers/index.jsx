@@ -1,14 +1,18 @@
+import CancelIcon from '@mui/icons-material/Cancel';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PersonIcon from '@mui/icons-material/Person';
+import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Box, Typography } from '@mui/material';
+import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
+import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { changeDateFormat } from 'utils/dateUtils';
-import { getNbnsFollowers } from '../redux/actions';
+import { getNbnsFollowers, postNbnsUserApproval } from '../redux/actions';
 import { useStyles } from './styles';
 import View from './View';
 
@@ -16,6 +20,7 @@ const NBNSFollowers = () => {
   const dispatch = useDispatch();
 
   const [openView, viewOpenFunction] = useToggle(false);
+  const [openApprove, approveOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
@@ -26,10 +31,11 @@ const NBNSFollowers = () => {
   );
 
   const { nbns_followers } = useSelector((state) => state.settings);
+  const { user } = useSelector((state) => state.auth);
 
   console.log({ nbns_followers });
 
-  const filterNbnsFollowers = nbns_followers?.filter((item) => item?.follow_nbns === '1');
+  const filterNbnsFollowers = nbns_followers?.data?.filter((item) => item?.follow_nbns === '1');
   console.log({ filterNbnsFollowers });
 
   const tableHeads = [
@@ -48,17 +54,7 @@ const NBNSFollowers = () => {
         );
       }
     },
-    {
-      title: 'Created at',
-      minWidth: 150,
-      field: (row) => {
-        return (
-          <Box>
-            <Typography variant="subtitle1">{changeDateFormat(row?.created_at)}</Typography>
-          </Box>
-        );
-      }
-    },
+
     {
       title: 'Email/Phone',
       minWidth: 100,
@@ -71,14 +67,41 @@ const NBNSFollowers = () => {
         );
       }
     },
-
     {
-      title: 'Country of residence',
+      title: 'Address',
       minWidth: 120,
       field: (row) => {
         return <Typography variant="body2">{` ${row?.country_of_residence ?? '-'}`}</Typography>;
       }
     },
+
+    {
+      title: 'Approved',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Box>
+            {row?.nbns_status === 'approved' ? (
+              <Box display="flex" columnGap={0.5}>
+                <TaskAltIcon sx={{ color: 'green' }} />
+                <Typography color={'green'}>Approved</Typography>
+              </Box>
+            ) : row?.nbns_status === 'rejected' ? (
+              <Box display="flex" columnGap={0.5}>
+                <CancelIcon sx={{ color: 'red' }} />
+                <Typography color={'red'}>Rejected</Typography>
+              </Box>
+            ) : (
+              <Box display="flex" columnGap={0.5}>
+                <PauseCircleFilledIcon sx={{ color: '#2196f3' }} />
+                <Typography color={'#2196f3'}>Pending</Typography>
+              </Box>
+            )}
+          </Box>
+        );
+      }
+    },
+
     {
       title: 'Actions',
       minWidth: 85,
@@ -86,7 +109,16 @@ const NBNSFollowers = () => {
         return (
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
-              <li onClick={() => handleView(row)}>View Details</li>
+              {/* <li onClick={() => handleEdit(row)}>Edit Business </li>
+              {(user?.role_name === Roles?.SuperAdmin || user?.role_name === Roles?.Admin) && (
+                <li onClick={() => handleApprove(row)}>Approve Business</li>
+              )}
+              <li onClick={() => handleTableServices(row)}>View services</li>
+              <li onClick={() => handleDelete(row)}>Delete</li> */}
+              {(user?.role_name === Roles?.SuperAdmin || user?.role_name === Roles?.Admin) && (
+                <li onClick={() => handleApprove(row)}>Approve User</li>
+              )}
+              <li onClick={() => handleView(row)}>View</li>
             </ul>
           </CustomPopover>
         );
@@ -94,14 +126,34 @@ const NBNSFollowers = () => {
     }
   ];
 
+  const handleApprove = (row) => {
+    setDetail(row);
+    approveOpenFunction();
+  };
+
+  console.log({ detail });
+
+  const handleApproveStatus = (value) => {
+    const status = value === 'approved' ? 'approved' : 'rejected';
+    const data = {
+      user_id: detail?.id
+    };
+    dispatch(
+      postNbnsUserApproval({ ...data, nbns_status: status, _method: 'PATCH' }, () => {
+        approveOpenFunction();
+        refetch();
+      })
+    );
+  };
+
   const handleView = (row) => {
     setDetail(row);
     viewOpenFunction();
   };
 
   const refetch = () => {
-    // const data = { page: page + 1, pagination_limit: rowsPerPage, business_id: 2 };
-    dispatch(getNbnsFollowers());
+    const data = { page: page + 1, pagination_limit: rowsPerPage };
+    dispatch(getNbnsFollowers(data));
   };
 
   useEffect(() => {
@@ -122,12 +174,12 @@ const NBNSFollowers = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={nbns_followers}
+          tableData={nbns_followers?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={nbns_followers?.length}
+          total={nbns_followers?.meta?.total}
           loading={get_business_follow_loading}
         />
 
@@ -140,6 +192,14 @@ const NBNSFollowers = () => {
           width={`40rem`}>
           <View data={detail} />
         </CustomModal>
+        <CustomApproveModal
+          open={openApprove}
+          handleClose={approveOpenFunction}
+          row={detail}
+          // isLoading={business_user_approval_loading}
+          handleApprove={() => handleApproveStatus('approved')}
+          handleReject={() => handleApproveStatus('rejected')}
+        />
       </Box>
     </>
   );
