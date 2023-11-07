@@ -1,5 +1,6 @@
 import {
   changePasswordApi,
+  completeRegistrationApi,
   forgotPasswordApi,
   loginApi,
   registerApi,
@@ -153,4 +154,25 @@ export const saveAdminRoleDetails = (data) => (dispatch) => {
 
 export const saveAdminNccIdDetails = (data) => (dispatch) => {
   dispatch({ type: actions.STORE_ADMIN_NCC_ID_DETAILS, payload: data });
+};
+
+// Complete user registration with new Password and token
+export const completeRegistration = (data, handleRedirect) => (dispatch) => {
+  dispatch({
+    type: actions.COMPLETE_REGISTRATION_BEGIN
+  });
+  completeRegistrationApi(data)
+    .then((res) => {
+      dispatch({
+        type: actions.COMPLETE_REGISTRATION_SUCCESS
+      });
+      handleRedirect && handleRedirect();
+      successToast('User registration complete');
+    })
+    .catch((error) => {
+      dispatch({
+        type: actions.COMPLETE_REGISTRATION_ERROR
+      });
+      errorToast(error);
+    });
 };

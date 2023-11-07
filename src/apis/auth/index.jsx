@@ -19,6 +19,7 @@ export const forgotPasswordApi = (data) => {
 export const resetPasswordApi = (data) => {
   return axiosInstance().post('/api/reset-password', data);
 };
+
 // reset password or verify email
 export const changePasswordApi = (data) => {
   return axiosInstance().post('/admin/change-password', data);
@@ -28,3 +29,8 @@ export const changePasswordApi = (data) => {
 // export const verifyEmailApi = (data) => {
 //   return axiosRequest.post('/api/password-reset/change', dat);
 // };
+
+// Complete user registration with new Password and token
+export const completeRegistrationApi = (data) => {
+  return axiosInstance().post('/api/set-user-password', data);
+};

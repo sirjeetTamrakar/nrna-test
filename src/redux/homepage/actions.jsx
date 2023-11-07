@@ -34,6 +34,7 @@ import {
   getTeamsApi,
   nbnsJoinApi,
   postAdviceApi,
+  postBusinessCreateAccountApi,
   postCheckEmailApi,
   postTeamContactApi
 } from 'apis/homepage';
@@ -528,5 +529,19 @@ export const deleteNBNSFollow = (data, handleSuccess) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.DELETE_NBNS_FOLLOW_ERROR });
+    });
+};
+
+export const postBusinessCreateAccount = (data, handleSuccess) => (dispatch) => {
+  dispatch({ type: actions.POST_BUSINESS_CREATE_ACCOUNT_BEGIN });
+  postBusinessCreateAccountApi(data)
+    .then((res) => {
+      dispatch({ type: actions.POST_BUSINESS_CREATE_ACCOUNT_SUCCESS });
+      successToast('Created account. Please check you email for verification.');
+      handleSuccess && handleSuccess();
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.POST_BUSINESS_CREATE_ACCOUNT_ERROR });
     });
 };

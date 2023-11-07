@@ -21,6 +21,7 @@ import {
   getBusinessFollow,
   getCountriesCode,
   getNBNSFollow,
+  postBusinessCreateAccount,
   postBusinessJoin,
   postNBNSJoin
 } from 'redux/homepage/actions';
@@ -31,7 +32,6 @@ import { useStyles } from './styles';
 const validationSchema = Yup.object({
   first_name: Yup.string().required('Please enter first name'),
   last_name: Yup.string().required('Please enter last name'),
-  phone: Yup.string().required('Please enter phone').min(10),
   email: Yup.string().required('Please enter email'),
   country_of_residence: Yup.string().required('Please select a country')
 });
@@ -73,7 +73,9 @@ const SecondaryNav = ({
     get_nbns_follow_loading
   } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
-  const { countries_list_code } = useSelector((state) => state.homepage);
+  const { countries_list_code, business_create_account_loading } = useSelector(
+    (state) => state.homepage
+  );
 
   console.log('kdlaskjndu', { user });
   const defaultValues = {};
@@ -188,10 +190,15 @@ const SecondaryNav = ({
   const screenSize = useScreenSize();
 
   const onSubmitDetails = (data) => {
-    // console.log({ details: data });
-    // setUserFormDetails({ ...data });
-    // dispatch(emailCheck({ email: data?.email }, () => refetch(data)));
-    alert('join business');
+    if (business) {
+      dispatch(
+        postBusinessCreateAccount({ ...data, business_id: single_business?.id }, formOpenFunction)
+      );
+    } else if (nbns) {
+      dispatch(postBusinessCreateAccount(data, formOpenFunction));
+    } else {
+      return;
+    }
   };
 
   const countryList = countries_list_code?.map((item, index) => ({
@@ -474,6 +481,7 @@ const SecondaryNav = ({
             <FormComponent
               handleCancel={handleCancel}
               countryList={countryList}
+              loading={business_create_account_loading}
               // email_check_loading={email_check_loading}
               // setNumber={setNumber}
               // number={number}
@@ -485,7 +493,14 @@ const SecondaryNav = ({
   );
 };
 
-const FormComponent = ({ handleCancel, countryList, email_check_loading, number, setNumber }) => {
+const FormComponent = ({
+  handleCancel,
+  countryList,
+  email_check_loading,
+  number,
+  setNumber,
+  loading
+}) => {
   const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
   // const classes = useStyles();
 
@@ -542,8 +557,11 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
             // disabled={!isFormValid}
             style={{ color: '#fff', backgroundColor: '#1769AA', width: '100%' }}>
             {' '}
-            {/* {email_check_loading ? <CircularProgress /> : 'Next'} */}
-            Submit
+            {loading ? (
+              <CircularProgress style={{ height: '22px', width: '22px', color: '#fff' }} />
+            ) : (
+              'Submit'
+            )}
           </Button>
         </Tooltip>
       </Grid>

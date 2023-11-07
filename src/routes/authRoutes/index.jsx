@@ -7,6 +7,7 @@ import BusinessPage from 'pages/public/Business';
 import CandidatePage from 'pages/public/Candidate';
 import CandidateSiteSingleHome from 'pages/public/CandidateSingle';
 import ChnagePasswordDashboard from 'pages/public/changePass';
+import CompleteRegistrationPage from 'pages/public/completeRegistrationPage';
 import ContactPage from 'pages/public/Contact';
 import EventsPage from 'pages/public/events';
 import SingleEventPage from 'pages/public/events/SingleEvent';
@@ -114,6 +115,7 @@ const AuthRoutes = [
     component: <MissionPage />
   },
   { path: '/reset-password', component: <ResetPassword /> },
+  { path: '/complete_registration', component: <CompleteRegistrationPage /> },
   { path: '/password-reset', component: <ChnagePasswordDashboard /> },
   { path: '/forgot-password', component: <Forgot /> },
   { path: '/verify-mail', component: <VerifyEmail /> },

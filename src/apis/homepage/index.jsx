@@ -282,3 +282,8 @@ export const getNbnsFollowApi = (data) => {
 export const deleteNbnsFollowApi = (data) => {
   return axiosInstance().post(`/api/unfollow_nbns/${data?.user_id}`);
 };
+
+// check survey taken with email
+export const postBusinessCreateAccountApi = (data) => {
+  return axiosInstance().post(`/api/business-follow/create-account`, data);
+};

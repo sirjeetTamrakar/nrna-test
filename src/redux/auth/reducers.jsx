@@ -39,6 +39,7 @@ const authReducer = (state = defaultState, action) => {
 
     case actions.FORGOT_PASSWORD_BEGIN:
     case actions.RESET_PASSWORD_BEGIN:
+    case actions.COMPLETE_REGISTRATION_BEGIN:
     case actions.CHANGE_PASSWORD_BEGIN:
       return { ...state, loading: true };
 
@@ -46,6 +47,8 @@ const authReducer = (state = defaultState, action) => {
     case actions.FORGOT_PASSWORD_ERROR:
     case actions.RESET_PASSWORD_ERROR:
     case actions.RESET_PASSWORD_SUCCESS:
+    case actions.COMPLETE_REGISTRATION_SUCCESS:
+    case actions.COMPLETE_REGISTRATION_ERROR:
     case actions.CHANGE_PASSWORD_SUCCESS:
       return { ...state, loading: false };
 
