@@ -186,7 +186,7 @@ const NBNSFollowers = () => {
         <CustomModal
           open={openView}
           handleClose={viewOpenFunction}
-          modalTitle="Banner detail"
+          modalTitle="Follower's detail"
           // modalSubtitle="Get full detail"
           icon={<PersonIcon />}
           width={`40rem`}>
