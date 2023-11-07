@@ -30,7 +30,7 @@ const NBNSFollowers = () => {
     (state) => state.business
   );
 
-  const { nbns_followers } = useSelector((state) => state.settings);
+  const { nbns_followers, nbns_user_approval_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
 
   console.log({ nbns_followers });
@@ -196,7 +196,7 @@ const NBNSFollowers = () => {
           open={openApprove}
           handleClose={approveOpenFunction}
           row={detail}
-          // isLoading={business_user_approval_loading}
+          isLoading={nbns_user_approval_loading}
           handleApprove={() => handleApproveStatus('approved')}
           handleReject={() => handleApproveStatus('rejected')}
         />
