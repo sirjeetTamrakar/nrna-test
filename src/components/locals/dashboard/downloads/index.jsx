@@ -77,7 +77,7 @@ const Downloads = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === 1 ? (
+            {row?.status === 'active' ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -159,8 +159,7 @@ const Downloads = () => {
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
-      status: detail?.status === 0 ? 1 : 0,
-      _method: 'PATCH'
+      status: detail?.status === 'inactive' ? 'active' : 'inactive'
     };
     let typeData;
     if (user?.role_name == Roles?.Member) {

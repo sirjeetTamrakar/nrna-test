@@ -35,7 +35,7 @@ export const deleteDownloadApi = (data) => {
 
 // change news status
 export const changeDownloadStatusApi = (data) => {
-  return axiosInstance().post(`/admin/download-files/${data?.slug}/status`, data);
+  return axiosInstance().post(`/admin/download-files/status/${data?.slug}`, data);
 };
 
 export const getPublicDownloadApi = ({ downloadable_type, downloadable_id }) => {
