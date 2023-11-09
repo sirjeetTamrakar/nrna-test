@@ -27,8 +27,8 @@ import {
 } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
@@ -123,7 +123,9 @@ const Member = () => {
       minWidth: 120,
       field: (row) => {
         return (
-          <Typography variant="body2">{`${row?.city}, ${row?.country_of_residence}`}</Typography>
+          <Typography variant="body2">{`${row?.city ? row?.city + ',' : ''} ${
+            row?.country_of_residence
+          }`}</Typography>
         );
       }
     },

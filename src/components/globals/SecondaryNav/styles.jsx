@@ -56,7 +56,7 @@ export const useStyles = makeStyles((theme) => ({
   joinBtnNavbar: {
     width: '105px',
     border: '2px solid #fff',
-    padding: '8px',
+    padding: '7px 10px',
     boxShadow: 'none',
     color: '#fff',
     borderRadius: '4px'

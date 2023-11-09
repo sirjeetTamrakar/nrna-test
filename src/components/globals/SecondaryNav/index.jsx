@@ -1,3 +1,4 @@
+import { HourglassBottom } from '@mui/icons-material';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import { Box, Container, Grid, Typography } from '@mui/material';
 import Button from '@mui/material/Button/Button';
@@ -212,6 +213,8 @@ const SecondaryNav = ({
     dispatch(getCountriesCode());
   }, []);
 
+  const businessDetails = businessFollowData?.[0];
+
   return (
     <>
       <Box className={`${classes.root} second-nav-root`} sx={color && { backgroundColor: color }}>
@@ -240,9 +243,10 @@ const SecondaryNav = ({
                 </Box>
               </Box>
             )}
+
             {business && isLoggedIn() && (
               <>
-                {!businessFollowData?.[0]?.business_id ? (
+                {!businessDetails?.business_id || businessDetails?.status === 'rejected' ? (
                   <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
                     <Box className={`${classes.header} second-nav-title`}>
                       <form onSubmit={onSubmit}>
@@ -255,7 +259,6 @@ const SecondaryNav = ({
                           style={{
                             backgroundColor: '#276FC4'
                           }}>
-                          {' '}
                           {get_business_follow_loading ? (
                             <CircularProgress
                               style={{
@@ -285,14 +288,12 @@ const SecondaryNav = ({
                         variant="contained"
                         className={classes.joinBtnNavbar}
                         disabled={get_business_follow_loading}
-                        // type="submit"
-
                         style={{
                           backgroundColor: '#fff',
                           display: 'flex',
-                          color: '#276FC4'
+
+                          color: businessDetails?.status === 'pending' ? '#FF6C22' : '#276FC4'
                         }}>
-                        {' '}
                         {get_business_follow_loading ? (
                           <CircularProgress
                             style={{
@@ -308,9 +309,13 @@ const SecondaryNav = ({
                           />
                         ) : (
                           <div style={{ display: 'flex' }}>
-                            Following
+                            {businessDetails?.status === 'pending' ? 'Pending' : 'Following'}
                             <span style={{ marginLeft: '5px' }}>
-                              <CheckCircleIcon sx={{ color: '#276FC4' }} />
+                              {businessDetails?.status === 'pending' ? (
+                                <HourglassBottom sx={{ color: '#FF6C22' }} />
+                              ) : (
+                                <CheckCircleIcon sx={{ color: '#276FC4' }} />
+                              )}
                             </span>
                           </div>
                         )}
