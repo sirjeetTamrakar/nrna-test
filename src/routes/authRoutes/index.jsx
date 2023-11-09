@@ -1,5 +1,6 @@
 import BusinessDataComponent from 'components/locals/Business/BusinessDataComponent';
 import BusinessItemOneSingle from 'components/locals/Business/BusinessItemOneSingle';
+import SingleDownload from 'components/locals/Download/SingleDownload';
 import NccDataComponent from 'components/locals/NCC/NccSite/NccDataCompnent';
 import NccItemOneSingle from 'components/locals/NCC/NccSite/NccItemSingleOne';
 import AboutPage from 'pages/public/About';
@@ -9,6 +10,7 @@ import CandidateSiteSingleHome from 'pages/public/CandidateSingle';
 import ChnagePasswordDashboard from 'pages/public/changePass';
 import CompleteRegistrationPage from 'pages/public/completeRegistrationPage';
 import ContactPage from 'pages/public/Contact';
+import DownloadPage from 'pages/public/Download';
 import EventsPage from 'pages/public/events';
 import SingleEventPage from 'pages/public/events/SingleEvent';
 import Forgot from 'pages/public/forgot';
@@ -126,6 +128,15 @@ const AuthRoutes = [
   {
     path: `/nrna/:slug`,
     component: <HomeDataComponentPage />
+  },
+  {
+    path: '/nrna/download',
+    component: <DownloadPage />
+  },
+
+  {
+    path: '/nrna/download/:slug',
+    component: <SingleDownload />
   }
 ];
 

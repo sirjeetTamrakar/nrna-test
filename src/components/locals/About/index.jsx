@@ -16,7 +16,6 @@ const About = () => {
           taglineAuthor={settings?.about_tagline_author}
         />
       )}
-
       <section className="about" id="about_main">
         <div className="container">
           <div className="row">
