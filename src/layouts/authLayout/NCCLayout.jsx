@@ -97,6 +97,12 @@ const SecondaryNavWrapper = () => {
       value: 'events',
       path: `/ncc/${ncc}/events`,
       clickFunction: () => handleFunction(`/ncc/${ncc}/events`)
+    },
+    {
+      title: 'Downloads',
+      value: 'downloads',
+      path: `/ncc/downloads`,
+      clickFunction: () => handleFunction(`/ncc/${ncc}/downloads`)
     }
     // {
     //   title: 'Mission',

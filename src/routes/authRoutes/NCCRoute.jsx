@@ -5,11 +5,13 @@ import AboutPage from 'pages/public/nccSite/About';
 import CandidatePage from 'pages/public/nccSite/Candidate';
 import CommitteePage from 'pages/public/nccSite/Committee';
 import Contact from 'pages/public/nccSite/Contact';
+import DownloadsPage from 'pages/public/nccSite/Downloads';
 import EventsPage from 'pages/public/nccSite/Events';
 import MissionPage from 'pages/public/nccSite/Mission';
 import NccSitePage from 'pages/public/nccSite/NccSite';
 import News from 'pages/public/nccSite/News';
 import ProfilePage from 'pages/public/nccSite/Profile';
+import SingleDownloadNCC from 'pages/public/nccSite/SingleDownload';
 import SingleEventNCC from 'pages/public/nccSite/SingleEvent';
 import SingleNewsNCC from 'pages/public/nccSite/SingleNews';
 import TabComponentPage from 'pages/public/nccSite/TabComponentPage';
@@ -80,5 +82,13 @@ export const nccRoute = [
   {
     path: `ncc/:ncc/:slug`,
     component: <TabComponentPage />
+  },
+  {
+    path: `ncc/:ncc/downloads`,
+    component: <DownloadsPage />
+  },
+  {
+    path: `ncc/:ncc/downloads/:slug`,
+    component: <SingleDownloadNCC />
   }
 ];
