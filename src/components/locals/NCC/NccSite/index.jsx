@@ -22,6 +22,8 @@ const NccSite = () => {
     single?.id && dispatch(getBanner({ type: 'ncc', id: single?.id }));
   }, [ncc]);
 
+  console.log('ncc', ncc);
+
   return (
     <>
       <BannerSection banners={banners} />

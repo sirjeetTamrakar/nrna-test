@@ -1,36 +1,26 @@
 import { Box, Button, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-
-const tableData = [
-  {
-    id: 1,
-    title: 'This is a title of pdf',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  },
-  {
-    id: 2,
-    title: 'This is a title of pdf',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  },
-  {
-    id: 3,
-    title: 'This is a title of pdf',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  },
-  {
-    id: 4,
-    title: 'Another ittle',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  }
-];
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  getDownload,
+  getPublicDownload
+} from 'components/locals/dashboard/downloads/redux/actions';
 
 const Downloads = () => {
   // const { settings } = useSelector((state) => state.homepage);
+  const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
+  const { single_ncc } = useSelector((state) => state.homepage);
+  const { downloadData, get_download_loading } = useSelector((state) => state.download);
+  console.log('single_ncc', single_ncc);
+
+  useEffect(() => {
+    dispatch(getPublicDownload({ downloadable_type: 'ncc', downloadable_id: single_ncc?.id }));
+  }, []);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -42,7 +32,14 @@ const Downloads = () => {
         return (
           <Box
             sx={{ '& a': { textDecoration: 'none', color: (theme) => theme.palette.text.main } }}>
-            <Link to={`${row?.id}`} state={{ title: row?.title, file_src: row?.file_src }}>
+            <Link
+              to={`${row?.id}`}
+              state={{
+                title: row?.title,
+                file_src: row?.file,
+                updatedDate: row?.updated_at,
+                description: row?.description
+              }}>
               {row?.title}
             </Link>
           </Box>
@@ -55,7 +52,7 @@ const Downloads = () => {
       field: (row) => {
         return (
           <>
-            <a href={row.file_src} target="_blank" download={'download.pdf'} rel="noreferrer">
+            <a href={row.file} target="_blank" download={'download.pdf'} rel="noreferrer">
               <Button
                 variant="text"
                 sx={{
@@ -77,17 +74,19 @@ const Downloads = () => {
       <div className="main_content">
         <section className="all_events">
           <div className="container">
-            <div className="about_title">Downloads</div>
+            <div className="about_title" style={{ fontSize: '20px' }}>
+              Downloads
+            </div>
             <CustomTable
               tableHeads={tableHeads}
-              // tableData={data?.members}
-              tableData={tableData}
-              // loading={contact_loading}
+              tableData={downloadData?.data}
+              // tableData={tableData}
+              loading={get_download_loading}
               rowsPerPage={rowsPerPage}
               setRowsPerPage={setRowsPerPage}
               page={page}
               setPage={setPage}
-              // total={data?.members?.length}
+              total={downloadData?.data?.length}
             />
           </div>
         </section>

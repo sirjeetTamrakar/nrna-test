@@ -76,6 +76,7 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry }) => {
             <CustomInput name="first_name" label="Firstname" />
             <CustomInput name="last_name" label="Lastname" />
             <CustomInput name="email" label="Email" type="email" />
+            <CustomInput name="phone" label="Phone" type={'number'} />
             <CustomAutoComplete
               name="country_of_residence"
               label="Country of Residence"
@@ -85,7 +86,13 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry }) => {
             <CustomPasswordInput name="password_confirmation" label="Confirm Password" />
           </Box>
           <Box className="agree">
-            <input type="checkbox" onChange={handleChange} /> <p>I agree to terms & condition.</p>
+            <input type="checkbox" onChange={handleChange} />{' '}
+            <p>
+              I agree to{' '}
+              <a href="/terms-and-conditions" target="_blank">
+                terms & condition.
+              </a>
+            </p>
           </Box>
           <CustomButton
             buttonName="Register"

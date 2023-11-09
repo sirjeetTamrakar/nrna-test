@@ -2,11 +2,27 @@ import {
   changeDownloadStatusApi,
   deleteDownloadApi,
   getDownloadApi,
+  getPublicDownloadApi,
   postDownloadApi,
   updateDownloadApi
 } from 'apis/dashboard/downloads';
 import { errorToast, successToast } from 'utils/toast';
 import * as actions from './types';
+
+export const getPublicDownload =
+  ({ downloadable_type, downloadable_id }) =>
+  (dispatch) => {
+    console.log('downloadable_type', downloadable_type);
+    dispatch({ type: actions.GET_DOWNLOAD_BEGIN });
+    getPublicDownloadApi({ downloadable_type, downloadable_id })
+      .then((res) => {
+        dispatch({ type: actions.GET_DOWNLOAD_SUCCESS, payload: res.data });
+      })
+      .catch((error) => {
+        errorToast(error);
+        dispatch({ type: actions.GET_DOWNLOAD_ERROR });
+      });
+  };
 
 export const getDownload = (data, typeData) => (dispatch) => {
   dispatch({ type: actions.GET_DOWNLOAD_BEGIN });

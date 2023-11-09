@@ -7,7 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import { getAllHomeData } from 'redux/homepage/actions';
 
 const DownloadPage = () => {
-  const [selected, setSelected] = useState('about');
+  const [selected, setSelected] = useState('download');
   console.log({ selected });
 
   const navigate = useNavigate();
@@ -20,11 +20,6 @@ const DownloadPage = () => {
   useEffect(() => {
     dispatch(getAllHomeData());
   }, []);
-  const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
-    title: item?.tabtitle,
-    value: item?.slug,
-    clickFunction: () => handleFunction(`/nrna/${item.slug}`)
-  }));
   const options = [
     { title: 'Home', value: 'home', clickFunction: () => handleFunction('/') },
     { title: 'About', value: 'about', clickFunction: () => handleFunction('/nrna/about') },
@@ -45,7 +40,7 @@ const DownloadPage = () => {
     }
   ];
 
-  const allOptions = [...options, ...homeOptions, ...contact, ...download];
+  const allOptions = [...options, ...contact, ...download];
 
   return (
     <>

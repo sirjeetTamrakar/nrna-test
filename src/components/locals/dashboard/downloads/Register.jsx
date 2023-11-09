@@ -22,6 +22,7 @@ const Register = ({ handleClose }) => {
     formData.append('title', data?.title);
     formData.append('description', data?.description);
     formData.append('created_by', user?.id);
+    console.log('data', data);
 
     if (data?.file?.length > 0) {
       formData.append('file', data?.file?.[0]);
@@ -37,6 +38,8 @@ const Register = ({ handleClose }) => {
         pagination_limit: 10,
         user_id: user?.id
       };
+      formData.append('downloadable_type', 'ncc');
+      formData.append('downloadable_id', user?.ncc?.id);
     } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
       typeData = {
         type: 'ncc',

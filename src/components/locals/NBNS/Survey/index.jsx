@@ -264,6 +264,15 @@ const FormComponent = ({ handleCancel, countryList, email_check_loading, number,
           required
         />
       </Grid>
+      {/* <Grid item className="col-md-6" style={{ marginRight: '0px' }}>
+        <CustomInput
+          name="phone"
+          label="Phone"
+          type="number"
+          placeholder="Enter your phone number"
+          // required
+        />
+      </Grid> */}
       <Grid item className="col-md-6" style={{ marginRight: '0px' }}>
         <CustomPhoneAutoComplete
           placeholder="Country of residence"

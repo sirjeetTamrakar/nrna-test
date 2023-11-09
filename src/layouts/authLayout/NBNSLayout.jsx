@@ -93,11 +93,11 @@ const SecondaryNavWrapper = () => {
   const filterHomeData = (home_data?.data?.slice(0, 4) || [])?.filter(
     (item) => item?.slug !== 'advice' && item?.slug !== 'support'
   );
-  const homeOptions = filterHomeData?.map((item) => ({
-    title: item?.tabtitle,
-    value: item?.slug,
-    clickFunction: () => handleFunction(`/nbns/${item.slug}`)
-  }));
+  // const homeOptions = filterHomeData?.map((item) => ({
+  //   title: item?.tabtitle,
+  //   value: item?.slug,
+  //   clickFunction: () => handleFunction(`/nbns/${item.slug}`)
+  // }));
 
   const download = [
     {
@@ -108,7 +108,7 @@ const SecondaryNavWrapper = () => {
     }
   ];
 
-  const allOptions = [...options, ...homeOptions, ...download];
+  const allOptions = [...options, ...download];
 
   return (
     <SecondaryNav

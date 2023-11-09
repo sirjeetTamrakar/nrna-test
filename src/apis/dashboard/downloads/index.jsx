@@ -37,3 +37,11 @@ export const deleteDownloadApi = (data) => {
 export const changeDownloadStatusApi = (data) => {
   return axiosInstance().post(`/admin/download-files/${data?.slug}/status`, data);
 };
+
+export const getPublicDownloadApi = ({ downloadable_type, downloadable_id }) => {
+  // console.log('downloadable_type', downloadable_type);
+  const type = downloadable_type
+    ? `?downloadable_type=${downloadable_type}&downloadable_id=${downloadable_id}`
+    : '';
+  return axiosInstance().get(`/api/download-files${type}`);
+};

@@ -102,8 +102,13 @@ const SecondaryNav = ({
     openFunctionRegister();
   };
 
+  console.log('localSelected', localSelected);
+  console.log('selected', selected);
+
   useEffect(() => {
-    setLocalSelected(selected);
+    if (selected) {
+      setLocalSelected(selected);
+    }
   }, [selected]);
 
   const handleOptionClick = (value) => {
@@ -538,6 +543,15 @@ const FormComponent = ({
           type="email"
           placeholder="Enter your email"
           required
+        />
+      </Grid>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
+        <CustomInput
+          name="phone"
+          label="Phone"
+          type="number"
+          placeholder="Enter your phone"
+          // required
         />
       </Grid>
       <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
