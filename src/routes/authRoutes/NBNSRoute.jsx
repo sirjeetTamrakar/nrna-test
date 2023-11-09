@@ -1,6 +1,8 @@
+import SingleDownload from 'components/locals/NBNS/Downloads/SingleDownload';
 import Homepage from 'pages/public/nbnsSite';
 import AboutPage from 'pages/public/nbnsSite/About';
 import AdvisePage from 'pages/public/nbnsSite/Advise';
+import DownloadsPageNBNS from 'pages/public/nbnsSite/Downloads';
 import MissionPage from 'pages/public/nbnsSite/Mission';
 import NbnsTabComponentPage from 'pages/public/nbnsSite/NbnsTabComponent';
 import SupportPage from 'pages/public/nbnsSite/Support';
@@ -44,5 +46,13 @@ export const nbnsRoutes = [
   {
     path: `/nbns/:slug`,
     component: <NbnsTabComponentPage />
+  },
+  {
+    path: `/nbns/download`,
+    component: <DownloadsPageNBNS />
+  },
+  {
+    path: `/nbns/download/:slug`,
+    component: <SingleDownload />
   }
 ];

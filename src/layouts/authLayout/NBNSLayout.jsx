@@ -99,7 +99,16 @@ const SecondaryNavWrapper = () => {
     clickFunction: () => handleFunction(`/nbns/${item.slug}`)
   }));
 
-  const allOptions = [...options, ...homeOptions];
+  const download = [
+    {
+      title: 'Download',
+      value: 'download',
+      path: '/nbns/download',
+      clickFunction: () => handleFunction('/nbns/download')
+    }
+  ];
+
+  const allOptions = [...options, ...homeOptions, ...download];
 
   return (
     <SecondaryNav
