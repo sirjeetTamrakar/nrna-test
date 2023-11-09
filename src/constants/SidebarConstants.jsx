@@ -5,6 +5,7 @@ import Business from 'assets/icon/business.svg';
 import Candidate from 'assets/icon/candidate.svg';
 import Contact from 'assets/icon/contact.svg';
 import DashboardIcon from 'assets/icon/dashboard.svg';
+import DownloadIcon from 'assets/icon/download.png';
 import Events from 'assets/icon/events.svg';
 import NbnsIcon from 'assets/icon/nbns.svg';
 import Country from 'assets/icon/ncc.svg';
@@ -104,6 +105,17 @@ export const SidebarConstants = [
         label: 'Contact',
         url: '/dashboard/contact',
         icon: Contact,
+        memberProfile: 'memberProfile',
+        activeIcon: ActiveDashboardIcon,
+        memberProfileNCC: 'memberProfileNCC',
+        adminProfile: 'adminProfile',
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
+        children: []
+      },
+      {
+        label: 'Downloads',
+        url: '/dashboard/downloads',
+        icon: DownloadIcon,
         memberProfile: 'memberProfile',
         activeIcon: ActiveDashboardIcon,
         memberProfileNCC: 'memberProfileNCC',

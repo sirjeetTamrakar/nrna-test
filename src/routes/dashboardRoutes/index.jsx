@@ -9,6 +9,7 @@ import BusinessSiteSettingsPage from 'pages/private/BusinessSiteSettingsPage';
 import CandidatePage from 'pages/private/CandidatePage';
 import ContactPage from 'pages/private/ContactPage';
 import DepartmentPage from 'pages/private/Department';
+import DownloadPage from 'pages/private/Download';
 import EventCategoryPage from 'pages/private/event/Category';
 import EventsPage from 'pages/private/event/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
@@ -56,6 +57,7 @@ const DashboardRoutes = [
       </Protected>
     )
   },
+
   {
     path: 'news/all-news-list',
     component: (
@@ -93,6 +95,14 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <ContactPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'downloads',
+    component: (
+      <Protected>
+        <DownloadPage />
       </Protected>
     )
   },
