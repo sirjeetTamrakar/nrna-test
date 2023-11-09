@@ -57,7 +57,6 @@ const NBNS = () => {
           tagline={nbns_settings?.tagline_description}
         />
       )}
-
       <AboutSection
         image={nbns_settings?.about_image}
         about={nbns_settings?.about}

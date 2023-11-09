@@ -39,7 +39,15 @@ export const Homepage = () => {
     { title: 'Contact', value: 'contact', clickFunction: () => handleFunction('/nrna/contact') }
   ];
 
-  const allOptions = [...options, ...homeOptions, ...contact];
+  const download = [
+    {
+      title: 'Download',
+      value: 'download',
+      clickFunction: () => handleFunction('/nrna/download')
+    }
+  ];
+
+  const allOptions = [...options, ...homeOptions, ...contact, ...download];
 
   return (
     <>
