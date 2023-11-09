@@ -15,7 +15,7 @@ const View = ({ data }) => {
       <div style={{ padding: '10px 0' }}>
         <div style={{ width: '100%', height: '200px' }}>
           <img
-            src={data?.feature_image}
+            src={data?.file}
             alt=""
             style={{ width: '100%', height: '100%', objectFit: 'cover', borderRadius: '5px' }}
           />

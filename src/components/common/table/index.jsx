@@ -218,22 +218,6 @@ CustomTable.propTypes = {
 CustomTable.defaultProps = {
   isMulti: false,
   onEdit: () => {},
-  tableHeads: [
-    { title: '#', type: 'Index', isSortable: true },
-    { title: 'Name', field: 'name' },
-    { title: 'LastName', field: 'lname' },
-    { title: 'Actions', type: 'actions' }
-  ],
-  tableData: [
-    { name: 'ariana', lname: 'grande' },
-    { name: 'jamie', lname: 'laninster' },
-    {
-      name: 'romeo',
-      lname: () => {
-        let a = 3;
-        if (a === 3) return 3;
-        return 'hell';
-      }
-    }
-  ]
+  tableHeads: [],
+  tableData: []
 };

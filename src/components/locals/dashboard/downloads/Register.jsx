@@ -7,7 +7,7 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
 import { validationSchema } from './ValidationSchema';
-import { postNews } from './redux/actions';
+import { postDownload } from './redux/actions';
 import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
@@ -15,7 +15,7 @@ const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
-  const { news_loading } = useSelector((state) => state.news);
+  const { download_loading } = useSelector((state) => state.news);
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -23,8 +23,8 @@ const Register = ({ handleClose }) => {
     formData.append('description', data?.description);
     formData.append('created_by', user?.id);
 
-    if (data?.feature_image?.length > 0) {
-      formData.append('feature_image', data?.feature_image?.[0]);
+    if (data?.file?.length > 0) {
+      formData.append('file', data?.file?.[0]);
     }
     let typeData;
     if (user?.role_name == Roles?.Member) {
@@ -52,7 +52,7 @@ const Register = ({ handleClose }) => {
         user_id: user?.id
       };
     }
-    dispatch(postNews(formData, handleClose, typeData));
+    dispatch(postDownload(formData, handleClose, typeData));
   };
 
   return (
@@ -63,7 +63,7 @@ const Register = ({ handleClose }) => {
         <CustomForm onSubmit={onSubmit}>
           <NewsForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={news_loading} />
+            <CustomButton buttonName="Submit" loading={download_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

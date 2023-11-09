@@ -27,9 +27,9 @@ const NewsForm = ({ featureImage }) => {
         <Grid item sm={12}>
           <PDFFileUploader
             title="PDF File"
-            name="feature_image"
+            name="file"
             image={featureImage}
-            label="Select Photo"
+            label="Select PDF"
             widthFull
           />
         </Grid>

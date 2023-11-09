@@ -17,7 +17,12 @@ import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
 import Register from './Register';
 import View from './View';
-import { changeNewsStatus, deleteNews, getNews, setNewsSearch } from './redux/actions';
+import {
+  changeDownloadStatus,
+  deleteDownload,
+  getDownload,
+  setDownloadSearch
+} from './redux/actions';
 import { useStyles } from './styles';
 
 const Downloads = () => {
@@ -33,8 +38,13 @@ const Downloads = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  const { newsData, get_news_loading, news_status_loading, delete_news_loading, news_search } =
-    useSelector((state) => state.news);
+  const {
+    downloadData,
+    get_download_loading,
+    download_status_loading,
+    delete_download_loading,
+    download_search
+  } = useSelector((state) => state.download);
 
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
 
@@ -112,7 +122,7 @@ const Downloads = () => {
 
   const handleUserSearch = (e) => {
     setPage(0);
-    dispatch(setNewsSearch(inputValue));
+    dispatch(setDownloadSearch(inputValue));
     e.preventDefault();
   };
   const [inputValue, setInputValue] = useState(''); // Track the input field value
@@ -121,7 +131,7 @@ const Downloads = () => {
     const newValue = e.target.value;
     setInputValue(newValue); // Update the input field value
     const timeout = setTimeout(() => {
-      dispatch(setNewsSearch(e.target.value));
+      dispatch(setDownloadSearch(e.target.value));
     }, [1000]);
     return () => clearTimeout(timeout);
   };
@@ -129,7 +139,7 @@ const Downloads = () => {
   const nameClearHandler = () => {
     setPage(0);
     setInputValue('');
-    dispatch(setNewsSearch(''));
+    dispatch(setDownloadSearch(''));
   };
 
   const handleConfirm = (slug) => {
@@ -143,7 +153,7 @@ const Downloads = () => {
     } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
       typeData = { page: 1, pagination_limit: 10 };
     }
-    dispatch(deleteNews(slug, deleteOpenFunction, typeData));
+    dispatch(deleteDownload(slug, deleteOpenFunction, typeData));
   };
 
   const handleStatusConfirm = (slug) => {
@@ -162,7 +172,7 @@ const Downloads = () => {
     } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
       typeData = { page: 1, pagination_limit: 10 };
     }
-    dispatch(changeNewsStatus(finalData, statusOpenFunction, typeData));
+    dispatch(changeDownloadStatus(finalData, statusOpenFunction, typeData));
   };
 
   const handleEdit = (row) => {
@@ -193,7 +203,7 @@ const Downloads = () => {
   // const refetch = () => {
   //   if (user?.role_name == Roles?.Member) {
   //     const data = { page: page + 1, pagination_limit: rowsPerPage, type: 'member', id: user?.id };
-  //     dispatch(getNews(data));
+  //     dispatch(getDownload(data));
   //   } else if (user?.role_name == Roles?.NCC) {
   //     const data = {
   //       page: page + 1,
@@ -201,10 +211,10 @@ const Downloads = () => {
   //       type: 'ncc',
   //       id: user?.ncc?.id
   //     };
-  //     dispatch(getNews(data));
+  //     dispatch(getDownload(data));
   //   } else {
   //     const data = { page: page + 1, pagination_limit: rowsPerPage };
-  //     dispatch(getNews(data));
+  //     dispatch(getDownload(data));
   //   }
   // };
 
@@ -217,20 +227,20 @@ const Downloads = () => {
     pagination_limit: rowsPerPage,
     type: 'member',
     id: user?.id,
-    search: news_search
+    search: download_search
   };
   const filterDataNCC = {
     page: page + 1,
     pagination_limit: rowsPerPage,
     type: 'ncc',
     id: user?.ncc?.id,
-    search: news_search
+    search: download_search
   };
   const filterDataHome = {
     // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
     page: page + 1,
     pagination_limit: 100,
-    search: news_search,
+    search: download_search,
     user_id: user?.id
   };
   const filterDataHomeAdminNcc = {
@@ -238,48 +248,48 @@ const Downloads = () => {
     pagination_limit: rowsPerPage,
     type: 'ncc',
     id: admin_ncc_id_details,
-    search: news_search
+    search: download_search
   };
 
   const filterDataHomeAll = {
     // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
     page: page + 1,
     pagination_limit: 100,
-    search: news_search
+    search: download_search
   };
 
   console.log({ admin_ncc_id_details, admin_role_details });
   const refetch = () => {
     if (user?.role_name == Roles?.Member) {
-      dispatch(getNews(filterDataMember));
+      dispatch(getDownload(filterDataMember));
     } else if (user?.role_name == Roles?.NCC) {
-      dispatch(getNews(filterDataNCC));
+      dispatch(getDownload(filterDataNCC));
     } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
-      dispatch(getNews(filterDataHomeAdminNcc));
+      dispatch(getDownload(filterDataHomeAdminNcc));
     } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
-      dispatch(getNews(filterDataHome));
+      dispatch(getDownload(filterDataHome));
     } else {
-      dispatch(getNews(filterDataHomeAll));
+      dispatch(getDownload(filterDataHomeAll));
     }
 
     // if (user?.role_name === 'ncc') {
-    //   dispatch(getNews(filterData, roleData));
+    //   dispatch(getDownload(filterData, roleData));
     // } else {
-    //   dispatch(getNews(filterData));
+    //   dispatch(getDownload(filterData));
     // }
   };
 
   useEffect(() => {
     if (user?.role_name === 'member') {
-      dispatch(getNews(filterDataMember));
+      dispatch(getDownload(filterDataMember));
     } else if (user?.role_name === 'ncc') {
-      dispatch(getNews(filterDataNCC));
+      dispatch(getDownload(filterDataNCC));
     } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
-      dispatch(getNews(filterDataHomeAdminNcc));
+      dispatch(getDownload(filterDataHomeAdminNcc));
     } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
-      dispatch(getNews(filterDataHome));
+      dispatch(getDownload(filterDataHome));
     } else {
-      dispatch(getNews(filterDataHomeAll));
+      dispatch(getDownload(filterDataHomeAll));
     }
   }, [JSON.stringify(filterDataMember)]);
 
@@ -347,13 +357,13 @@ const Downloads = () => {
         </Box>
         <CustomTable
           tableHeads={tableHeads}
-          tableData={newsData?.data}
+          tableData={downloadData?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={newsData?.meta?.total}
-          loading={get_news_loading ? true : false}
+          total={downloadData?.meta?.total}
+          loading={get_download_loading ? true : false}
         />
         <CustomModal
           open={openForm}
@@ -385,12 +395,12 @@ const Downloads = () => {
           handleConfirm={handleConfirm}
           slug={detail?.slug}
           open={openDelete}
-          isLoading={delete_news_loading}
+          isLoading={delete_download_loading}
           handleClose={deleteOpenFunction}
         />
         <CustomStatusModal
           open={openStatus}
-          isLoading={news_status_loading}
+          isLoading={download_status_loading}
           handleClose={statusOpenFunction}
           status={detail?.status == 1 ? 'Active' : 'Inactive'}
           id={detail?.slug}
