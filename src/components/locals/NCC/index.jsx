@@ -66,8 +66,8 @@ const AllNCCSection = () => {
     setSelected('ALL');
   }, [location?.state]);
 
-  const filteredNCC = ncc?.data?.filter((item) => item?.continent === selected);
-  console.log({ filteredNCC });
+  // const filteredNCC = ncc?.data?.filter((item) => item?.continent === selected);
+  // console.log({ filteredNCC });
 
   useEffect(() => {
     if (ncc) {
@@ -80,11 +80,11 @@ const AllNCCSection = () => {
       const data = ncc?.data?.filter((list) =>
         list?.country_name?.toLowerCase()?.includes(search?.toLowerCase())
       );
-      console.log('data', data);
+      // console.log('data', data);
       // setFilteredNcc(selected === 'ALL' ? ncc?.data : data);
       setFilteredNcc(data);
     }
-  }, [ncc, selected, search]);
+  }, [ncc, search]);
 
   // useEffect(() => {
   //   dispatch(getSiteSettings());

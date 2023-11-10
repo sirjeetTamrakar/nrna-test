@@ -6,29 +6,6 @@ import { Link, useParams } from 'react-router-dom';
 import { getPublicDownload } from 'components/locals/dashboard/downloads/redux/actions';
 import { useDispatch, useSelector } from 'react-redux';
 
-const tableData = [
-  {
-    id: 1,
-    title: 'This is a title of pdf',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  },
-  {
-    id: 2,
-    title: 'This is a title of pdf',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  },
-  {
-    id: 3,
-    title: 'This is a title of pdf',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  },
-  {
-    id: 4,
-    title: 'Another ittle',
-    file_src: 'https://pdcrodas.webs.ull.es/naturalismo/FitzgeraldTheGreatGastby.pdf'
-  }
-];
-
 const Downloads = () => {
   // const { settings } = useSelector((state) => state.homepage);
   const [page, setPage] = useState(0);
@@ -37,7 +14,6 @@ const Downloads = () => {
   const { downloadData, get_download_loading } = useSelector((state) => state.download);
 
   useEffect(() => {
-    console.log('here');
     dispatch(getPublicDownload({ downloadable_type: 'nbns', downloadable_id: '' }));
   }, []);
 

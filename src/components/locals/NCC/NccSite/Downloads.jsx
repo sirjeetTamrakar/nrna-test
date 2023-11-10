@@ -17,7 +17,9 @@ const Downloads = () => {
 
   useEffect(() => {
     dispatch(getPublicDownload({ downloadable_type: 'ncc', downloadable_id: single_ncc?.id }));
-  }, []);
+  }, [single_ncc]);
+  // console.log('download downloadData', downloadData);
+  // console.log('download single_ncc', single_ncc);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },

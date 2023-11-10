@@ -64,7 +64,7 @@ const SecondaryNav = ({
     formOpenFunction();
   };
 
-  console.log('kkkskkkksss', { single_business });
+  // console.log('kkkskkkksss', { single_business });
 
   const {
     ncc: nccData,
@@ -78,13 +78,13 @@ const SecondaryNav = ({
     (state) => state.homepage
   );
 
-  console.log('kdlaskjndu', { user });
+  // console.log('kdlaskjndu', { user });
   const defaultValues = {};
 
   const { ncc: slug } = useParams();
   const { slug: businessSlug } = useParams();
 
-  console.log({ nbnsFollowData });
+  // console.log({ nbnsFollowData });
 
   console.log('params_data', { slug, businessSlug });
 
@@ -101,9 +101,6 @@ const SecondaryNav = ({
   const handleRegisterClick = () => {
     openFunctionRegister();
   };
-
-  console.log('localSelected', localSelected);
-  console.log('selected', selected);
 
   useEffect(() => {
     if (selected) {
@@ -168,7 +165,7 @@ const SecondaryNav = ({
     }
   }, [single_business?.id]);
 
-  console.log({ single_business });
+  // console.log({ single_business });
 
   const onSubmitDelete = (e) => {
     e.preventDefault();

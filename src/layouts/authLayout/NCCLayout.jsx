@@ -48,13 +48,17 @@ const SecondaryNavWrapper = () => {
   const { single_ncc } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
 
-  console.log({ single_ncc });
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
   }, [ncc]);
   useEffect(() => {
-    pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
+    // pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
+    if (pathname) {
+      const currentOption = pathname && options.find((list) => pathname.includes(list?.value));
+      pathname && setSelected(currentOption?.value);
+    }
   }, [pathname]);
+
   const options = [
     {
       title: 'Home',
@@ -97,6 +101,18 @@ const SecondaryNavWrapper = () => {
       value: 'events',
       path: `/ncc/${ncc}/events`,
       clickFunction: () => handleFunction(`/ncc/${ncc}/events`)
+    },
+    {
+      title: 'Contact',
+      value: 'contact',
+      path: `/ncc/${ncc}/contact`,
+      clickFunction: () => handleFunction(`/ncc/${ncc}/contact`)
+    },
+    {
+      title: 'Downloads',
+      value: 'downloads',
+      path: `/ncc/${ncc}/downloads`,
+      clickFunction: () => handleFunction(`/ncc/${ncc}/downloads`)
     }
     // {
     //   title: 'Mission',
@@ -113,7 +129,7 @@ const SecondaryNavWrapper = () => {
   ];
 
   const { home_data } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
+
   useEffect(() => {
     const data = {
       type: 'ncc',
@@ -127,25 +143,8 @@ const SecondaryNavWrapper = () => {
     clickFunction: () => handleFunction(`/ncc/${ncc}/${item.slug}`)
   }));
 
-  const contact = [
-    {
-      title: 'Contact',
-      value: 'contact',
-      path: `/ncc/${ncc}/contact`,
-      clickFunction: () => handleFunction(`/ncc/${ncc}/contact`)
-    }
-  ];
-
-  const download = [
-    {
-      title: 'Downloads',
-      value: 'downloads',
-      path: `/ncc/downloads`,
-      clickFunction: () => handleFunction(`/ncc/${ncc}/downloads`)
-    }
-  ];
-
-  const allOptions = [...options, ...homeOptions, ...contact, ...download];
+  // const allOptions = [...options, ...homeOptions, ...contact, ...download];
+  const allOptions = [...options, ...homeOptions];
 
   return (
     <SecondaryNav

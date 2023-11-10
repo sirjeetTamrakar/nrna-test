@@ -38,8 +38,13 @@ const SecondaryNavWrapper = () => {
     navigate(data);
   };
   useEffect(() => {
-    pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
+    // pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
+    if (pathname) {
+      const currentOption = pathname && options.find((list) => pathname.includes(list?.value));
+      pathname && setSelected(currentOption?.value);
+    }
   }, [pathname]);
+
   const options = [
     { title: 'Home', value: 'home', path: '/nbns', clickFunction: () => handleFunction('/nbns') },
     {
@@ -65,6 +70,12 @@ const SecondaryNavWrapper = () => {
       value: 'support',
       path: '/nbns/support',
       clickFunction: () => handleFunction('/nbns/support')
+    },
+    {
+      title: 'Download',
+      value: 'download',
+      path: '/nbns/download',
+      clickFunction: () => handleFunction('/nbns/download')
     }
 
     // {
@@ -82,7 +93,7 @@ const SecondaryNavWrapper = () => {
   ];
 
   const { home_data } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
+
   useEffect(() => {
     const data = {
       type: 'nbns',
@@ -99,16 +110,7 @@ const SecondaryNavWrapper = () => {
   //   clickFunction: () => handleFunction(`/nbns/${item.slug}`)
   // }));
 
-  const download = [
-    {
-      title: 'Download',
-      value: 'download',
-      path: '/nbns/download',
-      clickFunction: () => handleFunction('/nbns/download')
-    }
-  ];
-
-  const allOptions = [...options, ...download];
+  const allOptions = [...options];
 
   return (
     <SecondaryNav
