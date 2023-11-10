@@ -55,7 +55,8 @@ export const getAllEventsApi = (data) => {
     : data?.ncc_id
     ? `?ncc_id=${data?.ncc_id}`
     : '';
-  return axiosInstance().get(`/api/events${limit}${id}`);
+  const query = data?.query ? `&search=${data?.query}` : '';
+  return axiosInstance().get(`/api/events${limit}${id}${query}`);
 };
 
 // get events category
@@ -173,7 +174,6 @@ export const getContinentsApi = () => {
 
 // get business
 export const getBusinessApi = (data) => {
-  console.log('data', data);
   const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
   const country = data?.limit
     ? data?.country

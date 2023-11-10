@@ -5,6 +5,7 @@ import { useLocation } from 'react-router-dom';
 import { getAllEvents, getEventsCategory } from 'redux/homepage/actions';
 import EventCard from '../../globals/EventCard';
 import SecondaryNav from './SecondaryNav';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 const Events = () => {
   const pathname = window.location.pathname;
@@ -12,13 +13,10 @@ const Events = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   const location = useLocation();
-  console.log({ location });
   const dispatch = useDispatch();
   const { events, events_loading, events_category, events_category_loading } = useSelector(
     (state) => state.homepage
   );
-
-  console.log({ events });
 
   const [filteredEvents, setFilteredEvents] = useState();
   // const [allFilteredEvents, setAllFilteredEvents] = useState();
@@ -30,13 +28,16 @@ const Events = () => {
   }, [location?.state, events_category]);
   const [search, setSearch] = useState('');
 
+  const debouncedSearchTerm = useDebouncedValue(search, 500);
+
   useEffect(() => {
     const finalData = {
-      limit: eventLimit
+      limit: eventLimit,
+      query: debouncedSearchTerm
     };
     dispatch(getAllEvents(finalData));
     dispatch(getEventsCategory());
-  }, [eventLimit]);
+  }, [eventLimit, debouncedSearchTerm]);
 
   // useEffect(() => {
   //   if (events) {
