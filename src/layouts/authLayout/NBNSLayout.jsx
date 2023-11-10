@@ -40,7 +40,7 @@ const SecondaryNavWrapper = () => {
   useEffect(() => {
     // pathname && setSelected(options?.find((list) => list?.path == pathname)?.value);
     if (pathname) {
-      const currentOption = pathname && options.find((list) => pathname.includes(list?.value));
+      const currentOption = options.find((list) => pathname.includes(list?.value));
       pathname && setSelected(currentOption?.value);
     }
   }, [pathname]);

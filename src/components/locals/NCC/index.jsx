@@ -27,6 +27,7 @@ const AllNCCSection = () => {
       };
       dispatch(getNcc(finalData));
     } else {
+      setFilteredNcc('');
       const finalData = {
         continent: selected
       };
@@ -60,29 +61,28 @@ const AllNCCSection = () => {
       slug: 'Australia'
     }
   ];
-  console.log('selected', { selected });
 
   useEffect(() => {
     setSelected('ALL');
   }, [location?.state]);
 
-  // const filteredNCC = ncc?.data?.filter((item) => item?.continent === selected);
-  // console.log({ filteredNCC });
-
   useEffect(() => {
     if (ncc) {
-      // const data = ncc?.data?.filter(
-      //   (list) =>
-      //     list?.country_name?.toLowerCase()?.includes(search?.toLowerCase()) &&
-      //     list?.continent == selected
-      // );
-
-      const data = ncc?.data?.filter((list) =>
-        list?.country_name?.toLowerCase()?.includes(search?.toLowerCase())
-      );
-      // console.log('data', data);
-      // setFilteredNcc(selected === 'ALL' ? ncc?.data : data);
-      setFilteredNcc(data);
+      if (selected === 'ALL' && search) {
+        const data = ncc?.data?.filter((list) =>
+          list?.country_name?.toLowerCase()?.includes(search?.toLowerCase())
+        );
+        setFilteredNcc(data);
+      } else if (selected === 'ALL' && !search) {
+        setFilteredNcc(ncc?.data);
+      } else {
+        const data = ncc?.data?.filter(
+          (list) =>
+            list?.country_name?.toLowerCase()?.includes(search?.toLowerCase()) &&
+            list?.continent === selected
+        );
+        setFilteredNcc(data);
+      }
     }
   }, [ncc, search]);
 
