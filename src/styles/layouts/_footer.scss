@@ -4,6 +4,7 @@
     padding: 20px 0px;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     color: $primary-text;
     .copyright {
       font-size: 14px;
@@ -17,11 +18,16 @@
         }
       }
     }
+    .app-download {
+      display: flex;
+      gap: 10px;
+    }
 
     .terms {
       margin-top: 10px;
       display: flex;
-      flex-direction: column;
+      // flex-direction: column;
+      gap: 10px;
     }
   }
 }

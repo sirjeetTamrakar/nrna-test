@@ -625,6 +625,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
+      gap: 10px;
 
       color: $primary-text;
       .copyright {
@@ -643,9 +644,10 @@
     // background-color: #046fc4;
     &_wrapper {
       .terms {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+        justify-content: center;
+        // display: flex;
+        // flex-direction: column;
+        // align-items: center;
       }
     }
   }

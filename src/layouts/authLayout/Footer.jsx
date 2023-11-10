@@ -1,4 +1,6 @@
 import { Link } from 'react-router-dom';
+import googlePlayImage from 'assets/images/googlePlay.png';
+import appStoreImage from 'assets/images/appStore.png';
 
 const Footer = () => {
   return (
@@ -23,6 +25,17 @@ const Footer = () => {
             <a target="_blank" href="https://scodus.com" rel="noreferrer">
               {' '}
               Scodus Inovations Pvt Ltd
+            </a>
+          </div>
+          <div className="app-download">
+            <a
+              href="https://play.google.com/store/apps/details?id=com.scodus.nrna&hl=en&gl=US"
+              target="_blank"
+              rel="noreferrer">
+              <img src={googlePlayImage} alt="Google Play Store" width="100" height="33" />
+            </a>
+            <a href="" target="_blank" rel="noreferrer">
+              <img src={appStoreImage} alt="Apple Store" width="100" height="33" />
             </a>
           </div>
         </div>
