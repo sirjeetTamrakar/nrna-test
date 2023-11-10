@@ -172,6 +172,7 @@ export const getContinentsApi = () => {
 
 // get business
 export const getBusinessApi = (data) => {
+  console.log('data', data);
   const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
   const country = data?.limit
     ? data?.country
@@ -180,7 +181,8 @@ export const getBusinessApi = (data) => {
     : data?.country
     ? `?country=${data?.country}`
     : '';
-  return axiosInstance().get(`/api/businesses${limit}${country}`);
+  const query = data?.query ? `&search=${data?.query}` : '';
+  return axiosInstance().get(`/api/businesses${limit}${country}${query}`);
 };
 
 // get single business

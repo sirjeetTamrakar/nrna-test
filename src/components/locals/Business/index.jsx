@@ -5,6 +5,7 @@ import { getBusiness, getBusinessCategory, getSiteSettings } from 'redux/homepag
 import BusinessItem from './BusinessItem';
 import BusinessItemOne from './BusinessItemOne';
 import SecondaryNav from './SecondaryNav';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 const Business = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,10 @@ const Business = () => {
   const [businessLimit, setBusinessLimit] = useState(9);
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
+
+  const debouncedSearchQuery = useDebouncedValue(search, 500);
+  // console.log('debouncedValue', debouncedValue);
+
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [business_category]);
@@ -28,11 +33,20 @@ const Business = () => {
 
   useEffect(() => {
     const finalData = {
-      limit: businessLimit
+      limit: businessLimit,
+      query: debouncedSearchQuery
     };
     dispatch(getBusiness(finalData));
     dispatch(getBusinessCategory());
-  }, [businessLimit]);
+  }, [businessLimit, debouncedSearchQuery]);
+
+  // useEffect(() => {
+  //   const finalData = {
+  //     // limit: businessLimit,
+  //     query: debouncedSearchQuery
+  //   };
+  //   dispatch(getBusiness(finalData));
+  // }, [debouncedSearchQuery]);
 
   // useEffect(() => {
   //   if (business) {

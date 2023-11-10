@@ -248,7 +248,6 @@ const SecondaryNav = ({
                 </Box>
               </Box>
             )}
-
             {business && isLoggedIn() && (
               <>
                 {!businessDetails?.business_id || businessDetails?.status === 'rejected' ? (
