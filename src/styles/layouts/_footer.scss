@@ -7,12 +7,14 @@
     align-items: center;
     color: $primary-text;
     .copyright {
-      font-size: 14px;
+      font-size: 12px;
     }
     .designed_by {
       font-size: 14px;
+      margin-top: 5px;
       a {
         color: $primary-text;
+        // color: #fff;
         &:hover {
           color: $primary-light-text;
         }

@@ -12,31 +12,34 @@ const Footer = () => {
               Copyright &copy; 2021. All right Reserved. | NRNA Global
             </div>
             <div className="terms">
-              <Link to="/privacy-policy" className="copyright" style={{ color: '#bffbff' }}>
+              <Link to="/privacy-policy" className="copyright" style={{ color: '#fff' }}>
                 Privacy Policy
               </Link>
-              <Link to="/terms-and-conditions" className="copyright" style={{ color: '#bffbff' }}>
+              <Link to="/terms-and-conditions" className="copyright" style={{ color: '#fff' }}>
                 Terms and Conditions
               </Link>
             </div>
           </div>
-          <div className="designed_by">
-            Designed By
-            <a target="_blank" href="https://scodus.com" rel="noreferrer">
-              {' '}
-              Scodus Inovations Pvt Ltd
-            </a>
-          </div>
-          <div className="app-download">
-            <a
-              href="https://play.google.com/store/apps/details?id=com.scodus.nrna&hl=en&gl=US"
-              target="_blank"
-              rel="noreferrer">
-              <img src={googlePlayImage} alt="Google Play Store" width="100" height="33" />
-            </a>
-            <a href="" target="_blank" rel="noreferrer">
-              <img src={appStoreImage} alt="Apple Store" width="100" height="33" />
-            </a>
+          <div>
+            <div className="app-download">
+              <a
+                href="https://play.google.com/store/apps/details?id=com.scodus.nrna&hl=en&gl=US"
+                target="_blank"
+                rel="noreferrer">
+                <img src={googlePlayImage} alt="Google Play Store" width="100" height="33" />
+              </a>
+              <a href="#" target="_blank" rel="noreferrer">
+                <img src={appStoreImage} alt="Apple Store" width="100" height="33" />
+              </a>
+            </div>
+
+            <div className="designed_by">
+              Designed By
+              <a target="_blank" href="https://scodus.com" rel="noreferrer">
+                {' '}
+                Scodus Inovations Pvt Ltd
+              </a>
+            </div>
           </div>
         </div>
       </div>
