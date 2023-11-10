@@ -8,6 +8,7 @@ import { useLocation, useParams } from 'react-router-dom';
 import { getAllNews, getNewsCategory } from 'redux/homepage/actions';
 import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 const News = () => {
   const location = useLocation();
@@ -35,11 +36,15 @@ const News = () => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
+
+  const debouncedSearchQuery = useDebouncedValue(search, 500);
+
   useEffect(() => {
     if (selected === 'ALL') {
       const finalData = {
         limit: newsLimit,
-        status: 1
+        status: 1,
+        query: debouncedSearchQuery
       };
 
       dispatch(getAllNews(finalData));
@@ -47,13 +52,14 @@ const News = () => {
       const finalData = {
         limit: newsLimit,
         category_id: selected,
-        status: 1
+        status: 1,
+        query: debouncedSearchQuery
       };
       dispatch(getAllNews(finalData));
     }
 
     dispatch(getNewsCategory());
-  }, [newsLimit, selected]);
+  }, [newsLimit, selected, debouncedSearchQuery]);
 
   console.log({ selected });
 
