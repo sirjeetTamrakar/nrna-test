@@ -6,7 +6,7 @@ export const useStyles = makeStyles((theme) => ({
   },
   header: {
     display: 'flex',
-    justifyContent: 'end',
+    justifyContent: 'space-between',
     alignItems: 'center',
     '& input': {
       height: '16px',

@@ -1,7 +1,7 @@
-import { Box, Container, Typography } from '@mui/material';
+import { Box, Container, TextField, Typography } from '@mui/material';
 import { useStyles } from './styles';
 
-const SecondaryNav = ({ category, selected, setSelected }) => {
+const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
   const classes = useStyles();
 
   const checkActive = (slug) => {
@@ -13,13 +13,19 @@ const SecondaryNav = ({ category, selected, setSelected }) => {
     setSelected(slug);
     // navigate(`/nrna/business`, { state: slug });
   };
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value);
+  };
+
   return (
     <Box className={classes.root}>
       <Container>
-        <Box paddingY={2}>
+        <Box paddingY={2} className={classes.header}>
           <Typography variant="h5" className={classes.title}>
             NCC
           </Typography>
+          <TextField placeholder="Search" name="search" onChange={handleSearch} />
         </Box>
         <ul className={classes.list}>
           <li className={selected === 'ALL' && 'active'} onClick={() => handleSetSelected('ALL')}>

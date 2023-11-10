@@ -18,6 +18,7 @@ const AllNCCSection = () => {
   const [filteredNcc, setFilteredNcc] = useState([]);
   const [nccLimit, setNccLimit] = useState(9);
   const [selected, setSelected] = useState();
+  const [search, setSearch] = useState('');
 
   useEffect(() => {
     if (selected === 'ALL') {
@@ -70,10 +71,20 @@ const AllNCCSection = () => {
 
   useEffect(() => {
     if (ncc) {
-      const data = ncc?.data?.filter((list) => list?.continent == selected);
-      setFilteredNcc(selected === 'ALL' ? ncc?.data : data);
+      // const data = ncc?.data?.filter(
+      //   (list) =>
+      //     list?.country_name?.toLowerCase()?.includes(search?.toLowerCase()) &&
+      //     list?.continent == selected
+      // );
+
+      const data = ncc?.data?.filter((list) =>
+        list?.country_name?.toLowerCase()?.includes(search?.toLowerCase())
+      );
+      console.log('data', data);
+      // setFilteredNcc(selected === 'ALL' ? ncc?.data : data);
+      setFilteredNcc(data);
     }
-  }, [ncc, selected]);
+  }, [ncc, selected, search]);
 
   // useEffect(() => {
   //   dispatch(getSiteSettings());
@@ -85,7 +96,12 @@ const AllNCCSection = () => {
 
   return (
     <>
-      <SecondaryNav category={category} setSelected={setSelected} selected={selected} />
+      <SecondaryNav
+        category={category}
+        setSelected={setSelected}
+        selected={selected}
+        setSearch={setSearch}
+      />
       <section className="all_events">
         <div className="container">
           <div className="row">
