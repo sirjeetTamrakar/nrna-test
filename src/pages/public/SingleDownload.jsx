@@ -1,12 +1,13 @@
 import SecondaryNav from 'components/globals/SecondaryNav';
 import About from 'components/locals/About';
 import Downloads from 'components/locals/Download';
+import SingleDownload from 'components/locals/Download/SingleDownload';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllHomeData } from 'redux/homepage/actions';
 
-const DownloadPage = () => {
+const SingleDownloadPage = () => {
   const [selected, setSelected] = useState('download');
   console.log({ selected });
 
@@ -50,9 +51,9 @@ const DownloadPage = () => {
         setSelected={setSelected}
         selected={selected}
       />
-      <Downloads />;
+      <SingleDownload />;
     </>
   );
 };
 
-export default DownloadPage;
+export default SingleDownloadPage;

@@ -4,10 +4,7 @@ import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import {
-  getDownload,
-  getPublicDownload
-} from 'components/locals/dashboard/downloads/redux/actions';
+import { getPublicDownload } from 'components/locals/dashboard/downloads/redux/actions';
 
 const Downloads = () => {
   // const { settings } = useSelector((state) => state.homepage);
@@ -16,7 +13,7 @@ const Downloads = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { single_ncc } = useSelector((state) => state.homepage);
   const { downloadData, get_download_loading } = useSelector((state) => state.download);
-  console.log('single_ncc', single_ncc);
+  // console.log('single_ncc', single_ncc);
 
   useEffect(() => {
     dispatch(getPublicDownload({ downloadable_type: 'ncc', downloadable_id: single_ncc?.id }));
@@ -33,10 +30,10 @@ const Downloads = () => {
           <Box
             sx={{ '& a': { textDecoration: 'none', color: (theme) => theme.palette.text.main } }}>
             <Link
-              to={`${row?.id}`}
+              to={`${row?.slug}`}
               state={{
                 title: row?.title,
-                file_src: row?.file,
+                file: row?.file,
                 updatedDate: row?.updated_at,
                 description: row?.description
               }}>

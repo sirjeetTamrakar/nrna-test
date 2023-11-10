@@ -24,6 +24,18 @@ export const getPublicDownload =
       });
   };
 
+export const getPublicSingleDownload = (slug) => (dispatch) => {
+  dispatch({ type: actions.GET_SINGLE_DOWNLOAD_BEGIN });
+  getPublicDownloadApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.GET_SINGLE_DOWNLOAD_SUCCESS, payload: res?.data?.data[0] });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_SINGLE_DOWNLOAD_ERROR });
+    });
+};
+
 export const getDownload = (data, typeData) => (dispatch) => {
   dispatch({ type: actions.GET_DOWNLOAD_BEGIN });
   getDownloadApi(data)

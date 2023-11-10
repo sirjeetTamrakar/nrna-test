@@ -6,7 +6,9 @@ const defaultState = {
   delete_download_loading: false,
   update_download_loading: false,
   download_status_loading: false,
-  download_search: ''
+  download_search: '',
+  singleDownloadData: '',
+  single_download_loading: false
 };
 
 const downloadReducer = (state = defaultState, action) => {
@@ -59,6 +61,15 @@ const downloadReducer = (state = defaultState, action) => {
 
     case actions.SEARCH_DOWNLOAD:
       return { ...state, download_search: action.payload };
+
+    case actions.GET_SINGLE_DOWNLOAD_BEGIN:
+      return { ...state, single_download_loading: true };
+
+    case actions.GET_SINGLE_DOWNLOAD_SUCCESS:
+      return { ...state, single_download_loading: false, singleDownloadData: action.payload };
+
+    case actions.GET_SINGLE_DOWNLOAD_ERROR:
+      return { ...state, single_download_loading: false };
 
     default:
       return state;

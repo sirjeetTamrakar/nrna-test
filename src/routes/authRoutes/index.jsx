@@ -1,6 +1,5 @@
 import BusinessDataComponent from 'components/locals/Business/BusinessDataComponent';
 import BusinessItemOneSingle from 'components/locals/Business/BusinessItemOneSingle';
-import SingleDownload from 'components/locals/Download/SingleDownload';
 import NccDataComponent from 'components/locals/NCC/NccSite/NccDataCompnent';
 import NccItemOneSingle from 'components/locals/NCC/NccSite/NccItemSingleOne';
 import AboutPage from 'pages/public/About';
@@ -23,6 +22,7 @@ import SingleNewsPage from 'pages/public/news/SingleNews';
 import OurTeamPage from 'pages/public/OurTeam';
 import PrivacyPolicyPage from 'pages/public/PrivacyPolicyPage';
 import ResetPassword from 'pages/public/reset';
+import SingleDownloadPage from 'pages/public/SingleDownload';
 import TermsAndConditionsPage from 'pages/public/TermsAndConditionsPage';
 import VerifyEmail from 'pages/public/verify';
 import VisionPage from 'pages/public/Vision';
@@ -136,7 +136,7 @@ const AuthRoutes = [
 
   {
     path: '/nrna/download/:slug',
-    component: <SingleDownload />
+    component: <SingleDownloadPage />
   }
 ];
 
