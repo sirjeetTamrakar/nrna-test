@@ -32,6 +32,7 @@ const SingleDownload = () => {
         <section className="all_events">
           <div className="container">
             <div className="about_title">{state?.title}</div>
+            <div dangerouslySetInnerHTML={{ __html: state?.description }} />
             <p>
               Posted On: <span>{changeDateFormat(state?.updatedDate, 'LL')}</span>
             </p>

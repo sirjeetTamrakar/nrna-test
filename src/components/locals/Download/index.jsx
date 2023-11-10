@@ -12,7 +12,7 @@ const Downloads = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
   const { downloadData, get_download_loading } = useSelector((state) => state.download);
-  console.log('downloadData', downloadData);
+  // console.log('downloadData', downloadData);
 
   useEffect(() => {
     // dispatch(getDownload({type:}));
@@ -74,16 +74,23 @@ const Downloads = () => {
             <div className="about_title" style={{ fontSize: '20px' }}>
               Downloads
             </div>
-            <CustomTable
-              tableHeads={tableHeads}
-              tableData={downloadData?.data}
-              loading={get_download_loading}
-              rowsPerPage={rowsPerPage}
-              setRowsPerPage={setRowsPerPage}
-              page={page}
-              setPage={setPage}
-              total={downloadData?.data?.length}
-            />
+
+            {downloadData?.data?.length ? (
+              <CustomTable
+                tableHeads={tableHeads}
+                tableData={downloadData?.data}
+                loading={get_download_loading}
+                rowsPerPage={rowsPerPage}
+                setRowsPerPage={setRowsPerPage}
+                page={page}
+                setPage={setPage}
+                total={downloadData?.data?.length}
+              />
+            ) : (
+              <div className="col-md-12 mt-5 mb-5">
+                <h3 className="text-center">No resources available</h3>
+              </div>
+            )}
           </div>
         </section>
       </div>

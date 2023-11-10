@@ -41,6 +41,7 @@ export const useStyles = makeStyles((theme) => ({
       fontWeight: '400',
       paddingBottom: '5px',
       cursor: 'pointer',
+      textTransform: 'capitalize',
       '&.active': {
         borderBottom: '4px solid #fff'
       }
