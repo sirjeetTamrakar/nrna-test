@@ -11,7 +11,7 @@ const NewsCard = ({ news, linkUrl, gridLayout, gridOne, belowNews }) => {
         <div className={gridOne ? 'img_wrapper_grid_one' : 'img_wrapper'}>
           <img src={news?.feature_image} alt="" />
         </div>
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{ display: 'flex', flexDirection: 'column', width: '100%' }}>
           <div className="news_card_title">{news.title}</div>
           {news?.excerpt !== '' && <div className="news_card_text_desc">{news?.excerpt}</div>}
           <div className="news_card_text_date">

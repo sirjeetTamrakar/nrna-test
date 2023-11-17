@@ -40,8 +40,9 @@ export const useStyles = makeStyles((theme) => ({
       }
     },
     [theme.breakpoints.down('md')]: {
-      overflow: 'scroll',
-      overflowY: 'hidden'
+      overflow: 'auto',
+      overflowY: 'hidden',
+      columnGap: '20px'
     }
   }
 }));

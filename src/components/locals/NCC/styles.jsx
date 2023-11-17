@@ -34,14 +34,16 @@ export const useStyles = makeStyles((theme) => ({
       fontWeight: '400',
       paddingBottom: '5px',
       cursor: 'pointer',
+      texWrap: 'nowrap',
       '&.active': {
         borderBottom: '4px solid #fff'
       }
     },
     [theme.breakpoints.down('md')]: {
-      width: '90%',
-      overflow: 'scroll',
-      overflowY: 'hidden'
+      // width: '90%',
+      overflow: 'auto',
+      overflowY: 'hidden',
+      columnGap: '20px'
     }
   }
 }));

@@ -76,9 +76,9 @@
 }
 
 /* When you mouse over the navigation links, change their color */
-.sidenav a:hover {
-  color: #f1f1f1;
-}
+// .sidenav a:hover {
+//   color: #f1f1f1;
+// }
 
 /* Position and style the close button (top right corner) */
 .sidenav .closebtn {
@@ -95,6 +95,12 @@
   gap: 10px;
   padding: 0px 32px;
   margin-top: 20px;
+  button {
+    font-size: 14px;
+    padding: 12px 14px;
+    align-self: flex-start;
+    max-width: 125px;
+  }
 }
 
 .sidebarLogin {

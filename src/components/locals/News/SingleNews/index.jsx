@@ -79,7 +79,7 @@ const SingleNews = () => {
                 )}
               </div>
             </Grid>
-            <Grid item md={4} className="recent_news">
+            <Grid item md={4} sm={12} className="recent_news">
               <div className="single_news_page_sidebar">
                 <div className="recent_news">
                   <div className="recent_news_title">Recent News</div>

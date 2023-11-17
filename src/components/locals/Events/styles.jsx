@@ -40,7 +40,7 @@ export const useStyles = makeStyles((theme) => ({
       }
     },
     [theme.breakpoints.down('md')]: {
-      overflow: 'scroll',
+      overflow: 'auto',
       overflowY: 'hidden'
     }
   }
