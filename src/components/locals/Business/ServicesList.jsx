@@ -66,7 +66,9 @@ const ServiceItem = ({ item }) => {
               }}>
               {item?.title}
             </p>
-            <p
+
+            <div dangerouslySetInnerHTML={{ __html: item?.description?.substring(0, 115) }} />
+            {/* <p
               style={{
                 fontSize: '12px',
                 fontWeight: '400',
@@ -75,7 +77,7 @@ const ServiceItem = ({ item }) => {
               {item?.description?.length < 114
                 ? item?.description
                 : `${item?.description.substring(0, 115)}...`}
-            </p>
+            </p> */}
           </div>
         </div>
       </Grid>

@@ -3,6 +3,7 @@ import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useStyles } from './styles';
+import CustomEditor from 'components/common/CustomEditor';
 
 const ServiceForm = ({ serviceImage }) => {
   const classes = useStyles();
@@ -23,7 +24,8 @@ const ServiceForm = ({ serviceImage }) => {
         <Grid item sm={8}>
           <CustomInput name="title" label="Service Title" required />
           <Box marginTop={3}>
-            <CustomTextArea name="description" label="Service Description" rows={10} required />
+            {/* <CustomTextArea name="description" label="Service Description" rows={10} required /> */}
+            <CustomEditor name="description" label="Service Description" />
           </Box>
         </Grid>
       </Grid>

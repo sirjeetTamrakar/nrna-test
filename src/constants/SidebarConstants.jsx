@@ -227,7 +227,7 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
-            label: 'Business',
+            label: 'Business List',
             url: '/dashboard/business/business-list',
             memberProfile: 'memberProfile',
 

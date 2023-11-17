@@ -367,7 +367,6 @@ const Profile = () => {
           width={`60rem`}>
           <Service data={detail} handleClose={serviceOpenFunction} />
         </CustomModal>
-
         <CustomModal
           open={openFollowers}
           handleClose={openFollowersFunction}
@@ -378,7 +377,6 @@ const Profile = () => {
           {/* <ViewMembers data={detail} /> */}
           <ViewFollowerTable businessId={detail?.id} />
         </CustomModal>
-
         <CustomDeleteModal
           handleConfirm={handleConfirm}
           slug={detail?.slug}
