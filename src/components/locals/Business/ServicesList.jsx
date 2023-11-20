@@ -66,8 +66,9 @@ const ServiceItem = ({ item }) => {
               }}>
               {item?.title}
             </p>
-
-            <div dangerouslySetInnerHTML={{ __html: item?.description?.substring(0, 115) }} />
+            <div style={{ height: '90px' }}>
+              <div dangerouslySetInnerHTML={{ __html: item?.description?.substring(0, 115) }} />
+            </div>
             {/* <p
               style={{
                 fontSize: '12px',
@@ -85,7 +86,7 @@ const ServiceItem = ({ item }) => {
         open={open}
         handleClose={openFunction}
         modalTitle={item?.title}
-        width={`${screenSize?.width < 710 ? '20rem' : '40rem'}`}>
+        width={`${screenSize?.width < 710 ? '20rem' : '60rem'}`}>
         <ServiceView item={item} />
       </CustomModal>
     </>

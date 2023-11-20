@@ -334,7 +334,7 @@ const Profile = () => {
         <CustomModal
           open={openServicesTable}
           handleClose={servicesTableOpenFunction}
-          modalTitle="Business Services"
+          modalTitle={`Business Services of ${detail?.fullname}`}
           modalSubtitle=""
           // icon={<PersonAddIcon />}
           width={`60rem`}>
@@ -370,7 +370,7 @@ const Profile = () => {
         <CustomModal
           open={openFollowers}
           handleClose={openFollowersFunction}
-          modalTitle={`Follower`}
+          modalTitle={`Followers of ${detail?.fullname}`}
           padding
           icon={<PersonIcon />}
           width={`60rem`}>

@@ -12,7 +12,11 @@ import { Roles } from 'constants/RoleConstant';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getBusinessFollow, postBusinessUserApproval } from '../../redux/actions';
+import {
+  getBusinessFollow,
+  postBusinessUserApproval,
+  setFollowersSearch
+} from '../../redux/actions';
 
 // import {
 //   changeApproval,
@@ -48,8 +52,12 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
   } = useSelector((state) => state.user);
   const { user, delete_users_loading } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
-  const { businessFollowData, get_business_follow_loading, business_user_approval_loading } =
-    useSelector((state) => state.business);
+  const {
+    businessFollowData,
+    get_business_follow_loading,
+    business_user_approval_loading,
+    followers_search
+  } = useSelector((state) => state.business);
   console.log({ user, users, nccData, businessFollowData });
   const [roleIDData, setRoleIDData] = useState();
   const [openView, viewOpenFunction] = useToggle(false);
@@ -73,16 +81,25 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
     {
-      title: 'Name',
+      title: 'Firstname',
       minWidth: 150,
       field: (row) => {
         return (
           <Box>
             <Typography variant="body2">
               {row?.user?.first_name && row?.user?.first_name}{' '}
-              {row?.user?.first_name && row?.user?.last_name}{' '}
-              {!row?.user?.first_name && row?.user?.username}
             </Typography>
+          </Box>
+        );
+      }
+    },
+    {
+      title: 'Lastname',
+      minWidth: 150,
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">{row?.user?.last_name && row?.user?.last_name} </Typography>
           </Box>
         );
       }
@@ -95,7 +112,7 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
         return (
           <Box>
             <Typography variant="body2">{row?.user?.email}</Typography>
-            <Typography variant="subtitle1">{row?.phone}</Typography>
+            <Typography variant="subtitle1">{row?.user?.phone}</Typography>
           </Box>
         );
       }
@@ -187,14 +204,55 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     );
   };
 
+  const [inputValue, setInputValue] = useState(''); // Track the input field value
+  const handleUserSearch = (e) => {
+    setPage(0);
+    dispatch(setFollowersSearch(inputValue));
+    e.preventDefault();
+  };
+
+  const nameChangeHandler = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue); // Update the input field value
+    const timeout = setTimeout(() => {
+      dispatch(setFollowersSearch(e.target.value));
+    }, [1000]);
+    return () => clearTimeout(timeout);
+  };
+
+  const nameClearHandler = () => {
+    setPage(0);
+    setInputValue('');
+    dispatch(setFollowersSearch(''));
+  };
+
+  const filterDataMember = {
+    page: page + 1,
+    pagination_limit: rowsPerPage,
+    search: followers_search,
+    business_id: businessId
+  };
+
   const refetch = () => {
-    const data = { page: page + 1, pagination_limit: rowsPerPage, business_id: businessId };
-    dispatch(getBusinessFollow(data));
+    dispatch(getBusinessFollow(filterDataMember));
   };
 
   useEffect(() => {
-    refetch();
+    dispatch(getBusinessFollow(filterDataMember));
+  }, [JSON.stringify(filterDataMember), businessId]);
+
+  useEffect(() => {
+    // refetch();
   }, [page, rowsPerPage, businessId]);
+
+  // const refetch = () => {
+  //   const data = { page: page + 1, pagination_limit: rowsPerPage, business_id: businessId };
+  //   dispatch(getBusinessFollow(data));
+  // };
+
+  // useEffect(() => {
+  //   refetch();
+  // }, [page, rowsPerPage, businessId]);
 
   return (
     <>
@@ -207,7 +265,46 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
             marginBottom: '15px'
           }}>
           <Box>
-            <Box sx={{ textTransform: 'capitalize' }}>Followers</Box>
+            <Box>
+              <Box sx={{ textTransform: 'capitalize' }}>Followers</Box>{' '}
+              <Box sx={{ marginTop: '10px' }}>
+                <form onClick={handleUserSearch}>
+                  <input
+                    style={{
+                      padding: '5px 10px',
+                      width: '250px',
+                      border: 'none',
+                      outline: 'none'
+                      // borderRadius: '4px'
+                    }}
+                    type="text"
+                    value={inputValue}
+                    onChange={nameChangeHandler}
+                    placeholder="Search followers"
+                  />
+
+                  <button
+                    onClick={nameClearHandler}
+                    style={
+                      inputValue
+                        ? {
+                            padding: '5px 10px',
+                            border: 'none',
+                            backgroundColor: '#fff',
+                            color: 'red'
+                          }
+                        : {
+                            padding: '5px 10px',
+                            border: 'none',
+                            backgroundColor: '#fff',
+                            color: '#fff'
+                          }
+                    }>
+                    x
+                  </button>
+                </form>
+              </Box>
+            </Box>
           </Box>
         </Box>
         <CustomTable

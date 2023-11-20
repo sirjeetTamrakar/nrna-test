@@ -61,9 +61,9 @@ const BusinessManagementForm = ({ featureImage }) => {
         </Grid>
         <Grid item sm={12}>
           <CustomAutoComplete
-            placeholder="News Category"
+            placeholder="Business Category"
             name="business_id"
-            label="Select news"
+            label="Select Business"
             options={businessCategory ?? []}
             required
           />

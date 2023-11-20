@@ -6,6 +6,8 @@ import Candidate from 'assets/icon/candidate.svg';
 import Contact from 'assets/icon/contact.svg';
 import DashboardIcon from 'assets/icon/dashboard.svg';
 import DownloadIcon from 'assets/icon/download.png';
+import EmailTemplateActive from 'assets/icon/email-template-active.svg';
+import EmailTemplate from 'assets/icon/email-template.svg';
 import Events from 'assets/icon/events.svg';
 import NbnsIcon from 'assets/icon/nbns.svg';
 import Country from 'assets/icon/ncc.svg';
@@ -273,6 +275,34 @@ export const SidebarConstants = [
           {
             label: 'NBNS Followers',
             url: '/dashboard/nbns/nbns-followers',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          }
+        ]
+      },
+      {
+        label: 'Email Template',
+        url: '/dashboard/email-template',
+        icon: EmailTemplate,
+        memberProfile: 'memberProfile',
+        memberProfileNCC: 'memberProfileNCC',
+        adminProfile: 'adminProfile',
+        activeIcon: EmailTemplateActive,
+        roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
+        children: [
+          {
+            label: 'Business Email Template',
+            url: '/dashboard/email-template/business-template',
+            memberProfile: 'memberProfile',
+            memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
+            roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
+          },
+          {
+            label: 'NBNS Email Template',
+            url: '/dashboard/email-template/nbns-template',
+            memberProfile: 'memberProfile',
+            memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
             roles: [Roles.Admin, Roles.SuperAdmin]
           }
         ]

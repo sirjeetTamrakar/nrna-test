@@ -192,7 +192,10 @@ const SecondaryNav = ({
   const onSubmitDetails = (data) => {
     if (business) {
       dispatch(
-        postBusinessCreateAccount({ ...data, business_id: single_business?.id }, formOpenFunction)
+        postBusinessCreateAccount(
+          { ...data, business_id: single_business?.id, business_title: single_business?.fullname },
+          formOpenFunction
+        )
       );
     } else if (nbns) {
       dispatch(postBusinessCreateAccount({ ...data, nbns: '1' }, formOpenFunction));

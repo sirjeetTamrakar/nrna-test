@@ -1,4 +1,5 @@
 import MoreVertIcon from '@mui/icons-material/MoreVert';
+import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Typography } from '@mui/material';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
@@ -11,6 +12,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteBusinessService, getBusinessService } from '../redux/actions';
 import ServiceFormEdit from './ServiceFormEdit';
 import { useStyles } from './styles';
+import View from './ViewServices';
 
 const ServiceTable = ({ serviceId }) => {
   const dispatch = useDispatch();
@@ -20,9 +22,10 @@ const ServiceTable = ({ serviceId }) => {
   const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openService, serviceOpenFunction] = useToggle(false);
+  const [openView, viewOpenFunction] = useToggle(false);
   const [detail, setDetail] = useState();
-  const [page, setPage] = useState();
-  const [rowsPerPage, setRowsPerPage] = useState();
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const [singleService, setSingleService] = useState();
   console.log({ singleService });
   const classes = useStyles();
@@ -36,13 +39,14 @@ const ServiceTable = ({ serviceId }) => {
   console.log('userreerr', { user });
 
   useEffect(() => {
-    dispatch(getBusinessService());
-  }, []);
+    const data = { page: page + 1, pagination_limit: rowsPerPage, business_id: serviceId };
+    dispatch(getBusinessService(data));
+  }, [serviceId]);
 
   useEffect(() => {
-    const single = business_service?.filter((list) => list?.business_id == serviceId);
+    const single = business_service?.data?.filter((list) => list?.business_id == serviceId);
     setSingleService(single);
-  }, [business_service]);
+  }, [business_service?.data]);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -58,21 +62,21 @@ const ServiceTable = ({ serviceId }) => {
         );
       }
     },
-    {
-      title: 'Description',
-      minWidth: 120,
-      field: (row) => {
-        return (
-          <Box>
-            <Typography variant="body2">
-              {row?.description?.length > 59
-                ? `${row?.description?.substring(0, 60)}...`
-                : row?.description}
-            </Typography>
-          </Box>
-        );
-      }
-    },
+    // {
+    //   title: 'Description',
+    //   minWidth: 120,
+    //   field: (row) => {
+    //     return (
+    //       <Box>
+    //         <Typography variant="body2">
+    //           {row?.description?.length > 59
+    //             ? `${row?.description?.substring(0, 60)}...`
+    //             : row?.description}
+    //         </Typography>
+    //       </Box>
+    //     );
+    //   }
+    // },
     {
       title: 'Image',
       minWidth: 120,
@@ -99,6 +103,7 @@ const ServiceTable = ({ serviceId }) => {
           <CustomPopover ButtonComponent={<MoreVertIcon />}>
             <ul className={classes.listWrapper}>
               <li onClick={() => handleEdit(row)}>Edit Services</li>
+              <li onClick={() => handleView(row)}>View Details</li>
               <li onClick={() => handleDelete(row)}>Delete</li>
             </ul>
           </CustomPopover>
@@ -149,6 +154,11 @@ const ServiceTable = ({ serviceId }) => {
     serviceOpenFunction();
   };
 
+  const handleView = (row) => {
+    setDetail(row);
+    viewOpenFunction();
+  };
+
   return (
     <>
       <Box>
@@ -163,12 +173,12 @@ const ServiceTable = ({ serviceId }) => {
         </Box> */}
         <CustomTable
           tableHeads={tableHeads}
-          tableData={singleService}
+          tableData={business_service?.data}
           rowsPerPage={rowsPerPage}
           setRowsPerPage={setRowsPerPage}
           page={page}
           setPage={setPage}
-          total={30}
+          total={business_service?.meta?.total}
           padding
           loading={get_business_service_loading}
         />
@@ -189,6 +199,14 @@ const ServiceTable = ({ serviceId }) => {
           isLoading={delete_business_service_loading}
           handleClose={deleteOpenFunction}
         />
+        <CustomModal
+          open={openView}
+          handleClose={viewOpenFunction}
+          modalTitle="News Details"
+          icon={<PersonIcon />}
+          width={`40rem`}>
+          <View data={detail} />
+        </CustomModal>
       </Box>
     </>
   );

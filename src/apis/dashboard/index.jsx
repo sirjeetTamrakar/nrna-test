@@ -255,3 +255,35 @@ export const getNbnsFollowersApi = (data) => {
 export const nbnsUserApprovalApi = (data) => {
   return axiosInstance().post(`/admin/nbns-followers/status/${data?.user_id}`, data);
 };
+
+// EmaiL TEMPLATE---------------->
+// get email template
+export const getEmailTemplateApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  const email_type = data?.page
+    ? data?.email_type
+      ? `&email_type=${data?.email_type}`
+      : ''
+    : data?.email_type
+    ? `?email_type=${data?.email_type}`
+    : '';
+  return axiosInstance().get(`/admin/email-template${page}${pagination_limit}${email_type}`);
+};
+
+// post email template
+export const postEmailTemplateApi = (data) => {
+  return axiosInstance().post('/admin/email-template', data);
+};
+
+// update email template
+export const updateEmailTemplateApi = (data, template_id) => {
+  return axiosInstance().post(`/admin/email-template/${template_id}`, data);
+};
+
+// delete email template
+export const deleteEmailTemplateApi = (template_id) => {
+  return axiosInstance().delete(`/admin/email-template/${template_id}`);
+};

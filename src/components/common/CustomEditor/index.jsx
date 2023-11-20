@@ -4,7 +4,7 @@ import { Box, FormHelperText, Typography } from '@mui/material';
 import { Controller, useFormContext } from 'react-hook-form';
 import style from './style';
 
-const CustomEditor = ({ name }) => {
+const CustomEditor = ({ name, emailTemplate }) => {
   const classes = style();
   const {
     control,
@@ -17,7 +17,9 @@ const CustomEditor = ({ name }) => {
         control={control}
         render={({ field: { onChange, value } }) => (
           <div className={classes.richTextEditor}>
-            <Typography className={classes.descriptionLable}>Description</Typography>
+            <Typography className={classes.descriptionLable}>
+              {emailTemplate ? emailTemplate : 'Description'}{' '}
+            </Typography>
             <CKEditor
               onReady={(editor) => {
                 //  editor.ui.view.editable.element.style.height = "200px";

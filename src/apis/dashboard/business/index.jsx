@@ -74,8 +74,13 @@ export const postBusinessServiceApi = (data) => {
 };
 
 // get business contact
-export const getBusinessServicesApi = () => {
-  return axiosInstance().get('/admin/business-services');
+export const getBusinessServicesApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+  const business_id = data?.business_id ? `&business_id=${data?.business_id}` : '';
+  return axiosInstance().get(`/admin/business-services${page}${pagination_limit}${business_id}`);
 };
 
 // delete business service
@@ -105,7 +110,8 @@ export const getBusinessFollowApi = (data) => {
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
   const id = data?.business_id ? `&business_id=${data?.business_id}` : '';
-  return axiosInstance().get(`/admin/business-follow${page}${pagination_limit}${id}`);
+  const search = data?.search ? `&search=${data?.search}` : '';
+  return axiosInstance().get(`/admin/business-follow${page}${pagination_limit}${id}${search}`);
 };
 
 // post business user aprooval

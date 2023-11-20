@@ -228,11 +228,11 @@ export const postBusinessService = (data, handleSuccess) => (dispatch) => {
 };
 
 // get business service
-export const getBusinessService = () => (dispatch) => {
+export const getBusinessService = (data) => (dispatch) => {
   dispatch({ type: actions.GET_BUSINESS_SERVICE_BEGIN });
-  getBusinessServicesApi()
+  getBusinessServicesApi(data)
     .then((res) => {
-      dispatch({ type: actions.GET_BUSINESS_SERVICE_SUCCESS, payload: res.data.data });
+      dispatch({ type: actions.GET_BUSINESS_SERVICE_SUCCESS, payload: res.data });
     })
     .catch((error) => {
       dispatch({ type: actions.GET_BUSINESS_SERVICE_ERROR });
@@ -347,4 +347,8 @@ export const postBusinessUserApproval = (data, handleSuccess) => (dispatch) => {
       errorToast(error);
       dispatch({ type: actions.POST_BUSINESS_USER_APPROVAL_ERROR });
     });
+};
+
+export const setFollowersSearch = (data) => (dispatch) => {
+  dispatch({ type: actions.SEARCH_FOLLOWERS, payload: data });
 };
