@@ -22,13 +22,14 @@ import {
   changeApproval,
   changeStatus,
   changeUserRole,
+  deleteUsers,
   getAllUsers,
   setUserSearch
 } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import View from './View';
 import { useStyles } from './styles';
+import View from './View';
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
@@ -45,7 +46,8 @@ const Member = () => {
     users_loading,
     user_status_loading,
     approve_user_loading,
-    change_role_loading
+    change_role_loading,
+    delete_users_loading
   } = useSelector((state) => state.user);
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
@@ -318,6 +320,18 @@ const Member = () => {
 
   // console.log({ userSearch });
 
+  const handleConfirmDelete = (slug) => {
+    let roleData;
+    if (user?.role_name === 'ncc') {
+      roleData = { country: user?.ncc?.slug };
+    } else if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
+      roleData = {
+        country: filteredNcc?.nccID1?.country_name
+      };
+    }
+    dispatch(deleteUsers(slug, deleteOpenFunction, filterData, roleData));
+  };
+
   const filterData = { page: page + 1, pagination_limit: rowsPerPage, search: user_search };
   const refetch = () => {
     let roleData;
@@ -451,7 +465,13 @@ const Member = () => {
           role={detail?.role_name}
           isLoading={change_role_loading}
         />
-        <CustomDeleteModal open={openDelete} handleClose={deleteOpenFunction} />
+        <CustomDeleteModal
+          handleConfirm={handleConfirmDelete}
+          slug={detail?.id}
+          open={openDelete}
+          isLoading={delete_users_loading}
+          handleClose={deleteOpenFunction}
+        />
         <CustomStatusModal
           open={openStatus}
           handleConfirm={handleChangeStatus}

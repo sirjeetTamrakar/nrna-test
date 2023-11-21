@@ -19,6 +19,7 @@ const EditForm = ({ detail, handleClose }) => {
     const formData = new FormData();
     formData.append('title', data?.title);
     formData.append('description', data?.description);
+    formData.append('business_id', data?.business_id);
     formData.append('_method', 'PUT');
 
     const typeData = {

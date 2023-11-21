@@ -116,7 +116,7 @@ export const updateProfile = (slug, data) => (dispatch) => {
     });
 };
 
-export const deleteUsers = (Data, handleSuccess, typeData) => async (dispatch) => {
+export const deleteUsers = (Data, handleSuccess, filterData, roleData) => async (dispatch) => {
   dispatch({ type: actions.DELETE_USERS_BEGIN });
 
   try {
@@ -125,7 +125,7 @@ export const deleteUsers = (Data, handleSuccess, typeData) => async (dispatch) =
       type: actions.DELETE_USERS_SUCCESS,
       payload: ''
     });
-    dispatch(getAllUsers(typeData));
+    dispatch(getAllUsers(filterData, roleData));
     handleSuccess && handleSuccess();
     successToast('User has been deleted');
   } catch (error) {
