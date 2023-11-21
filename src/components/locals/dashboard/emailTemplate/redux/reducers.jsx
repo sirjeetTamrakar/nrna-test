@@ -5,6 +5,7 @@ const defaultState = {
   email_templateData: [],
   delete_email_template_loading: false,
   update_email_template_loading: false,
+  email_template_status_loading: false,
   email_template_status_loading: false
 };
 
@@ -45,6 +46,19 @@ const emailTemplateReducer = (state = defaultState, action) => {
     case actions.UPDATE_EMAIL_TEMPLATE_SUCCESS:
     case actions.UPDATE_EMAIL_TEMPLATE_ERROR:
       return { ...state, update_email_template_loading: false };
+
+    case actions.EMAIL_TEMPLATE_STATUS_SET_BEGIN:
+    case actions.EMAIL_TEMPLATE_STATUS_REMOVE_BEGIN:
+      return {
+        ...state,
+        email_template_status_loading: true
+      };
+
+    case actions.EMAIL_TEMPLATE_STATUS_SET_SUCCESS:
+    case actions.EMAIL_TEMPLATE_STATUS_SET_ERROR:
+    case actions.EMAIL_TEMPLATE_STATUS_REMOVE_SUCCESS:
+    case actions.EMAIL_TEMPLATE_STATUS_REMOVE_ERROR:
+      return { ...state, email_template_status_loading: false };
 
     default:
       return state;

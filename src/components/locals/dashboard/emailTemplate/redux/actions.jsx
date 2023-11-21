@@ -1,5 +1,7 @@
 import {
   deleteEmailTemplateApi,
+  emailTemplateStatusRemoveApi,
+  emailTemplateStatusSetApi,
   getEmailTemplateApi,
   postEmailTemplateApi,
   updateEmailTemplateApi
@@ -68,3 +70,33 @@ export const updateEmailTemplate =
       errorToast(error);
     }
   };
+
+export const emailTemplateSetStatus = (data, handleSuccess, typeData) => (dispatch) => {
+  dispatch({ type: actions.EMAIL_TEMPLATE_STATUS_SET_BEGIN });
+  emailTemplateStatusSetApi(data)
+    .then((res) => {
+      dispatch({ type: actions.EMAIL_TEMPLATE_STATUS_SET_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getEmailTemplate(typeData));
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.EMAIL_TEMPLATE_STATUS_SET_ERROR });
+    });
+};
+
+export const emailTemplateRemoveStatus = (data, handleSuccess, typeData) => (dispatch) => {
+  dispatch({ type: actions.EMAIL_TEMPLATE_STATUS_REMOVE_BEGIN });
+  emailTemplateStatusRemoveApi(data)
+    .then((res) => {
+      dispatch({ type: actions.EMAIL_TEMPLATE_STATUS_REMOVE_SUCCESS });
+      handleSuccess && handleSuccess();
+      dispatch(getEmailTemplate(typeData));
+      successToast('Status has been changed');
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.EMAIL_TEMPLATE_STATUS_REMOVE_ERROR });
+    });
+};

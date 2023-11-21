@@ -287,3 +287,12 @@ export const updateEmailTemplateApi = (data, template_id) => {
 export const deleteEmailTemplateApi = (template_id) => {
   return axiosInstance().delete(`/admin/email-template/${template_id}`);
 };
+
+// change email template set status
+export const emailTemplateStatusSetApi = (data) => {
+  return axiosInstance().post(`/admin/email-template/set-default-template/${data?.id}`, data);
+};
+// change email template remove status
+export const emailTemplateStatusRemoveApi = (data) => {
+  return axiosInstance().post(`/admin/email-template/remove-default-template/${data?.id}`, data);
+};

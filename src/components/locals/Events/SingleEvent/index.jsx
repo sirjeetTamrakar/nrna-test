@@ -78,19 +78,15 @@ const SingleEvent = () => {
       <SecondaryNav category={events_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
-        <div className="single_event_page">
-          <Grid container className="event_main_grid">
-            <Grid item md={8}>
-              <div className="single_event_page_content">
-                {single_event_loading ? (
-                  <Box
-                    display="flex"
-                    justifyContent="center"
-                    alignItems="center"
-                    sx={{ height: '60vh' }}>
-                    <CircularProgress size={30} />
-                  </Box>
-                ) : (
+        {single_event_loading ? (
+          <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: '60vh' }}>
+            <CircularProgress size={30} />
+          </Box>
+        ) : (
+          <div className="single_event_page">
+            <Grid container className="event_main_grid">
+              <Grid item md={8}>
+                <div className="single_event_page_content">
                   <>
                     <div className="single_event_page_title">{single_event?.title}</div>
                     <div className="single_event_page_date">
@@ -178,45 +174,45 @@ const SingleEvent = () => {
                       </Grid>
                     </div>
                   </>
-                )}
-              </div>
-            </Grid>
-            <Grid item md={4} className="recent_event">
-              <div className="single_event_page_sidebar">
-                <div className="recent_events">
-                  <div className="recent_events_title">Recent Event</div>
-                  {recentEvent?.length > 0 ? (
-                    recentEvent?.map((recent) => (
-                      <Link
-                        key={recent.id}
-                        to={`/events/${recent?.slug}`}
-                        className="recent_events_item">
-                        <div className="img_wrapper">
-                          <img src={recent?.feature_image} alt="" />
-                        </div>
-                        <div className="item_content">
-                          <div className="item_content_title">{recent?.title}</div>
-                          <div className="item_content_date">
-                            {changeDateFormat(recent?.created_at)}
+                </div>
+              </Grid>
+              <Grid item md={4} className="recent_event">
+                <div className="single_event_page_sidebar">
+                  <div className="recent_events">
+                    <div className="recent_events_title">Recent Event</div>
+                    {recentEvent?.length > 0 ? (
+                      recentEvent?.map((recent) => (
+                        <Link
+                          key={recent.id}
+                          to={`/events/${recent?.slug}`}
+                          className="recent_events_item">
+                          <div className="img_wrapper">
+                            <img src={recent?.feature_image} alt="" />
                           </div>
-                        </div>
-                      </Link>
-                    ))
-                  ) : (
+                          <div className="item_content">
+                            <div className="item_content_title">{recent?.title}</div>
+                            <div className="item_content_date">
+                              {changeDateFormat(recent?.created_at)}
+                            </div>
+                          </div>
+                        </Link>
+                      ))
+                    ) : (
+                      <div className="button_wrap">
+                        <h3 className="text-center">No Event available.</h3>
+                      </div>
+                    )}
                     <div className="button_wrap">
-                      <h3 className="text-center">No Event available.</h3>
+                      <Link to="/events" className="btn-sm">
+                        View All
+                      </Link>
                     </div>
-                  )}
-                  <div className="button_wrap">
-                    <Link to="/events" className="btn-sm">
-                      View All
-                    </Link>
                   </div>
                 </div>
-              </div>
+              </Grid>
             </Grid>
-          </Grid>
-        </div>
+          </div>
+        )}
       </div>
     </>
   );

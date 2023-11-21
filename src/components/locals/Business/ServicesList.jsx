@@ -86,7 +86,7 @@ const ServiceItem = ({ item }) => {
         open={open}
         handleClose={openFunction}
         modalTitle={item?.title}
-        width={`${screenSize?.width < 710 ? '20rem' : '60rem'}`}>
+        width={`${screenSize?.width < 970 ? '20rem' : '60rem'}`}>
         <ServiceView item={item} />
       </CustomModal>
     </>

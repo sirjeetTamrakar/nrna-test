@@ -54,7 +54,7 @@ const CustomStatusModal = ({
                 }}>
                 Do you want to change status of this record?
               </p>
-              {status === 'Active' ? (
+              {status === 'Active' || status === 'true' ? (
                 <p
                   style={{
                     margin: 0,
@@ -63,7 +63,11 @@ const CustomStatusModal = ({
                     marginTop: '5px',
                     color: '#008478'
                   }}>
-                  Your current status is Active.
+                  {`${
+                    status === 'true'
+                      ? 'Your default template status is true'
+                      : 'Your current status is Active'
+                  }`}
                 </p>
               ) : (
                 <p
@@ -74,7 +78,11 @@ const CustomStatusModal = ({
                     marginTop: '5px',
                     color: '#d92323'
                   }}>
-                  Your current status is Inactive.
+                  {`${
+                    status === 'false'
+                      ? 'Your default template status is false'
+                      : 'Your current status is Inactive'
+                  }`}{' '}
                 </p>
               )}
             </Box>

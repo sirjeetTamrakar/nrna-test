@@ -1,21 +1,34 @@
 import ActiveDashboardIcon from 'assets/activeIcons/dashboard.svg';
 import ActiveSettingsIcon from 'assets/activeIcons/settings.svg';
+import adviceActiveIcon from 'assets/icon/advice-active.svg';
 import Advice from 'assets/icon/advice.svg';
 import Business from 'assets/icon/business.svg';
+import businessActiveIcon from 'assets/icon/businessActive.svg';
 import Candidate from 'assets/icon/candidate.svg';
+import candidateActiveIcon from 'assets/icon/candidateActive.svg';
 import Contact from 'assets/icon/contact.svg';
+import contactActiveIcon from 'assets/icon/contactActive.svg';
 import DashboardIcon from 'assets/icon/dashboard.svg';
-import DownloadIcon from 'assets/icon/download.png';
+import DownloadIcon from 'assets/icon/download.svg';
+import downloadsActiveIcon from 'assets/icon/downloadActive.svg';
 import EmailTemplateActive from 'assets/icon/email-template-active.svg';
 import EmailTemplate from 'assets/icon/email-template.svg';
+import eventsActiveIcon from 'assets/icon/events-active.svg';
 import Events from 'assets/icon/events.svg';
+import nbnsActiveIcon from 'assets/icon/nbns-active.svg';
 import NbnsIcon from 'assets/icon/nbns.svg';
+import nccActiveIcon from 'assets/icon/ncc-active.svg';
 import Country from 'assets/icon/ncc.svg';
+import newsActiveIcon from 'assets/icon/news-active.svg';
 import News from 'assets/icon/news.svg';
+import ourTeamActiveIcon from 'assets/icon/our-teams-active.svg';
+import profileActiveIcon from 'assets/icon/profile-active.svg';
 import Profile from 'assets/icon/profile.svg';
 import SettingsIcon from 'assets/icon/settings.svg';
+import surveyActiveIcon from 'assets/icon/survey-active.svg';
 import Survey from 'assets/icon/survey.svg';
 import Team from 'assets/icon/team.svg';
+import userManagementActiveIcon from 'assets/icon/user-management-active.svg';
 import UserManagement from 'assets/icon/user-management.svg';
 import { Roles } from './RoleConstant';
 
@@ -38,7 +51,7 @@ export const SidebarConstants = [
         label: 'User Management',
         url: '/dashboard/user-management',
         icon: UserManagement,
-        activeIcon: ActiveSettingsIcon,
+        activeIcon: userManagementActiveIcon,
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
@@ -60,7 +73,7 @@ export const SidebarConstants = [
         label: 'News',
         url: '/dashboard/news',
         icon: News,
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: newsActiveIcon,
         memberProfile: 'memberProfile',
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
@@ -97,7 +110,7 @@ export const SidebarConstants = [
         label: 'Events',
         url: '/dashboard/events',
         icon: Events,
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: eventsActiveIcon,
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
@@ -108,7 +121,7 @@ export const SidebarConstants = [
         url: '/dashboard/contact',
         icon: Contact,
         memberProfile: 'memberProfile',
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: contactActiveIcon,
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
@@ -119,7 +132,7 @@ export const SidebarConstants = [
         url: '/dashboard/downloads',
         icon: DownloadIcon,
         memberProfile: 'memberProfile',
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: downloadsActiveIcon,
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
@@ -130,7 +143,7 @@ export const SidebarConstants = [
         url: '/dashboard/profile',
         icon: Profile,
         memberProfile: 'memberProfile',
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: profileActiveIcon,
         roles: [Roles.Member, Roles.NCC],
         children: []
       },
@@ -138,7 +151,7 @@ export const SidebarConstants = [
         label: 'Advice',
         url: '/dashboard/advice',
         icon: Advice,
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: adviceActiveIcon,
         roles: [Roles.Admin, Roles.SuperAdmin],
         children: []
       },
@@ -146,7 +159,7 @@ export const SidebarConstants = [
         label: 'NCC',
         url: '/dashboard/ncc',
         icon: Country,
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: nccActiveIcon,
         roles: [Roles.Admin, Roles.SuperAdmin],
         children: []
       },
@@ -154,7 +167,7 @@ export const SidebarConstants = [
         label: 'Our Team',
         url: '/dashboard/our-team',
         icon: Team,
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: ourTeamActiveIcon,
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
@@ -181,7 +194,7 @@ export const SidebarConstants = [
         label: 'Candidate',
         url: '/dashboard/candidate',
         icon: Candidate,
-        activeIcon: ActiveDashboardIcon,
+        activeIcon: candidateActiveIcon,
         memberProfileNCC: 'memberProfileNCC',
         adminProfile: 'adminProfile',
 
@@ -192,7 +205,7 @@ export const SidebarConstants = [
         label: 'Survey',
         url: '/dashboard/survey',
         icon: Survey,
-        activeIcon: ActiveSettingsIcon,
+        activeIcon: surveyActiveIcon,
         roles: [Roles.Admin, Roles.SuperAdmin],
         children: [
           {
@@ -216,7 +229,7 @@ export const SidebarConstants = [
         label: 'Business',
         url: '/dashboard/business',
         icon: Business,
-        activeIcon: ActiveSettingsIcon,
+        activeIcon: businessActiveIcon,
 
         memberProfile: 'memberProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
@@ -256,7 +269,7 @@ export const SidebarConstants = [
         label: 'NBNS',
         url: '/dashboard/nbns',
         icon: NbnsIcon,
-        activeIcon: ActiveSettingsIcon,
+        activeIcon: nbnsActiveIcon,
         // memberProfileNCC: 'memberProfileNCC',
         // adminProfile: 'adminProfile',
 

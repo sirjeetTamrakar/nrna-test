@@ -5,12 +5,18 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import { Box, Button, Typography } from '@mui/material';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
+import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteEmailTemplate, getEmailTemplate } from '../redux/actions';
+import {
+  deleteEmailTemplate,
+  emailTemplateRemoveStatus,
+  emailTemplateSetStatus,
+  getEmailTemplate
+} from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
@@ -27,10 +33,13 @@ const BusinessTemplate = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
-  const { bannerData, banner_status_loading, delete_banner_loading, get_banner_loading } =
-    useSelector((state) => state.banner);
-  const { email_templateData, get_email_template_loading, delete_email_template_loading } =
-    useSelector((state) => state.emailTemplate);
+  const { businessData } = useSelector((state) => state.business);
+  const {
+    email_templateData,
+    get_email_template_loading,
+    delete_email_template_loading,
+    email_template_status_loading
+  } = useSelector((state) => state.emailTemplate);
   const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const tableHeads = [
@@ -40,6 +49,17 @@ const BusinessTemplate = () => {
       title: 'Template Title',
       minWidth: 250,
       field: 'title'
+    },
+    {
+      title: 'Business',
+      minWidth: 250,
+      field: (row) => {
+        return (
+          <Box>
+            <Typography variant="body2">{row?.business?.fullname}</Typography>
+          </Box>
+        );
+      }
     },
     {
       title: 'Template decription',
@@ -52,17 +72,35 @@ const BusinessTemplate = () => {
         );
       }
     },
+
     {
-      title: 'Decription status',
+      title: 'Default Template',
       minWidth: 250,
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.default_description}</Typography>
+            {row?.default_description === 'true' ? (
+              <Button
+                sx={{ width: '100px' }}
+                variant="contained"
+                color="success"
+                onClick={() => handleStatus(row)}>
+                True
+              </Button>
+            ) : (
+              <Button
+                sx={{ width: '100px' }}
+                variant="contained"
+                color="error"
+                onClick={() => handleStatus(row)}>
+                False
+              </Button>
+            )}
           </Box>
         );
       }
     },
+
     {
       title: 'Actions',
       minWidth: 85,
@@ -98,6 +136,33 @@ const BusinessTemplate = () => {
   const handleView = (row) => {
     setDetail(row);
     viewOpenFunction();
+  };
+
+  const handleStatusConfirm = (slug) => {
+    if (detail?.default_description === 'false') {
+      const finalData = {
+        id: slug,
+        _method: 'PATCH'
+      };
+      const typeData = {
+        page: 1,
+        pagination_limit: 10,
+        email_type: 'business'
+      };
+      dispatch(emailTemplateSetStatus(finalData, statusOpenFunction, typeData));
+    }
+    if (detail?.default_description === 'true') {
+      const finalData = {
+        id: slug,
+        _method: 'PATCH'
+      };
+      const typeData = {
+        page: 1,
+        pagination_limit: 10,
+        email_type: 'business'
+      };
+      dispatch(emailTemplateRemoveStatus(finalData, statusOpenFunction, typeData));
+    }
   };
 
   const handleDeleteConfirm = () => {
@@ -183,6 +248,14 @@ const BusinessTemplate = () => {
           handleClose={deleteOpenFunction}
           handleConfirm={handleDeleteConfirm}
           isLoading={delete_email_template_loading}
+        />
+        <CustomStatusModal
+          open={openStatus}
+          isLoading={email_template_status_loading}
+          handleClose={statusOpenFunction}
+          status={detail?.default_description === 'true' ? 'true' : 'false'}
+          id={detail?.id}
+          handleConfirm={handleStatusConfirm}
         />
       </Box>
     </>

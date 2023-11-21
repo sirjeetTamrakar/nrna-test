@@ -21,7 +21,7 @@ const SingleEvent = () => {
   const { single_event, events, events_category, single_ncc } = useSelector(
     (state) => state.homepage
   );
-  const recentEvent = events?.filter((list) => list?.slug !== slug).slice(0, 4);
+  const recentEvent = events?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
   console.log('xxxxxxxxxx', { recentEvent });
 
   const [selected, setSelected] = useState(
