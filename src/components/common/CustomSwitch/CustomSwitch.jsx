@@ -30,9 +30,9 @@ export const CustomSwitch = ({
           name={name}
           control={control}
           render={({ field: { onChange, value } }) => (
-            <Box alignItems={'start'} display="flex" justifyContent="space-between">
-              <Typography>{label}</Typography>
+            <Box alignItems={'start'} display="flex" sx={{ gap: '10px', alignItems: 'center' }}>
               <Switch checked={value} onChange={onChange} />
+              <Typography>{label}</Typography>
             </Box>
           )}
           rules={rule}

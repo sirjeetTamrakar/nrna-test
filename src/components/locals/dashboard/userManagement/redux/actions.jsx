@@ -25,14 +25,14 @@ export const getAllUsers = (data, roleData) => (dispatch) => {
     });
 };
 
-export const createUser = (data, roleData, handleSuccess) => (dispatch) => {
+export const createUser = (data, typeData, handleSuccess) => (dispatch) => {
   dispatch({ type: actions.CREATE_USER_BEGIN });
 
   createUserApi(data)
     .then((res) => {
       dispatch({ type: actions.CREATE_USER_SUCCESS });
       handleSuccess && handleSuccess();
-      dispatch(getAllUsers(roleData));
+      dispatch(getAllUsers(data, typeData));
       successToast('User has been created');
     })
     .catch((error) => {

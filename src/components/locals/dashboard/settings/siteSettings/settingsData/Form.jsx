@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
+import { CustomSwitch } from 'components/common/CustomSwitch/CustomSwitch';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomInput from 'components/common/Form/CustomInput';
@@ -14,13 +15,18 @@ import { useStyles } from './styles';
 const SettingsDataForm = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
+  const {
+    control,
+    formState: { errors }
+  } = useFormContext();
   const defaultValues = {
     address: '',
     phone: '',
     email: '',
     tagline_author: '',
     tagline_description: '',
-    region_logo: ''
+    region_logo: '',
+    show_candidate: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
@@ -34,6 +40,7 @@ const SettingsDataForm = () => {
       setValue('phone', site_settings?.phone);
       setValue('tagline_author', site_settings?.tagline_author);
       setValue('tagline_description', site_settings?.tagline_description);
+      setValue('show_candidate', site_settings?.show_candidate == 'true' && 'true');
     }
   }, [site_settings]);
 
@@ -45,6 +52,7 @@ const SettingsDataForm = () => {
     formData.append('email', data?.email);
     formData.append('tagline_author', data?.tagline_author);
     formData.append('tagline_description', data?.tagline_description);
+    formData.append('show_candidate', data?.show_candidate);
     if (user?.role_name == Roles.NCC) {
       formData.append('settingable_type', 'ncc');
       formData.append('settingable_id', user?.ncc?.id);
@@ -91,6 +99,17 @@ const SettingsDataForm = () => {
           <Grid item sm={12}>
             <CustomTextArea name="tagline_description" label="Tagline" required rows={2} />
           </Grid>
+          <Grid item sm={12}>
+            <CustomSwitch
+              name="show_candidate"
+              label="Show candidates"
+              control={control}
+              errors={errors}
+            />
+          </Grid>
+          {/* <Grid item sm={12}>
+            <CustomCheckBox name="show_candidate" title="Show candidate" />
+          </Grid> */}
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
               <CustomButton buttonName="Submit" loading={site_settings_loading} />

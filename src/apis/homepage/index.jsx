@@ -153,7 +153,14 @@ export const getNccApi = (data) => {
     : data?.continent
     ? `?continent=${data?.continent}`
     : '';
-  return axiosInstance().get(`/api/ncc${limit}${continent}`);
+  const region = data?.limit
+    ? data?.region
+      ? `&region=${data?.region}`
+      : ''
+    : data?.region
+    ? `?region=${data?.region}`
+    : '';
+  return axiosInstance().get(`/api/ncc${limit}${continent}${region}`);
 };
 
 // get single news
@@ -289,4 +296,9 @@ export const deleteNbnsFollowApi = (data) => {
 // check survey taken with email
 export const postBusinessCreateAccountApi = (data) => {
   return axiosInstance().post(`/api/business-follow/create-account`, data);
+};
+
+// get regions
+export const getRegionsApi = () => {
+  return axiosInstance().get(`/api/regions`);
 };

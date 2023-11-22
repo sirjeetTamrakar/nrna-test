@@ -2,7 +2,7 @@ import { Box, Button, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { getNcc } from 'redux/homepage/actions';
+import { getAllRegions, getNcc } from 'redux/homepage/actions';
 import NCCItem from './NCCItem';
 import NccItemOne from './NccSite/NccCardOne';
 import SecondaryNav from './SecondaryNav';
@@ -14,11 +14,22 @@ const AllNCCSection = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   const { ncc: slug } = useParams();
-  const { ncc, ncc_loading, settings } = useSelector((state) => state.homepage);
+  const { ncc, ncc_loading, settings, regions } = useSelector((state) => state.homepage);
   const [filteredNcc, setFilteredNcc] = useState([]);
   const [nccLimit, setNccLimit] = useState(9);
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
+
+  console.log('nccDataNew', { filteredNcc });
+
+  useEffect(() => {
+    dispatch(getAllRegions());
+  }, []);
+
+  const regionOptions = regions?.map((item) => ({
+    title: item?.name,
+    slug: item?.name
+  }));
 
   useEffect(() => {
     if (selected === 'ALL') {
@@ -29,45 +40,48 @@ const AllNCCSection = () => {
     } else {
       setFilteredNcc('');
       const finalData = {
-        continent: selected
+        // continent: selected,
+        region: selected
       };
       dispatch(getNcc(finalData));
     }
   }, [nccLimit, selected]);
 
-  const category = [
-    {
-      title: 'Asia',
-      slug: 'Asia'
-    },
-    {
-      title: 'Europe',
-      slug: 'Europe'
-    },
-    {
-      title: 'North America',
-      slug: 'North America'
-    },
-    {
-      title: 'South America',
-      slug: 'South America'
-    },
-    {
-      title: 'Africa',
-      slug: 'Africa'
-    },
-    {
-      title: 'Australia',
-      slug: 'Australia'
-    }
-  ];
+  // const category = [
+  //   {
+  //     title: 'Asia',
+  //     slug: 'Asia'
+  //   },
+  //   {
+  //     title: 'Europe',
+  //     slug: 'Europe'
+  //   },
+  //   {
+  //     title: 'North America',
+  //     slug: 'North America'
+  //   },
+  //   {
+  //     title: 'South America',
+  //     slug: 'South America'
+  //   },
+  //   {
+  //     title: 'Africa',
+  //     slug: 'Africa'
+  //   },
+  //   {
+  //     title: 'Australia',
+  //     slug: 'Australia'
+  //   }
+  // ];
+
+  const allOptions = [...regionOptions];
 
   useEffect(() => {
     setSelected('ALL');
   }, [location?.state]);
 
   useEffect(() => {
-    if (ncc) {
+    if (ncc?.data) {
       if (selected === 'ALL' && search) {
         const data = ncc?.data?.filter((list) =>
           list?.country_name?.toLowerCase()?.includes(search?.toLowerCase())
@@ -79,16 +93,12 @@ const AllNCCSection = () => {
         const data = ncc?.data?.filter(
           (list) =>
             list?.country_name?.toLowerCase()?.includes(search?.toLowerCase()) &&
-            list?.continent === selected
+            list?.ncc_regions?.filter((item) => item === selected)
         );
         setFilteredNcc(data);
       }
     }
-  }, [ncc, search]);
-
-  // useEffect(() => {
-  //   dispatch(getSiteSettings());
-  // }, []);
+  }, [ncc?.data, search]);
 
   const handleShowMore = () => {
     setNccLimit((prev) => prev + 8);
@@ -97,7 +107,7 @@ const AllNCCSection = () => {
   return (
     <>
       <SecondaryNav
-        category={category}
+        category={allOptions}
         setSelected={setSelected}
         selected={selected}
         setSearch={setSearch}

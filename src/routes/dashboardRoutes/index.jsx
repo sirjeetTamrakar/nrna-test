@@ -29,6 +29,7 @@ import ParticipantResultPage from 'pages/private/ParticipantResult';
 import ParticipantsPage from 'pages/private/Participants';
 import ProfilePage from 'pages/private/ProfilePage';
 import QuestionsPage from 'pages/private/Questions';
+import RegionPage from 'pages/private/RegionPage';
 import ResultListPage from 'pages/private/ResultListPage';
 import ResultsPage from 'pages/private/ResultsPage';
 import SiteSettingsPage from 'pages/private/SiteSettings';
@@ -276,6 +277,14 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <BannerPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'settings/region',
+    component: (
+      <Protected>
+        <RegionPage />
       </Protected>
     )
   },

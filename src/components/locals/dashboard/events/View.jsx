@@ -3,6 +3,7 @@ import ApartmentOutlinedIcon from '@mui/icons-material/ApartmentOutlined';
 import EmailOutlinedIcon from '@mui/icons-material/EmailOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
+import { Grid } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { changeDateFormat } from 'utils/dateUtils';
 
@@ -53,13 +54,33 @@ const View = ({ data }) => {
           <LocationOnOutlinedIcon /> {data?.location ? data?.location : '-'}
         </span>
       </div>
-      {/* <div style={{ padding: '10px 0' }}>
-        {changeDateFormat(data?.created_at, 'DD-MMM-YYYY HH:MM')} |
-        <span>
-          <LocationOnOutlinedIcon />
-          {data?.venue && data?.venue}, {data?.location && data?.location}
-        </span>
-      </div> */}
+      <Grid container style={{ width: '100%' }}>
+        <Grid item md={6}>
+          {data?.map_url && (
+            <div style={{ width: '100%', height: '190px', paddingRight: '5px' }}>
+              <div
+                style={{ width: '100%', height: '100%', overflow: 'hidden' }}
+                dangerouslySetInnerHTML={{ __html: data?.map_url }}
+              />
+            </div>
+          )}
+        </Grid>
+        <Grid item md={6}>
+          {data?.youtube_url && (
+            <div style={{ width: '100%', height: '190px', paddingLeft: '5px' }}>
+              <iframe
+                width="100%"
+                height="190"
+                src={`https://www.youtube.com/embed/${data?.youtube_url}`}
+                // src={`https://www.youtube.com/embed/${youtubeLink}`}
+                title="YouTube video player"
+                frameBorder="0"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen></iframe>
+            </div>
+          )}
+        </Grid>
+      </Grid>
 
       <div style={{ padding: '10px 0' }}>
         <div style={{ fontSize: '16px' }} dangerouslySetInnerHTML={{ __html: data?.description }} />

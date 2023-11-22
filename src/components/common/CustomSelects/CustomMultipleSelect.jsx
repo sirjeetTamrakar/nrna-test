@@ -1,20 +1,13 @@
-import {
-  Autocomplete,
-  FormControl,
-  FormHelperText,
-  InputLabel,
-  TextField,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import React from "react";
-import { Controller } from "react-hook-form";
+import { Autocomplete, FormControl, FormHelperText, InputLabel, TextField } from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Controller } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiFormControl-root": {
-      width: "100%",
-    },
-  },
+    '& .MuiFormControl-root': {
+      width: '100%'
+    }
+  }
 }));
 export const CustomMultipleSelect = ({
   name,
@@ -22,19 +15,17 @@ export const CustomMultipleSelect = ({
   errors,
   label,
   data = [],
-  title = "",
+  title = '',
   disabled,
   defaultValue,
-  placeholder,
+  placeholder
 }) => {
   const classes = useStyles();
 
   return (
     <>
       <div className={classes.root}>
-        {title && (
-          <InputLabel className="title">{title?.toUpperCase()}</InputLabel>
-        )}
+        {title && <InputLabel className="title">{title}</InputLabel>}
         <FormControl variant="outlined">
           {/* <InputLabel>{label}</InputLabel> */}
           <Controller
@@ -43,26 +34,21 @@ export const CustomMultipleSelect = ({
             render={({ field: { onChange, value } }) => (
               <>
                 <Autocomplete
+                  sx={{ border: '1px solid gray', borderRadius: '4px' }}
                   multiple
                   limitTags={2}
                   id="multiple-limit-tags"
                   options={data}
-                  onChange={(e, data) =>
-                    onChange(data?.map((item) => item?.value))
-                  }
+                  onChange={(e, data) => onChange(data?.map((item) => item?.value))}
                   getOptionLabel={(option) => option.label}
-                  renderInput={(params) => (
-                    <TextField {...params} label={label} />
-                  )}
+                  renderInput={(params) => <TextField {...params} label={label} />}
                 />
               </>
             )}
           />
         </FormControl>
-        {errors[name] && errors[name].type === "required" && (
-          <FormHelperText style={{ color: "red" }}>
-            This field is required
-          </FormHelperText>
+        {errors[name] && errors[name].type === 'required' && (
+          <FormHelperText style={{ color: 'red' }}>This field is required</FormHelperText>
         )}
       </div>
     </>

@@ -4,8 +4,8 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
-import NCCForm from './Form';
-import { postNCC } from './redux/actions';
+import RegionForm from './Form';
+import { postRegion } from './redux/actions';
 import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
@@ -13,30 +13,24 @@ const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
-  const { ncc_loading } = useSelector((state) => state.ncc);
+
+  const { region_loading } = useSelector((state) => state.region);
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
   const onSubmit = (data) => {
-    console.log('nccSubmitData', { data });
     const formData = new FormData();
-    formData.append('country_name', data?.country_name);
-    formData.append('admin_id', data?.admin_id);
+    let typeData;
+    formData.append('name', data?.name);
 
-    let obj = {};
-    data?.regions?.forEach((item, index) => {
-      const fieldName = `regions[${index}][region_id]`;
-      obj[fieldName] = item;
-    });
+    typeData = {
+      page: 1,
+      pagination_limit: 10
+    };
 
-    Object.keys(obj)?.map((key) => {
-      formData.append(key, obj?.[key]);
-    });
-
-    formData.append('color', data?.color ? data?.color : '#276FC4');
-    if (data?.logo?.length > 0) {
-      formData.append('logo', data?.logo[0]);
+    if (data?.region_image?.length > 0) {
+      formData.append('region_image', data?.region_image?.[0]);
     }
-
-    dispatch(postNCC(formData, handleClose));
+    dispatch(postRegion(formData, typeData, handleClose));
   };
 
   return (
@@ -45,9 +39,9 @@ const Register = ({ handleClose }) => {
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
-          <NCCForm />
+          <RegionForm />
           <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create NCC" loading={ncc_loading} />
+            <CustomButton buttonName="Create Region" loading={region_loading} />
           </Box>
         </CustomForm>
       </CustomFormProvider>

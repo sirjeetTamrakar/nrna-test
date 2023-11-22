@@ -296,3 +296,34 @@ export const emailTemplateStatusSetApi = (data) => {
 export const emailTemplateStatusRemoveApi = (data) => {
   return axiosInstance().post(`/admin/email-template/remove-default-template/${data?.id}`, data);
 };
+
+// REGION---------------->
+// get region
+export const getRegionApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+
+  return axiosInstance().get(`/admin/regions${page}${pagination_limit}`);
+};
+
+// post region
+export const postRegionApi = (data) => {
+  return axiosInstance().post('/admin/regions', data);
+};
+
+// update region
+export const updateRegionApi = (region_id, data) => {
+  return axiosInstance().post(`/admin/regions/${region_id}`, data);
+};
+
+// delete region
+export const deleteRegionApi = (region_id) => {
+  return axiosInstance().delete(`/admin/regions/${region_id}`);
+};
+
+// update region status
+export const updateRegionStatusApi = (data) => {
+  return axiosInstance().post(`/admin/regions/status/${data?.slug}`, data);
+};

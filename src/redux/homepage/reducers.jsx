@@ -67,7 +67,9 @@ const defaultState = {
   get_nbns_follow_loading: false,
   nbnsFollowData: [],
   delete_nbns_follow_loading: false,
-  business_create_account_loading: false
+  business_create_account_loading: false,
+  regions: [],
+  regions_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -458,6 +460,18 @@ const homepageReducer = (state = defaultState, action) => {
     case actions.POST_BUSINESS_CREATE_ACCOUNT_SUCCESS:
     case actions.POST_BUSINESS_CREATE_ACCOUNT_ERROR:
       return { ...state, business_create_account_loading: false };
+
+    case actions.FETCH_REGIONS_BEGIN:
+      return {
+        ...state,
+        regions_loading: true
+      };
+
+    case actions.FETCH_REGIONS_SUCCESS:
+      return { ...state, regions_loading: false, regions: action.payload };
+
+    case actions.FETCH_REGIONS_ERROR:
+      return { ...state, regions_loading: false };
 
     default:
       return state;

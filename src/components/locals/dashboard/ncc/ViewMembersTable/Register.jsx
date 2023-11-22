@@ -3,6 +3,7 @@ import CustomButton from 'components/common/CustomButton/CustomButton';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { createUser } from '../../userManagement/redux/actions';
 // import { createUser } from '../redux/actions';
@@ -11,6 +12,8 @@ import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose, countrySlug }) => {
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(10);
   const defaultValues = {
     country_of_residence: countrySlug
   };
@@ -18,8 +21,9 @@ const Register = ({ handleClose, countrySlug }) => {
   const dispatch = useDispatch();
   const { create_user_loading } = useSelector((state) => state.user);
   const onSubmit = (data) => {
-    const roleData = { country: countrySlug };
-    dispatch(createUser(data, roleData, handleClose));
+    let typeData;
+    typeData = { page: page + 1, pagination_limit: rowsPerPage, country: countrySlug };
+    dispatch(createUser(data, typeData, handleClose));
   };
 
   return (

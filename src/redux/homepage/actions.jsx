@@ -23,6 +23,7 @@ import {
   getNbnsFollowApi,
   getNccApi,
   getNewsCategoryApi,
+  getRegionsApi,
   getSingleBusinessApi,
   getSingleEventApi,
   getSingleHomeDataApi,
@@ -543,5 +544,18 @@ export const postBusinessCreateAccount = (data, handleSuccess) => (dispatch) => 
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.POST_BUSINESS_CREATE_ACCOUNT_ERROR });
+    });
+};
+
+export const getAllRegions = () => (dispatch) => {
+  dispatch({ type: actions.FETCH_REGIONS_BEGIN });
+
+  getRegionsApi()
+    .then((res) => {
+      dispatch({ type: actions.FETCH_REGIONS_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_REGIONS_ERROR });
     });
 };

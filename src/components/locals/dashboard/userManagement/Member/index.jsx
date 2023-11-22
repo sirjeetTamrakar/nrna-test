@@ -12,12 +12,17 @@ import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomRoleChangeModal from 'components/common/CustomModal/CustomRoleChnageModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
+import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
+import CustomForm from 'components/common/Form/CustomForm';
+import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
-import { getNCC } from '../../ncc/redux/actions';
+import { getCountries, getNCC } from '../../ncc/redux/actions';
+
 import {
   changeApproval,
   changeStatus,
@@ -30,6 +35,7 @@ import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
 import View from './View';
+
 const Member = () => {
   const dispatch = useDispatch();
   const [openForm, formOpenFunction] = useToggle(false);
@@ -52,10 +58,18 @@ const Member = () => {
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
   );
-  const { nccData } = useSelector((state) => state.ncc);
+  const { nccData, countries_list } = useSelector((state) => state.ncc);
+  console.log({ countries_list });
+
+  const countryList = countries_list?.map((item, index) => ({
+    label: item,
+    value: item
+  }));
   console.log({ user, users, nccData });
   const [roleIDData, setRoleIDData] = useState();
-
+  useEffect(() => {
+    dispatch(getCountries());
+  }, []);
   // const findNCCUserId = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
 
   useEffect(() => {
@@ -318,7 +332,13 @@ const Member = () => {
     dispatch(setUserSearch(''));
   };
 
-  // console.log({ userSearch });
+  const handleCountryFilter = (e, data) => {
+    setPage(0);
+    dispatch(setUserSearch(inputValue));
+    e.preventDefault();
+  };
+
+  console.log({ inputValue });
 
   const handleConfirmDelete = (slug) => {
     let roleData;
@@ -362,6 +382,7 @@ const Member = () => {
   useEffect(() => {
     // refetch();
   }, [page, rowsPerPage]);
+  const defaultValues = {};
 
   return (
     <>
@@ -375,8 +396,15 @@ const Member = () => {
           }}>
           <Box>
             <Box>Member</Box>
-            <Box sx={{ marginTop: '10px' }}>
-              <form onClick={handleUserSearch}>
+            <Box
+              sx={{
+                marginTop: '10px',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: '30px'
+              }}>
+              <form onClick={handleUserSearch} style={{ marginBottom: '-20px' }}>
                 <input
                   style={{
                     padding: '5px 10px',
@@ -411,6 +439,14 @@ const Member = () => {
                   x
                 </button>
               </form>
+              <CustomFormProvider
+                defaultValues={defaultValues}
+                // resolver={useYupValidationResolver(validationSchema)}
+              >
+                <CustomForm onSubmit={handleCountryFilter}>
+                  <FilterCountry countryList={countryList} setInputValue={setInputValue} />
+                </CustomForm>
+              </CustomFormProvider>
             </Box>
           </Box>
           <Button
@@ -489,6 +525,43 @@ const Member = () => {
         />
       </Box>
     </>
+  );
+};
+
+const FilterCountry = ({ countryList, setInputValue }) => {
+  const classes = useStyles();
+  const { watch } = useFormContext();
+  console.log('watch', watch());
+
+  const countryChangeHandler = (e) => {
+    const newValue = e.target.value;
+    setInputValue(newValue); // Update the input field value
+    const timeout = setTimeout(() => {
+      dispatch(setUserSearch(e.target.value));
+    }, [1000]);
+    return () => clearTimeout(timeout);
+  };
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <Box sx={{ width: '250px' }}>
+        <CustomAutoComplete
+          onChange={countryChangeHandler}
+          name="country_filter"
+          label="Search user country wise"
+          options={countryList}
+        />{' '}
+      </Box>
+      {/* <Box className={classes.footerRoot} sx={{ padding: '5px' }}>
+        <CustomButton
+          type="submit"
+          searchIcon
+          // buttonName="Search"
+
+          // loading={create_user_loading}
+        />
+      </Box> */}
+    </Box>
   );
 };
 

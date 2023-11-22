@@ -348,6 +348,12 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
+            label: 'Region',
+            url: '/dashboard/settings/region',
+
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
             label: 'NCC Setting',
             url: '/dashboard/settings/ncc-site',
             // memberProfileNCC: 'memberProfileNCC',
