@@ -52,7 +52,7 @@ const CandidateHome = ({ siteSettingImages, about, title }) => {
                             />
                           </div>
                           <div className="political_item_title text-center">
-                            {candidate?.member?.full_name}
+                            {candidate?.member?.first_name} {candidate?.member?.last_name}
                           </div>
                           <div className="political_item_subtitle text-center">
                             {candidate?.designation}

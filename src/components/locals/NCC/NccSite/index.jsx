@@ -16,13 +16,42 @@ const NccSite = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
   const { user } = useSelector((state) => state.auth);
-  const { settings, banners, ncc } = useSelector((state) => state.homepage);
+  const { settings, banners, ncc, home_data } = useSelector((state) => state.homepage);
   useEffect(() => {
     const single = ncc?.data?.find((list) => list?.slug == slug);
     single?.id && dispatch(getBanner({ type: 'ncc', id: single?.id }));
   }, [ncc]);
 
   console.log('ncc', ncc);
+
+  // Map home_data into MissionSection and VisionSection in an alternating way
+  const renderSections = () => {
+    return home_data?.data?.map((item, index) => {
+      if (index % 2 !== 0) {
+        // Even index, render VisionSection
+        return (
+          <VisionSection
+            key={item?.id}
+            title={item?.title}
+            image={item?.image}
+            linkUrl={`/ncc/${slug}/${item?.slug}`}
+            description={item?.description}
+          />
+        );
+      } else {
+        // Odd index, render MissionSection
+        return (
+          <MissionSection
+            key={item?.id}
+            title={item?.title}
+            image={item?.image}
+            linkUrl={`/ncc/${slug}/${item?.slug}`}
+            description={item?.description}
+          />
+        );
+      }
+    });
+  };
 
   return (
     <>
@@ -40,7 +69,9 @@ const NccSite = () => {
           linkUrl={`/ncc/${slug}/about`}
         />
       )}
-      {settings?.mission && (
+
+      {renderSections()}
+      {/* {settings?.mission && (
         <MissionSection
           mission={settings?.mission}
           image={settings?.mission_image}
@@ -53,7 +84,7 @@ const NccSite = () => {
           image={settings?.vision_image}
           linkUrl={`/ncc/${slug}/vision`}
         />
-      )}
+      )} */}
     </>
   );
 };

@@ -19,7 +19,7 @@ const NccItemOneSingle = () => {
   console.log('ssssssss', { home_data });
   useEffect(() => {
     const finalData = {
-      type: 'ncc',
+      type: 'nccCard',
       id: 1
     };
     dispatch(getAllHomeData(finalData));

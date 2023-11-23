@@ -45,7 +45,7 @@ const SettingsRegion = () => {
       title: 'Image',
       minWidth: 120,
       field: (row) => {
-        return (
+        return row?.region_image ? (
           <img
             src={row?.region_image}
             alt=""
@@ -55,6 +55,8 @@ const SettingsRegion = () => {
               objectFit: 'contain'
             }}
           />
+        ) : (
+          'No image'
         );
       }
     },

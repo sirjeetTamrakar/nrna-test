@@ -159,10 +159,10 @@ const HomeData = () => {
     };
     let typeData;
     if (user?.role_name == Roles?.SuperAdmin) {
-      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'nccCard', id: user?.id, page: 1, pagination_limit: 10 };
     }
     typeData = {
-      homedataable_type: 'ncc',
+      homedataable_type: 'nccCard',
       homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id,
       page: 1,
       pagination_limit: 10
@@ -173,10 +173,10 @@ const HomeData = () => {
   const handleDeleteConfirm = (slug) => {
     let typeData;
     if (user?.role_name == Roles?.SuperAdmin) {
-      typeData = { type: 'ncc', id: user?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'nccCard', id: user?.id, page: 1, pagination_limit: 10 };
     }
     typeData = {
-      homedataable_type: 'ncc',
+      homedataable_type: 'nccCard',
       homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id,
       page: 1,
       pagination_limit: 10
@@ -192,7 +192,7 @@ const HomeData = () => {
     const data = {
       page: page + 1,
       pagination_limit: rowsPerPage,
-      homedataable_type: 'ncc',
+      homedataable_type: 'nccCard',
       homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id
     };
     dispatch(getHomeData(data));

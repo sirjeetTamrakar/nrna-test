@@ -42,6 +42,8 @@ export const CustomMultipleSelect = ({
                   onChange={(e, data) => onChange(data?.map((item) => item?.value))}
                   getOptionLabel={(option) => option.label}
                   renderInput={(params) => <TextField {...params} label={label} />}
+                  defaultValue={data?.find((item) => item?.value === value)}
+                  isOptionEqualToValue={(option) => option.value}
                 />
               </>
             )}

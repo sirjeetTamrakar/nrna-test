@@ -19,8 +19,12 @@ const NCCForm = ({ logo }) => {
 
   const {
     control,
+    watch,
     formState: { errors }
   } = useFormContext();
+
+  console.log({ watch: watch() });
+
   const countryList = countries_list?.map((item, index) => ({
     label: item,
     value: item

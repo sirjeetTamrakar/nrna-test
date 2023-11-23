@@ -29,12 +29,12 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('_method', 'PUT');
 
     if (user?.role_name === Roles.SuperAdmin) {
-      formData.append('homedataable_type', 'ncc');
+      formData.append('homedataable_type', 'nccCard');
       formData.append('homedataable_id', user?.id);
       typeData = {
         page: 1,
         pagination_limit: 10,
-        homedataable_type: 'ncc',
+        homedataable_type: 'nccCard',
         homedataable_id: user?.id
       };
     }

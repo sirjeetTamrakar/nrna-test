@@ -40,6 +40,7 @@ const SecondaryNavWrapper = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { ncc } = useParams();
+  console.log('jjsjjjj', { ncc });
 
   const handleFunction = (data) => {
     navigate(data);
@@ -133,10 +134,10 @@ const SecondaryNavWrapper = () => {
   useEffect(() => {
     const data = {
       type: 'ncc',
-      id: user?.ncc?.id
+      id: single_ncc?.id
     };
     dispatch(getAllHomeData(data));
-  }, []);
+  }, [single_ncc?.id]);
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
     title: item?.tabtitle,
     value: item?.slug,

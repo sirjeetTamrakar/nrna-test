@@ -3,7 +3,7 @@ import Home from 'components/locals/Homepage';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { getAllHomeData } from 'redux/homepage/actions';
+import { getAllHomeData, getCandidates } from 'redux/homepage/actions';
 
 export const Homepage = () => {
   const [selected, setSelected] = useState('home');
@@ -15,10 +15,11 @@ export const Homepage = () => {
   };
 
   const dispatch = useDispatch();
-  const { home_data } = useSelector((state) => state.homepage);
+  const { home_data, candidates } = useSelector((state) => state.homepage);
   console.log('bbbvbvbv', { home_data });
   useEffect(() => {
     dispatch(getAllHomeData());
+    dispatch(getCandidates());
   }, []);
   // const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
   //   title: item?.tabtitle,
@@ -28,12 +29,7 @@ export const Homepage = () => {
 
   const options = [
     { title: 'Home', value: 'home', clickFunction: () => handleFunction('/') },
-    { title: 'About', value: 'about', clickFunction: () => handleFunction('/nrna/about') },
-    {
-      title: 'Candidate',
-      value: 'candidate',
-      clickFunction: () => handleFunction('/nrna/candidate')
-    }
+    { title: 'About', value: 'about', clickFunction: () => handleFunction('/nrna/about') }
   ];
   const contact = [
     { title: 'Contact', value: 'contact', clickFunction: () => handleFunction('/nrna/contact') }
@@ -47,13 +43,22 @@ export const Homepage = () => {
     }
   ];
 
-  const allOptions = [...options, ...contact, ...download];
+  const candidate = [
+    {
+      title: 'Candidate',
+      value: 'candidate',
+      clickFunction: () => handleFunction('/nrna/candidate')
+    }
+  ];
+
+  const allOptions = [...options, ...candidate, ...contact, ...download];
+  const notCandidateOptions = [...options, ...contact, ...download];
 
   return (
     <>
       <SecondaryNav
         title={'Home'}
-        options={allOptions}
+        options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}
       />

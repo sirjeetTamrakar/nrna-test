@@ -20,7 +20,7 @@ const NccDataComponent = () => {
   console.log('ssssssss', { home_data, slug });
   useEffect(() => {
     const finalData = {
-      type: 'ncc',
+      type: 'nccCard',
       id: 1
     };
     dispatch(getAllHomeData(finalData));
