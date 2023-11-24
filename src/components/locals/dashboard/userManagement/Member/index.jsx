@@ -18,23 +18,24 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
-import { useFormContext } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import { getCountries, getNCC } from '../../ncc/redux/actions';
 
+import CustomInput from 'components/common/Form/CustomInput';
+import { useFormContext } from 'react-hook-form';
+import { useDebounce } from 'utils';
 import {
   changeApproval,
   changeStatus,
   changeUserRole,
   deleteUsers,
-  getAllUsers,
-  setUserSearch
+  getAllUsers
 } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const Member = () => {
   const dispatch = useDispatch();
@@ -58,13 +59,8 @@ const Member = () => {
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
   );
-  const { nccData, countries_list } = useSelector((state) => state.ncc);
-  console.log({ countries_list });
+  const { nccData } = useSelector((state) => state.ncc);
 
-  const countryList = countries_list?.map((item, index) => ({
-    label: item,
-    value: item
-  }));
   console.log({ user, users, nccData });
   const [roleIDData, setRoleIDData] = useState();
   useEffect(() => {
@@ -81,13 +77,10 @@ const Member = () => {
     });
     setRoleIDData(newObj);
   }, [nccData?.data, user?.ncc?.slug]);
-  console.log('ssssss', roleIDData);
 
-  console.log({ filteredNcc });
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [userSearch, setUserSearch] = useState('');
   const classes = useStyles();
 
   useEffect(() => {
@@ -310,36 +303,6 @@ const Member = () => {
     );
   };
 
-  const handleUserSearch = (e) => {
-    setPage(0);
-    dispatch(setUserSearch(inputValue));
-    e.preventDefault();
-  };
-  const [inputValue, setInputValue] = useState(''); // Track the input field value
-
-  const nameChangeHandler = (e) => {
-    const newValue = e.target.value;
-    setInputValue(newValue); // Update the input field value
-    const timeout = setTimeout(() => {
-      dispatch(setUserSearch(e.target.value));
-    }, [1000]);
-    return () => clearTimeout(timeout);
-  };
-
-  const nameClearHandler = () => {
-    setPage(0);
-    setInputValue('');
-    dispatch(setUserSearch(''));
-  };
-
-  const handleCountryFilter = (e, data) => {
-    setPage(0);
-    dispatch(setUserSearch(inputValue));
-    e.preventDefault();
-  };
-
-  console.log({ inputValue });
-
   const handleConfirmDelete = (slug) => {
     let roleData;
     if (user?.role_name === 'ncc') {
@@ -352,9 +315,14 @@ const Member = () => {
     dispatch(deleteUsers(slug, deleteOpenFunction, filterData, roleData));
   };
 
-  const filterData = { page: page + 1, pagination_limit: rowsPerPage, search: user_search };
-  const refetch = () => {
+  const refetch = (data) => {
     let roleData;
+    let filterData = {
+      page: page + 1,
+      pagination_limit: rowsPerPage,
+      search: data?.search ?? '',
+      country: data?.country ?? ''
+    };
     if (user?.role_name === 'ncc') {
       const roleData = { country: user?.ncc?.slug };
       dispatch(getAllUsers(filterData, roleData));
@@ -367,21 +335,9 @@ const Member = () => {
   };
 
   useEffect(() => {
-    let roleData;
-    if (user?.role_name === 'ncc') {
-      const roleData = { country: user?.ncc?.slug };
-      dispatch(getAllUsers(filterData, roleData));
-    } else if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
-      const roleData = { country: filteredNcc?.nccID1?.country_name };
-      dispatch(getAllUsers(filterData, roleData));
-    } else {
-      dispatch(getAllUsers(filterData));
-    }
-  }, [JSON.stringify(filterData)]);
-
-  useEffect(() => {
-    // refetch();
+    refetch();
   }, [page, rowsPerPage]);
+
   const defaultValues = {};
 
   return (
@@ -395,57 +351,15 @@ const Member = () => {
             marginBottom: '15px'
           }}>
           <Box>
-            <Box>Member</Box>
             <Box
               sx={{
-                marginTop: '10px',
                 display: 'flex',
                 justifyContent: 'center',
                 alignItems: 'center',
                 gap: '30px'
               }}>
-              <form onClick={handleUserSearch} style={{ marginBottom: '-20px' }}>
-                <input
-                  style={{
-                    padding: '5px 10px',
-                    width: '250px',
-                    border: 'none',
-                    outline: 'none'
-                    // borderRadius: '4px'
-                  }}
-                  type="text"
-                  value={inputValue}
-                  onChange={nameChangeHandler}
-                  placeholder="Search user"
-                />
-
-                <button
-                  onClick={nameClearHandler}
-                  style={
-                    inputValue
-                      ? {
-                          padding: '5px 10px',
-                          border: 'none',
-                          backgroundColor: '#fff',
-                          color: 'red'
-                        }
-                      : {
-                          padding: '5px 10px',
-                          border: 'none',
-                          backgroundColor: '#fff',
-                          color: '#fff'
-                        }
-                  }>
-                  x
-                </button>
-              </form>
-              <CustomFormProvider
-                defaultValues={defaultValues}
-                // resolver={useYupValidationResolver(validationSchema)}
-              >
-                <CustomForm onSubmit={handleCountryFilter}>
-                  <FilterCountry countryList={countryList} setInputValue={setInputValue} />
-                </CustomForm>
+              <CustomFormProvider defaultValues={defaultValues}>
+                <Filter refetch={refetch} />
               </CustomFormProvider>
             </Box>
           </Box>
@@ -528,41 +442,36 @@ const Member = () => {
   );
 };
 
-const FilterCountry = ({ countryList, setInputValue }) => {
-  const classes = useStyles();
+export default Member;
+
+const Filter = ({ refetch }) => {
+  const { countries_list } = useSelector((state) => state.ncc);
+  const { user } = useSelector((state) => state.auth);
+  const countryList = countries_list?.map((item) => ({
+    label: item,
+    value: item
+  }));
   const { watch } = useFormContext();
-  console.log('watch', watch());
+  const debounceValue = useDebounce(watch('search'), 600);
 
-  const countryChangeHandler = (e) => {
-    const newValue = e.target.value;
-    setInputValue(newValue); // Update the input field value
-    const timeout = setTimeout(() => {
-      dispatch(setUserSearch(e.target.value));
-    }, [1000]);
-    return () => clearTimeout(timeout);
+  useEffect(() => {
+    refetch(watch());
+  }, [debounceValue, watch('country')]);
+  const handleFilter = (data) => {
+    console.log(data);
   };
-
   return (
-    <Box sx={{ display: 'flex' }}>
-      <Box sx={{ width: '250px' }}>
-        <CustomAutoComplete
-          onChange={countryChangeHandler}
-          name="country_filter"
-          label="Search user country wise"
-          options={countryList}
-        />{' '}
+    <CustomForm onSubmit={handleFilter}>
+      <Box display={'flex'} columnGap={4} justifyContent={'flex-start'}>
+        {user?.role_name === 'superadmin' ? (
+          <Box width={'200px'}>
+            <CustomAutoComplete name="country" label="Filter by country" options={countryList} />
+          </Box>
+        ) : (
+          ''
+        )}
+        <CustomInput name={'search'} label="Filter by user" />
       </Box>
-      {/* <Box className={classes.footerRoot} sx={{ padding: '5px' }}>
-        <CustomButton
-          type="submit"
-          searchIcon
-          // buttonName="Search"
-
-          // loading={create_user_loading}
-        />
-      </Box> */}
-    </Box>
+    </CustomForm>
   );
 };
-
-export default Member;

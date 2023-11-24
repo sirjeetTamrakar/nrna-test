@@ -8,14 +8,12 @@ export const getAllUsersApi = (data, roleData) => {
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
   const search = data?.search ? `&search=${data?.search}` : '';
-  // const country = roleData?.country ? `&country=${roleData?.country}` : '';
-  const country = data?.page
-    ? roleData?.country
-      ? `&country=${roleData?.country}`
-      : ''
-    : roleData?.country
-    ? `?country=${roleData?.country}`
+  const country = roleData?.country
+    ? `&country=${roleData?.country}`
+    : data?.country
+    ? `&country=${data?.country}`
     : '';
+
   return axiosInstance().get(`/admin/users${page}${pagination_limit}${country}${search}`);
 };
 
