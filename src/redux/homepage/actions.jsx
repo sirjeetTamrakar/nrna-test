@@ -1,3 +1,4 @@
+import { getArticleApi, getGalleryApi, getPressReleaseApi } from 'apis/dashboard';
 import {
   businessContactApi,
   businessJoinApi,
@@ -557,5 +558,41 @@ export const getAllRegions = () => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_REGIONS_ERROR });
+    });
+};
+
+export const getGallery = (data) => (dispatch) => {
+  dispatch({ type: actions.FETCH_GALLERY_BEGIN });
+  getGalleryApi(data)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_GALLERY_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_GALLERY_ERROR });
+    });
+};
+
+export const getArticles = (data) => (dispatch) => {
+  dispatch({ type: actions.FETCH_ARTICLE_BEGIN });
+  getArticleApi(data)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_ARTICLE_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_ARTICLE_ERROR });
+    });
+};
+
+export const getPressRelease = (data) => (dispatch) => {
+  dispatch({ type: actions.FETCH_PRESS_RELEASE_BEGIN });
+  getPressReleaseApi(data)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_PRESS_RELEASE_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_PRESS_RELEASE_ERROR });
     });
 };

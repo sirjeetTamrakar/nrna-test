@@ -31,22 +31,36 @@ export const CustomMultipleSelect = ({
           <Controller
             name={name}
             control={control}
-            render={({ field: { onChange, value } }) => (
-              <>
-                <Autocomplete
-                  sx={{ border: '1px solid gray', borderRadius: '4px' }}
-                  multiple
-                  limitTags={2}
-                  id="multiple-limit-tags"
-                  options={data}
-                  onChange={(e, data) => onChange(data?.map((item) => item?.value))}
-                  getOptionLabel={(option) => option.label}
-                  renderInput={(params) => <TextField {...params} label={label} />}
-                  defaultValue={data?.find((item) => item?.value === value)}
-                  isOptionEqualToValue={(option) => option.value}
-                />
-              </>
-            )}
+            render={({ field: { onChange, value } }) => {
+              console.log({ value, data });
+              return (
+                <>
+                  <Autocomplete
+                    sx={{ border: '1px solid gray', borderRadius: '4px' }}
+                    multiple
+                    limitTags={2}
+                    id="multiple-limit-tags"
+                    value={value}
+                    options={data}
+                    onChange={(e, data) => onChange(data?.map((item) => item?.value))}
+                    getOptionLabel={(option) => option.label}
+                    isOptionEqualToValue={
+                      (option, value) => {
+                        console.log({ option, value });
+                      }
+                      // {
+                      //   return option?.value === value?.value;
+                      // }
+                    }
+                    defaultValue={defaultValue}
+                    renderInput={(params) => <TextField {...params} label={label} />}
+                    // defaultValue={data?.filter((option) => value?.includes(option?.value))}
+                    // isOptionEqualToValue={(option) => option.value}
+                    // isOptionEqualToValue={(option, value) => option.value === value}
+                  />
+                </>
+              );
+            }}
           />
         </FormControl>
         {errors[name] && errors[name].type === 'required' && (

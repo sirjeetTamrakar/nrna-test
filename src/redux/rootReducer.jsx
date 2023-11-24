@@ -6,6 +6,7 @@ import departmentReducer from 'components/locals/dashboard/department/redux/redu
 import downloadReducer from 'components/locals/dashboard/downloads/redux/reducers';
 import emailTemplateReducer from 'components/locals/dashboard/emailTemplate/redux/reducers';
 import eventsReducer from 'components/locals/dashboard/events/redux/reducers';
+import nbnsReducer from 'components/locals/dashboard/nbnsTab/redux/reducers';
 import nccReducer from 'components/locals/dashboard/ncc/redux/reducers';
 import newsReducer from 'components/locals/dashboard/news/redux/reducers';
 import teamsReducer from 'components/locals/dashboard/ourTeam/redux/reducers';
@@ -37,5 +38,6 @@ export default combineReducers({
   department: departmentReducer,
   download: downloadReducer,
   emailTemplate: emailTemplateReducer,
-  region: regionReducer
+  region: regionReducer,
+  nbns: nbnsReducer
 });

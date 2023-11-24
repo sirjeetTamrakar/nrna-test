@@ -10,15 +10,18 @@ import { getRegion } from '../settings/region/redux/actions';
 import { getAllUsers } from '../userManagement/redux/actions';
 import { useStyles } from './styles';
 
-const NCCForm = ({ logo }) => {
+const NCCForm = ({ logo, data }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { countries_list } = useSelector((state) => state.ncc);
   const { users } = useSelector((state) => state.user);
   const { regionData } = useSelector((state) => state.region);
 
+  console.log({ data });
+
   const {
     control,
+    setValue,
     watch,
     formState: { errors }
   } = useFormContext();
@@ -44,6 +47,11 @@ const NCCForm = ({ logo }) => {
     dispatch(getAllUsers());
     dispatch(getRegion());
   }, []);
+
+  // useEffect(() => {
+  //   const defaultRegions = data?.ncc_regions?.map((region) => Number(region?.region_id)) || [];
+  //   setValue('regions', defaultRegions);
+  // }, [data?.ncc_regions]);
 
   return (
     <Box className={classes.root}>
@@ -78,6 +86,11 @@ const NCCForm = ({ logo }) => {
             data={allRegions ?? []}
             control={control}
             errors={errors}
+            key={allRegions}
+            defaultValue={data?.ncc_regions?.map((region) => ({
+              value: region?.region_id,
+              label: getRegionName(region?.region_id)
+            }))}
           />
         </Grid>
         <Grid item sm={12}>
@@ -93,6 +106,19 @@ const NCCForm = ({ logo }) => {
       </Grid>
     </Box>
   );
+};
+
+export const getRegionName = (id) => {
+  const { regionData } = useSelector((state) => state.region);
+
+  const regionDetailsFromId =
+    regionData?.data?.length > 0
+      ? regionData?.data?.find((region) => region?.id === Number(id))
+      : {};
+
+  console.log({ regionData, regionDetailsFromId });
+
+  return regionDetailsFromId?.name ?? '';
 };
 
 export default NCCForm;

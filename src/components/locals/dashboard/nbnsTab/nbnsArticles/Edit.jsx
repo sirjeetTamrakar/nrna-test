@@ -5,66 +5,61 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import NCCForm from './Form';
-import { updateNCC } from './redux/actions';
+import { updateArticle } from '../redux/actions';
+import Form from './Form';
 import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
 
-const EditForm = ({ handleClose, detail }) => {
-  const classes = useStyles();
+const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
+  const classes = useStyles();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { update_ncc_loading } = useSelector((state) => state.ncc);
+
+  const { update_article_loading } = useSelector((state) => state.nbns);
+  const { user } = useSelector((state) => state.auth);
+  const [typeData, setTypeData] = useState();
 
   const onSubmit = (data) => {
-    console.log('nccDataaa', { data });
+    console.log('ssssssssdd', { data });
     const formData = new FormData();
-    formData.append('country_name', data?.country_name);
-    formData.append('admin_id', data?.admin_id);
+    formData.append('title', data?.title);
+    formData.append('author', data?.author);
+    formData.append('description', data?.description);
+    formData.append('excerpt', data?.excerpt);
     formData.append('_method', 'PUT');
 
-    let obj = {};
-    data?.regions?.forEach((item, index) => {
-      const fieldName = `regions[${index}][region_id]`;
-      obj[fieldName] = item;
-    });
-
-    Object.keys(obj)?.map((key) => {
-      formData.append(key, obj?.[key]);
-    });
-
-    formData.append('color', data?.color ? data?.color : '#276FC4');
-    if (data?.logo?.length > 0) {
-      formData.append('logo', data?.logo[0]);
+    if (data?.articleImage?.length > 0) {
+      formData.append('articleImage', data?.articleImage?.[0]);
     }
     const typeData = { page: page + 1, pagination_limit: rowsPerPage };
 
-    dispatch(updateNCC(formData, detail?.slug, typeData, handleClose));
+    dispatch(updateArticle(formData, detail?.slug, handleClose, typeData));
   };
+  // useEffect(() => {
+  //   if (user?.role_name == Roles?.Member) {
+  //     setTypeData({ type: 'member', id: user?.id, page: 1, pagination_limit: 10 });
+  //   } else if (user?.role_name == Roles?.NCC) {
+  //     setTypeData({ type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 });
+  //   }
+  // }, []);
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <NCCForm logo={detail?.logo} data={detail} />
+      <Form featureImage={detail?.article_image} />
       <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_ncc_loading} />
+        <CustomButton buttonName="Update" loading={update_article_loading} />
       </Box>
     </CustomForm>
   );
 };
-
 const Edit = ({ data, handleClose }) => {
-  console.log('jasbjsab', { data });
-
-  // console.log('ppooppopp', { defaultRegions });
   const defaultValues = {
-    country_name: data?.country_name,
-    admin_id: data?.admin?.id,
-    color: data?.color
-    // regions: [1, 2]
+    title: data?.title,
+    description: data?.description,
+    excerpt: data?.excerpt
   };
 
-  console.log('mnnnmmmmm', { data });
   return (
     <>
       <CustomFormProvider

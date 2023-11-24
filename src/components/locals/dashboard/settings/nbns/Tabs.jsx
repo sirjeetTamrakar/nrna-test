@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import * as React from 'react';
 import About from './about';
 import Advice from './advice';
+import NBNSGallery from './nbnsGallery';
 import NbnsHomeData from './nbnsHomeData';
 import SettingsData from './settingsData';
 import Support from './support';
@@ -59,7 +60,8 @@ const BasicTabs = () => {
           <Tab label="Survey" {...a11yProps(2)} />
           <Tab label="Advice" {...a11yProps(3)} />
           <Tab label="Support" {...a11yProps(4)} />
-          <Tab label="Home Data" {...a11yProps(5)} />
+          <Tab label="Gallery" {...a11yProps(5)} />
+          <Tab label="Home Data" {...a11yProps(6)} />
         </Tabs>
       </Box>
       <CustomTabPanel value={value} index={0}>
@@ -78,6 +80,9 @@ const BasicTabs = () => {
         <Support />
       </CustomTabPanel>
       <CustomTabPanel value={value} index={5}>
+        <NBNSGallery />
+      </CustomTabPanel>
+      <CustomTabPanel value={value} index={6}>
         <NbnsHomeData />
       </CustomTabPanel>
     </Box>

@@ -72,6 +72,24 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction('/nbns/support')
     },
     {
+      title: 'Articles',
+      value: 'articles',
+      path: '/nbns/articles',
+      clickFunction: () => handleFunction('/nbns/articles')
+    },
+    {
+      title: 'Press Release',
+      value: 'press-release',
+      path: '/nbns/press-release',
+      clickFunction: () => handleFunction('/nbns/press-release')
+    },
+    {
+      title: 'Gallery',
+      value: 'gallery',
+      path: '/nbns/gallery',
+      clickFunction: () => handleFunction('/nbns/gallery')
+    },
+    {
       title: 'Download',
       value: 'download',
       path: '/nbns/download',

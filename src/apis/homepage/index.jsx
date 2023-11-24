@@ -302,3 +302,22 @@ export const postBusinessCreateAccountApi = (data) => {
 export const getRegionsApi = () => {
   return axiosInstance().get(`/api/regions`);
 };
+
+// get all gallery images
+export const getGalleryApi = (data) => {
+  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
+
+  return axiosInstance().get(`/api/gallery${limit}`);
+};
+
+// get articles
+export const getArticlesApi = (data) => {
+  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
+  return axiosInstance().get(`/api/articles${limit}`);
+};
+
+// get press release
+export const getPressReleaseApi = (data) => {
+  const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
+  return axiosInstance().get(`/api/press-release${limit}`);
+};

@@ -2,9 +2,12 @@ import SingleDownload from 'components/locals/NBNS/Downloads/SingleDownload';
 import Homepage from 'pages/public/nbnsSite';
 import AboutPage from 'pages/public/nbnsSite/About';
 import AdvisePage from 'pages/public/nbnsSite/Advise';
+import ArticlePageNBNS from 'pages/public/nbnsSite/ArticlePage';
 import DownloadsPageNBNS from 'pages/public/nbnsSite/Downloads';
+import GalleryPageNBNS from 'pages/public/nbnsSite/GalleryPage';
 import MissionPage from 'pages/public/nbnsSite/Mission';
 import NbnsTabComponentPage from 'pages/public/nbnsSite/NbnsTabComponent';
+import PressReleasePageNBNS from 'pages/public/nbnsSite/PressReleasePage';
 import SupportPage from 'pages/public/nbnsSite/Support';
 import SurveyPage from 'pages/public/nbnsSite/Survey';
 import SurveyQuestionPage from 'pages/public/nbnsSite/SurveyQuestions';
@@ -46,6 +49,18 @@ export const nbnsRoutes = [
   {
     path: `/nbns/:slug`,
     component: <NbnsTabComponentPage />
+  },
+  {
+    path: `/nbns/gallery`,
+    component: <GalleryPageNBNS />
+  },
+  {
+    path: `/nbns/articles`,
+    component: <ArticlePageNBNS />
+  },
+  {
+    path: `/nbns/press-release`,
+    component: <PressReleasePageNBNS />
   },
   {
     path: `/nbns/download`,

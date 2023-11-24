@@ -14,9 +14,12 @@ import DownloadPage from 'pages/private/Download';
 import EventCategoryPage from 'pages/private/event/Category';
 import EventsPage from 'pages/private/event/EventsPage';
 import MemberPage from 'pages/private/MemberPage';
+import NBNSArticlesPage from 'pages/private/NBNSArticlesPage';
 import NBNSBannerPage from 'pages/private/NBNSBanner';
 import NBNSFollowersPage from 'pages/private/NBNSFollowersPage';
+import NBNSGalleryPage from 'pages/private/NBNSGalleryPage';
 import NBNSPage from 'pages/private/NBNSPage';
+import NBNSPressReleasePage from 'pages/private/NBNSPressReleasePage';
 import NBNSTemplatePage from 'pages/private/NBNSTemplatePage';
 import NCCPage from 'pages/private/NCCPage';
 import NccSiteSettingsPage from 'pages/private/NccSiteSettings';
@@ -301,6 +304,30 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <NBNSFollowersPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'nbns/nbns-gallery',
+    component: (
+      <Protected>
+        <NBNSGalleryPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'nbns/nbns-articles',
+    component: (
+      <Protected>
+        <NBNSArticlesPage />
+      </Protected>
+    )
+  },
+  {
+    path: 'nbns/nbns-press-release',
+    component: (
+      <Protected>
+        <NBNSPressReleasePage />
       </Protected>
     )
   },

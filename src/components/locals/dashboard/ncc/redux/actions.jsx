@@ -57,7 +57,7 @@ export const deleteNCC =
     }
   };
 
-export const updateNCC = (Data, slug, handleSuccess) => async (dispatch) => {
+export const updateNCC = (Data, slug, typeData, handleSuccess) => async (dispatch) => {
   dispatch({ type: actions.UPDATE_NCC_BEGIN });
 
   try {
@@ -67,6 +67,8 @@ export const updateNCC = (Data, slug, handleSuccess) => async (dispatch) => {
       type: actions.UPDATE_NCC_SUCCESS,
       payload: ''
     });
+    dispatch(getNCC(typeData));
+
     successToast('NCC form has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_NCC_ERROR });

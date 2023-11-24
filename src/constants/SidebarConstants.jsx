@@ -289,6 +289,16 @@ export const SidebarConstants = [
             label: 'NBNS Followers',
             url: '/dashboard/nbns/nbns-followers',
             roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'NBNS Articles',
+            url: '/dashboard/nbns/nbns-articles',
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
+            label: 'NBNS Press Release',
+            url: '/dashboard/nbns/nbns-press-release',
+            roles: [Roles.Admin, Roles.SuperAdmin]
           }
         ]
       },

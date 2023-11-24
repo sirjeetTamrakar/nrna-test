@@ -327,3 +327,96 @@ export const deleteRegionApi = (region_id) => {
 export const updateRegionStatusApi = (data) => {
   return axiosInstance().post(`/admin/regions/status/${data?.slug}`, data);
 };
+
+// NBNS GALLERY------------------>
+// get gallery
+export const getGalleryApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+
+  return axiosInstance().get(`/admin/gallery${page}${pagination_limit}`);
+};
+
+// post gallery
+export const postGalleryApi = (data) => {
+  return axiosInstance().post('/admin/gallery', data);
+};
+
+// update gallery
+export const updateGalleryApi = (data, id) => {
+  return axiosInstance().post(`/admin/gallery/${id}`, data);
+};
+
+// delete gallery
+export const deleteGalleryApi = (data) => {
+  return axiosInstance().delete(`/admin/gallery/${data}`);
+};
+
+// change gallery status
+export const changeGalleryStatusApi = (data) => {
+  return axiosInstance().post(`/admin/gallery/${data?.slug}/status`, data);
+};
+
+// NBNS ARTICLE------------------>
+// get article
+export const getArticleApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+
+  return axiosInstance().get(`/admin/articles${page}${pagination_limit}`);
+};
+
+// post article
+export const postArticleApi = (data) => {
+  return axiosInstance().post('/admin/articles', data);
+};
+
+// update article
+export const updateArticleApi = (data, slug) => {
+  return axiosInstance().post(`/admin/articles/${slug}`, data);
+};
+
+// delete article
+export const deleteArticleApi = (data) => {
+  return axiosInstance().delete(`/admin/articles/${data}`);
+};
+
+// change article status
+export const changeArticleStatusApi = (data) => {
+  return axiosInstance().post(`/admin/articles/status/${data?.slug}`, data);
+};
+
+// NBNS PRESS RELEASE------------------>
+// get press release
+export const getPressReleaseApi = (data) => {
+  const page = data?.page ? `?page=${data?.page}` : '';
+  const pagination_limit = data?.pagination_limit
+    ? `&pagination_limit=${data?.pagination_limit}`
+    : '';
+
+  return axiosInstance().get(`/admin/press-release${page}${pagination_limit}`);
+};
+
+// post press release
+export const postPressReleaseApi = (data) => {
+  return axiosInstance().post('/admin/press-release', data);
+};
+
+// update press release
+export const updatePressReleaseApi = (data, slug) => {
+  return axiosInstance().post(`/admin/press-release/${slug}`, data);
+};
+
+// delete press release
+export const deletePressReleaseApi = (data) => {
+  return axiosInstance().delete(`/admin/press-release/${data}`);
+};
+
+// change press release status
+export const changePressReleaseStatusApi = (data) => {
+  return axiosInstance().post(`/admin/press-release/status/${data?.slug}`, data);
+};

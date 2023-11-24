@@ -69,7 +69,13 @@ const defaultState = {
   delete_nbns_follow_loading: false,
   business_create_account_loading: false,
   regions: [],
-  regions_loading: false
+  regions_loading: false,
+  gallery_loading: false,
+  gallery: [],
+  article_loading: false,
+  article: [],
+  press_release_loading: false,
+  press_release: []
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -472,6 +478,42 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_REGIONS_ERROR:
       return { ...state, regions_loading: false };
+
+    case actions.FETCH_GALLERY_BEGIN:
+      return {
+        ...state,
+        gallery_loading: true
+      };
+
+    case actions.FETCH_GALLERY_SUCCESS:
+      return { ...state, gallery_loading: false, gallery: action.payload };
+
+    case actions.FETCH_GALLERY_ERROR:
+      return { ...state, gallery_loading: false };
+
+    case actions.FETCH_ARTICLE_BEGIN:
+      return {
+        ...state,
+        article_loading: true
+      };
+
+    case actions.FETCH_ARTICLE_SUCCESS:
+      return { ...state, article_loading: false, article: action.payload };
+
+    case actions.FETCH_ARTICLE_ERROR:
+      return { ...state, article_loading: false };
+
+    case actions.FETCH_PRESS_RELEASE_BEGIN:
+      return {
+        ...state,
+        press_release_loading: true
+      };
+
+    case actions.FETCH_PRESS_RELEASE_SUCCESS:
+      return { ...state, press_release_loading: false, press_release: action.payload };
+
+    case actions.FETCH_PRESS_RELEASE_ERROR:
+      return { ...state, press_release_loading: false };
 
     default:
       return state;
