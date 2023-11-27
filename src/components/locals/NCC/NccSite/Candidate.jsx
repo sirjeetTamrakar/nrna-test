@@ -53,8 +53,8 @@ const Candidate = ({ siteSettingImages, about, title }) => {
               </Box>
             ) : (
               <div className="row">
-                {candidates?.length > 0 ? (
-                  candidates?.map((candidate) => (
+                {candidates?.data?.length > 0 ? (
+                  candidates?.data?.map((candidate) => (
                     <div key={candidate.id} className="col-md-3">
                       {/* <CandidateItem candidate={candidate} /> */}
                       <Link
@@ -64,7 +64,7 @@ const Candidate = ({ siteSettingImages, about, title }) => {
                           <img src={candidate?.member?.profile_image} alt="" />
                         </div>
                         <div className="political_item_title text-center">
-                          {candidate?.member?.full_name}
+                          {candidate?.member?.first_name} {candidate?.member?.last_name}
                         </div>
                         <div className="political_item_subtitle text-center">
                           {candidate?.designation}

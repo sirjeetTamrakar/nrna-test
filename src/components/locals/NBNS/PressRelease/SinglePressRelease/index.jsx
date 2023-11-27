@@ -2,10 +2,10 @@ import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
-import { getArticles, getSingleArticle } from 'redux/homepage/actions';
+import { getPressRelease, getSinglePressRelease } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 
-const SingleArticle = () => {
+const SinglePressRelease = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
   const pathname = window.location.pathname;
@@ -14,15 +14,15 @@ const SingleArticle = () => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  const { article, single_article, single_article_loading } = useSelector(
+  const { press_release, single_press_release, single_press_release_loading } = useSelector(
     (state) => state.homepage
   );
-  const recentArticles = article?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { article });
+  const recentPress = press_release?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
+  console.log('xxxxxxxxxx', { press_release });
 
   useEffect(() => {
-    dispatch(getSingleArticle(slug));
-    dispatch(getArticles());
+    dispatch(getSinglePressRelease(slug));
+    dispatch(getPressRelease());
   }, [slug]);
 
   return (
@@ -30,7 +30,7 @@ const SingleArticle = () => {
       {/* <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} /> */}
 
       <div className="container">
-        {single_article_loading ? (
+        {single_press_release_loading ? (
           <Box display="flex" justifyContent="center" alignItems="center" sx={{ height: '60vh' }}>
             <CircularProgress size={30} />
           </Box>
@@ -41,33 +41,36 @@ const SingleArticle = () => {
                 <div className="single_news_page_content">
                   <>
                     <div className="single_news_page_imgwrap">
-                      <img src={single_article?.article_image} alt={single_article?.title} />
+                      <img
+                        src={single_press_release?.press_image}
+                        alt={single_press_release?.title}
+                      />
                     </div>
-                    <div className="single_news_page_title">{single_article?.title}</div>
+                    <div className="single_news_page_title">{single_press_release?.title}</div>
 
                     <div className="single_news_page_date">
-                      {changeDateFormat(single_article?.created_at, 'DD-MMM-YYYY HH:MM')} | Created
-                      by: {single_article?.author}
+                      {changeDateFormat(single_press_release?.created_at, 'DD-MMM-YYYY HH:MM')} |
+                      Created by: {single_press_release?.user}
                     </div>
 
                     <div
                       className="single_news_page_long"
-                      dangerouslySetInnerHTML={{ __html: single_article?.description }}></div>
+                      dangerouslySetInnerHTML={{ __html: single_press_release?.description }}></div>
                   </>
                 </div>
               </Grid>
               <Grid item md={4} sm={12} className="recent_news">
                 <div className="single_news_page_sidebar">
                   <div className="recent_news">
-                    <div className="recent_news_title">Recent Article</div>
-                    {recentArticles?.length > 0 ? (
-                      recentArticles.map((recent) => (
+                    <div className="recent_news_title">Recent Press Release</div>
+                    {recentPress?.length > 0 ? (
+                      recentPress.map((recent) => (
                         <Link
                           key={recent.id}
-                          to={`/nbns/articles/${recent?.slug}`}
+                          to={`/nbns/press-release/${recent?.slug}`}
                           className="recent_news_item">
                           <div className="img_wrapper">
-                            <img src={recent?.article_image} alt="" />
+                            <img src={recent?.press_image} alt="" />
                           </div>
                           <div className="item_content">
                             <div className="item_content_title">{recent?.title}</div>
@@ -77,11 +80,11 @@ const SingleArticle = () => {
                       ))
                     ) : (
                       <div className="button_wrap">
-                        <h3 className="text-center">No Article available.</h3>
+                        <h3 className="text-center">No press release available.</h3>
                       </div>
                     )}
                     <div className="button_wrap">
-                      <Link to={`/nbns/articles`} className="btn-sm">
+                      <Link to={`/nbns/press-release`} className="btn-sm">
                         View All
                       </Link>
                     </div>
@@ -96,4 +99,4 @@ const SingleArticle = () => {
   );
 };
 
-export default SingleArticle;
+export default SinglePressRelease;

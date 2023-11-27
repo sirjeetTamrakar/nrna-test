@@ -1,13 +1,14 @@
 import { Button } from '@mui/base';
 import { Box, CircularProgress } from '@mui/material';
 import Grid from '@mui/material/Grid';
+import NewsCard from 'components/globals/NewsCard';
 import NewsCardOrderOne from 'components/globals/NewsCardOrderOne';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import { getArticles } from 'redux/homepage/actions';
-import NewsCard from '../../globals/NewsCard';
+// import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
 
 const Article = () => {
@@ -21,85 +22,89 @@ const Article = () => {
   }, [pathname]);
 
   const dispatch = useDispatch();
-  const { news, news_loading, news_category, news_category_loading } = useSelector(
-    (state) => state.homepage
-  );
+  // const { news, news_loading, news_category, news_category_loading } = useSelector(
+  //   (state) => state.homepage
+  // );
+  const { article, article_loading } = useSelector((state) => state.homepage);
 
-  const [filteredNews, setFilteredNews] = useState();
-  const [allFilteredNews, setAllFilteredNews] = useState();
-  const [newsLimit, setNewsLimit] = useState(7);
+  const [filteredArticle, setFilteredArticle] = useState();
+  const [allFilteredArticle, setAllFilteredArticle] = useState();
+  const [articleLimit, setArticleLimit] = useState(7);
 
   const [selected, setSelected] = useState();
-  console.log('ww------', { filteredNews });
+  // console.log('ww------', { filteredNews });
 
-  useEffect(() => {
-    setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
-  }, [location?.state, news_category]);
+  // useEffect(() => {
+  //   setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
+  // }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
 
   const debouncedSearchQuery = useDebouncedValue(search, 500);
 
   useEffect(() => {
     const finalData = {
-      limit: newsLimit,
+      limit: articleLimit,
       status: 1,
       query: debouncedSearchQuery
     };
 
     dispatch(getArticles(finalData));
-
-    // dispatch(getNewsCategory());
-  }, [newsLimit, debouncedSearchQuery]);
+  }, [articleLimit, debouncedSearchQuery]);
 
   console.log({ selected });
 
-  // useEffect(() => {
-  //   if (news) {
-  //     const allNewNews = news?.data?.filter((list) =>
-  //       list?.title?.toLowerCase()?.includes(search?.toLowerCase())
-  //     );
-  //     setAllFilteredNews(allNewNews);
-  //   }
-  // }, [search, news]);
-
   useEffect(() => {
-    if (news) {
-      const newNews = news?.data?.filter(
-        (list) =>
-          list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
-          list?.news_category_id == Number(selected)
+    if (article?.data) {
+      const allNewArticle = article?.data?.filter((list) =>
+        list?.title?.toLowerCase()?.includes(search?.toLowerCase())
       );
-      setFilteredNews(selected === 'ALL' ? news?.data : newNews);
+      setAllFilteredArticle(allNewArticle);
     }
-  }, [search, news, selected, news_category]);
+  }, [search, article?.data]);
+
+  // useEffect(() => {
+  //   if (article) {
+  //     const newArticle = news?.data?.filter(
+  //       (list) => list?.title?.toLowerCase()?.includes(search?.toLowerCase())
+  //       //  &&
+  //       // list?.news_category_id == Number(selected)
+  //     );
+  //     setFilteredArticle(selected === 'ALL' ? news?.data : newNews);
+  //   }
+  // }, [search, news, selected, news_category]);
 
   const handleShowMore = () => {
-    setNewsLimit((prev) => prev + 4);
+    setArticleLimit((prev) => prev + 4);
   };
-  console.log({ news });
+  console.log({ article });
 
   return (
     <>
       <SecondaryNav
-        category={news_category}
-        setSelected={setSelected}
-        selected={selected}
+        // category={news_category}
+        // setSelected={setSelected}
+        // selected={selected}
         setSearch={setSearch}
       />
       <section className="all_news" style={{ minHeight: '100vh' }}>
         <div className="container">
           <div className="row">
-            {filteredNews?.length > 0 ? (
+            {allFilteredArticle?.length > 0 ? (
               <>
                 <Grid container spacing={0} sx={{ marginBottom: '20px' }}>
                   <Grid item className="col-md-12 col-xl-5 main_card_news">
-                    {filteredNews?.slice(0, 1)?.map((item) => (
+                    {allFilteredArticle?.slice(0, 1)?.map((item) => (
                       <NewsCardOrderOne
                         gridOne
                         gridLayout
                         key={item.id}
                         news={item}
-                        linkUrl={`/news/${item?.slug}`}
+                        image={item?.article_image}
+                        title={item?.title}
+                        excerpt={item?.excerpt}
+                        author={item?.author}
+                        featuredTitle={'Article'}
+                        linkUrl={`/nbns/articles/${item?.slug}`}
                       />
                     ))}
                   </Grid>
@@ -108,70 +113,94 @@ const Article = () => {
                       <Grid
                         item
                         className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
-                        {filteredNews?.slice(1, 2)?.map((item) => (
+                        {allFilteredArticle?.slice(1, 2)?.map((item) => (
                           <NewsCard
                             gridLayout
                             key={item.id}
                             news={item}
-                            linkUrl={`/news/${item?.slug}`}
+                            image={item?.article_image}
+                            title={item?.title}
+                            excerpt={item?.excerpt}
+                            author={item?.author}
+                            linkUrl={`/nbns/articles/${item?.slug}`}
                           />
                         ))}
                       </Grid>
                       <Grid
                         item
                         className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
-                        {filteredNews?.slice(2, 3)?.map((item) => (
+                        {allFilteredArticle?.slice(2, 3)?.map((item) => (
                           <NewsCard
                             gridLayout
                             key={item.id}
                             news={item}
-                            linkUrl={`/news/${item?.slug}`}
+                            image={item?.article_image}
+                            title={item?.title}
+                            excerpt={item?.excerpt}
+                            author={item?.author}
+                            linkUrl={`/nbns/articles/${item?.slug}`}
                           />
                         ))}
                       </Grid>
                       <Grid
                         item
                         className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
-                        {filteredNews?.slice(3, 4)?.map((item) => (
+                        {allFilteredArticle?.slice(3, 4)?.map((item) => (
                           <NewsCard
                             gridLayout
                             key={item.id}
                             news={item}
-                            linkUrl={`/news/${item?.slug}`}
+                            image={item?.article_image}
+                            title={item?.title}
+                            excerpt={item?.excerpt}
+                            author={item?.author}
+                            linkUrl={`/nbns/articles/${item?.slug}`}
                           />
                         ))}
                       </Grid>
                       <Grid
                         item
                         className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
-                        {filteredNews?.slice(4, 5)?.map((item) => (
+                        {allFilteredArticle?.slice(4, 5)?.map((item) => (
                           <NewsCard
                             gridLayout
                             key={item.id}
                             news={item}
-                            linkUrl={`/news/${item?.slug}`}
+                            image={item?.article_image}
+                            title={item?.title}
+                            excerpt={item?.excerpt}
+                            author={item?.author}
+                            linkUrl={`/nbns/articles/${item?.slug}`}
                           />
                         ))}
                       </Grid>
                       <Grid
                         item
                         className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile_fifth">
-                        {filteredNews?.slice(5, 6)?.map((item) => (
+                        {allFilteredArticle?.slice(5, 6)?.map((item) => (
                           <NewsCard
                             gridLayout
                             key={item.id}
                             news={item}
-                            linkUrl={`/news/${item?.slug}`}
+                            image={item?.article_image}
+                            title={item?.title}
+                            excerpt={item?.excerpt}
+                            author={item?.author}
+                            linkUrl={`/nbns/articles/${item?.slug}`}
                           />
                         ))}
                       </Grid>
                       <Grid item className="col-12 col-sm-6 col-sm-6 col-md-4 col-lg-4">
-                        {filteredNews?.slice(6, 7)?.map((item) => (
+                        {allFilteredArticle?.slice(6, 7)?.map((item) => (
                           <NewsCard
                             gridLayout
                             key={item.id}
                             news={item}
-                            linkUrl={`/news/${item?.slug}`}
+                            image={item?.article_image}
+                            title={item?.title}
+                            excerpt={item?.excerpt}
+                            author={item?.author}
+                            linkUrl={`/nbns/articles/${item?.slug}`}
                           />
                         ))}
                       </Grid>
@@ -179,10 +208,20 @@ const Article = () => {
                   </Grid>
                 </Grid>
 
-                {filteredNews?.slice(7)?.map((item) => (
-                  <NewsCard key={item.id} news={item} linkUrl={`/news/${item?.slug}`} belowNews />
+                {allFilteredArticle?.slice(7)?.map((item) => (
+                  <NewsCard
+                    key={item.id}
+                    news={item}
+                    linkUrl={`/nbns/articles/${item?.slug}`}
+                    image={item?.feature_image}
+                    title={item?.title}
+                    excerpt={item?.excerpt}
+                    author={item?.created_by?.full_name}
+                    featuredTitle={'News'}
+                    belowNews
+                  />
                 ))}
-                {news?.meta?.to !== news?.meta?.total && !(news_loading || news_category_loading) && (
+                {article?.meta?.to !== article?.meta?.total && !article_loading && (
                   <div
                     style={{
                       marginTop: '20px',
@@ -209,14 +248,14 @@ const Article = () => {
               ''
             )}
           </div>
-          {news_loading || news_category_loading ? (
+          {article_loading ? (
             <Box display="flex" justifyContent="center" alignItems="center">
               <CircularProgress size={24} />
             </Box>
           ) : (
-            filteredNews?.length === 0 && (
+            allFilteredArticle?.length === 0 && (
               <div className="col-md-12 mt-5 mb-5">
-                <h3 className="text-center">No news available</h3>
+                <h3 className="text-center">No article available</h3>
               </div>
             )
           )}
@@ -226,4 +265,4 @@ const Article = () => {
   );
 };
 
-export default News;
+export default Article;

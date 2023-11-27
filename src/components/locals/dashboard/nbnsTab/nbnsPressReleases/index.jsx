@@ -11,9 +11,8 @@ import CustomTable from 'components/common/table';
 import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPressRelease } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import { changePressReleaseStatus, deletePressRelease } from '../redux/actions';
+import { changePressReleaseStatus, deletePressRelease, getPressRelease } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
 import { useStyles } from './styles';
@@ -32,12 +31,19 @@ const NBNSPressRelease = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
+  // const {
+  //   pressReleaseData,
+  //   press_release_loading,
+  //   get_press_release_loading,
+  //   press_release_status_loading,
+  //   delete_press_release_loading
+  // } = useSelector((state) => state.nbns);
   const {
     pressReleaseData,
-    press_release_loading,
     get_press_release_loading,
-    press_release_status_loading,
-    delete_press_release_loading
+    delete_press_release_loading,
+    press_release_loading,
+    press_release_status_loading
   } = useSelector((state) => state.nbns);
 
   console.log({

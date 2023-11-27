@@ -313,11 +313,23 @@ export const getGalleryApi = (data) => {
 // get articles
 export const getArticlesApi = (data) => {
   const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
-  return axiosInstance().get(`/api/articles${limit}`);
+  const query = data?.query ? `&search=${data?.query}` : '';
+  return axiosInstance().get(`/api/articles${limit}${query}`);
+};
+
+// get single articles
+export const getSingleArticleApi = (slug) => {
+  return axiosInstance().get(`/api/articles/${slug}`);
 };
 
 // get press release
 export const getPressReleaseApi = (data) => {
   const limit = data?.limit ? `?pagination_limit=${data?.limit}` : '';
-  return axiosInstance().get(`/api/press-release${limit}`);
+  const query = data?.query ? `&search=${data?.query}` : '';
+  return axiosInstance().get(`/api/press-release${limit}${query}`);
+};
+
+// get single press release
+export const getSinglePressReleaseApi = (slug) => {
+  return axiosInstance().get(`/api/press-release/${slug}`);
 };

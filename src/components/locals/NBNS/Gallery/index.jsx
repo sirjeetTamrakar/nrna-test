@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getGallery } from 'redux/homepage/actions';
 import Lightbox from 'yet-another-react-lightbox';
 import Counter from 'yet-another-react-lightbox/plugins/counter';
+import 'yet-another-react-lightbox/plugins/counter.css';
 import 'yet-another-react-lightbox/styles.css';
 
 const Gallery = () => {
@@ -31,7 +32,7 @@ const Gallery = () => {
                 <CircularProgress />
               </Box>
             ) : gallery?.data?.length !== 0 ? (
-              <div className="container" style={{ marginTop: '50px' }}>
+              <div className="" style={{ marginTop: '50px' }}>
                 <div className="">
                   <div>
                     <CustomMasonry>

@@ -25,7 +25,7 @@ export const getAllUsers = (data, roleData) => (dispatch) => {
     });
 };
 
-export const createUser = (data, typeData, handleSuccess) => (dispatch) => {
+export const createUser = (data, handleSuccess, typeData) => (dispatch) => {
   dispatch({ type: actions.CREATE_USER_BEGIN });
 
   createUserApi(data)

@@ -1,4 +1,6 @@
+import SingleArticle from 'components/locals/NBNS/Articles/SingleArticle';
 import SingleDownload from 'components/locals/NBNS/Downloads/SingleDownload';
+import SinglePressRelease from 'components/locals/NBNS/PressRelease/SinglePressRelease';
 import Homepage from 'pages/public/nbnsSite';
 import AboutPage from 'pages/public/nbnsSite/About';
 import AdvisePage from 'pages/public/nbnsSite/Advise';
@@ -59,8 +61,16 @@ export const nbnsRoutes = [
     component: <ArticlePageNBNS />
   },
   {
+    path: `/nbns/articles/:slug`,
+    component: <SingleArticle />
+  },
+  {
     path: `/nbns/press-release`,
     component: <PressReleasePageNBNS />
+  },
+  {
+    path: `/nbns/press-release/:slug`,
+    component: <SinglePressRelease />
   },
   {
     path: `/nbns/download`,

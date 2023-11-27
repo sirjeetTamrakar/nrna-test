@@ -1,4 +1,3 @@
-import { getArticleApi, getGalleryApi, getPressReleaseApi } from 'apis/dashboard';
 import {
   businessContactApi,
   businessJoinApi,
@@ -11,6 +10,7 @@ import {
   getAllNewsApi,
   getAllQuestionsApi,
   getAllSurveyApi,
+  getArticlesApi,
   getBannerApi,
   getBusinessApi,
   getBusinessCategoryApi,
@@ -21,15 +21,19 @@ import {
   getCountriesCodeApi,
   getDepartmentApi,
   getEventsCategoryApi,
+  getGalleryApi,
   getNbnsFollowApi,
   getNccApi,
   getNewsCategoryApi,
+  getPressReleaseApi,
   getRegionsApi,
+  getSingleArticleApi,
   getSingleBusinessApi,
   getSingleEventApi,
   getSingleHomeDataApi,
   getSingleNCCApi,
   getSingleNewsApi,
+  getSinglePressReleaseApi,
   getSingleTeamsApi,
   getSingleUserApi,
   getSiteSettingsApi,
@@ -575,7 +579,7 @@ export const getGallery = (data) => (dispatch) => {
 
 export const getArticles = (data) => (dispatch) => {
   dispatch({ type: actions.FETCH_ARTICLE_BEGIN });
-  getArticleApi(data)
+  getArticlesApi(data)
     .then((res) => {
       dispatch({ type: actions.FETCH_ARTICLE_SUCCESS, payload: res.data });
     })
@@ -594,5 +598,29 @@ export const getPressRelease = (data) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_PRESS_RELEASE_ERROR });
+    });
+};
+
+export const getSingleArticle = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_ARTICLE_BEGIN });
+  getSingleArticleApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_ARTICLE_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_ARTICLE_ERROR });
+    });
+};
+
+export const getSinglePressRelease = (slug) => (dispatch) => {
+  dispatch({ type: actions.FETCH_SINGLE_PRESS_RELEASE_BEGIN });
+  getSinglePressReleaseApi(slug)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_SINGLE_PRESS_RELEASE_SUCCESS, payload: res.data.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_SINGLE_PRESS_RELEASE_ERROR });
     });
 };

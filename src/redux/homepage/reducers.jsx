@@ -75,7 +75,11 @@ const defaultState = {
   article_loading: false,
   article: [],
   press_release_loading: false,
-  press_release: []
+  press_release: [],
+  single_article: null,
+  single_article_loading: false,
+  single_press_release: null,
+  single_press_release_loading: false
 };
 
 const homepageReducer = (state = defaultState, action) => {
@@ -514,6 +518,28 @@ const homepageReducer = (state = defaultState, action) => {
 
     case actions.FETCH_PRESS_RELEASE_ERROR:
       return { ...state, press_release_loading: false };
+
+    case actions.FETCH_SINGLE_ARTICLE_BEGIN:
+      return { ...state, single_article_loading: true };
+
+    case actions.FETCH_SINGLE_ARTICLE_SUCCESS:
+      return { ...state, single_article_loading: false, single_article: action.payload };
+
+    case actions.FETCH_SINGLE_ARTICLE_ERROR:
+      return { ...state, single_article_loading: false };
+
+    case actions.FETCH_SINGLE_PRESS_RELEASE_BEGIN:
+      return { ...state, single_press_release_loading: true };
+
+    case actions.FETCH_SINGLE_PRESS_RELEASE_SUCCESS:
+      return {
+        ...state,
+        single_press_release_loading: false,
+        single_press_release: action.payload
+      };
+
+    case actions.FETCH_SINGLE_PRESS_RELEASE_ERROR:
+      return { ...state, single_press_release_loading: false };
 
     default:
       return state;

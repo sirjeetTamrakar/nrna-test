@@ -7,7 +7,6 @@ import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Box, Button, Typography } from '@mui/material';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
-import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomRoleChangeModal from 'components/common/CustomModal/CustomRoleChnageModal';
 import CustomStatusModal from 'components/common/CustomModal/CustomStatusModal';
@@ -22,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import { getCountries, getNCC } from '../../ncc/redux/actions';
 
+import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomInput from 'components/common/Form/CustomInput';
 import { useFormContext } from 'react-hook-form';
 import { useDebounce } from 'utils';
@@ -34,8 +34,8 @@ import {
 } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import View from './View';
 import { useStyles } from './styles';
+import View from './View';
 
 const Member = () => {
   const dispatch = useDispatch();
@@ -82,6 +82,8 @@ const Member = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
+
+  console.log({ detail });
 
   useEffect(() => {
     dispatch(getNCC());
@@ -303,16 +305,8 @@ const Member = () => {
     );
   };
 
-  const handleConfirmDelete = (slug) => {
-    let roleData;
-    if (user?.role_name === 'ncc') {
-      roleData = { country: user?.ncc?.slug };
-    } else if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
-      roleData = {
-        country: filteredNcc?.nccID1?.country_name
-      };
-    }
-    dispatch(deleteUsers(slug, deleteOpenFunction, filterData, roleData));
+  const handleConfirmDelete = (id) => {
+    dispatch(deleteUsers(id, deleteOpenFunction));
   };
 
   const refetch = (data) => {
@@ -415,12 +409,13 @@ const Member = () => {
           role={detail?.role_name}
           isLoading={change_role_loading}
         />
+
         <CustomDeleteModal
+          open={openDelete}
+          handleClose={deleteOpenFunction}
           handleConfirm={handleConfirmDelete}
           slug={detail?.id}
-          open={openDelete}
           isLoading={delete_users_loading}
-          handleClose={deleteOpenFunction}
         />
         <CustomStatusModal
           open={openStatus}

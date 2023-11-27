@@ -37,7 +37,7 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
       const roleData = { country: filteredNcc };
-      dispatch(createUser(data, roleData, handleClose));
+      dispatch(createUser(data, handleClose, roleData));
     } else {
       dispatch(createUser(data, handleClose));
     }

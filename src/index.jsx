@@ -4,6 +4,7 @@ import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import Store from 'redux/store';
 import reportWebVitals from 'reportWebVitals';
+import './index.css';
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   // <ErrorBoundary>
