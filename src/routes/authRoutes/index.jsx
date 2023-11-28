@@ -16,7 +16,6 @@ import Forgot from 'pages/public/forgot';
 import HomeDataComponentPage from 'pages/public/HomeDataComponentPage';
 import HomepageFEA from 'pages/public/Homepage';
 import MissionPage from 'pages/public/Mission';
-import Homepage from 'pages/public/nbnsSite';
 import NCCPage from 'pages/public/NCC';
 import NewsPage from 'pages/public/news';
 import SingleNewsPage from 'pages/public/news/SingleNews';
@@ -29,10 +28,6 @@ import VerifyEmail from 'pages/public/verify';
 import VisionPage from 'pages/public/Vision';
 
 const AuthRoutes = [
-  {
-    path: '/',
-    component: <Homepage />
-  },
   {
     path: '/foreign-employment',
     component: <HomepageFEA />

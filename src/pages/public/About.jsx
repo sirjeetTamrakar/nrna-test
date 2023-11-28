@@ -14,9 +14,8 @@ const AboutPage = () => {
     navigate(data);
   };
   const dispatch = useDispatch();
-  const { home_data, candidates } = useSelector((state) => state.homepage);
+  const { candidates } = useSelector((state) => state.homepage);
 
-  console.log('bbbvbvbv', { home_data });
   useEffect(() => {
     dispatch(getAllHomeData());
     dispatch(getCandidates());
@@ -65,7 +64,7 @@ const AboutPage = () => {
   return (
     <>
       <SecondaryNav
-        title={'Home'}
+        title={'FEA > About'}
         options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}

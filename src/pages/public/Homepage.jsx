@@ -65,7 +65,7 @@ const Homepage = () => {
   return (
     <>
       <SecondaryNav
-        title={'Home'}
+        title={'FEA'}
         options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}

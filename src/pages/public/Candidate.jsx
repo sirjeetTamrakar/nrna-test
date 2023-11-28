@@ -1,6 +1,6 @@
 import SecondaryNav from 'components/globals/SecondaryNav';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllHomeData } from 'redux/homepage/actions';
 import Candidates from './Candidates';
@@ -14,8 +14,6 @@ const CandidatePage = () => {
     navigate(data);
   };
   const dispatch = useDispatch();
-  const { home_data } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
   useEffect(() => {
     dispatch(getAllHomeData());
   }, []);
@@ -52,7 +50,7 @@ const CandidatePage = () => {
   return (
     <>
       <SecondaryNav
-        title={'Home'}
+        title={'FEA > Candidate'}
         options={allOptions}
         setSelected={setSelected}
         selected={selected}

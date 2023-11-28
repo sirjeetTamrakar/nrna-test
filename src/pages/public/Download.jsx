@@ -14,8 +14,7 @@ const DownloadPage = () => {
     navigate(data);
   };
   const dispatch = useDispatch();
-  const { home_data, candidates } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
+  const { candidates } = useSelector((state) => state.homepage);
   useEffect(() => {
     dispatch(getAllHomeData());
     dispatch(getCandidates());
@@ -57,7 +56,7 @@ const DownloadPage = () => {
   return (
     <>
       <SecondaryNav
-        title={'Download'}
+        title={'FEA > Download'}
         options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}

@@ -12,8 +12,7 @@ const ContactPage = () => {
     navigate(data);
   };
   const dispatch = useDispatch();
-  const { home_data, candidates } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
+  const { candidates } = useSelector((state) => state.homepage);
   useEffect(() => {
     dispatch(getAllHomeData());
     dispatch(getCandidates());
@@ -55,7 +54,7 @@ const ContactPage = () => {
   return (
     <>
       <SecondaryNav
-        title={'Home'}
+        title={'FEA > Contact'}
         options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}

@@ -5,7 +5,6 @@ const defaultState = {
   email_templateData: [],
   delete_email_template_loading: false,
   update_email_template_loading: false,
-  email_template_status_loading: false,
   email_template_status_loading: false
 };
 
