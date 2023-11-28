@@ -17,7 +17,7 @@ import VisionPage from 'pages/public/nbnsSite/Vision';
 
 export const nbnsRoutes = [
   {
-    path: '/nbns',
+    path: '/',
     component: <Homepage />
   },
   {

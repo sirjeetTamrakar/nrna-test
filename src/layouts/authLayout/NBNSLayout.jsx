@@ -46,7 +46,7 @@ const SecondaryNavWrapper = () => {
   }, [pathname]);
 
   const options = [
-    { title: 'Home', value: 'home', path: '/nbns', clickFunction: () => handleFunction('/nbns') },
+    { title: 'Home', value: 'home', path: '/', clickFunction: () => handleFunction('/') },
     {
       title: 'About',
       value: 'about',

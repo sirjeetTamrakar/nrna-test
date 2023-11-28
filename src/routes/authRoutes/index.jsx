@@ -14,8 +14,9 @@ import EventsPage from 'pages/public/events';
 import SingleEventPage from 'pages/public/events/SingleEvent';
 import Forgot from 'pages/public/forgot';
 import HomeDataComponentPage from 'pages/public/HomeDataComponentPage';
-import { Homepage } from 'pages/public/Homepage';
+import HomepageFEA from 'pages/public/Homepage';
 import MissionPage from 'pages/public/Mission';
+import Homepage from 'pages/public/nbnsSite';
 import NCCPage from 'pages/public/NCC';
 import NewsPage from 'pages/public/news';
 import SingleNewsPage from 'pages/public/news/SingleNews';
@@ -31,6 +32,10 @@ const AuthRoutes = [
   {
     path: '/',
     component: <Homepage />
+  },
+  {
+    path: '/foreign-employment',
+    component: <HomepageFEA />
   },
   // {
   //   path: '/candidates',
@@ -65,15 +70,15 @@ const AuthRoutes = [
     component: <SingleEventPage />
   },
   {
-    path: '/nrna/contact',
+    path: '/foreign-employment/contact',
     component: <ContactPage />
   },
   {
-    path: '/nrna/about',
+    path: '/foreign-employment/about',
     component: <AboutPage />
   },
   {
-    path: '/nrna/candidate',
+    path: '/foreign-employment/candidate',
     component: <CandidatePage />
   },
   {
@@ -126,16 +131,16 @@ const AuthRoutes = [
   //   component: <CandidateSiteSingleHome />
   // },
   {
-    path: `/nrna/:slug`,
+    path: `/foreign-employment/:slug`,
     component: <HomeDataComponentPage />
   },
   {
-    path: '/nrna/download',
+    path: '/foreign-employment/download',
     component: <DownloadPage />
   },
 
   {
-    path: '/nrna/download/:slug',
+    path: '/foreign-employment/download/:slug',
     component: <SingleDownloadPage />
   }
 ];

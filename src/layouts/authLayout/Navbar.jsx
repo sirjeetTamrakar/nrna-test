@@ -98,9 +98,9 @@ function Navbar({ isHomePage, currentUser, sticky }) {
                 </Link>
               </li>
               <li className="d-none d-lg-block menu_items">
-                <Link to="/nbns" className={classes.navIcon}>
+                <Link to="/foreign-employment" className={classes.navIcon}>
                   <img src={NBNSIcon} />
-                  <span>NBNS</span>
+                  <span>FEA</span>
                 </Link>
               </li>
               <li className="d-none d-lg-block menu_items">
