@@ -4,6 +4,7 @@ import PauseCircleFilledIcon from '@mui/icons-material/PauseCircleFilled';
 import PersonIcon from '@mui/icons-material/Person';
 import TaskAltIcon from '@mui/icons-material/TaskAlt';
 import { Box, Typography } from '@mui/material';
+import ExcelDownloadButton from 'components/common/CustomExcelFileDownload';
 import CustomApproveModal from 'components/common/CustomModal/CustomApproveModal';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import CustomPopover from 'components/common/CustomPopover/CustomPopover';
@@ -267,42 +268,57 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
           <Box>
             <Box>
               <Box sx={{ textTransform: 'capitalize' }}>Followers</Box>{' '}
-              <Box sx={{ marginTop: '10px' }}>
-                <form onClick={handleUserSearch}>
-                  <input
-                    style={{
-                      padding: '5px 10px',
-                      width: '250px',
-                      border: 'none',
-                      outline: 'none'
-                      // borderRadius: '4px'
-                    }}
-                    type="text"
-                    value={inputValue}
-                    onChange={nameChangeHandler}
-                    placeholder="Search followers"
-                  />
+              <Box
+                sx={{
+                  marginTop: '10px',
+                  width: '100%',
+                  display: 'flex',
+                  justifyContent: 'space-between'
+                }}>
+                <Box>
+                  <form onClick={handleUserSearch}>
+                    <input
+                      style={{
+                        padding: '5px 10px',
+                        width: '250px',
+                        border: 'none',
+                        outline: 'none'
+                        // borderRadius: '4px'
+                      }}
+                      type="text"
+                      value={inputValue}
+                      onChange={nameChangeHandler}
+                      placeholder="Search followers"
+                    />
 
-                  <button
-                    onClick={nameClearHandler}
-                    style={
-                      inputValue
-                        ? {
-                            padding: '5px 10px',
-                            border: 'none',
-                            backgroundColor: '#fff',
-                            color: 'red'
-                          }
-                        : {
-                            padding: '5px 10px',
-                            border: 'none',
-                            backgroundColor: '#fff',
-                            color: '#fff'
-                          }
-                    }>
-                    x
-                  </button>
-                </form>
+                    <button
+                      onClick={nameClearHandler}
+                      style={
+                        inputValue
+                          ? {
+                              padding: '5px 10px',
+                              border: 'none',
+                              backgroundColor: '#fff',
+                              color: 'red'
+                            }
+                          : {
+                              padding: '5px 10px',
+                              border: 'none',
+                              backgroundColor: '#fff',
+                              color: '#fff'
+                            }
+                      }>
+                      x
+                    </button>
+                  </form>
+                </Box>
+                <Box sx={{}}>
+                  <ExcelDownloadButton
+                    data={businessFollowData?.data?.user}
+                    fileName="Followers Data"
+                    dataObject
+                  />
+                </Box>
               </Box>
             </Box>
           </Box>
