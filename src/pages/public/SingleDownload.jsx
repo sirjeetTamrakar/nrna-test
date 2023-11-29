@@ -57,7 +57,7 @@ const SingleDownloadPage = () => {
   return (
     <>
       <SecondaryNav
-        title={'Download'}
+        title={'FEA > Download'}
         options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}

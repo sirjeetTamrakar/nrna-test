@@ -1,3 +1,4 @@
+import ArticleOutlinedIcon from '@mui/icons-material/ArticleOutlined';
 import { Button } from '@mui/material';
 import * as XLSX from 'xlsx';
 
@@ -20,7 +21,11 @@ const ExcelDownloadButton = ({ data, fileName }) => {
   };
 
   return (
-    <Button variant="contained" color="success" onClick={downloadExcel}>
+    <Button
+      startIcon={<ArticleOutlinedIcon />}
+      variant="contained"
+      color="success"
+      onClick={downloadExcel}>
       {' '}
       Download excel sheet{' '}
     </Button>
