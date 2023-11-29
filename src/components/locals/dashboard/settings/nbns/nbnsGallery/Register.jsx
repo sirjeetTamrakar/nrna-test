@@ -21,6 +21,7 @@ const Register = ({ handleClose }) => {
 
   const onSubmit = (data) => {
     const formData = new FormData();
+    formData.append('title', data?.title);
 
     if (data?.gallery_image?.length > 0) {
       formData.append('gallery_image', data?.gallery_image?.[0]);

@@ -41,8 +41,9 @@ const Profile = () => {
   const { businessData, get_business_loading, business_status_loading, delete_business_loading } =
     useSelector((state) => state.business);
 
-  const { user } = useSelector((state) => state.auth);
-  console.log('userreerr', { user });
+  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
+
+  console.log('userreerr', { user, admin_ncc_id_details });
 
   // const refetch = () => {
   //   const data = {
@@ -292,7 +293,21 @@ const Profile = () => {
         user_id: user?.ncc?.id
       };
       dispatch(getBusiness(data));
-    } else {
+    } else if (
+      (user?.role_name == 'superadmin' || user?.role_name == 'admin') &&
+      admin_role_details === 'ncc'
+    ) {
+      const data = {
+        page: page + 1,
+        pagination_limit: rowsPerPage,
+        type: 'ncc',
+        user_id: admin_ncc_id_details
+      };
+      dispatch(getBusiness(data));
+    } else if (
+      (user?.role_name == 'superadmin' || user?.role_name == 'admin') &&
+      admin_role_details === 'admin'
+    ) {
       const data = { page: page + 1, pagination_limit: rowsPerPage };
       dispatch(getBusiness(data));
     }

@@ -278,7 +278,7 @@ const ViewMembersTable = ({ countrySlug }) => {
 
   // console.log({ userSearch });
 
-  const filterData = { search: user_search };
+  const filterData = { page: page + 1, pagination_limit: rowsPerPage, search: user_search };
   const refetch = () => {
     // let roleData;
     // if (user?.role_name === 'ncc') {

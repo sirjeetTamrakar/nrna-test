@@ -1,10 +1,20 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSiteSettings } from 'redux/homepage/actions';
 
 const TermsAndConditions = () => {
+  const dispatch = useDispatch();
   const pathname = window.location.pathname;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  const { settings } = useSelector((state) => state.homepage);
+
+  useEffect(() => {
+    dispatch(getSiteSettings());
+  }, []);
+
   return (
     <div className="container" style={{ padding: '40px 0px' }}>
       <div className="policy_page">
@@ -14,7 +24,12 @@ const TermsAndConditions = () => {
 
         <div className="about_description_single">
           <div style={{ backgroundColor: '#f5f5ff', padding: '20px', borderRadius: '4px' }}>
-            <p>Welcome to NRNA Global!</p>
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: settings?.termsAndConditions || '' }}
+            />
+
+            {/* <p>Welcome to NRNA Global!</p>
 
             <p>
               These terms and conditions outline the rules and regulations for the use of Non
@@ -301,7 +316,7 @@ const TermsAndConditions = () => {
             <p>
               As long as the website and the information and services on the website are provided
               free of charge, we will not be liable for any loss or damage of any nature.
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

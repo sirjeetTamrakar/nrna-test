@@ -1,10 +1,20 @@
 import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { getSiteSettings } from 'redux/homepage/actions';
 
 const PrivacyPolicy = () => {
+  const dispatch = useDispatch();
   const pathname = window.location.pathname;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  const { settings } = useSelector((state) => state.homepage);
+
+  useEffect(() => {
+    dispatch(getSiteSettings());
+  }, []);
+
   return (
     <div className="container" style={{ padding: '40px 0px' }}>
       <div className="policy_page">
@@ -14,7 +24,12 @@ const PrivacyPolicy = () => {
 
         <div className="about_description_single">
           <div style={{ backgroundColor: '#f5f5ff', padding: '20px', borderRadius: '4px' }}>
-            <p>Last updated: October 16, 2023</p>
+            <div
+              className=""
+              dangerouslySetInnerHTML={{ __html: settings?.privacy_policy || '' }}
+            />
+
+            {/* <p>Last updated: October 16, 2023</p>
             <p>
               This Privacy Policy describes Our policies and procedures on the collection, use and
               disclosure of Your information when You use the Service and tells You about Your
@@ -507,7 +522,7 @@ const PrivacyPolicy = () => {
               <ul>
                 <li>By email: wwebipin2009@yahoo.com</li>
               </ul>
-            </p>
+            </p> */}
           </div>
         </div>
       </div>

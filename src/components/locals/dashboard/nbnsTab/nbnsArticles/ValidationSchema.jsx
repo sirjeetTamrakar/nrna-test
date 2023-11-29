@@ -18,5 +18,6 @@ export const editValidationSchema = Yup.object({
   //   .nullable()
   //   .required('Image is required'),
   description: Yup.string().required('Please enter description'),
-  excerpt: Yup.string().required('Please enter excerpt').max(300)
+  excerpt: Yup.string().required('Please enter excerpt').max(300),
+  author: Yup.string().required('Please enter authors name')
 });

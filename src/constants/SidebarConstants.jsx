@@ -230,8 +230,10 @@ export const SidebarConstants = [
         url: '/dashboard/business',
         icon: Business,
         activeIcon: businessActiveIcon,
+        adminProfile: 'adminProfile',
+        memberProfileNCC: 'memberProfileNCC',
 
-        memberProfile: 'memberProfile',
+        // memberProfile: 'memberProfile',
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC],
         children: [
           {
@@ -244,22 +246,23 @@ export const SidebarConstants = [
           {
             label: 'Business List',
             url: '/dashboard/business/business-list',
+            adminProfile: 'adminProfile',
             memberProfile: 'memberProfile',
-
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
           },
 
           {
             label: 'Contact',
             url: '/dashboard/business/contact',
-            memberProfile: 'memberProfile',
+            // memberProfile: 'memberProfile',
+            // adminProfile: 'adminProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
           },
           {
             label: 'Business Mangement',
             url: '/dashboard/business/business-management',
-            memberProfile: 'memberProfile',
+            // memberProfile: 'memberProfile',
 
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.Member, Roles.NCC]
           }

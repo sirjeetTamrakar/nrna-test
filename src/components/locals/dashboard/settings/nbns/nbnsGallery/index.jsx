@@ -37,6 +37,11 @@ const NBNSGallery = () => {
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
+    {
+      title: 'Image Title',
+      minWidth: 250,
+      field: 'title'
+    },
 
     {
       title: 'Image',
@@ -131,7 +136,7 @@ const NBNSGallery = () => {
             variant="contained"
             display="flex"
             onClick={formOpenFunction}>
-            Add Gallery
+            Add Image
           </Button>
         </Box>
         <CustomTable

@@ -24,7 +24,7 @@ const EditForm = ({ detail, handleClose }) => {
     console.log('ssssssssdd', { data });
     const formData = new FormData();
     formData.append('title', data?.title);
-    formData.append('author', data?.author);
+    formData.append('author', data?.author ?? '');
     formData.append('description', data?.description);
     formData.append('excerpt', data?.excerpt);
     formData.append('_method', 'PUT');

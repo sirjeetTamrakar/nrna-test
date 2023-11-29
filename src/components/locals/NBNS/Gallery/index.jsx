@@ -4,6 +4,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getGallery } from 'redux/homepage/actions';
 import Lightbox from 'yet-another-react-lightbox';
+import Captions from 'yet-another-react-lightbox/plugins/captions';
+import 'yet-another-react-lightbox/plugins/captions.css';
 import Counter from 'yet-another-react-lightbox/plugins/counter';
 import 'yet-another-react-lightbox/plugins/counter.css';
 import 'yet-another-react-lightbox/styles.css';
@@ -72,6 +74,7 @@ const ImageCard = ({ data, images, index }) => {
   const closeModal = () => {
     setIsModalOpen(false);
   };
+
   return (
     <>
       <div onClick={openModal} style={{ cursor: 'pointer' }}>
@@ -80,16 +83,25 @@ const ImageCard = ({ data, images, index }) => {
           alt=""
           style={{ height: '100%', width: '100%', objectFit: 'cover' }}
         />
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'center',
+            backgroundColor: '#f5f5f5',
+            borderRadius: '0px 0px 4px 4px'
+          }}>
+          <p style={{ paddingTop: '10px' }}>{data?.title}</p>
+        </div>
       </div>
 
       <Lightbox
         open={isModalOpen}
         close={() => closeModal()}
         slides={images?.map((item) => {
-          return { src: item?.gallery_image };
+          return { src: item?.gallery_image, description: item?.title };
         })}
         index={index}
-        plugins={[Counter]}
+        plugins={[Counter, Captions]}
       />
     </>
   );

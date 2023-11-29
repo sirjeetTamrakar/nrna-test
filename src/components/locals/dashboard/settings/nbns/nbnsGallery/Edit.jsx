@@ -23,7 +23,7 @@ const EditForm = ({ detail, handleClose }) => {
   const onSubmit = (data) => {
     console.log('ssssssssdd', { data });
     const formData = new FormData();
-
+    formData.append('title', data?.title);
     formData.append('_method', 'PUT');
 
     if (data?.gallery_image?.length > 0) {
@@ -34,13 +34,6 @@ const EditForm = ({ detail, handleClose }) => {
 
     dispatch(updateGallery(formData, detail?.id, handleClose, typeData));
   };
-  // useEffect(() => {
-  //   if (user?.role_name == Roles?.Member) {
-  //     setTypeData({ type: 'member', id: user?.id, page: 1, pagination_limit: 10 });
-  //   } else if (user?.role_name == Roles?.NCC) {
-  //     setTypeData({ type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 });
-  //   }
-  // }, []);
 
   return (
     <CustomForm onSubmit={onSubmit}>

@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
+import CustomEditor from 'components/common/CustomEditor';
 import { CustomSwitch } from 'components/common/CustomSwitch/CustomSwitch';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomForm from 'components/common/Form/CustomForm';
@@ -26,7 +27,9 @@ const SettingsDataForm = () => {
     tagline_author: '',
     tagline_description: '',
     region_logo: '',
-    show_candidate: ''
+    show_candidate: '',
+    privacy_policy: '',
+    termsAndConditions: ''
   };
   const { setValue } = useFormContext({ defaultValues });
 
@@ -40,6 +43,8 @@ const SettingsDataForm = () => {
       setValue('phone', site_settings?.phone);
       setValue('tagline_author', site_settings?.tagline_author);
       setValue('tagline_description', site_settings?.tagline_description);
+      setValue('termsAndConditions', site_settings?.termsAndConditions);
+      setValue('privacy_policy', site_settings?.privacy_policy);
       setValue('show_candidate', site_settings?.show_candidate == 'true' && 'true');
     }
   }, [site_settings]);
@@ -53,6 +58,8 @@ const SettingsDataForm = () => {
     formData.append('tagline_author', data?.tagline_author);
     formData.append('tagline_description', data?.tagline_description);
     formData.append('show_candidate', data?.show_candidate);
+    formData.append('termsAndConditions', data?.termsAndConditions);
+    formData.append('privacy_policy', data?.privacy_policy);
     if (user?.role_name == Roles.NCC) {
       formData.append('settingable_type', 'ncc');
       formData.append('settingable_id', user?.ncc?.id);
@@ -71,6 +78,7 @@ const SettingsDataForm = () => {
 
     dispatch(postSiteSettings(formData, typeData));
   };
+
   return (
     <Box className={classes.root}>
       <CustomForm onSubmit={submitHandler}>
@@ -99,6 +107,18 @@ const SettingsDataForm = () => {
           <Grid item sm={12}>
             <CustomTextArea name="tagline_description" label="Tagline" required rows={2} />
           </Grid>
+
+          {user?.role_name === Roles.SuperAdmin && admin_role_details === 'admin' && (
+            <>
+              <Grid item sm={12}>
+                <CustomEditor emailTemplate={'Terms and Condition'} name="termsAndConditions" />
+              </Grid>
+              <Grid item sm={12}>
+                <CustomEditor emailTemplate={'Privacy Policy'} name="privacy_policy" />
+              </Grid>
+            </>
+          )}
+
           <Grid item sm={12}>
             <CustomSwitch
               name="show_candidate"

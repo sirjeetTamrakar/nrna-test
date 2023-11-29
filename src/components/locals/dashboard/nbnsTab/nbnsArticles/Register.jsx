@@ -22,7 +22,7 @@ const Register = ({ handleClose }) => {
   const onSubmit = (data) => {
     const formData = new FormData();
     formData.append('title', data?.title);
-    formData.append('author', data?.author);
+    formData.append('author', data?.author ?? '');
     formData.append('description', data?.description);
     formData.append('excerpt', data?.excerpt);
 

@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import FileUploader from 'components/common/Form/CustomFileUpload';
+import CustomInput from 'components/common/Form/CustomInput';
 import { useDispatch, useSelector } from 'react-redux';
 // import { getAllUsers } from '../userManagement/redux/actions';
 // import { getCategory } from './redux/actions';
@@ -18,6 +19,9 @@ const GalleryForm = ({ featureImage }) => {
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>
+        <Grid item sm={12}>
+          <CustomInput name="title" label="Image Title" required />
+        </Grid>
         <Grid item sm={12}>
           <FileUploader
             title="Gallery Image"

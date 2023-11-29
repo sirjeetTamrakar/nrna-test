@@ -79,6 +79,7 @@ const SettingsDataForm = () => {
           <Grid item sm={12}>
             <CustomTextArea name="tagline_description" label="Tagline" required rows={2} />
           </Grid>
+
           <Grid item sm={12}>
             <Box className={classes.footerRoot}>
               <CustomButton buttonName="Submit" loading={site_settings_loading} />
