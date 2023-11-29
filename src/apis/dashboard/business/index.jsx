@@ -114,6 +114,12 @@ export const getBusinessFollowApi = (data) => {
   return axiosInstance().get(`/admin/business-follow${page}${pagination_limit}${id}${search}`);
 };
 
+// get business followers download
+export const getBusinessFollowDownloadApi = (data) => {
+  const id = data?.business_id ? `?business_id=${data?.business_id}` : '';
+  return axiosInstance().get(`/admin/business-follow${id}`);
+};
+
 // post business user aprooval
 export const businessUserApprovalApi = (data) => {
   return axiosInstance().post(

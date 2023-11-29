@@ -9,6 +9,7 @@ import {
   getBusinessApi,
   getBusinessContactApi,
   getBusinessFollowApi,
+  getBusinessFollowDownloadApi,
   getBusinessOrderApi,
   getBusinessServicesApi,
   getCategoryApi,
@@ -332,6 +333,19 @@ export const getBusinessFollow = (data) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.GET_BUSINESS_FOLLOW_ERROR });
+    });
+};
+
+export const getBusinessFollowDownload = (data) => (dispatch) => {
+  dispatch({ type: actions.GET_BUSINESS_FOLLOW_DOWNLOAD_BEGIN });
+  getBusinessFollowDownloadApi(data)
+    .then((res) => {
+      console.log({ res });
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_DOWNLOAD_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.GET_BUSINESS_FOLLOW_DOWNLOAD_ERROR });
     });
 };
 
