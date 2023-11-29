@@ -8,6 +8,8 @@ const ExcelDownloadButton = ({ data, fileName }) => {
       Lastname: item?.last_name ?? '-',
       Email: item?.email ?? '-',
       Phone: item?.phone ?? '-',
+      City: item?.city ?? '-',
+      Address: item?.address ?? '-',
       Country: item?.country_of_residence ?? '-'
     }));
 

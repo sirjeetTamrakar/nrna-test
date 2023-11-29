@@ -120,12 +120,22 @@ const Member = () => {
       }
     },
     {
-      title: 'Email/Phone',
+      title: 'Email',
       minWidth: 100,
       field: (row) => {
         return (
           <Box>
             <Typography variant="body2">{row?.email}</Typography>
+          </Box>
+        );
+      }
+    },
+    {
+      title: 'Phone',
+      minWidth: 100,
+      field: (row) => {
+        return (
+          <Box>
             <Typography variant="subtitle1">{row?.phone}</Typography>
           </Box>
         );
