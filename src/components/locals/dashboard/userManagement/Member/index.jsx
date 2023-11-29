@@ -21,6 +21,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import { getCountries, getNCC } from '../../ncc/redux/actions';
 
+import ExcelDownloadButton from 'components/common/CustomExcelFileDownload';
 import CustomDeleteModal from 'components/common/CustomModal/CustomDeleteModal';
 import CustomInput from 'components/common/Form/CustomInput';
 import { useFormContext } from 'react-hook-form';
@@ -30,7 +31,8 @@ import {
   changeStatus,
   changeUserRole,
   deleteUsers,
-  getAllUsers
+  getAllUsers,
+  getAllUsersDownload
 } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
@@ -54,14 +56,15 @@ const Member = () => {
     user_status_loading,
     approve_user_loading,
     change_role_loading,
-    delete_users_loading
+    delete_users_loading,
+    users_download
   } = useSelector((state) => state.user);
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
   );
   const { nccData } = useSelector((state) => state.ncc);
 
-  console.log({ user, users, nccData });
+  console.log({ user, users, nccData, users_download });
   const [roleIDData, setRoleIDData] = useState();
   useEffect(() => {
     dispatch(getCountries());
@@ -332,6 +335,10 @@ const Member = () => {
     refetch();
   }, [page, rowsPerPage]);
 
+  useEffect(() => {
+    dispatch(getAllUsersDownload());
+  }, []);
+
   const defaultValues = {};
 
   return (
@@ -344,7 +351,7 @@ const Member = () => {
             alignItems: 'center',
             marginBottom: '15px'
           }}>
-          <Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
             <Box
               sx={{
                 display: 'flex',
@@ -357,13 +364,19 @@ const Member = () => {
               </CustomFormProvider>
             </Box>
           </Box>
-          <Button
-            startIcon={<AddIcon />}
-            variant="contained"
-            display="flex"
-            onClick={formOpenFunction}>
-            Add Member
-          </Button>
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            <Box sx={{ marginRight: '20px' }}>
+              <ExcelDownloadButton data={users_download?.data} fileName="Members Data" />
+            </Box>
+
+            <Button
+              startIcon={<AddIcon />}
+              variant="contained"
+              display="flex"
+              onClick={formOpenFunction}>
+              Add Member
+            </Button>
+          </Box>
         </Box>
         <CustomTable
           tableHeads={tableHeads}

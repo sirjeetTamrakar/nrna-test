@@ -5,6 +5,7 @@ import {
   changeUserRoleApi,
   createUserApi,
   getAllUsersApi,
+  getAllUsersDownloadApi,
   updateProfileApi,
   updateUsersApi
 } from 'apis/dashboard/user';
@@ -22,6 +23,19 @@ export const getAllUsers = (data, roleData) => (dispatch) => {
     .catch((error) => {
       errorToast(error);
       dispatch({ type: actions.FETCH_USERS_ERROR });
+    });
+};
+
+export const getAllUsersDownload = (roleData) => (dispatch) => {
+  dispatch({ type: actions.FETCH_USERS_DOWNLOAD_BEGIN });
+
+  getAllUsersDownloadApi(roleData)
+    .then((res) => {
+      dispatch({ type: actions.FETCH_USERS_DOWNLOAD_SUCCESS, payload: res.data });
+    })
+    .catch((error) => {
+      errorToast(error);
+      dispatch({ type: actions.FETCH_USERS_DOWNLOAD_ERROR });
     });
 };
 

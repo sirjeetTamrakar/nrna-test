@@ -68,13 +68,13 @@ function Navbar({ isHomePage, currentUser, sticky }) {
 
   const sideNavItems = [
     { title: 'Home', link: '/', value: '/' },
-    { title: 'NBNS', link: '/nbns', value: '/nbns' },
+    { title: 'FEA', link: 'foreign-employment', value: '/foreign-employment' },
     { title: 'Our Team', link: '/our-team', value: '/our-team' },
     { title: 'Business', link: '/business', value: '/business' },
     { title: 'NCC', link: '/ncc', value: '/ncc' },
     { title: 'News', link: '/news', value: '/news' },
     { title: 'Events', link: '/events', value: '/events' },
-    { title: 'Contact', link: '/nrna/contact', value: '/nrna/contact' }
+    { title: 'Contact', link: '/foreign-employment/contact', value: '/foreign-employment/contact' }
   ];
 
   return (

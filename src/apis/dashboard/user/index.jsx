@@ -17,6 +17,12 @@ export const getAllUsersApi = (data, roleData) => {
   return axiosInstance().get(`/admin/users${page}${pagination_limit}${country}${search}`);
 };
 
+// get users download
+export const getAllUsersDownloadApi = (roleData) => {
+  const country = roleData?.country ? `?country=${roleData?.country}` : '';
+  return axiosInstance().get(`/admin/users${country}`);
+};
+
 // create users
 export const createUserApi = (data) => {
   return axiosInstance().post('/admin/users/admin', data);

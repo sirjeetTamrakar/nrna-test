@@ -1,5 +1,6 @@
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import { Box, Button, Typography } from '@mui/material';
+import ExcelDownloadButton from 'components/common/CustomExcelFileDownload';
 import CustomTable from 'components/common/table';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -95,7 +96,12 @@ const Participants = () => {
             style={{ cursor: 'pointer', color: '#2196f3', marginBottom: '20px' }}
             onClick={() => navigate(-1)}
           />
-          <Box>Survey Participants</Box>
+          <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+            <Box>Survey Participants</Box>
+            <Box sx={{ marginRight: '20px' }}>
+              <ExcelDownloadButton data={participants?.data} fileName="Participants Data" />
+            </Box>
+          </Box>
         </Box>
         <CustomTable
           tableHeads={tableHeads}

@@ -2,6 +2,8 @@ import * as actions from './types';
 const defaultState = {
   users: [],
   users_loading: false,
+  users_download: [],
+  users_download_loading: false,
   create_user_loading: false,
   approve_user_loading: false,
   user_status_loading: false,
@@ -25,6 +27,18 @@ const userReducer = (state = defaultState, action) => {
 
     case actions.FETCH_USERS_ERROR:
       return { ...state, users_loading: false };
+
+    case actions.FETCH_USERS_DOWNLOAD_BEGIN:
+      return {
+        ...state,
+        users_download_loading: true
+      };
+
+    case actions.FETCH_USERS_DOWNLOAD_SUCCESS:
+      return { ...state, users_download_loading: false, users_download: action.payload };
+
+    case actions.FETCH_USERS_DOWNLOAD_ERROR:
+      return { ...state, users_download_loading: false };
 
     case actions.CREATE_USER_BEGIN:
       return {
