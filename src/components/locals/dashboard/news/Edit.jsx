@@ -18,6 +18,8 @@ const EditForm = ({ detail, handleClose }) => {
   const { update_news_loading } = useSelector((state) => state.news);
   const { user } = useSelector((state) => state.auth);
   const [typeData, setTypeData] = useState();
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   const onSubmit = (data) => {
     console.log('ssssssssdd', { data });
@@ -48,6 +50,20 @@ const EditForm = ({ detail, handleClose }) => {
       setTypeData({
         type: 'ncc',
         id: user?.ncc?.id,
+        page: 1,
+        pagination_limit: 10,
+        user_id: user?.id
+      });
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
+      setTypeData({
+        type: 'ncc',
+        id: storedValueID,
+        page: 1,
+        pagination_limit: 10,
+        user_id: user?.id
+      });
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'admin') {
+      setTypeData({
         page: 1,
         pagination_limit: 10,
         user_id: user?.id

@@ -35,6 +35,8 @@ const NewsManagement = () => {
   const [allFilteredNews, setAllFilteredNews] = useState();
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   const {
     newsData,
@@ -188,7 +190,7 @@ const NewsManagement = () => {
     page: page + 1,
     pagination_limit: rowsPerPage,
     type: 'ncc',
-    id: admin_ncc_id_details
+    id: storedValueID
   };
 
   const filterDataHomeAll = {
@@ -200,9 +202,9 @@ const NewsManagement = () => {
   useEffect(() => {
     if (user?.role_name === 'ncc') {
       dispatch(getNews(filterDataNCC));
-    } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
+    } else if (user?.role_name == 'superadmin' && storedValueRole === 'ncc') {
       dispatch(getNews(filterDataHomeAdminNcc));
-    } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
+    } else if (user?.role_name == 'superadmin' && storedValueRole === 'admin') {
       dispatch(getNews(filterDataHome));
     } else {
       dispatch(getNews());

@@ -48,8 +48,8 @@ const ContactPage = () => {
     }
   ];
 
-  const allOptions = [...options, ...candidate, ...contact, ...download];
-  const notCandidateOptions = [...options, ...contact, ...download];
+  const allOptions = [...options, ...candidate, ...contact];
+  const notCandidateOptions = [...options, ...contact];
 
   return (
     <>

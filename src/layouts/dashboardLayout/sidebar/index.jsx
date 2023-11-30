@@ -71,7 +71,9 @@ export default function Sidebar() {
     setOpen((prev) => (prev === item?.label ? '' : item?.label));
   };
 
-  const { user, role_details, admin_role_details } = useSelector((state) => state.auth);
+  const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
+    (state) => state.auth
+  );
 
   return (
     <Box sx={{ display: 'flex', '& .MuiDrawer-paper': { border: 'none' } }}>

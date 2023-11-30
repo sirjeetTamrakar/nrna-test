@@ -14,6 +14,8 @@ const EditForm = ({ detail, handleClose }) => {
 
   const { update_business_loading } = useSelector((state) => state.business);
   const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+  const storedValueRole = localStorage.getItem('nccRole');
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -36,9 +38,9 @@ const EditForm = ({ detail, handleClose }) => {
     }
     if (
       (user?.role_name === 'admin' || user?.role_name === 'superadmin') &&
-      admin_role_details === 'ncc'
+      storedValueRole === 'ncc'
     ) {
-      formData.append('user_id', admin_ncc_id_details);
+      formData.append('user_id', storedValueID);
     }
     formData.append('business_category_id', data?.business_category_id);
 
@@ -53,9 +55,9 @@ const EditForm = ({ detail, handleClose }) => {
       typeData = { type: 'member', user_id: user?.id, page: 1, pagination_limit: 10 };
     } else if (
       (user?.role_name === 'admin' || user?.role_name === 'superadmin') &&
-      admin_role_details === 'ncc'
+      storedValueRole === 'ncc'
     ) {
-      typeData = { type: 'ncc', user_id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
+      typeData = { type: 'ncc', user_id: storedValueID, page: 1, pagination_limit: 10 };
     } else if (user?.role_name == Roles?.NCC) {
       typeData = { type: 'ncc', user_id: user?.ncc?.id, page: 1, pagination_limit: 10 };
     }

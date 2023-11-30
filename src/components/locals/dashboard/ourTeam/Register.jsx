@@ -19,14 +19,17 @@ const Register = ({ handleClose }) => {
   const { teams_loading } = useSelector((state) => state.teams);
   const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
 
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+  const storedValueRole = localStorage.getItem('nccRole');
+
   const onSubmit = (data) => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
       dispatch(postTeams({ ...data, ncc_id: user?.ncc?.id }, handleClose, typeData));
-    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
-      typeData = { id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
-      dispatch(postTeams({ ...data, ncc_id: admin_ncc_id_details }, handleClose, typeData));
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
+      typeData = { id: storedValueID, page: 1, pagination_limit: 10 };
+      dispatch(postTeams({ ...data, ncc_id: storedValueID }, handleClose, typeData));
     } else {
       typeData = { page: 1, pagination_limit: 10 };
       dispatch(postTeams(data, handleClose, typeData));

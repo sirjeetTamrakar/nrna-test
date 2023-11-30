@@ -32,6 +32,8 @@ const Events = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+  const storedValueRole = localStorage.getItem('nccRole');
 
   const { eventsData, get_events_loading, events_status_loading, delete_events_loading } =
     useSelector((state) => state.events);
@@ -186,9 +188,9 @@ const Events = () => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.ncc?.id, page: page + 1, pagination_limit: rowsPerPage };
-    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
-      typeData = { type: 'ncc', id: admin_ncc_id_details, page: 1, pagination_limit: 10 };
-    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
+      typeData = { type: 'ncc', id: storedValueID, page: 1, pagination_limit: 10 };
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'admin') {
       typeData = { page: 1, pagination_limit: 10 };
     } else {
       typeData = { page: page + 1, pagination_limit: rowsPerPage };

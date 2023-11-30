@@ -20,7 +20,7 @@ import useToggle from 'hooks/useToggle';
 import * as React from 'react';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import {
   logout,
   saveAdminNccIdDetails,
@@ -31,6 +31,10 @@ import useStyles from './Styles';
 
 export default function AccountMenu() {
   const dispatch = useDispatch();
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+  const storedValueRole = localStorage.getItem('nccRole');
+  const nccCountryName = localStorage.getItem('nccCountryName');
+
   const [anchorEl, setAnchorEl] = useState(null);
   const [changeEl, setChangeEl] = useState(null);
   const [openForm, formOpenFunction] = useToggle(false);
@@ -44,6 +48,7 @@ export default function AccountMenu() {
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
   );
+
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
   console.log({
     role_details,
@@ -51,7 +56,9 @@ export default function AccountMenu() {
     userRole,
     admin_ncc_id_details,
     filteredNcc,
-    nccData
+    nccData,
+    nccCountryName,
+    storedValueID
   });
 
   const open = Boolean(anchorEl);
@@ -61,14 +68,14 @@ export default function AccountMenu() {
   const classes = useStyles();
 
   useEffect(() => {
-    const newArray = nccData?.data?.filter((item) => item?.id === admin_ncc_id_details);
+    const newArray = nccData?.data?.filter((item) => item?.id === storedValueID);
     const newObj = {};
 
     newArray?.forEach((item, index) => {
       newObj[`nccID${index + 1}`] = item;
     });
     setFilteredNcc(newObj);
-  }, [nccData?.data, admin_ncc_id_details]);
+  }, [nccData?.data, storedValueID]);
 
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
@@ -115,20 +122,25 @@ export default function AccountMenu() {
   }, [userRole]);
 
   // superadmin role
+  const location = useLocation();
+
+  console.log({ location });
 
   const handleSuperadminRoleNcc = () => {
     // superadminUserRole === 'admin' && setSuperadminUserRole('ncc');
     navigate(`/dashboard`);
     formOpenFunction();
   };
+
   const handleSuperadminRoleMember = () => {
-    superadminUserRole === 'ncc' && setSuperadminUserRole('admin');
+    // superadminUserRole === 'ncc' && setSuperadminUserRole('admin');
+    localStorage.setItem('nccRole', 'admin');
+    localStorage.setItem('nccCountryName', null);
+
+    // superadminUserRole === 'ncc' && setSuperadminUserRole(storedValueRole);
+
     navigate(`/dashboard`);
   };
-
-  useEffect(() => {
-    dispatch(saveAdminRoleDetails(superadminUserRole));
-  }, [superadminUserRole]);
 
   useEffect(() => {
     dispatch(getNCC());
@@ -143,21 +155,41 @@ export default function AccountMenu() {
     }
   }, [search, nccData?.data]);
 
+  console.log({ 'filtered----': filteredNcc?.nccID1 });
+
   const handleSelectNccID = (item) => {
-    setNccID(item?.id);
+    localStorage.setItem('nccRoleID', item?.id);
+
+    // localStorage.setItem('nccCountryName', filteredNcc?.nccID1?.country_name);
+    // setNccID(item?.id);
     // dispatch(saveAdminNccIdDetails())
-    superadminUserRole === 'admin' && setSuperadminUserRole('ncc');
+    superadminUserRole === 'admin' && localStorage.setItem('nccRole', 'ncc');
+
     formOpenFunction();
     setSearch('');
   };
 
   useEffect(() => {
-    dispatch(saveAdminNccIdDetails(nccID));
-  }, [nccID]);
+    localStorage.setItem('nccCountryName', filteredNcc?.nccID1?.country_name);
+  }, [filteredNcc?.nccID1?.country_name]);
+
+  console.log({ storedValueID, nccID, storedValueRole, superadminUserRole });
+
+  useEffect(() => {
+    dispatch(saveAdminNccIdDetails(storedValueID));
+  }, [storedValueID]);
 
   const handleSearch = (e) => {
     setSearch(e.target.value);
   };
+
+  useEffect(() => {
+    setSuperadminUserRole(storedValueRole);
+  }, [storedValueRole]);
+
+  useEffect(() => {
+    dispatch(saveAdminRoleDetails(superadminUserRole));
+  }, [superadminUserRole]);
 
   return (
     <React.Fragment>
@@ -365,6 +397,7 @@ export default function AccountMenu() {
           }}
           transformOrigin={{ horizontal: 'right', vertical: 'top' }}
           anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
+          {/* <MenuItem onClick={handleSuperadminRoleNcc}> */}
           <MenuItem onClick={handleSuperadminRoleNcc}>
             <ListItemIcon>
               <PublicIcon fontSize="small" />
@@ -372,6 +405,7 @@ export default function AccountMenu() {
             NCC
           </MenuItem>
           <MenuItem onClick={handleSuperadminRoleMember}>
+            {/* <MenuItem onClick={setLocalStorageItemAdmin}> */}
             <ListItemIcon>
               <Person4Icon fontSize="small" />
             </ListItemIcon>

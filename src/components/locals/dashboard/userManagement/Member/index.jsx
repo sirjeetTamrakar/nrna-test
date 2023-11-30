@@ -49,6 +49,9 @@ const Member = () => {
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
   const [filteredNcc, setFilteredNcc] = useState();
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+
   const {
     users,
     user_search,
@@ -93,14 +96,14 @@ const Member = () => {
   }, []);
 
   useEffect(() => {
-    const newArray = nccData?.data?.filter((item) => item?.id === admin_ncc_id_details);
+    const newArray = nccData?.data?.filter((item) => item?.id === storedValueID);
     const newObj = {};
 
     newArray?.forEach((item, index) => {
       newObj[`nccID${index + 1}`] = item;
     });
     setFilteredNcc(newObj);
-  }, [nccData?.data, admin_ncc_id_details]);
+  }, [nccData?.data, storedValueID]);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -333,7 +336,7 @@ const Member = () => {
     if (user?.role_name === 'ncc') {
       const roleData = { country: user?.ncc?.slug };
       dispatch(getAllUsers(filterData, roleData));
-    } else if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
+    } else if (user?.role_name === 'superadmin' && storedValueRole === 'ncc') {
       const roleData = { country: filteredNcc?.nccID1?.country_name };
       dispatch(getAllUsers(filterData, roleData));
     } else {
