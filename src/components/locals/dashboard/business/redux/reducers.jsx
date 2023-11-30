@@ -26,6 +26,8 @@ const defaultState = {
   business_order_loading: false,
   get_business_follow_loading: false,
   businessFollowData: [],
+  get_business_follow_download_loading: false,
+  businessFollowDownloadData: [],
   business_user_approval_loading: false,
   followers_search: ''
 };
@@ -212,6 +214,22 @@ const businessReducer = (state = defaultState, action) => {
 
     case actions.GET_BUSINESS_FOLLOW_ERROR:
       return { ...state, get_business_follow_loading: false };
+
+    case actions.GET_BUSINESS_FOLLOW_DOWNLOAD_BEGIN:
+      return {
+        ...state,
+        get_business_follow_download_loading: true
+      };
+
+    case actions.GET_BUSINESS_FOLLOW_DOWNLOAD_SUCCESS:
+      return {
+        ...state,
+        get_business_follow_download_loading: false,
+        businessFollowDownloadData: action.payload
+      };
+
+    case actions.GET_BUSINESS_FOLLOW_DOWNLOAD_ERROR:
+      return { ...state, get_business_follow_download_loading: false };
 
     case actions.POST_BUSINESS_USER_APPROVAL_BEGIN:
       return {

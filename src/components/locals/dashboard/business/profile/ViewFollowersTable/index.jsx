@@ -15,6 +15,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   getBusinessFollow,
+  getBusinessFollowDownload,
   postBusinessUserApproval,
   setFollowersSearch
 } from '../../redux/actions';
@@ -57,9 +58,10 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     businessFollowData,
     get_business_follow_loading,
     business_user_approval_loading,
-    followers_search
+    followers_search,
+    businessFollowDownloadData
   } = useSelector((state) => state.business);
-  console.log({ user, users, nccData, businessFollowData });
+  console.log({ user, users, nccData, businessFollowData, businessFollowDownloadData });
   const [roleIDData, setRoleIDData] = useState();
   const [openView, viewOpenFunction] = useToggle(false);
 
@@ -255,6 +257,14 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
   //   refetch();
   // }, [page, rowsPerPage, businessId]);
 
+  const filterDataMemberDownload = {
+    business_id: businessId
+  };
+
+  useEffect(() => {
+    dispatch(getBusinessFollowDownload(filterDataMemberDownload));
+  }, [businessId]);
+
   return (
     <>
       <Box>
@@ -271,9 +281,10 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
               <Box
                 sx={{
                   marginTop: '10px',
-                  width: '100%',
                   display: 'flex',
-                  justifyContent: 'space-between'
+                  alignItems: 'center',
+                  // justifyContent: 'space-between'
+                  gap: '400px'
                 }}>
                 <Box>
                   <form onClick={handleUserSearch}>
@@ -314,9 +325,9 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
                 </Box>
                 <Box sx={{}}>
                   <ExcelDownloadButton
-                    data={businessFollowData?.data?.user}
+                    data={businessFollowDownloadData?.data}
                     fileName="Followers Data"
-                    dataObject
+                    followers
                   />
                 </Box>
               </Box>
