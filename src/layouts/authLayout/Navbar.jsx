@@ -68,7 +68,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
 
   const sideNavItems = [
     { title: 'Home', link: '/', value: '/' },
-    { title: 'FEA', link: 'foreign-employment', value: '/foreign-employment' },
+    { title: 'NFEA', link: 'foreign-employment', value: '/foreign-employment' },
     { title: 'Our Team', link: '/our-team', value: '/our-team' },
     { title: 'Business', link: '/business', value: '/business' },
     { title: 'NCC', link: '/ncc', value: '/ncc' },
@@ -100,7 +100,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
               <li className="d-none d-lg-block menu_items">
                 <Link to="/foreign-employment" className={classes.navIcon}>
                   <img src={NBNSIcon} />
-                  <span>FEA</span>
+                  <span>NFEA</span>
                 </Link>
               </li>
               <li className="d-none d-lg-block menu_items">

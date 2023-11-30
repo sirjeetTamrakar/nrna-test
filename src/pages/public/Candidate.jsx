@@ -50,7 +50,7 @@ const CandidatePage = () => {
   return (
     <>
       <SecondaryNav
-        title={'FEA > Candidate'}
+        title={'NFEA > Candidate'}
         options={allOptions}
         setSelected={setSelected}
         selected={selected}

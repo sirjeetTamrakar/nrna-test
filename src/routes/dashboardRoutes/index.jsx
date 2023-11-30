@@ -27,6 +27,7 @@ import AllNewsPage from 'pages/private/news/AllNewsPage';
 import NewsCategoryPage from 'pages/private/news/Category';
 import NewsManagementPage from 'pages/private/news/NewsManagementPage';
 import NewsPage from 'pages/private/news/NewsPage';
+import NFEATeamPage from 'pages/private/NFEATeamPage';
 import OurTeamPage from 'pages/private/OurTeamPage';
 import ParticipantResultPage from 'pages/private/ParticipantResult';
 import ParticipantsPage from 'pages/private/Participants';
@@ -149,6 +150,15 @@ const DashboardRoutes = [
     component: (
       <Protected>
         <OurTeamPage />
+      </Protected>
+    )
+  },
+
+  {
+    path: 'nfea-team',
+    component: (
+      <Protected>
+        <NFEATeamPage />
       </Protected>
     )
   },

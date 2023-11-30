@@ -64,7 +64,7 @@ const AboutPage = () => {
   return (
     <>
       <SecondaryNav
-        title={'FEA > About'}
+        title={'NFEA ( नेपाल वैदेशिक रोजगार संघ )'}
         options={!candidates ? notCandidateOptions : allOptions}
         setSelected={setSelected}
         selected={selected}

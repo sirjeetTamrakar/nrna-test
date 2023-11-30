@@ -74,9 +74,11 @@ export const getTeamsApi = (data) => {
     ? `&pagination_limit=${data?.pagination_limit}`
     : '';
   const id = data?.id ? `&ncc_id=${data?.id}` : '';
+  const type = data?.type ? `&type=${data?.type}` : '';
+
   const country = data?.country ? `&country=${data?.country}` : '';
 
-  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}${id}${country}`);
+  return axiosInstance().get(`/admin/our-teams${page}${pagination_limit}${id}${country}${type}`);
 };
 
 // post our teams

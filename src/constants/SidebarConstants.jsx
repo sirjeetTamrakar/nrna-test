@@ -187,6 +187,14 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
+            label: 'NFEA Team',
+            url: '/dashboard/nfea-team',
+            memberProfileNCC: 'memberProfileNCC',
+            adminProfile: 'adminProfile',
+
+            roles: [Roles.Admin, Roles.SuperAdmin]
+          },
+          {
             label: 'Department',
             url: '/dashboard/our-team/department',
             memberProfileNCC: 'memberProfileNCC',
