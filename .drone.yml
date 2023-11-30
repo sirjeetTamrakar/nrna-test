@@ -1,0 +1,88 @@
+kind: pipeline
+type: docker
+name: default
+
+workspace:
+  path: /go/src
+
+steps:
+  - name: tag-main-delivery
+    image: alpine
+    when:
+      event:
+        - push
+      branch:
+        - main
+    commands:
+      - echo -n "${DRONE_COMMIT}" > .tags
+  - name: tag-feature-delivery
+    image: alpine
+    when:
+      event:
+        - push
+      branch:
+        - scodus
+    commands:
+      - echo -n "${DRONE_BRANCH}" > .tags
+  - name: main-delivery
+    image: plugins/docker
+    user: root
+    when:
+      event:
+        - push
+      branch:
+        - main
+    environment:
+      SERVICE: nbns-ui
+      GITHUB_TOKEN:
+        from_secret: GITHUB_TOKEN
+    settings:
+      username:
+        from_secret: DOCKER_REGISTRY_USER_NAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      repo: registry.ybcsystems.com/ybcteam/nbns-ui
+      registry: registry.ybcsystems.com
+      build_args_from_env:
+        - SERVICE
+        - GITHUB_TOKEN
+      tags:
+        - '${DRONE_COMMIT}'
+        - latest
+  - name: main-deployment
+    image: plugins/docker
+    user: root
+    when:
+      event:
+        - push
+      branch:
+        - main
+    commands:
+      - apk add curl
+      - chmod +x ./deployment.sh
+      - env
+      - ./deployment.sh ${TOKEN} ${CA_CERT}
+  - name: feature-delivery
+    image: plugins/docker
+    user: root
+    when:
+      event:
+        - push
+      branch:
+        - scodus
+    environment:
+      SERVICE: nbns-ui
+      GITHUB_TOKEN:
+        from_secret: GITHUB_TOKEN
+    settings:
+      username:
+        from_secret: DOCKER_REGISTRY_USER_NAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      repo: registry.ybcsystems.com/ybcteam/nbns-ui
+      registry: registry.ybcsystems.com
+      build_args_from_env:
+        - SERVICE
+        - GITHUB_TOKEN
+      tags:
+        - '${DRONE_BRANCH}'
