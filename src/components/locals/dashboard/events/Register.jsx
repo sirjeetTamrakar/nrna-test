@@ -16,6 +16,8 @@ const Register = ({ handleClose }) => {
   const classes = useStyles();
   const { events_loading } = useSelector((state) => state.events);
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   console.log('cxcxddddd', { user });
   const onSubmit = (data) => {
@@ -40,13 +42,13 @@ const Register = ({ handleClose }) => {
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
       formData.append('ncc_id', user?.ncc?.id);
-    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
       typeData = {
-        id: admin_ncc_id_details,
+        id: storedValueID,
         page: 1,
         pagination_limit: 10
       };
-      formData.append('ncc_id', admin_ncc_id_details);
+      formData.append('ncc_id', storedValueID);
     } else {
       typeData = { page: 1, pagination_limit: 10 };
     }

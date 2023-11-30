@@ -1,10 +1,10 @@
-import { Box, Button, Typography } from '@mui/material';
-import CustomTable from 'components/common/table';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Box, Button } from '@mui/material';
+import CustomTable from 'components/common/table';
 import { getPublicDownload } from 'components/locals/dashboard/downloads/redux/actions';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Downloads = () => {
   // const { settings } = useSelector((state) => state.homepage);
@@ -14,7 +14,8 @@ const Downloads = () => {
   const { downloadData, get_download_loading } = useSelector((state) => state.download);
 
   useEffect(() => {
-    dispatch(getPublicDownload({ downloadable_type: 'nbns', downloadable_id: '' }));
+    // dispatch(getDownload({type:}));
+    dispatch(getPublicDownload({}));
   }, []);
 
   const tableHeads = [

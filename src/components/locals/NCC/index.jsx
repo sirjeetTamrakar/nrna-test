@@ -47,33 +47,6 @@ const AllNCCSection = () => {
     }
   }, [nccLimit, selected]);
 
-  // const category = [
-  //   {
-  //     title: 'Asia',
-  //     slug: 'Asia'
-  //   },
-  //   {
-  //     title: 'Europe',
-  //     slug: 'Europe'
-  //   },
-  //   {
-  //     title: 'North America',
-  //     slug: 'North America'
-  //   },
-  //   {
-  //     title: 'South America',
-  //     slug: 'South America'
-  //   },
-  //   {
-  //     title: 'Africa',
-  //     slug: 'Africa'
-  //   },
-  //   {
-  //     title: 'Australia',
-  //     slug: 'Australia'
-  //   }
-  // ];
-
   const allOptions = [...regionOptions];
 
   useEffect(() => {

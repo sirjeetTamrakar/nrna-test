@@ -1,20 +1,24 @@
 import { Box } from '@mui/material';
 import CustomButton from 'components/common/CustomButton/CustomButton';
-import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomPasswordInput from 'components/common/Form/CustomPasswordInput';
+import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoComplete';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from 'redux/auth/actions';
+import { getCountriesCode } from 'redux/homepage/actions';
 import * as Yup from 'yup';
 
-const Register = ({ loginOpen, handleClose, defaultNccCountry }) => {
+const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode }) => {
   console.log('hhshhshhh', { defaultNccCountry });
-  const defaultValues = { country_of_residence: defaultNccCountry && defaultNccCountry };
+  const defaultValues = {
+    country_of_residence: defaultNccCountry ? defaultNccCountry : '',
+    phone: defaultNccCountry ? nccCode : null
+  };
 
   const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
@@ -58,12 +62,34 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry }) => {
   }, []);
 
   const { nccData, countries_list } = useSelector((state) => state.ncc);
+  const { countries_list_code } = useSelector((state) => state.homepage);
   console.log({ nccData, countries_list });
 
-  const countryList = countries_list?.map((item, index) => ({
-    label: item,
-    value: item
+  // const countryList = countries_list?.map((item, index) => ({
+  //   label: item,
+  //   value: item
+  // }));
+
+  const countryListCode = countries_list_code?.map((item, index) => ({
+    label: item?.name,
+    value: item?.name,
+    code: item?.dial_code
   }));
+
+  useEffect(() => {
+    dispatch(getCountriesCode());
+  }, []);
+
+  const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
+  // const classes = useStyles();
+
+  const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
+  console.log({ selectedCountry, lowercaseString });
+
+  const handleCountrySelection = (selectedValue) => {
+    setSelectedCountry(selectedValue);
+  };
+
   return (
     <CustomFormProvider
       defaultValues={defaultValues}
@@ -73,17 +99,22 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry }) => {
           <div className="title">Join Us</div>
           <div className="subtitle">Register to the website to browse more</div>
           <Box display="flex" flexDirection="column" rowGap={`12px`}>
-            <CustomInput name="first_name" label="Firstname" />
-            <CustomInput name="last_name" label="Lastname" />
-            <CustomInput name="email" label="Email" type="email" />
-            <CustomInput name="phone" label="Phone" type={'number'} />
-            <CustomAutoComplete
+            <CustomInput name="first_name" label="Firstname" required />
+            <CustomInput name="last_name" label="Lastname" required />
+
+            <CustomPhoneAutoComplete
+              placeholder="Country of residence"
               name="country_of_residence"
-              label="Country of Residence"
-              options={countryList}
+              label="Country of residence"
+              options={countryListCode ?? []}
+              required
+              // phoneSelect
+              onCountrySelection={handleCountrySelection}
             />
-            <CustomPasswordInput name="password" label="New Password" />
-            <CustomPasswordInput name="password_confirmation" label="Confirm Password" />
+            <CustomInput name="phone" label="Phone" defaultValue={selectedCountry} required />
+            <CustomInput name="email" label="Email" type="email" required />
+            <CustomPasswordInput name="password" label="New Password" required />
+            <CustomPasswordInput name="password_confirmation" label="Confirm Password" required />
           </Box>
           <Box className="agree">
             <input type="checkbox" onChange={handleChange} />{' '}

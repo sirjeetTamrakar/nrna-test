@@ -16,6 +16,8 @@ const Register = ({ handleClose }) => {
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
   const { news_loading } = useSelector((state) => state.news);
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -39,15 +41,15 @@ const Register = ({ handleClose }) => {
         pagination_limit: 10,
         user_id: user?.id
       };
-    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'ncc') {
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
       typeData = {
         type: 'ncc',
-        id: admin_ncc_id_details,
+        id: storedValueID,
         page: 1,
         pagination_limit: 10,
         user_id: user?.id
       };
-    } else if (user?.role_name == Roles?.SuperAdmin && admin_role_details === 'admin') {
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'admin') {
       typeData = {
         page: 1,
         pagination_limit: 10,

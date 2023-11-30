@@ -19,23 +19,25 @@ const Register = ({ handleClose }) => {
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
   const { create_user_loading } = useSelector((state) => state.user);
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+  const storedValueRole = localStorage.getItem('nccRole');
 
   useEffect(() => {
     dispatch(getNCC());
   }, []);
 
   useEffect(() => {
-    const newArray = nccData?.data?.filter((item) => item?.id === admin_ncc_id_details);
+    const newArray = nccData?.data?.filter((item) => item?.id === storedValueID);
     const newObj = {};
 
     newArray?.forEach((item, index) => {
       newObj[`nccID${index + 1}`] = item;
     });
     setFilteredNcc(newObj);
-  }, [nccData?.data, admin_ncc_id_details]);
+  }, [nccData?.data, storedValueID]);
 
   const onSubmit = (data) => {
-    if (user?.role_name === 'superadmin' && admin_role_details === 'ncc') {
+    if (user?.role_name === 'superadmin' && storedValueRole === 'ncc') {
       const roleData = { country: filteredNcc };
       dispatch(createUser(data, handleClose, roleData));
     } else {

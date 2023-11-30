@@ -22,6 +22,7 @@ import {
   getBusinessFollow,
   getCountriesCode,
   getNBNSFollow,
+  getNcc,
   postBusinessCreateAccount,
   postBusinessJoin,
   postNBNSJoin
@@ -55,6 +56,7 @@ const SecondaryNav = ({
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
   const [filteredNcc, setFilteredNcc] = useState();
+  const [filteredNccCode, setFilteredNccCode] = useState();
   const [openForm, formOpenFunction] = useToggle(false);
 
   const joinBusiness = () => {
@@ -71,12 +73,11 @@ const SecondaryNav = ({
     businessFollowData,
     get_business_follow_loading,
     nbnsFollowData,
-    get_nbns_follow_loading
+    get_nbns_follow_loading,
+    countries_list_code,
+    business_create_account_loading
   } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
-  const { countries_list_code, business_create_account_loading } = useSelector(
-    (state) => state.homepage
-  );
 
   // console.log('kdlaskjndu', { user });
   const defaultValues = {};
@@ -86,17 +87,36 @@ const SecondaryNav = ({
 
   // console.log({ nbnsFollowData });
 
-  console.log('params_data', { slug, businessSlug });
+  console.log('params_data', {
+    slug,
+    businessSlug,
+    nccData,
+    filteredNcc,
+    filteredNccCode,
+    countries_list_code
+  });
 
   useEffect(() => {
     const newArray = nccData?.data?.filter((item) => item?.slug === slug);
     const newObj = {};
 
     newArray?.forEach((item, index) => {
-      newObj[`nccID$newArray{index + 1}`] = item;
+      newObj[`nccID1`] = item;
     });
     setFilteredNcc(newObj);
   }, [nccData?.data, slug]);
+
+  useEffect(() => {
+    const newArray = countries_list_code?.filter(
+      (item) => item?.name === filteredNcc?.nccID1?.country_name
+    );
+    const newObj = {};
+
+    newArray?.forEach((item, index) => {
+      newObj[`nccCode1`] = item;
+    });
+    setFilteredNccCode(newObj);
+  }, [countries_list_code, filteredNcc?.nccID1?.country_name]);
 
   const handleRegisterClick = () => {
     openFunctionRegister();
@@ -219,6 +239,10 @@ const SecondaryNav = ({
   }, []);
 
   const businessDetails = businessFollowData?.[0];
+
+  useEffect(() => {
+    dispatch(getNcc());
+  }, []);
 
   return (
     <>
@@ -469,6 +493,7 @@ const SecondaryNav = ({
           handleClose={openFunctionRegister}
           loginOpen={openFunction}
           defaultNccCountry={filteredNcc?.nccID1?.country_name}
+          nccCode={filteredNccCode?.nccCode1?.dial_code}
         />
       </CustomModal>
       <CustomModal
@@ -488,6 +513,9 @@ const SecondaryNav = ({
               handleCancel={handleCancel}
               countryList={countryList}
               loading={business_create_account_loading}
+              defaultNccCountry={filteredNcc?.nccID1?.country_name}
+              nccData={nccData?.data}
+              slug={slug}
               // email_check_loading={email_check_loading}
               // setNumber={setNumber}
               // number={number}
@@ -505,15 +533,20 @@ const FormComponent = ({
   email_check_loading,
   number,
   setNumber,
-  loading
+  loading,
+  defaultNccCountry,
+  nccData,
+  slug,
+  nccCode
 }) => {
   const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
   // const classes = useStyles();
 
   const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
-  console.log({ selectedCountry, lowercaseString });
+  console.log({ selectedCountry, lowercaseString, nccCode });
 
   const handleCountrySelection = (selectedValue) => {
+    console.log('hhshhjj', { selectedValue });
     setSelectedCountry(selectedValue);
   };
 
@@ -545,15 +578,6 @@ const FormComponent = ({
         />
       </Grid>
       <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
-        <CustomInput
-          name="phone"
-          label="Phone"
-          type="number"
-          placeholder="Enter your phone"
-          // required
-        />
-      </Grid>
-      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
         <CustomPhoneAutoComplete
           placeholder="Country of residence"
           name="country_of_residence"
@@ -562,6 +586,16 @@ const FormComponent = ({
           required
           // phoneSelect
           onCountrySelection={handleCountrySelection}
+        />
+      </Grid>
+      <Grid item className="col-md-12" style={{ marginRight: '0px' }}>
+        <CustomInput
+          name="phone"
+          label="Phone"
+          // type="number"
+          placeholder="Enter your phone"
+          // required
+          defaultValue={nccCode ? nccCode : selectedCountry}
         />
       </Grid>
       <Grid item className="col-md-12" sx={{ marginTop: '20px' }}>

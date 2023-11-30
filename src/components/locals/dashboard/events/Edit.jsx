@@ -15,6 +15,8 @@ const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
   const { update_events_loading } = useSelector((state) => state.events);
   const { user } = useSelector((state) => state.auth);
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   const onSubmit = (data) => {
     const formData = new FormData();
@@ -39,6 +41,15 @@ const EditForm = ({ detail, handleClose }) => {
     if (user?.role_name == Roles?.NCC) {
       typeData = { id: user?.ncc?.id, page: 1, pagination_limit: 10 };
       formData.append('ncc_id', user?.ncc?.id);
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
+      typeData = {
+        id: storedValueID,
+        page: 1,
+        pagination_limit: 10
+      };
+      formData.append('ncc_id', storedValueID);
+    } else {
+      typeData = { page: 1, pagination_limit: 10 };
     }
     dispatch(updateEvents(formData, detail?.slug, handleClose, typeData));
   };

@@ -37,6 +37,8 @@ const Profile = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
+  const storedValueRole = localStorage.getItem('nccRole');
 
   const { businessData, get_business_loading, business_status_loading, delete_business_loading } =
     useSelector((state) => state.business);
@@ -295,18 +297,20 @@ const Profile = () => {
       dispatch(getBusiness(data));
     } else if (
       (user?.role_name == 'superadmin' || user?.role_name == 'admin') &&
-      admin_role_details === 'ncc'
+      storedValueRole === 'ncc'
+      // admin_role_details === 'ncc'
     ) {
       const data = {
         page: page + 1,
         pagination_limit: rowsPerPage,
         type: 'ncc',
-        user_id: admin_ncc_id_details
+        user_id: storedValueID
       };
       dispatch(getBusiness(data));
     } else if (
       (user?.role_name == 'superadmin' || user?.role_name == 'admin') &&
-      admin_role_details === 'admin'
+      storedValueRole === 'admin'
+      // admin_role_details === 'admin'
     ) {
       const data = { page: page + 1, pagination_limit: rowsPerPage };
       dispatch(getBusiness(data));

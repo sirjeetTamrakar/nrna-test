@@ -32,6 +32,12 @@ import userManagementActiveIcon from 'assets/icon/user-management-active.svg';
 import UserManagement from 'assets/icon/user-management.svg';
 import { Roles } from './RoleConstant';
 
+const getLabelValue = (localStorageKey, textValue, defaultValue) => {
+  const storedValue = localStorage.getItem(localStorageKey);
+  const newValue = `${storedValue}'s ${textValue}`;
+  return storedValue === 'null' ? defaultValue : newValue;
+};
+
 export const SidebarConstants = [
   {
     header: 'MAIN',
@@ -344,7 +350,7 @@ export const SidebarConstants = [
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
-            label: 'NRNA Settings',
+            label: getLabelValue('nccCountryName', 'NCC Settings', 'NRNS Settings'),
             url: '/dashboard/settings/site',
             // memberProfileNCC: 'memberProfileNCC',
             adminProfile: 'adminProfile',
@@ -352,7 +358,7 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
-            label: 'NRNA Banner',
+            label: getLabelValue('nccCountryName', 'NCC Banner', 'NRNS Banner'),
             url: '/dashboard/settings/banner',
             memberProfile: 'memberProfile',
             // memberProfileNCC: 'memberProfileNCC',

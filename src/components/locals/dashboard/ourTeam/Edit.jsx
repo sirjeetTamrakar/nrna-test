@@ -17,6 +17,8 @@ const EditForm = ({ id, handleClose }) => {
   const classes = useStyles();
   const { update_teams_loading } = useSelector((state) => state.teams);
   const { user } = useSelector((state) => state.auth);
+  const storedValueRole = localStorage.getItem('nccRole');
+  const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   const onSubmit = (data) => {
     let typeData;
@@ -25,6 +27,9 @@ const EditForm = ({ id, handleClose }) => {
       dispatch(
         updateTeams({ ...data, _method: 'PUT', ncc_id: user?.id }, id, handleClose, typeData)
       );
+    } else if (user?.role_name == Roles?.SuperAdmin && storedValueRole === 'ncc') {
+      typeData = { id: storedValueID, page: 1, pagination_limit: 10 };
+      dispatch(updateTeams({ ...data, ncc_id: storedValueID }, handleClose, typeData));
     } else {
       typeData = { page: 1, pagination_limit: 10 };
       dispatch(updateTeams({ ...data, _method: 'PUT' }, id, handleClose, typeData));
