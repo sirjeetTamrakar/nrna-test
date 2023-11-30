@@ -1,4 +1,4 @@
-import SecondaryNav from 'components/globals/secondaryNav';
+import SecondaryNav from 'components/globals/SecondaryNav';
 import HomeDataCom from 'components/locals/HomeDataReuseCom/HomeDataCom';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
