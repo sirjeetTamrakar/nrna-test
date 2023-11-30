@@ -26,7 +26,7 @@ const Homepage = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={`/nrna/${item?.slug}`}
+            linkUrl={`/foreign-employment/${item?.slug}`}
             description={item?.description}
           />
         );
@@ -37,7 +37,7 @@ const Homepage = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={`/nrna/${item?.slug}`}
+            linkUrl={`/foreign-employment/${item?.slug}`}
             description={item?.description}
           />
         );

@@ -350,7 +350,7 @@ export const SidebarConstants = [
         roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC],
         children: [
           {
-            label: getLabelValue('nccCountryName', 'NCC Settings', 'NRNS Settings'),
+            label: getLabelValue('nccCountryName', 'NCC Settings', 'FEA Settings'),
             url: '/dashboard/settings/site',
             // memberProfileNCC: 'memberProfileNCC',
             adminProfile: 'adminProfile',
@@ -358,7 +358,7 @@ export const SidebarConstants = [
             roles: [Roles.Admin, Roles.SuperAdmin, Roles.NCC]
           },
           {
-            label: getLabelValue('nccCountryName', 'NCC Banner', 'NRNS Banner'),
+            label: getLabelValue('nccCountryName', 'NCC Banner', 'FEA Banner'),
             url: '/dashboard/settings/banner',
             memberProfile: 'memberProfile',
             // memberProfileNCC: 'memberProfileNCC',

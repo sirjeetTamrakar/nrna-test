@@ -29,7 +29,7 @@ const NBNS = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={item?.slug}
+            linkUrl={`/nbns/${item?.slug}`}
             description={item?.description}
           />
         );
@@ -40,7 +40,7 @@ const NBNS = () => {
             key={item?.id}
             title={item?.title}
             image={item?.image}
-            linkUrl={item?.slug}
+            linkUrl={`/nbns/${item?.slug}`}
             description={item?.description}
           />
         );
