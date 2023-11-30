@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid';
 import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
-import SecondaryNav from 'components/globals/SecondaryNav';
+import SecondaryNav from 'components/globals/secondaryNav';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 // import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import { useEffect, useState } from 'react';

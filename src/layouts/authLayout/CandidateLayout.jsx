@@ -1,10 +1,10 @@
 import { Box } from '@mui/material';
-// import SecondaryNav from 'components/globals/SecondaryNav';
+// import SecondaryNav from 'components/globals/secondaryNav';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { getSingleUser } from 'redux/homepage/actions';
-import SecondaryNav from '../../components/globals/SecondaryNav';
+import SecondaryNav from '../../components/globals/secondaryNav';
 import Footer from './Footer';
 import Navbar from './Navbar';
 

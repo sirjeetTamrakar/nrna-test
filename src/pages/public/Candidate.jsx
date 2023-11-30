@@ -1,4 +1,4 @@
-import SecondaryNav from 'components/globals/SecondaryNav';
+import SecondaryNav from 'components/globals/secondaryNav';
 import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

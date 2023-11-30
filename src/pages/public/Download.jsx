@@ -1,4 +1,4 @@
-import SecondaryNav from 'components/globals/SecondaryNav';
+import SecondaryNav from 'components/globals/secondaryNav';
 import Downloads from 'components/locals/Download';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
