@@ -1,3 +1,4 @@
+import profilePic from 'assets/images/profileImage2.jpg';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
@@ -74,11 +75,11 @@ const CommitteeMembers = () => {
                       to={`/ncc/${ncc}/committee/${committee?.member?.username}`}
                       className="candidateCard">
                       <div className="img_container">
-                        <img src={committee?.member?.profile_image} alt="" />
+                        <img src={committee?.member?.profile_image ?? profilePic} alt="" />
                       </div>
                       <div className="candidateCard_content_wrap">
                         <div className="candidateCard_title text-center">
-                          {committee?.member?.name}
+                          {committee?.member?.full_name}
                         </div>
                         <div className="candidateCard_subtitle text-center">
                           {committee?.designation}

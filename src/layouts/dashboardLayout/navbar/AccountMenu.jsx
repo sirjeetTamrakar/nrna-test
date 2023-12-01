@@ -58,7 +58,8 @@ export default function AccountMenu() {
     filteredNcc,
     nccData,
     nccCountryName,
-    storedValueID
+    storedValueID,
+    user
   });
 
   const open = Boolean(anchorEl);
@@ -248,7 +249,7 @@ export default function AccountMenu() {
               aria-expanded={open ? 'true' : undefined}>
               <Avatar sx={{ width: 32, height: 32 }}>
                 <img
-                  src={user?.profile_image !== '' ? user?.profile_image : noProfile}
+                  src={user?.profile_image ? user?.profile_image : noProfile}
                   alt="Profile Image"
                   style={{ objectFit: 'cover' }}
                   height="32"

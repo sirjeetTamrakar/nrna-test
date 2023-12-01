@@ -20,21 +20,21 @@ const ProfileForm = () => {
 
   const submitHandler = (data) => {
     const formData = new FormData();
-    formData.append('first_name', data?.first_name);
-    formData.append('last_name', data?.last_name);
-    formData.append('address', data?.address);
-    formData.append('phone', data?.phone);
-    formData.append('facebook_url', data?.facebook_url);
-    formData.append('youtube_url', data?.youtube_url);
-    formData.append('instagram_url', data?.instagram_url);
-    formData.append('twitter_url', data?.twitter_url);
-    formData.append('description', data?.description);
+    formData.append('first_name', data?.first_name ?? "");
+    formData.append('last_name', data?.last_name ?? "");
+    formData.append('address', data?.address ?? "");
+    formData.append('phone', data?.phone ?? "");
+    formData.append('facebook_url', data?.facebook_url ?? "");
+    formData.append('youtube_url', data?.youtube_url ?? "");
+    formData.append('instagram_url', data?.instagram_url ?? "");
+    formData.append('twitter_url', data?.twitter_url ? "");
+    formData.append('description', data?.description ?? "");
 
     if (data?.profile_image?.length > 0) {
       formData.append('profile_image', data?.profile_image?.[0]);
     }
     if (data?.profile_banner?.length > 0) {
-      formData.append(`profile_banner`, data?.profile_banner?.[0]);
+      formData.append('profile_banner', data?.profile_banner?.[0]);
     }
 
     formData.append('_method', 'PATCH');
