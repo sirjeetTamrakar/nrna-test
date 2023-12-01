@@ -26,7 +26,7 @@ export const getAllNewsApi = (data) => {
   const status = data?.status ? `&status=${data?.status}` : '';
   const query = data?.query ? `&search=${data?.query}` : '';
 
-  return axiosInstance().get(`/api/news${type}${id}${limit}${category_id}${status}${query}`);
+  return axiosInstance().get(`/api/news${type}${limit}${id}${category_id}${status}${query}`);
 };
 
 // get news category

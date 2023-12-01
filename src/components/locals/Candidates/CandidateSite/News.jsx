@@ -60,7 +60,7 @@ const News = () => {
   console.log('dsadddddddcxx', { single_user });
   useEffect(() => {
     dispatch(getSingleUser(candidate));
-    dispatch(getAllNews({ type: single_user?.role_name, id: single_user?.id }));
+    dispatch(getAllNews({ type: single_user?.role_name, id: single_user?.id, limit: 100 }));
     dispatch(getNewsCategory());
   }, []);
 
