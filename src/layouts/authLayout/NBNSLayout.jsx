@@ -3,7 +3,7 @@ import SecondaryNav from 'components/globals/SecondaryNav';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Outlet, useLocation, useNavigate, useParams } from 'react-router-dom';
-import { getAllHomeData, getNbnsSettings } from 'redux/homepage/actions';
+import { getAllHomeData, getCandidates, getNbnsSettings } from 'redux/homepage/actions';
 import Footer from './Footer';
 import Navbar from './Navbar';
 
@@ -34,6 +34,8 @@ const SecondaryNavWrapper = () => {
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const { home_data, candidates } = useSelector((state) => state.homepage);
+
   const handleFunction = (data) => {
     navigate(data);
   };
@@ -44,6 +46,10 @@ const SecondaryNavWrapper = () => {
       pathname && setSelected(currentOption?.value);
     }
   }, [pathname]);
+
+  useEffect(() => {
+    dispatch(getCandidates());
+  }, []);
 
   const options = [
     { title: 'Home', value: 'home', path: '/', clickFunction: () => handleFunction('/') },
@@ -82,18 +88,6 @@ const SecondaryNavWrapper = () => {
       value: 'press-release',
       path: '/nbns/press-release',
       clickFunction: () => handleFunction('/nbns/press-release')
-    },
-    {
-      title: 'Gallery',
-      value: 'gallery',
-      path: '/nbns/gallery',
-      clickFunction: () => handleFunction('/nbns/gallery')
-    },
-    {
-      title: 'Download',
-      value: 'download',
-      path: '/nbns/download',
-      clickFunction: () => handleFunction('/nbns/download')
     }
 
     // {
@@ -110,7 +104,29 @@ const SecondaryNavWrapper = () => {
     // }
   ];
 
-  const { home_data } = useSelector((state) => state.homepage);
+  const optionsCandidate = [
+    {
+      title: 'Candidate',
+      value: 'candidate',
+      path: '/nbns/candidate',
+      clickFunction: () => handleFunction('/nbns/candidate')
+    }
+  ];
+
+  const optionsRest = [
+    {
+      title: 'Gallery',
+      value: 'gallery',
+      path: '/nbns/gallery',
+      clickFunction: () => handleFunction('/nbns/gallery')
+    },
+    {
+      title: 'Download',
+      value: 'download',
+      path: '/nbns/download',
+      clickFunction: () => handleFunction('/nbns/download')
+    }
+  ];
 
   useEffect(() => {
     const data = {
@@ -128,12 +144,13 @@ const SecondaryNavWrapper = () => {
   //   clickFunction: () => handleFunction(`/nbns/${item.slug}`)
   // }));
 
-  const allOptions = [...options];
+  const allOptions = [...options, ...optionsCandidate, ...optionsRest];
+  const notCandidateOptions = [...options, ...optionsRest];
 
   return (
     <SecondaryNav
       title="NBNS ( नेपाल वंशज नागरिक संघ )"
-      options={allOptions}
+      options={!candidates ? notCandidateOptions : allOptions}
       setSelected={setSelected}
       selected={selected}
       nbns

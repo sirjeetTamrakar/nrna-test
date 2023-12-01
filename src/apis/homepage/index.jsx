@@ -115,8 +115,10 @@ export const getTeamsApi = (data) => {
     : data?.limit
     ? `?pagination_limit=${data?.limit}`
     : '';
+  const type = data?.type ? `&type=${data?.type}` : '';
   const category_id = data?.category_id ? `&category_id=${data?.category_id}` : '';
-  return axiosInstance().get(`/api/our-teams${id}${limit}${category_id}`);
+  const country = data?.country ? `&country=${data?.country}` : '';
+  return axiosInstance().get(`/api/our-teams${id}${limit}${category_id}${type}${country}`);
 };
 
 // get single news

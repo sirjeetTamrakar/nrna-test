@@ -8,8 +8,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getDepartment } from '../../department/redux/actions';
 import { updateTeams } from '../redux/actions';
 import OurTeamForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const EditForm = ({ id, handleClose }) => {
   const dispatch = useDispatch();

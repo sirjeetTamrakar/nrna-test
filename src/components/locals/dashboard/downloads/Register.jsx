@@ -6,16 +6,16 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { validationSchema } from './ValidationSchema';
 import { postDownload } from './redux/actions';
 import { useStyles } from './styles';
+import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
-  const { download_loading } = useSelector((state) => state.news);
+  const { download_loading } = useSelector((state) => state.download);
 
   const onSubmit = (data) => {
     const formData = new FormData();

@@ -1,12 +1,12 @@
 import SecondaryNav from 'components/globals/SecondaryNav';
-import Home from 'components/locals/Homepage';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllHomeData, getCandidates } from 'redux/homepage/actions';
+import OurTeamFEA from './OurTeamFEA';
 
-const Homepage = () => {
-  const [selected, setSelected] = useState('home');
+const OurTeamFEAPage = () => {
+  const [selected, setSelected] = useState('our-team');
   console.log({ selected });
 
   const navigate = useNavigate();
@@ -70,9 +70,9 @@ const Homepage = () => {
         setSelected={setSelected}
         selected={selected}
       />
-      <Home />
+      <OurTeamFEA />
     </>
   );
 };
 
-export default Homepage;
+export default OurTeamFEAPage;

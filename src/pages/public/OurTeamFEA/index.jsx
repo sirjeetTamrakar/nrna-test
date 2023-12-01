@@ -6,7 +6,7 @@ import { getDepartment, getTeams } from 'redux/homepage/actions';
 import OurTeamCard from './OurTeamCard';
 import SecondaryNav from './secondaryNav';
 
-const OurTeam = () => {
+const OurTeamFEA = () => {
   const dispatch = useDispatch();
   const pathname = window.location.pathname;
   useEffect(() => {
@@ -30,7 +30,8 @@ const OurTeam = () => {
   useEffect(() => {
     const finalData = {
       limit: teamLimit,
-      category_id: selected
+      category_id: selected,
+      type: 'nfea'
     };
     dispatch(getTeams(finalData));
     dispatch(getDepartment());
@@ -117,4 +118,4 @@ const OurTeam = () => {
   );
 };
 
-export default OurTeam;
+export default OurTeamFEA;

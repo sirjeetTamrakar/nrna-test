@@ -7,15 +7,15 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
-import { editValidationSchema } from './ValidationSchema';
 import { updateDownload } from './redux/actions';
 import { useStyles } from './styles';
+import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { update_download_loading } = useSelector((state) => state.news);
+  const { update_download_loading } = useSelector((state) => state.download);
   const { user } = useSelector((state) => state.auth);
   const [typeData, setTypeData] = useState();
 

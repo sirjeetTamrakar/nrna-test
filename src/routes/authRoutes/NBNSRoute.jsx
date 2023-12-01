@@ -1,10 +1,12 @@
 import SingleArticle from 'components/locals/NBNS/Articles/SingleArticle';
+import CandidateSiteSingleHome from 'components/locals/NBNS/Candidate/CandidateSingle';
 import SingleDownload from 'components/locals/NBNS/Downloads/SingleDownload';
 import SinglePressRelease from 'components/locals/NBNS/PressRelease/SinglePressRelease';
 import Homepage from 'pages/public/nbnsSite';
 import AboutPage from 'pages/public/nbnsSite/About';
 import AdvisePage from 'pages/public/nbnsSite/Advise';
 import ArticlePageNBNS from 'pages/public/nbnsSite/ArticlePage';
+import CandidatePage from 'pages/public/nbnsSite/Candidate';
 import DownloadsPageNBNS from 'pages/public/nbnsSite/Downloads';
 import GalleryPageNBNS from 'pages/public/nbnsSite/GalleryPage';
 import MissionPage from 'pages/public/nbnsSite/Mission';
@@ -79,5 +81,13 @@ export const nbnsRoutes = [
   {
     path: `/nbns/download/:slug`,
     component: <SingleDownload />
+  },
+  {
+    path: `/nbns/candidate`,
+    component: <CandidatePage />
+  },
+  {
+    path: `/nbns/candidate/:slug`,
+    component: <CandidateSiteSingleHome />
   }
 ];

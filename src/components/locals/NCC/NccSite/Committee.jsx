@@ -15,7 +15,7 @@ const CommitteeMembers = () => {
     (state) => state.homepage
   );
   const [filteredTeams, setFilteredTeams] = useState();
-  console.log({ filteredTeams });
+  console.log({ teams, filteredTeams });
   const { ncc } = useParams();
   const [selected, setSelected] = useState();
   useEffect(() => {
@@ -23,8 +23,9 @@ const CommitteeMembers = () => {
   }, [location?.state, department]);
   const [search, setSearch] = useState('');
   console.log('dsadddddddcxx', { selected, filteredTeams, single_ncc });
+
   useEffect(() => {
-    dispatch(getTeams({ ncc_id: single_ncc?.id }));
+    dispatch(getTeams({ ncc_id: single_ncc?.id, country: ncc }));
     dispatch(getDepartment({ ncc_id: single_ncc?.id }));
   }, []);
 
@@ -32,12 +33,14 @@ const CommitteeMembers = () => {
     if (teams?.data) {
       const newTeams = teams?.data?.filter(
         (list) =>
-          list?.member?.name?.toLowerCase()?.includes(search?.toLowerCase()) &&
-          list?.our_team_category_id == Number(selected)
+          list?.member?.full_name?.toLowerCase()?.includes(search?.toLowerCase()) &&
+          Number(list?.our_team_category_id) == Number(selected)
       );
+      console.log('dasdeee', { newTeams });
       setFilteredTeams(newTeams);
     }
   }, [search, teams?.data, selected, department]);
+
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
   }, [ncc]);
@@ -61,6 +64,7 @@ const CommitteeMembers = () => {
       <div className="main_content">
         <section className="all_events">
           <div className="all_events_title">All Committee Members</div>
+          <div></div>
           <div className="container">
             <div className="row">
               {filteredTeams && filteredTeams?.length > 0 ? (

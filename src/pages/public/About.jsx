@@ -49,15 +49,15 @@ const AboutPage = () => {
       clickFunction: () => handleFunction('/foreign-employment/download')
     }
   ];
-  const candidate = [
+  const ourTeam = [
     {
-      title: 'Candidate',
-      value: 'candidate',
-      clickFunction: () => handleFunction('/foreign-employment/candidate')
+      title: 'Our Team',
+      value: 'our-team',
+      clickFunction: () => handleFunction('/foreign-employment/our-team')
     }
   ];
 
-  const allOptions = [...options, ...candidate, ...contact];
+  const allOptions = [...options, ...ourTeam, ...contact];
 
   const notCandidateOptions = [...options, ...contact];
 
@@ -65,7 +65,7 @@ const AboutPage = () => {
     <>
       <SecondaryNav
         title={'NFEA ( नेपाल वैदेशिक रोजगार संघ )'}
-        options={!candidates ? notCandidateOptions : allOptions}
+        options={allOptions}
         setSelected={setSelected}
         selected={selected}
       />

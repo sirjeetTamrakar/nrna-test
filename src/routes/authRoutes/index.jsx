@@ -20,6 +20,7 @@ import NCCPage from 'pages/public/NCC';
 import NewsPage from 'pages/public/news';
 import SingleNewsPage from 'pages/public/news/SingleNews';
 import OurTeamPage from 'pages/public/OurTeam';
+import OurTeamFEAPage from 'pages/public/OurTeamFEAPage';
 import PrivacyPolicyPage from 'pages/public/PrivacyPolicyPage';
 import ResetPassword from 'pages/public/reset';
 import SingleDownloadPage from 'pages/public/SingleDownload';
@@ -132,6 +133,10 @@ const AuthRoutes = [
   {
     path: '/foreign-employment/download',
     component: <DownloadPage />
+  },
+  {
+    path: '/foreign-employment/our-team',
+    component: <OurTeamFEAPage />
   },
 
   {
