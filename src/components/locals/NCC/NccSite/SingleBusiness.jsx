@@ -13,7 +13,6 @@ import {
   getSingleBusiness,
   getSingleNCC
 } from 'redux/homepage/actions';
-import SecondaryNav from './SecondaryNav';
 // import { getBusinessCategory, getSingleBusiness } from 'redux/homepage/actions';
 
 const SingleBusiness = () => {
@@ -60,14 +59,14 @@ const SingleBusiness = () => {
 
   return (
     <>
-      <SecondaryNav
+      {/* <SecondaryNav
         id={ncc}
         category={business_category}
         setSelected={setSelected}
         selected={selected}
         business
         color={single_ncc?.color}
-      />
+      /> */}
       <div className="main_content">
         <div
           className="candidate_page_banner"

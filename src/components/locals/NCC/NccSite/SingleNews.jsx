@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getAllNews, getNewsCategory, getSingleNCC, getSingleNews } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import SecondaryNav from './SecondaryNav';
 
 const SingleNews = () => {
   const dispatch = useDispatch();
@@ -35,14 +34,14 @@ const SingleNews = () => {
   }, [ncc]);
   return (
     <>
-      <SecondaryNav
+      {/* <SecondaryNav
         id={ncc}
         category={news_category}
         setSelected={setSelected}
         selected={selected}
         news
         color={single_ncc?.color}
-      />
+      /> */}
 
       <div className="container">
         {single_news_loading ? (
