@@ -15,7 +15,7 @@ const CommitteeMembers = () => {
     (state) => state.homepage
   );
   const [filteredTeams, setFilteredTeams] = useState();
-  console.log({ teams, filteredTeams });
+  console.log('dasdeeeeww', { teams, filteredTeams, department });
   const { ncc } = useParams();
   const [selected, setSelected] = useState();
   useEffect(() => {
@@ -26,7 +26,7 @@ const CommitteeMembers = () => {
 
   useEffect(() => {
     dispatch(getTeams({ ncc_id: single_ncc?.id, country: ncc }));
-    dispatch(getDepartment({ ncc_id: single_ncc?.id }));
+    dispatch(getDepartment());
   }, []);
 
   useEffect(() => {

@@ -69,6 +69,10 @@ const News = () => {
                   <NewsCard
                     key={newsItem.id}
                     news={newsItem}
+                    title={newsItem?.title}
+                    image={newsItem?.feature_image}
+                    author={newsItem?.created_by?.full_name}
+                    excerpt={newsItem?.excerpt}
                     linkUrl={`/ncc/${ncc}/news/${newsItem?.slug}`}
                   />
                 ))
