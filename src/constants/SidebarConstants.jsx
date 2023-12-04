@@ -35,7 +35,7 @@ import { Roles } from './RoleConstant';
 const getLabelValue = (localStorageKey, textValue, defaultValue) => {
   const storedValue = localStorage.getItem(localStorageKey);
   const newValue = `${storedValue}'s ${textValue}`;
-  return storedValue === 'null' ? defaultValue : newValue;
+  return storedValue === 'null' || storedValue === 'undefined' ? defaultValue : newValue;
 };
 
 export const SidebarConstants = [

@@ -33,7 +33,9 @@ export default function AccountMenu() {
   const dispatch = useDispatch();
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
   const storedValueRole = localStorage.getItem('nccRole');
-  const nccCountryName = localStorage.getItem('nccCountryName');
+  // const nccCountryName = localStorage.getItem('nccCountryName');
+
+  const [nccCountryName, setNccCountryName] = useState(localStorage.getItem('nccCountryName'));
 
   const [anchorEl, setAnchorEl] = useState(null);
   const [changeEl, setChangeEl] = useState(null);
@@ -44,6 +46,12 @@ export default function AccountMenu() {
   const [filteredNccData, setFilteredNccData] = useState();
   const [superadminUserRole, setSuperadminUserRole] = useState('admin');
   const [search, setSearch] = useState('');
+
+  console.log('llskkwikskklsss', { nccCountryName, filteredNcc, storedValueID, storedValueRole });
+
+  useEffect(() => {
+    setNccCountryName(localStorage.getItem('nccCountryName'));
+  }, [filteredNcc?.nccID1?.country_name, filteredNcc]);
 
   const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
     (state) => state.auth
@@ -137,6 +145,7 @@ export default function AccountMenu() {
     // superadminUserRole === 'ncc' && setSuperadminUserRole('admin');
     localStorage.setItem('nccRole', 'admin');
     localStorage.setItem('nccCountryName', null);
+    localStorage.setItem('nccRoleID', null);
 
     // superadminUserRole === 'ncc' && setSuperadminUserRole(storedValueRole);
 
@@ -159,15 +168,17 @@ export default function AccountMenu() {
   console.log({ 'filtered----': filteredNcc?.nccID1 });
 
   const handleSelectNccID = (item) => {
+    localStorage.setItem('nccRole', 'ncc');
     localStorage.setItem('nccRoleID', item?.id);
+    localStorage.setItem('nccCountryName', item?.country_name);
+    setNccCountryName(item?.country_name);
+    formOpenFunction();
+    setSearch('');
+    window.shouldUpdateLabels = true;
 
     // localStorage.setItem('nccCountryName', filteredNcc?.nccID1?.country_name);
     // setNccID(item?.id);
     // dispatch(saveAdminNccIdDetails())
-    superadminUserRole === 'admin' && localStorage.setItem('nccRole', 'ncc');
-
-    formOpenFunction();
-    setSearch('');
   };
 
   useEffect(() => {
