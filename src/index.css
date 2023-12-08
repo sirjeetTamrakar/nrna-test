@@ -16,3 +16,7 @@
   /* background: grey; */
   margin-bottom: 30px !important;
 }
+
+.ck-balloon-panel {
+  z-index: 10000 !important;
+}
