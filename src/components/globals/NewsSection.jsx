@@ -12,7 +12,10 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
             <div className="about_title">{title}</div>
 
             <Grid container spacing={0} sx={{ marginBottom: '20px' }}>
-              <Grid item className="col-md-12 col-xl-5 main_card_news">
+              <Grid
+                item
+                className="col-md-12 col-xl-5 main_card_news"
+                sx={{ marginBottom: '20px' }}>
                 {data?.data?.slice(0, 1)?.map((item) => (
                   <NewsCardOrderOne
                     gridOne
@@ -31,6 +34,7 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
               <Grid item className="col-md-12 col-xl-7">
                 <Grid container spacing={0} item>
                   <Grid
+                    sx={{ marginBottom: '20px' }}
                     item
                     className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                     {data?.data?.slice(1, 2)?.map((item) => (
@@ -48,6 +52,7 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
                     ))}
                   </Grid>
                   <Grid
+                    sx={{ marginBottom: '20px' }}
                     item
                     className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                     {data?.data?.slice(2, 3)?.map((item) => (
@@ -65,6 +70,7 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
                     ))}
                   </Grid>
                   <Grid
+                    sx={{ marginBottom: '20px' }}
                     item
                     className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                     {data?.data?.slice(3, 4)?.map((item) => (
@@ -82,6 +88,7 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
                     ))}
                   </Grid>
                   <Grid
+                    sx={{ marginBottom: '20px' }}
                     item
                     className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile">
                     {data?.data?.slice(4, 5)?.map((item) => (
@@ -99,6 +106,7 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
                     ))}
                   </Grid>
                   <Grid
+                    sx={{ marginBottom: '20px' }}
                     item
                     className="col-12  col-sm-6 col-sm-6 col-md-4 col-lg-4 news_card_mobile_fifth">
                     {data?.data?.slice(5, 6)?.map((item) => (
@@ -115,7 +123,11 @@ const NewsSection = ({ image, linkUrl, title = 'Latest News', about, data, loadi
                       />
                     ))}
                   </Grid>
-                  <Grid item className="col-12 col-sm-6 col-sm-6 col-md-4 col-lg-4">
+                  <Grid
+                    sx={{ marginBottom: '20px' }}
+                    sssss
+                    item
+                    className="col-12 col-sm-6 col-sm-6 col-md-4 col-lg-4">
                     {data?.data?.slice(6, 7)?.map((item) => (
                       <NewsCard
                         gridLayout
