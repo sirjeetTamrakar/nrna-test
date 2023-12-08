@@ -3,20 +3,11 @@ import CustomEditor from 'components/common/CustomEditor';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
-import { useDispatch, useSelector } from 'react-redux';
-// import { getAllUsers } from '../userManagement/redux/actions';
-// import { getCategory } from './redux/actions';
+
 import { useStyles } from './styles';
 
 const Form = ({ featureImage }) => {
   const classes = useStyles();
-  const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.user);
-  const { user } = useSelector((state) => state.auth);
-
-  // useEffect(() => {
-  //   dispatch(getAllUsers());
-  // }, []);
 
   return (
     <Box className={classes.root}>
@@ -39,7 +30,9 @@ const Form = ({ featureImage }) => {
           <CustomTextArea rows={8} name="excerpt" label="Excerpt" />
         </Grid>
         <Grid item sm={12}>
-          <CustomEditor name="description" />
+          <Box>
+            <CustomEditor name="description" />
+          </Box>
         </Grid>
         <Grid item sm={12}>
           <CustomInput name="author" label="Author" required />
