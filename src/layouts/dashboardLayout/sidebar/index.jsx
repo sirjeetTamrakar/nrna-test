@@ -8,9 +8,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import { styled } from '@mui/material/styles';
 import Logo from 'assets/images/nrna.png';
-import { SidebarConstants } from 'constants/SidebarConstants';
+import { useGetSidebar } from 'constants/SidebarConstants';
 import * as React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import useStyles from './styles';
 
@@ -62,7 +62,8 @@ const Drawer = styled(MuiDrawer, {
 }));
 
 export default function Sidebar() {
-  const dispatch = useDispatch();
+  const { SidebarConstants } = useGetSidebar();
+
   const classes = useStyles();
   const [open, setOpen] = React.useState(sessionStorage.getItem('active'));
 
@@ -71,9 +72,7 @@ export default function Sidebar() {
     setOpen((prev) => (prev === item?.label ? '' : item?.label));
   };
 
-  const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
-    (state) => state.auth
-  );
+  const { user, role_details, admin_role_details } = useSelector((state) => state.auth);
 
   return (
     <Box sx={{ display: 'flex', '& .MuiDrawer-paper': { border: 'none' } }}>
@@ -198,7 +197,7 @@ export default function Sidebar() {
 
 const NavBarByRoles = ({ role_details, user, handleClick, open }) => {
   const classes = useStyles();
-
+  const { SidebarConstants } = useGetSidebar();
   return (
     <>
       {user?.role_name === 'ncc' &&
@@ -291,7 +290,7 @@ const NavBarByRoles = ({ role_details, user, handleClick, open }) => {
 };
 const NavBarByRoleNCC = ({ role_details, user, handleClick, open }) => {
   const classes = useStyles();
-
+  const { SidebarConstants } = useGetSidebar();
   return (
     <>
       {user?.role_name === 'ncc' &&
@@ -384,7 +383,7 @@ const NavBarByRoleNCC = ({ role_details, user, handleClick, open }) => {
 };
 const NavBarByRoleSuperadmin = ({ admin_role_details, user, handleClick, open }) => {
   const classes = useStyles();
-
+  const { SidebarConstants } = useGetSidebar();
   return (
     <>
       {user?.role_name === 'superadmin' &&

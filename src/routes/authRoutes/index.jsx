@@ -23,6 +23,7 @@ import OurTeamPage from 'pages/public/OurTeam';
 import OurTeamFEAPage from 'pages/public/OurTeamFEAPage';
 import PrivacyPolicyPage from 'pages/public/PrivacyPolicyPage';
 import ResetPassword from 'pages/public/reset';
+import SignupPage from 'pages/public/SignupPage';
 import SingleDownloadPage from 'pages/public/SingleDownload';
 import TermsAndConditionsPage from 'pages/public/TermsAndConditionsPage';
 import VerifyEmail from 'pages/public/verify';
@@ -142,6 +143,10 @@ const AuthRoutes = [
   {
     path: '/foreign-employment/download/:slug',
     component: <SingleDownloadPage />
+  },
+  {
+    path: '/signup',
+    component: <SignupPage />
   }
 ];
 

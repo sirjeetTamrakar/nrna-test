@@ -1,13 +1,18 @@
 import AboutSection from 'components/globals/AboutSection';
 import BannerSection from 'components/globals/Banner';
 import MissionSection from 'components/globals/MissionSection';
+import NewsSection from 'components/globals/NewsSection';
 import TaglineSection from 'components/globals/TaglineSection';
 import VisionSection from 'components/globals/VisionSection';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllHomeData, getBanner } from 'redux/homepage/actions';
+import { getAllHomeData, getAllNews, getBanner } from 'redux/homepage/actions';
 
 const NBNS = () => {
+  const pathname = window.location.pathname;
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const { nbns_settings, banners, home_data } = useSelector((state) => state.homepage);
   const dispatch = useDispatch();
 
@@ -19,6 +24,20 @@ const NBNS = () => {
   const filterHomeData = (home_data?.data?.slice(0, 4) || [])?.filter(
     (item) => item?.slug !== 'advice' && item?.slug !== 'support'
   );
+
+  const { news, news_loading } = useSelector((state) => state.homepage);
+
+  console.log({ news, news_loading });
+
+  useEffect(() => {
+    const finalData = {
+      limit: 10,
+
+      status: 1
+    };
+
+    dispatch(getAllNews(finalData));
+  }, []);
 
   const renderSections = () => {
     return filterHomeData?.map((item, index) => {
@@ -62,6 +81,8 @@ const NBNS = () => {
         about={nbns_settings?.about}
         linkUrl={`/nbns/about`}
       />
+      <NewsSection linkUrl={`/news`} data={news} loading={news_loading} />
+
       {renderSections()}
       {/* <MissionSection
         mission={nbns_settings?.mission}

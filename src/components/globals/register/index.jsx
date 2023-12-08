@@ -9,16 +9,18 @@ import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { registerUser } from 'redux/auth/actions';
 import { getCountriesCode } from 'redux/homepage/actions';
 import * as Yup from 'yup';
 
-const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode }) => {
+const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode, signupPage }) => {
   console.log('hhshhshhh', { defaultNccCountry });
   const defaultValues = {
     country_of_residence: defaultNccCountry ? defaultNccCountry : '',
     phone: defaultNccCountry ? nccCode : null
   };
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
   const [agree, setAgree] = useState(false);
@@ -41,8 +43,12 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode }) => {
     setAgree(e.target.checked);
   };
 
+  const navigateHome = () => {
+    navigate('/');
+  };
+
   const onSubmit = (data) => {
-    dispatch(registerUser(data, handleClose));
+    dispatch(registerUser(data, signupPage ? navigateHome : handleClose));
   };
 
   const handleLoginOpen = () => {

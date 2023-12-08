@@ -12,10 +12,11 @@ import * as actions from './types';
 export const setGlobalUser = () => (dispatch) => {
   try {
     const user = localStorage.getItem('NRNA_USER');
+    const country = localStorage.getItem('nccCountryName');
     const userObj = JSON.parse(user);
     dispatch({
       type: actions.SET_AUTH_USER,
-      payload: userObj
+      payload: { ...userObj, nccCountryName: country }
     });
   } catch (error) {
     errorToast(error);
@@ -154,6 +155,10 @@ export const saveAdminRoleDetails = (data) => (dispatch) => {
 
 export const saveAdminNccIdDetails = (data) => (dispatch) => {
   dispatch({ type: actions.STORE_ADMIN_NCC_ID_DETAILS, payload: data });
+};
+
+export const saveAdminNccCountry = (data) => (dispatch) => {
+  dispatch({ type: actions.STORE_ADMIN_NCC_COUNTRY, payload: data });
 };
 
 // Complete user registration with new Password and token
