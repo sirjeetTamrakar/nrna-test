@@ -63,7 +63,7 @@ const BusinessManagement = () => {
       field: (row) => {
         return (
           <Box>
-            <Typography variant="body2">{row?.news_order?.order_number}</Typography>
+            <Typography variant="body2">{row?.business_order?.order_number}</Typography>
           </Box>
         );
       }

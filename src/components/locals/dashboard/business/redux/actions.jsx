@@ -284,6 +284,8 @@ export const postBusinessOrder = (data, handleSuccess) => (dispatch) => {
       dispatch({ type: actions.POST_BUSINESS_ORDER_SUCCESS });
       handleSuccess && handleSuccess();
       // dispatch(getNews(typeData));
+      dispatch(getBusiness());
+
       successToast('Your message sent successfully');
     })
     .catch((error) => {
