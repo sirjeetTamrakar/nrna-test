@@ -39,7 +39,7 @@ const CandidateHome = ({ siteSettingImages, about, title }) => {
                         {/* <CandidateItem candidate={candidate} /> */}
                         <Link
                           // to={`/candidate/${candidate?.member?.username}`}
-                          to={`/nbns/candidate/${candidate?.member?.username}`}
+                          to={`/${candidate?.member?.username}`}
                           className="political_item">
                           <div className="img_container">
                             <img

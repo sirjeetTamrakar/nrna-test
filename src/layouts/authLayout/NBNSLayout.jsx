@@ -71,12 +71,7 @@ const SecondaryNavWrapper = () => {
       path: '/nbns/advise',
       clickFunction: () => handleFunction('/nbns/advise')
     },
-    {
-      title: 'Support Us',
-      value: 'support',
-      path: '/nbns/support',
-      clickFunction: () => handleFunction('/nbns/support')
-    },
+
     {
       title: 'Articles',
       value: 'articles',
@@ -127,6 +122,14 @@ const SecondaryNavWrapper = () => {
       clickFunction: () => handleFunction('/nbns/download')
     }
   ];
+  const supportUs = [
+    {
+      title: 'Support Us',
+      value: 'support',
+      path: '/nbns/support',
+      clickFunction: () => handleFunction('/nbns/support')
+    }
+  ];
 
   useEffect(() => {
     const data = {
@@ -144,12 +147,12 @@ const SecondaryNavWrapper = () => {
   //   clickFunction: () => handleFunction(`/nbns/${item.slug}`)
   // }));
 
-  const allOptions = [...options, ...optionsCandidate, ...optionsRest];
-  const notCandidateOptions = [...options, ...optionsRest];
+  const allOptions = [...options, ...optionsCandidate, ...optionsRest, ...supportUs];
+  const notCandidateOptions = [...options, ...optionsRest, ...supportUs];
 
   return (
     <SecondaryNav
-      title="NBNS ( नेपाल वंशज नागरिक संघ )"
+      title="NBNS ( नेपाली वंशज नागरिक संघ )"
       options={!candidates ? notCandidateOptions : allOptions}
       setSelected={setSelected}
       selected={selected}
