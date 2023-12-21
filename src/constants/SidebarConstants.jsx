@@ -335,7 +335,7 @@ export const useGetSidebar = () => {
           icon: NbnsIcon,
           activeIcon: nbnsActiveIcon,
           // memberProfileNCC: 'memberProfileNCC',
-          // adminProfile: 'adminProfile',
+          adminProfile: 'adminProfile',
 
           roles: [Roles.Admin, Roles.SuperAdmin],
           children: [
