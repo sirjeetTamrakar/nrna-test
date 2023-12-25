@@ -49,6 +49,30 @@ steps:
       tags:
         - '${DRONE_COMMIT}'
         - latest
+  - name: tag-delivery
+    image: plugins/docker
+    user: root
+    when:
+      event:
+        - tag
+      branch:
+        - main
+    environment:
+      SERVICE: nbns-ui
+      GITHUB_TOKEN:
+        from_secret: GITHUB_TOKEN
+    settings:
+      username:
+        from_secret: DOCKER_REGISTRY_USER_NAME
+      password:
+        from_secret: DOCKER_REGISTRY_PASSWORD
+      repo: registry.ybcsystems.com/ybcteam/nbns-ui
+      registry: registry.ybcsystems.com
+      build_args_from_env:
+        - SERVICE
+        - GITHUB_TOKEN
+      tags:
+        - '${DRONE_TAG}'
   - name: main-deployment
     image: plugins/docker
     user: root
