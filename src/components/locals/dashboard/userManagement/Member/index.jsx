@@ -405,7 +405,7 @@ const Member = () => {
           open={openForm}
           handleClose={formOpenFunction}
           modalTitle="Create Member"
-          modalSubtitle="Become a member of NRNA Global"
+          modalSubtitle="Become a member of NBNS Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
           <Register handleClose={formOpenFunction} />
@@ -414,7 +414,7 @@ const Member = () => {
           open={openEdit}
           handleClose={editOpenFunction}
           modalTitle={`Update Member`}
-          modalSubtitle="Become a member of NRNA Global"
+          modalSubtitle="Become a member of NBNS Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
           <Edit data={detail} handleClose={editOpenFunction} refetch={refetch} />

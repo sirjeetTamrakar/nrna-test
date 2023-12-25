@@ -10,7 +10,7 @@ const AccountContainer = () => {
       user?.role_name !== Roles?.Member &&
       user?.role_name !== Roles?.NCC ? (
         <p>
-          Your Registration has not been approved yet. Please contact NRNA Global for further
+          Your Registration has not been approved yet. Please contact NBNS Global for further
           Information
         </p>
       ) : (

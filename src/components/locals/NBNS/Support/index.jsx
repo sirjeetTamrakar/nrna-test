@@ -79,10 +79,10 @@ const Support = () => {
             {show && (
               <Box className={classes.donationWrapper}>
                 <Typography variant="h5">To donate please contact:</Typography>
-                <Typography variant="body1">Bank Name: Sanima Bank</Typography>
-                <Typography variant="body1">Bank A/C: 3793903099SV</Typography>
-                <Typography variant="body1">Email: info@nrnaglobal.com</Typography>
-                <Typography variant="body1">Phone: 384-3489933</Typography>
+                <Typography variant="body1">Bank Name: </Typography>
+                <Typography variant="body1">Bank A/C: </Typography>
+                <Typography variant="body1">Email: </Typography>
+                <Typography variant="body1">Phone: </Typography>
                 <Typography variant="h6" textAlign="center">
                   Thank You! For your support
                 </Typography>

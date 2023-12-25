@@ -1,6 +1,6 @@
 import BannerImage from 'assets/images/banner.jpg';
 
-const PageBanner = ({ image = BannerImage, title = 'Welcome to NRNA Global', subtitle = '' }) => {
+const PageBanner = ({ image = BannerImage, title = 'Welcome to NBNS Global', subtitle = '' }) => {
   return (
     <div className="page_banner">
       <img src={image && image} alt="" style={{ objectFit: 'cover' }} />
