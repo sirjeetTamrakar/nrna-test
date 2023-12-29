@@ -41,6 +41,9 @@ export const loginUser = (data, handleSuccess) => (dispatch) => {
       localStorage.setItem('token', token);
       localStorage.setItem('refreshToken', refreshToken);
       localStorage.setItem('NRNA_USER', JSON.stringify(user));
+      if (res?.data?.data?.user?.role_name == 'superadmin') {
+        localStorage.setItem('nccRole', 'admin');
+      }
       successToast('Successfully Signed In');
       dispatch({ type: actions.LOGIN_SUCCESS, payload: user });
       handleSuccess && handleSuccess();

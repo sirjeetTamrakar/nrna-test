@@ -379,7 +379,7 @@ const ViewMembersTable = ({ countrySlug }) => {
           open={openForm}
           handleClose={formOpenFunction}
           modalTitle="Create Member"
-          modalSubtitle="Become a member of NRNA Global"
+          modalSubtitle="Become a member of NBNS Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
           <Register handleClose={formOpenFunction} countrySlug={countrySlug} />
@@ -388,7 +388,7 @@ const ViewMembersTable = ({ countrySlug }) => {
           open={openEdit}
           handleClose={editOpenFunction}
           modalTitle={`Update Member`}
-          modalSubtitle="Become a member of NRNA Global"
+          modalSubtitle="Become a member of NBNS Global"
           icon={<PersonAddIcon />}
           width={`40rem`}>
           <Edit

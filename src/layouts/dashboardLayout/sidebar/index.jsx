@@ -386,8 +386,7 @@ const NavBarByRoleSuperadmin = ({ admin_role_details, user, handleClick, open })
   const { SidebarConstants } = useGetSidebar();
   return (
     <>
-      {user?.role_name === 'superadmin' &&
-        admin_role_details !== 'admin' &&
+      {(user?.role_name === 'superadmin' || user?.role_name === 'admin') &&
         SidebarConstants?.map((row, index) => (
           <List
             key={row?.header}

@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import googlePlayImage from 'assets/images/googlePlay.png';
 import appStoreImage from 'assets/images/appStore.png';
+import googlePlayImage from 'assets/images/googlePlay.png';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -9,7 +9,7 @@ const Footer = () => {
         <div className="footer_wrapper">
           <div style={{ display: 'flex', flexDirection: 'column' }}>
             <div className="copyright">
-              Copyright &copy; 2021. All right Reserved. | NRNA Global
+              Copyright &copy; 2024. All right Reserved. | NBNS Global
             </div>
             <div className="terms">
               <Link to="/privacy-policy" className="copyright" style={{ color: '#fff' }}>
