@@ -153,7 +153,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
 
               <li className="d-block d-xl-none hamburger_icon">
                 <span onClick={() => openNav()}>
-                  <SegmentIcon />
+                  <SegmentIcon sx={{ fontSize: '2rem !important' }} />
                 </span>
               </li>
             </ul>
@@ -206,10 +206,10 @@ function Navbar({ isHomePage, currentUser, sticky }) {
           Back To Home
         </a> */}
       </div>
-      <CustomModal open={open} handleClose={openFunction} width={`22rem`}>
+      <CustomModal open={open} handleClose={openFunction} width={`20rem`}>
         <Login handleClose={openFunction} registerOpen={openFunctionRegister} />
       </CustomModal>
-      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`22rem`}>
+      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`20rem`}>
         <Register handleClose={openFunctionRegister} loginOpen={openFunction} />
       </CustomModal>
     </>

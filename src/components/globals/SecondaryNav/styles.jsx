@@ -43,12 +43,15 @@ export const useStyles = makeStyles((theme) => ({
       fontWeight: '400',
       paddingBottom: '5px',
       cursor: 'pointer',
+      [theme.breakpoints.down('md')]: {
+        width: 'max-content'
+      },
       '&.active': {
         borderBottom: '4px solid #fff'
       }
     },
     [theme.breakpoints.down('md')]: {
-      width: '90%',
+      // width: '0%',
       overflow: 'auto',
       overflowY: 'hidden'
     }

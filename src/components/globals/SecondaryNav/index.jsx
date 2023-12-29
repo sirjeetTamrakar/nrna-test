@@ -47,7 +47,8 @@ const SecondaryNav = ({
   ncc,
   business,
   nbns,
-  single_business
+  single_business,
+  subTitle
 }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
@@ -249,10 +250,27 @@ const SecondaryNav = ({
       <Box className={`${classes.root} second-nav-root`} sx={color && { backgroundColor: color }}>
         <Container>
           <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-            {title && (
-              <Typography variant="h5" className={classes.title}>
-                {title}
-              </Typography>
+            {screenSize?.width < 710 ? (
+              <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+                {title && (
+                  <Typography variant="h5" className={classes.title} sx={{ marginBottom: '-10px' }}>
+                    {title}
+                  </Typography>
+                )}
+                {subTitle && (
+                  <Typography className={classes.title} sx={{ fontSize: '18px !important' }}>
+                    {subTitle}
+                  </Typography>
+                )}
+              </Box>
+            ) : (
+              <>
+                {title && (
+                  <Typography variant="h5" className={classes.title}>
+                    {title} {subTitle}
+                  </Typography>
+                )}
+              </>
             )}
             {ncc && !isLoggedIn() && (
               <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
@@ -478,11 +496,12 @@ const SecondaryNav = ({
               <li
                 className={checkActive(list?.value)}
                 key={index}
+                // style={{ width: 'max-content' }}
                 onClick={() => {
                   handleOptionClick(list.value);
                   list.clickFunction();
                 }}>
-                {list?.title}
+                <div style={{ width: 'max-content' }}>{list?.title}</div>
               </li>
             ))}
           </ul>

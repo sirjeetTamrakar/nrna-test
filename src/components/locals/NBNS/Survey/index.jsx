@@ -6,8 +6,8 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomPhoneAutoComplete from 'components/common/Form/CustomPhoneAutoComplete';
-import Login from 'components/globals/login';
 import PageBanner from 'components/globals/PageBanner';
+import Login from 'components/globals/login';
 import Register from 'components/globals/register';
 import useScreenSize from 'hooks/useScreenSize';
 import useToggle from 'hooks/useToggle';
@@ -193,10 +193,10 @@ const Survey = () => {
           </Box>
         </Box>
       </Container>
-      <CustomModal open={open} handleClose={openFunction} width={`22rem`}>
+      <CustomModal open={open} handleClose={openFunction} width={`20rem`}>
         <Login handleClose={openFunction} registerOpen={openFunctionRegister} />
       </CustomModal>
-      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`22rem`}>
+      <CustomModal open={openRegister} handleClose={openFunctionRegister} width={`20rem`}>
         <Register handleClose={openFunctionRegister} loginOpen={openFunction} />
       </CustomModal>
       <CustomModal

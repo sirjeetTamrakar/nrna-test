@@ -152,7 +152,8 @@ const SecondaryNavWrapper = () => {
 
   return (
     <SecondaryNav
-      title="NBNS ( नेपाली वंशज नागरिक संघ )"
+      title="NBNS "
+      subTitle="( नेपाली वंशज नागरिक संघ )"
       options={!candidates ? notCandidateOptions : allOptions}
       setSelected={setSelected}
       selected={selected}

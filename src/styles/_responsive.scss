@@ -412,7 +412,7 @@
         height: 64px;
         img {
           // height: 100px !important;
-          width: 150px !important;
+          width: 200px !important;
           overflow: hidden;
           object-fit: contain;
         }
@@ -763,6 +763,10 @@
       height: calc(100vh - 300px);
     }
   }
+  // .page_banner {
+  //   min-height: 200px;
+  //   max-height: %;
+  // }
 }
 
 @media screen and (min-width: 276px) and (max-width: 580px) {
@@ -771,6 +775,11 @@
       height: calc(100vh - 400px);
     }
   }
+  // .page_banner {
+  //   min-height: 200px;
+  //   max-height: 100%;
+
+  // }
 }
 
 @media screen and (min-width: 580px) and (max-width: 992px) {
