@@ -68,7 +68,7 @@ const SecondaryNav = ({
                 className={checkActive(list?.id)}
                 key={index}
                 onClick={() => handleSetSelected(list?.id)}>
-                {list?.title}
+                <div style={{ width: 'max-content' }}>{list?.title}</div>
               </li>
             ))}
           </ul>

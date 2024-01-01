@@ -36,7 +36,7 @@ const SecondaryNav = ({ category, selected, setSelected, setSearch }) => {
               className={checkActive(list?.slug)}
               key={index}
               onClick={() => handleSetSelected(list?.slug)}>
-              {list?.title}
+              <div style={{ width: 'max-content', padding: '0px 10px' }}>{list?.title}</div>
             </li>
           ))}
         </ul>

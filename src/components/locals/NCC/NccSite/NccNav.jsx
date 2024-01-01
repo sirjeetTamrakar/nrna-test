@@ -48,7 +48,7 @@ const NccNav = ({ category, selected, setSelected, setSearch }) => {
               className={checkActive(list?.value)}
               key={index}
               onClick={() => handleSetSelected(list?.value)}>
-              {list?.title}
+              <div style={{ width: 'max-content' }}>{list?.title}</div>
             </li>
           ))}
         </ul>
