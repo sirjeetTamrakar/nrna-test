@@ -56,8 +56,8 @@ const EventForm = ({ image }) => {
         <Grid item sm={12}>
           <CustomInput name="map_url" label="Map Url" />
           <div className={classes.example}>
-            Eg:
-            https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.4571106444496!2d85.3242159761745!3d27.703169425674513!2m3!1f0!2f0!3f0
+            Eg: Insert Embeded Iframe
+            {/* https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3532.4571106444496!2d85.3242159761745!3d27.703169425674513!2m3!1f0!2f0!3f0 */}
           </div>
         </Grid>
         <Grid item sm={12}>

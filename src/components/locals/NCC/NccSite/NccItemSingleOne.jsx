@@ -85,19 +85,7 @@ const NccItemOneSingle = () => {
         //   setSearch={setSearch}
       />
       <BannerBannerSection banners={settings} data={home_data} singleBanner ncc />
-      {/* {settings?.tagline_description && (
-        <TaglineSection
-          tagline={settings?.tagline_description}
-          taglineAuthor={settings?.tagline_author}
-        />
-      )} */}
-      {/* {settings?.about && (
-        <AboutSection
-          about={settings?.about}
-          image={settings?.about_image}
-          title="बारेमा (About)"
-        />
-      )} */}
+
       {renderSections()}
     </>
   );

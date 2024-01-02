@@ -146,7 +146,7 @@ const SingleEvent = () => {
                     />
                     <div className="map-container">
                       <Grid container style={{ width: '100%' }}>
-                        <Grid item lg={6} className="map-container_item map">
+                        <Grid item lg={12} className="map-container_item map">
                           {single_event?.map_url && (
                             <div style={{ width: '100%', height: '290px' }}>
                               <div
@@ -156,7 +156,12 @@ const SingleEvent = () => {
                             </div>
                           )}
                         </Grid>
-                        <Grid item lg={6} className="map-container_item tube">
+
+                        <Grid
+                          item
+                          lg={12}
+                          className="map-container_item tube"
+                          sx={{ marginTop: '20px' }}>
                           {single_event?.youtube_url && (
                             <div style={{ width: '100%', height: '290px' }}>
                               <iframe

@@ -28,7 +28,7 @@ const NccNav = ({ category, selected, setSelected, setSearch }) => {
     slug === 'home' && navigate(`/nrna/ncc`, { state: slug });
   };
   return (
-    <Box className={classes.root}>
+    <Box className={classes.rootNav}>
       <Container>
         <Box sx={{ padding: '10px 0px' }} className={classes.header}>
           <Typography variant="h5" className={classes.title}>

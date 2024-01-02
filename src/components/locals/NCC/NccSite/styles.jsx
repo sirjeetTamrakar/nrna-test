@@ -4,6 +4,9 @@ export const useStyles = makeStyles((theme) => ({
   root: {
     background: '#fff'
   },
+  rootNav: {
+    background: '#276FC4'
+  },
   header: {
     display: 'flex',
     justifyContent: 'space-between',
