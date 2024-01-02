@@ -1,6 +1,7 @@
 import { Box, Grid } from '@mui/material';
 import CustomEditor from 'components/common/CustomEditor';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
+import CustomDatePicker from 'components/common/Form/CustomDataPicker/CustomDatePicker';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import { useEffect } from 'react';
@@ -67,13 +68,21 @@ const EventForm = ({ image }) => {
           </div>
         </Grid>
         <Grid item sm={6}>
-          <CustomInput
+          {/* <CustomInput
             name="event_date"
             label="Event date"
             type="date"
             inputProps={{
               inputProps: { min: todayDate }
             }}
+          /> */}
+          <CustomDatePicker
+            // control={control}
+            name={'event_date'}
+            label={'Event date'}
+            // errors={errors}
+            disablePast={true}
+            format="YYYY-MM-DD"
           />
         </Grid>
         <Grid item sm={6}>
