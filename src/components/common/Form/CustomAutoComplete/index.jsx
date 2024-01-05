@@ -29,7 +29,8 @@ const CustomAutoComplete = ({
   disabled = false,
   required,
   onCountrySelection,
-  phoneSelect
+  phoneSelect,
+  onInputChange
 }) => {
   const {
     control,

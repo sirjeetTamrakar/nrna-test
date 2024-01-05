@@ -176,7 +176,15 @@ function Navbar({ isHomePage, currentUser, sticky }) {
           );
         })}
         {isLoggedIn() ? (
-          <Box className="sideNavRegisterBox">
+          <Box className="sideNavRegisterBox" sx={{ display: 'flex', flexDirection: 'column' }}>
+            <div>
+              <button
+                style={{ color: '#276FC4', border: '1px solid #276FC4', marginBottom: '5px' }}
+                className="btn-md col-6"
+                onClick={goToDashboard}>
+                Dashboard
+              </button>
+            </div>
             <button className="col-6 btn-md sidebarLogin" onClick={() => handleLogout()}>
               <LogoutIcon />
               Logout

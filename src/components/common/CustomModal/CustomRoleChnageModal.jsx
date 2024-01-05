@@ -1,7 +1,10 @@
 import { Delete } from '@mui/icons-material';
 import AutorenewIcon from '@mui/icons-material/Autorenew';
 import { Box, Button, CircularProgress, IconButton } from '@mui/material';
-import { useSelector } from 'react-redux';
+import { getNCC } from 'components/locals/dashboard/ncc/redux/actions';
+import { useEffect } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { useDispatch, useSelector } from 'react-redux';
 import CustomAutoComplete from '../Form/CustomAutoComplete';
 import CustomForm from '../Form/CustomForm';
 import CustomFormProvider from '../Form/CustomFormProvider';
@@ -13,34 +16,20 @@ const CustomRoleChangeModal = ({
   handleConfirm,
   isLoading,
   role,
-  modalTitle
+  modalTitle,
+  data
 }) => {
-  const defaultValues = { role: role };
-  const { user } = useSelector((state) => state.auth);
-  const roleData = [
-    { value: 'admin', label: 'Admin' },
-    { value: 'member', label: 'Member' },
-    { value: 'ncc', label: 'NCC' },
-    { value: '', label: 'None' }
-  ];
-  const roleDataNcc = [
-    { value: 'member', label: 'Member' },
-    { value: 'ncc', label: 'NCC' },
-    { value: '', label: 'None' }
-  ];
-  const submitHandler = (data) => {
-    console.log('mmmmmmmmmff', { data });
-    handleConfirm(data?.role);
-  };
+  const defaultValues = { role: role, ncc_id: data?.ncc_id };
+
   return (
     <>
       <CustomModal
         open={open}
         width={'500px'}
-        height={'306px'}
+        // height={'380px'}
         icon={<Delete />}
         handleClose={handleClose}>
-        <Box>
+        <Box sx={{ marginBottom: '20px' }}>
           <Box>
             <Box
               style={{
@@ -100,42 +89,107 @@ const CustomRoleChangeModal = ({
           </Box>
 
           <CustomFormProvider defaultValues={defaultValues}>
-            <CustomForm onSubmit={submitHandler}>
-              <Box sx={{ padding: '20px  50px 5px' }}>
-                <CustomAutoComplete
-                  name="role"
-                  label="Select a role"
-                  options={(user?.role_name === 'ncc' ? roleDataNcc : roleData) ?? []}
-                />
-              </Box>
-              <Box
-                style={{
-                  display: 'flex',
-                  justifyContent: 'center',
-                  alignItems: 'flex-end',
-                  //   height: "60px",
-                  gap: '10px',
-                  marginTop: '30px'
-                }}>
-                <Button type="submit" variant="contained" disabled={isLoading} color="primary">
-                  {isLoading ? (
-                    <Box display={'flex'} alignItems={'center'} gap={'10px'}>
-                      <CircularProgress size={15} style={{ color: '#fff' }} />
-                      Submit
-                    </Box>
-                  ) : (
-                    'Submit'
-                  )}
-                </Button>
-                <Button variant="outlined" onClick={() => handleClose()} color="primary">
-                  Cancel
-                </Button>
-              </Box>
-            </CustomForm>
+            <RoleForm
+              handleConfirm={handleConfirm}
+              isLoading={isLoading}
+              handleClose={handleClose}
+              data={data}
+            />
           </CustomFormProvider>
         </Box>
       </CustomModal>
     </>
+  );
+};
+
+const RoleForm = ({ handleConfirm, handleClose, isLoading, data }) => {
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const {
+    control,
+    watch,
+    reset,
+    formState: { errors }
+  } = useFormContext();
+  console.log('watch', watch('role'));
+
+  const roleData = [
+    { value: 'admin', label: 'Admin' },
+    { value: 'member', label: 'Member' },
+    { value: 'ncc', label: 'NCC' },
+    { value: '', label: 'None' }
+  ];
+  const roleDataNcc = [
+    { value: 'member', label: 'Member' },
+    { value: 'ncc', label: 'NCC' },
+    { value: '', label: 'None' }
+  ];
+  const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
+
+  console.log({ nccData });
+
+  useEffect(() => {
+    dispatch(getNCC());
+  }, []);
+
+  const nccList = nccData?.data?.map((item) => ({
+    label: item?.country_name,
+    value: item?.id
+  }));
+
+  const submitHandler = (data) => {
+    console.log('mmmmmmmmmff', { data });
+    const finalData = {
+      role_name: data?.role,
+      ncc_id: data?.ncc_id
+    };
+    handleConfirm(finalData);
+  };
+
+  // useEffect(() => {
+  //   if (data) {
+  //     reset('ncc_id', 48);
+  //   }
+  // }, [data]);
+
+  return (
+    <CustomForm onSubmit={submitHandler}>
+      <Box sx={{ padding: '10px 50px 5px' }}>
+        <CustomAutoComplete
+          name="role"
+          label="Select a role"
+          options={(user?.role_name === 'ncc' ? roleDataNcc : roleData) ?? []}
+        />
+      </Box>
+      {watch('role') == 'ncc' && (
+        <Box sx={{ padding: '10px 50px 5px' }}>
+          <CustomAutoComplete name="ncc_id" label="Select NCC" options={nccList ?? []} />
+        </Box>
+      )}
+      <Box
+        style={{
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'flex-end',
+          //   height: "60px",
+          gap: '10px',
+          marginTop: '30px'
+        }}>
+        <Button type="submit" variant="contained" disabled={isLoading} color="primary">
+          {isLoading ? (
+            <Box display={'flex'} alignItems={'center'} gap={'10px'}>
+              <CircularProgress size={15} style={{ color: '#fff' }} />
+              Submit
+            </Box>
+          ) : (
+            'Submit'
+          )}
+        </Button>
+        <Button variant="outlined" onClick={() => handleClose()} color="primary">
+          Cancel
+        </Button>
+      </Box>
+    </CustomForm>
   );
 };
 

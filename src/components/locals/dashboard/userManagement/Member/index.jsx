@@ -36,8 +36,8 @@ import {
 } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const Member = () => {
   const dispatch = useDispatch();
@@ -304,10 +304,14 @@ const Member = () => {
 
   const handleChangeRole = (value) => {
     dispatch(
-      changeUserRole(detail?.username, { role_name: value, _method: 'PATCH' }, () => {
-        roleOpenFunction();
-        refetch();
-      })
+      changeUserRole(
+        detail?.username,
+        { role_name: value?.role_name, ncc_id: value?.ncc_id, _method: 'PATCH' },
+        () => {
+          roleOpenFunction();
+          refetch();
+        }
+      )
     );
   };
 
@@ -433,6 +437,7 @@ const Member = () => {
           handleConfirm={handleChangeRole}
           handleClose={roleOpenFunction}
           role={detail?.role_name}
+          data={detail}
           isLoading={change_role_loading}
         />
 
