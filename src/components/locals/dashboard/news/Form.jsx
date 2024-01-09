@@ -1,5 +1,6 @@
 import { Box, Grid } from '@mui/material';
 import CustomEditor from 'components/common/CustomEditor';
+import CustomLoader from 'components/common/CustomLoader/CustomLoader';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
@@ -15,7 +16,7 @@ const NewsForm = ({ featureImage }) => {
   const dispatch = useDispatch();
   const { users } = useSelector((state) => state.user);
   const { user } = useSelector((state) => state.auth);
-  const { categoryData } = useSelector((state) => state.news);
+  const { categoryData, get_category_loading } = useSelector((state) => state.news);
 
   const createdByUsers = users?.data?.map((item) => ({
     label: item?.full_name ? item?.full_name : item?.username,
@@ -33,38 +34,42 @@ const NewsForm = ({ featureImage }) => {
   }, []);
 
   return (
-    <Box className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item sm={6}>
-          <CustomInput name="title" label="Title" required />
-        </Grid>
-        <Grid item sm={6}>
-          <CustomAutoComplete
-            placeholder="News Category"
-            name="news_category_id"
-            label="News Category"
-            options={newsCategory ?? []}
-            required
-          />
-        </Grid>
+    <>
+      <Box className={classes.root}>
+        {get_category_loading ? (
+          <CustomLoader />
+        ) : (
+          <Grid container spacing={2}>
+            <Grid item sm={6}>
+              <CustomInput name="title" label="Title" required />
+            </Grid>
+            <Grid item sm={6}>
+              <CustomAutoComplete
+                placeholder="News Category"
+                name="news_category_id"
+                label="News Category"
+                options={newsCategory ?? []}
+                required
+              />
+            </Grid>
 
-        <Grid item sm={12}>
-          <FileUploader
-            title="News Image"
-            imageText="Resolution: height: 1024 x width: 768"
-            name="feature_image"
-            image={featureImage}
-            label="Select Photo"
-            widthFull
-          />
-        </Grid>
-        <Grid item sm={12}>
-          <CustomTextArea rows={8} name="excerpt" label="Excerpt" />
-        </Grid>
-        <Grid item sm={12}>
-          <CustomEditor name="description" />
-        </Grid>
-        {/* {user?.role_name != Roles.Member && (
+            <Grid item sm={12}>
+              <FileUploader
+                title="News Image"
+                imageText="Resolution: height: 1024 x width: 768"
+                name="feature_image"
+                image={featureImage}
+                label="Select Photo"
+                widthFull
+              />
+            </Grid>
+            <Grid item sm={12}>
+              <CustomTextArea rows={8} name="excerpt" label="Excerpt" />
+            </Grid>
+            <Grid item sm={12}>
+              <CustomEditor name="description" />
+            </Grid>
+            {/* {user?.role_name != Roles.Member && (
           <Grid item sm={12}>
             <CustomAutoComplete
               placeholder="Created By"
@@ -75,8 +80,10 @@ const NewsForm = ({ featureImage }) => {
             />
           </Grid>
         )} */}
-      </Grid>
-    </Box>
+          </Grid>
+        )}
+      </Box>
+    </>
   );
 };
 

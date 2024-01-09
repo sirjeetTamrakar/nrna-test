@@ -6,15 +6,15 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { postNewsOrder } from '../redux/actions';
 import NewsManagementForm from './Form';
-import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Register = ({ handleClose, selected }) => {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
-  const { news_order_loading } = useSelector((state) => state.news);
+  const { news_order_loading, get_news_loading } = useSelector((state) => state.news);
   const onSubmit = (data) => {
     console.log('gagggg', { data });
     // const formData = new FormData();
@@ -56,9 +56,11 @@ const Register = ({ handleClose, selected }) => {
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <NewsManagementForm />
-          <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={news_order_loading} />
-          </Box>
+          {!get_news_loading && (
+            <Box className={classes.footerRoot}>
+              <CustomButton buttonName="Submit" loading={news_order_loading} />
+            </Box>
+          )}
         </CustomForm>
       </CustomFormProvider>
     </>

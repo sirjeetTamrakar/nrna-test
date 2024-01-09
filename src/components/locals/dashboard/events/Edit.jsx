@@ -6,14 +6,14 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import EventForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { updateEvents } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { update_events_loading } = useSelector((state) => state.events);
+  const { update_events_loading, get_category_loading } = useSelector((state) => state.events);
   const { user } = useSelector((state) => state.auth);
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
@@ -57,9 +57,11 @@ const EditForm = ({ detail, handleClose }) => {
   return (
     <CustomForm onSubmit={onSubmit}>
       <EventForm image={detail?.feature_image} />
-      <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_events_loading} />
-      </Box>
+      {!get_category_loading && (
+        <Box className={classes.footerRoot}>
+          <CustomButton buttonName="Update" loading={update_events_loading} />
+        </Box>
+      )}
     </CustomForm>
   );
 };

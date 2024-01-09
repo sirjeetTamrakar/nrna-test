@@ -8,15 +8,17 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDepartment } from '../department/redux/actions';
 import OurTeamForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { updateTeams } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const EditForm = ({ id, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { update_teams_loading } = useSelector((state) => state.teams);
-  const { user } = useSelector((state) => state.auth);
+  const { user, users_loading } = useSelector((state) => state.auth);
+  const { get_department_loading } = useSelector((state) => state.department);
+
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
@@ -51,9 +53,11 @@ const EditForm = ({ id, handleClose }) => {
   return (
     <CustomForm onSubmit={onSubmit}>
       <OurTeamForm />
-      <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_teams_loading} />
-      </Box>
+      {!users_loading && !get_department_loading && (
+        <Box className={classes.footerRoot}>
+          <CustomButton buttonName="Update" loading={update_teams_loading} />
+        </Box>
+      )}
     </CustomForm>
   );
 };

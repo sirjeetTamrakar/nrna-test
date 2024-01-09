@@ -6,16 +6,16 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NCCForm from './Form';
+import { editValidationSchema } from './ValidationSchema';
 import { updateNCC } from './redux/actions';
 import { useStyles } from './styles';
-import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ handleClose, detail }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { update_ncc_loading } = useSelector((state) => state.ncc);
+  const { update_ncc_loading, get_countries_list_loading } = useSelector((state) => state.ncc);
 
   const onSubmit = (data) => {
     console.log('nccDataaa', { data });

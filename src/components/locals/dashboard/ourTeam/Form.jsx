@@ -1,4 +1,5 @@
 import { Box, Grid } from '@mui/material';
+import CustomLoader from 'components/common/CustomLoader/CustomLoader';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomInput from 'components/common/Form/CustomInput';
 import { useEffect } from 'react';
@@ -10,8 +11,8 @@ const OurTeamForm = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { users } = useSelector((state) => state.user);
-  const { departmentData } = useSelector((state) => state.department);
+  const { users, users_loading } = useSelector((state) => state.user);
+  const { departmentData, get_department_loading } = useSelector((state) => state.department);
 
   const createdByUsers = users?.data?.map((item) => ({
     label: item?.full_name ? item?.full_name : item?.username,
@@ -28,32 +29,36 @@ const OurTeamForm = () => {
 
   return (
     <Box className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item sm={6}>
-          <CustomAutoComplete
-            name="member_id"
-            label="Member"
-            options={createdByUsers || []}
-            required
-            key={createdByUsers}
-          />
+      {get_department_loading || users_loading ? (
+        <CustomLoader />
+      ) : (
+        <Grid container spacing={2}>
+          <Grid item sm={6}>
+            <CustomAutoComplete
+              name="member_id"
+              label="Member"
+              options={createdByUsers || []}
+              required
+              key={createdByUsers}
+            />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomAutoComplete
+              name="our_team_category_id"
+              label="Department"
+              options={department || []}
+              required
+              key={department}
+            />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="designation" label="Designation" required />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="order" label="Order" required type="number" />
+          </Grid>
         </Grid>
-        <Grid item sm={6}>
-          <CustomAutoComplete
-            name="our_team_category_id"
-            label="Department"
-            options={department || []}
-            required
-            key={department}
-          />
-        </Grid>
-        <Grid item sm={6}>
-          <CustomInput name="designation" label="Designation" required />
-        </Grid>
-        <Grid item sm={6}>
-          <CustomInput name="order" label="Order" required type="number" />
-        </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };

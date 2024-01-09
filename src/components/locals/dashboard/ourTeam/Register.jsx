@@ -8,16 +8,19 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDepartment } from '../department/redux/actions';
 import OurTeamForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postTeams } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
   const { teams_loading } = useSelector((state) => state.teams);
-  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
+  const { user, admin_ncc_id_details, admin_role_details, users_loading } = useSelector(
+    (state) => state.auth
+  );
+  const { get_department_loading } = useSelector((state) => state.department);
 
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
   const storedValueRole = localStorage.getItem('nccRole');
@@ -56,9 +59,11 @@ const Register = ({ handleClose }) => {
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <OurTeamForm />
-          <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Team" loading={teams_loading} />
-          </Box>
+          {!get_department_loading && !users_loading && (
+            <Box className={classes.footerRoot}>
+              <CustomButton buttonName="Create Team" loading={teams_loading} />
+            </Box>
+          )}
         </CustomForm>
       </CustomFormProvider>
     </>

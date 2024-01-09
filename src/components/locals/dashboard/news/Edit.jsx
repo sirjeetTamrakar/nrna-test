@@ -7,16 +7,17 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
+import { editValidationSchema } from './ValidationSchema';
 import { updateNews } from './redux/actions';
 import { useStyles } from './styles';
-import { editValidationSchema } from './ValidationSchema';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { update_news_loading } = useSelector((state) => state.news);
+  const { update_news_loading, get_category_loading } = useSelector((state) => state.news);
   const { user } = useSelector((state) => state.auth);
+
   const [typeData, setTypeData] = useState();
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
@@ -74,9 +75,11 @@ const EditForm = ({ detail, handleClose }) => {
   return (
     <CustomForm onSubmit={onSubmit}>
       <NewsForm featureImage={detail?.feature_image} />
-      <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_news_loading} />
-      </Box>
+      {!get_category_loading && (
+        <Box className={classes.footerRoot}>
+          <CustomButton buttonName="Update" loading={update_news_loading} />
+        </Box>
+      )}
     </CustomForm>
   );
 };

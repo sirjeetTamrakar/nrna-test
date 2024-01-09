@@ -1,4 +1,5 @@
 import { Box, Grid } from '@mui/material';
+import CustomLoader from 'components/common/CustomLoader/CustomLoader';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import CustomInput from 'components/common/Form/CustomInput';
 import { useEffect } from 'react';
@@ -21,7 +22,7 @@ const MemberForm = ({ disabled }) => {
     dispatch(getCountries());
   }, []);
 
-  const { countries_list } = useSelector((state) => state.ncc);
+  const { countries_list, get_countries_list_loading } = useSelector((state) => state.ncc);
   console.log({ countries_list });
 
   const countryList = countries_list?.map((item, index) => ({
@@ -30,37 +31,41 @@ const MemberForm = ({ disabled }) => {
   }));
   return (
     <Box className={classes.root}>
-      <Grid container spacing={2}>
-        <Grid item sm={6}>
-          <CustomInput name="first_name" label="Firstname" required />
+      {get_countries_list_loading ? (
+        <CustomLoader />
+      ) : (
+        <Grid container spacing={2}>
+          <Grid item sm={6}>
+            <CustomInput name="first_name" label="Firstname" required />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="last_name" label="Lastname" required />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput
+              disabled={disabled ? true : false}
+              name="email"
+              type="email"
+              label="Email"
+              required
+            />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="phone" label="Phone" type="text" />
+          </Grid>
+          <Grid item sm={6}>
+            <CustomInput name="city" label="City" />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomAutoComplete
+              name="country_of_residence"
+              label="Country of Residence"
+              options={countryList}
+              required
+            />
+          </Grid>
         </Grid>
-        <Grid item sm={6}>
-          <CustomInput name="last_name" label="Lastname" required />
-        </Grid>
-        <Grid item sm={12}>
-          <CustomInput
-            disabled={disabled ? true : false}
-            name="email"
-            type="email"
-            label="Email"
-            required
-          />
-        </Grid>
-        <Grid item sm={6}>
-          <CustomInput name="phone" label="Phone" type="text" />
-        </Grid>
-        <Grid item sm={6}>
-          <CustomInput name="city" label="City" />
-        </Grid>
-        <Grid item sm={12}>
-          <CustomAutoComplete
-            name="country_of_residence"
-            label="Country of Residence"
-            options={countryList}
-            required
-          />
-        </Grid>
-      </Grid>
+      )}
     </Box>
   );
 };

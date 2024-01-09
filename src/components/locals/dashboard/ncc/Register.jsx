@@ -5,16 +5,17 @@ import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NCCForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postNCC } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
   const defaultValues = {};
   const classes = useStyles();
-  const { ncc_loading } = useSelector((state) => state.ncc);
-
+  const { ncc_loading, get_countries_list_loading } = useSelector((state) => state.ncc);
+  const { users_loading } = useSelector((state) => state.user);
+  const { get_region_loading } = useSelector((state) => state.region);
   const onSubmit = (data) => {
     console.log('nccSubmitData', { data });
     const formData = new FormData();
@@ -46,9 +47,11 @@ const Register = ({ handleClose }) => {
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <NCCForm />
-          <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create NCC" loading={ncc_loading} />
-          </Box>
+          {!get_countries_list_loading && !get_region_loading && !users_loading && (
+            <Box className={classes.footerRoot}>
+              <CustomButton buttonName="Create NCC" loading={ncc_loading} />
+            </Box>
+          )}
         </CustomForm>
       </CustomFormProvider>
     </>

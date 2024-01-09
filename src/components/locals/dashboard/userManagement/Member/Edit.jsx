@@ -12,6 +12,7 @@ const EditForm = ({ handleClose, refetch }) => {
   const classes = useStyles();
 
   const { update_user_loading } = useSelector((state) => state.user);
+  const { get_countries_list_loading } = useSelector((state) => state.ncc);
 
   const handleRefetch = () => {
     refetch();
@@ -25,9 +26,11 @@ const EditForm = ({ handleClose, refetch }) => {
   return (
     <CustomForm onSubmit={onSubmit}>
       <MemberForm disabled />
-      <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_user_loading} />
-      </Box>
+      {!get_countries_list_loading && (
+        <Box className={classes.footerRoot}>
+          <CustomButton buttonName="Update" loading={update_user_loading} />
+        </Box>
+      )}
     </CustomForm>
   );
 };

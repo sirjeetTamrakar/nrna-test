@@ -6,16 +6,18 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postNews } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
-  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
+  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
   const { news_loading } = useSelector((state) => state.news);
+  const { get_category_loading } = useSelector((state) => state.news);
+
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
@@ -61,14 +63,17 @@ const Register = ({ handleClose }) => {
 
   return (
     <>
+      {}
       <CustomFormProvider
         defaultValues={defaultValues}
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <NewsForm />
-          <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Submit" loading={news_loading} />
-          </Box>
+          {!get_category_loading && (
+            <Box className={classes.footerRoot}>
+              <CustomButton buttonName="Submit" loading={news_loading} />
+            </Box>
+          )}
         </CustomForm>
       </CustomFormProvider>
     </>

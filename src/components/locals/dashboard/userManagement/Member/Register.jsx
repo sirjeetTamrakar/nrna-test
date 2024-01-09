@@ -8,15 +8,17 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getNCC } from '../../ncc/redux/actions';
 import { createUser } from '../redux/actions';
 import MemberForm from './Form';
-import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const dispatch = useDispatch();
   const [filteredNcc, setFilteredNcc] = useState();
-  const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
+  const { nccData, get_ncc_loading, get_countries_list_loading } = useSelector(
+    (state) => state.ncc
+  );
   const { create_user_loading } = useSelector((state) => state.user);
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
@@ -52,9 +54,11 @@ const Register = ({ handleClose }) => {
         resolver={useYupValidationResolver(validationSchema)}>
         <CustomForm onSubmit={onSubmit}>
           <MemberForm />
-          <Box className={classes.footerRoot}>
-            <CustomButton buttonName="Create Member" loading={create_user_loading} />
-          </Box>
+          {!get_countries_list_loading && (
+            <Box className={classes.footerRoot}>
+              <CustomButton buttonName="Create Member" loading={create_user_loading} />
+            </Box>
+          )}
         </CustomForm>
       </CustomFormProvider>
     </>

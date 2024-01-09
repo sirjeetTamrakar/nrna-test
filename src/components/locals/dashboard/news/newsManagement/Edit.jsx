@@ -6,14 +6,14 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsManagementForm from './Form';
-import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
 
-  const { update_news_loading } = useSelector((state) => state.news);
+  const { update_news_loading, get_news_loading } = useSelector((state) => state.news);
   const { user } = useSelector((state) => state.auth);
   const [typeData, setTypeData] = useState();
 
@@ -44,9 +44,11 @@ const EditForm = ({ detail, handleClose }) => {
   return (
     <CustomForm onSubmit={onSubmit}>
       <NewsManagementForm featureImage={detail?.feature_image} />
-      <Box className={classes.footerRoot}>
-        <CustomButton buttonName="Update" loading={update_news_loading} />
-      </Box>
+      {!get_news_loading && (
+        <Box className={classes.footerRoot}>
+          <CustomButton buttonName="Update" loading={update_news_loading} />
+        </Box>
+      )}
     </CustomForm>
   );
 };
