@@ -20,8 +20,8 @@ import Edit from './Edit';
 import Register from './Register';
 import Service from './Service';
 import ServiceTable from './ServiceTable';
-import { useStyles } from './styles';
 import ViewFollowerTable from './ViewFollowersTable';
+import { useStyles } from './styles';
 
 const Profile = () => {
   const dispatch = useDispatch();
@@ -136,7 +136,7 @@ const Profile = () => {
       field: (row) => {
         return (
           <Box>
-            {row?.status === '1' ? (
+            {row?.status === 1 ? (
               <Button
                 sx={{ width: '100px' }}
                 variant="contained"
@@ -221,7 +221,7 @@ const Profile = () => {
   const handleStatusConfirm = (slug) => {
     const finalData = {
       slug: slug,
-      status: detail?.status === '0' ? '1' : '0',
+      status: detail?.status === 0 ? '1' : '0',
       _method: 'PATCH'
     };
     let typeData;
@@ -310,6 +310,13 @@ const Profile = () => {
     } else if (
       (user?.role_name == 'superadmin' || user?.role_name == 'admin') &&
       storedValueRole === 'admin'
+      // admin_role_details === 'admin'
+    ) {
+      const data = { page: page + 1, pagination_limit: rowsPerPage };
+      dispatch(getBusiness(data));
+    } else if (
+      user?.role_name == 'superadmin' ||
+      user?.role_name == 'admin'
       // admin_role_details === 'admin'
     ) {
       const data = { page: page + 1, pagination_limit: rowsPerPage };
@@ -407,7 +414,7 @@ const Profile = () => {
           open={openStatus}
           isLoading={business_status_loading}
           handleClose={statusOpenFunction}
-          status={detail?.status === 'Active' ? 'Active' : 'Inactive'}
+          status={Number(detail?.status) === 1 ? 'Active' : 'Inactive'}
           id={detail?.slug}
           handleConfirm={handleStatusConfirm}
         />
