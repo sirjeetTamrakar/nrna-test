@@ -1,8 +1,14 @@
+import { Box, CircularProgress } from '@mui/material';
 import EventCard from 'components/globals/EventCard';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { getAllEvents, getEventsCategory, getSingleNCC } from 'redux/homepage/actions';
+import {
+  getAllEvents,
+  getEventsCategory,
+  getSingleNCC,
+  resetEventsState
+} from 'redux/homepage/actions';
 import SecondaryNav from './SecondaryNav';
 const Events = () => {
   const dispatch = useDispatch();
@@ -27,6 +33,10 @@ const Events = () => {
     dispatch(getAllEvents({ ncc_id: single_ncc?.id }));
     dispatch(getEventsCategory());
     dispatch(getSingleNCC(ncc));
+  }, []);
+
+  useEffect(() => {
+    dispatch(resetEventsState());
   }, []);
 
   useEffect(() => {
@@ -58,20 +68,27 @@ const Events = () => {
           {/* <div className="all_events_title">Events</div> */}
           <div className="container">
             <div className="row">
-              {filteredEvents?.length > 0 ? (
-                filteredEvents.map((event) => (
-                  <EventCard
-                    key={event.id}
-                    event={event}
-                    linkUrl={`/ncc/${ncc}/events/${event?.slug}`}
-                  />
-                ))
-              ) : (
-                <div className="col-md-12 mt-5 mb-5">
-                  <h3 className="text-center">No events available.</h3>
-                </div>
-              )}
+              {filteredEvents?.length > 0
+                ? filteredEvents.map((event) => (
+                    <EventCard
+                      key={event.id}
+                      event={event}
+                      linkUrl={`/ncc/${ncc}/events/${event?.slug}`}
+                    />
+                  ))
+                : ''}
             </div>
+            {events_loading || events_category_loading ? (
+              <Box display="flex" justifyContent="center" alignItems="center">
+                <CircularProgress size={24} />
+              </Box>
+            ) : (
+              filteredEvents?.length === 0 && (
+                <div className="col-md-12 mt-5 mb-5">
+                  <h3 className="text-center">No Events available</h3>
+                </div>
+              )
+            )}
           </div>
         </section>
       </div>

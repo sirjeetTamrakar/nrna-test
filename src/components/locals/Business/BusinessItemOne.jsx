@@ -10,22 +10,14 @@ const BusinessItemOne = ({ settingsData, businessItem, linkUrl, gridLayout, grid
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
           {/* <div className="news_card_featured_news_box_grid_one">Featured News</div> */}
-          {/* <div className="news_card_title_grid_one_business">{settingsData.business_title}</div> */}
+          <div className="news_card_title_grid_one_business">{settingsData.business_title}</div>
           {settingsData?.business_description !== '' && (
             <div
               className="news_card_text_description_ncc"
               dangerouslySetInnerHTML={{ __html: settingsData?.business_description || '' }}
             />
           )}
-          {/* {news?.description !== '' && (
-            <div className="news_card_text_description">{news?.description}</div>
-          )} */}
-          {/* <div className="news_card_text_date_grid_one">
-            <TimeAgo time={news?.created_at} /> |&nbsp;
-            {news?.created_by?.full_name
-              ? news?.created_by?.full_name
-              : news?.created_by?.username}{' '}
-          </div>{' '} */}
+
           <Link to={linkUrl} className="learnMoreBox">
             <div style={{ display: 'flex', alignItems: 'center' }}>
               <p style={{ color: '#4D99D5' }}>Learn more</p>

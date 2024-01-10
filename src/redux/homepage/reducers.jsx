@@ -242,6 +242,25 @@ const homepageReducer = (state = defaultState, action) => {
     case actions.FETCH_BUSINESS_ERROR:
       return { ...state, business_loading: false };
 
+    case actions.RESET_BUSINESS_STATE:
+      return {
+        ...state,
+        business: null,
+        business_loading: false
+      };
+    case actions.RESET_NEWS_STATE:
+      return {
+        ...state,
+        news: null,
+        news_loading: false
+      };
+    case actions.RESET_EVENTS_STATE:
+      return {
+        ...state,
+        events: null,
+        events_loading: false
+      };
+
     case actions.FETCH_SINGLE_BUSINESS_BEGIN:
       return { ...state, single_business_loading: true };
 

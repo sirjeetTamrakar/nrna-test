@@ -15,8 +15,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteHomeData, getHomeData, updateHomeDataStatus } from '../../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const HomeData = () => {
   const dispatch = useDispatch();
@@ -159,11 +159,11 @@ const HomeData = () => {
     };
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'ncc', id: 1, page: 1, pagination_limit: 10 };
     }
     typeData = {
       homedataable_type: 'business',
-      homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id,
+      homedataable_id: 1,
       page: 1,
       pagination_limit: 10
     };
@@ -173,11 +173,11 @@ const HomeData = () => {
   const handleDeleteConfirm = (slug) => {
     let typeData;
     if (user?.role_name == Roles?.NCC) {
-      typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
+      typeData = { type: 'ncc', id: 1, page: 1, pagination_limit: 10 };
     }
     typeData = {
       homedataable_type: 'business',
-      homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id,
+      homedataable_id: 1,
       page: 1,
       pagination_limit: 10
     };
@@ -194,7 +194,8 @@ const HomeData = () => {
       page: page + 1,
       pagination_limit: rowsPerPage,
       homedataable_type: 'business',
-      homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id
+      // homedataable_id: user?.role_name === Roles.NCC ? user?.ncc?.id : user?.id
+      homedataable_id: 1
     };
     dispatch(getHomeData(data));
   };

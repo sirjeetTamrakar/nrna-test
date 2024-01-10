@@ -115,6 +115,7 @@ const RoleForm = ({ handleConfirm, handleClose, isLoading, data }) => {
 
   const roleData = [
     { value: 'admin', label: 'Admin' },
+    { value: 'superadmin', label: 'Superadmin' },
     { value: 'member', label: 'Member' },
     { value: 'ncc', label: 'NCC' },
     { value: '', label: 'None' }

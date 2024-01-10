@@ -7,8 +7,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { updateHomeData } from '../../redux/actions';
 import HomeDataForm from './Form';
-import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const EditForm = ({ detail, handleClose }) => {
   const classes = useStyles();
@@ -28,14 +28,14 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('status', 1);
     formData.append('_method', 'PUT');
 
-    if (user?.role_name === Roles.SuperAdmin) {
+    if (user?.role_name === Roles.SuperAdmin || user?.role_name === Roles.Admin) {
       formData.append('homedataable_type', 'business');
-      formData.append('homedataable_id', user?.id);
+      formData.append('homedataable_id', 1);
       typeData = {
         page: 1,
         pagination_limit: 10,
         homedataable_type: 'business',
-        homedataable_id: user?.id
+        homedataable_id: 1
       };
     }
 

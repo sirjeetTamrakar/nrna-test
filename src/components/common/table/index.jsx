@@ -86,6 +86,8 @@ const CustomTable = ({
     return false;
   };
 
+  const startIndex = page * rowsPerPage;
+
   const arrowIcons = () => {
     return (
       <span className={classes.tableHeadSpan}>
@@ -139,7 +141,7 @@ const CustomTable = ({
                       if (el.type?.toLowerCase() === 'index') {
                         return (
                           <TableCell className={classes.tableItem} key={idx}>
-                            {index + 1}
+                            {startIndex + index + 1}
                           </TableCell>
                         );
                       }

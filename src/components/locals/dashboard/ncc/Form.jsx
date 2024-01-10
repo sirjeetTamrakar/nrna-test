@@ -15,8 +15,8 @@ const NCCForm = ({ logo, data }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { countries_list, get_countries_list_loading } = useSelector((state) => state.ncc);
-  const { users, users_loading } = useSelector((state) => state.user);
-  const { regionData, get_region_loading } = useSelector((state) => state.region);
+  const { users } = useSelector((state) => state.user);
+  const { regionData } = useSelector((state) => state.region);
 
   console.log({ data });
 
@@ -68,6 +68,9 @@ const NCCForm = ({ logo, data }) => {
               options={countryList ?? []}
               required
             />
+          </Grid>
+          <Grid item sm={12}>
+            <CustomInput placeholder="Subtitle" name="subtitle" label="Subtitle" required />
           </Grid>
           <Grid item sm={9}>
             <CustomAutoComplete

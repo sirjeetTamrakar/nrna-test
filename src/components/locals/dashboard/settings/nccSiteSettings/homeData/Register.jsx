@@ -7,8 +7,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { postHomeData } from '../../redux/actions';
 import HomeDataForm from './Form';
-import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
@@ -29,14 +29,14 @@ const Register = ({ handleClose }) => {
     formData.append('tagline_author', data?.tagline_author);
     formData.append('status', 1);
 
-    if (user?.role_name === Roles.SuperAdmin) {
+    if (user?.role_name === Roles.SuperAdmin || user?.role_name === Roles.Admin) {
       formData.append('homedataable_type', 'nccCard');
-      formData.append('homedataable_id', user?.id);
+      formData.append('homedataable_id', 1);
       typeData = {
         page: 1,
         pagination_limit: 10,
         homedataable_type: 'nccCard',
-        homedataable_id: user?.id
+        homedataable_id: 1
       };
     }
 

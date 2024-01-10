@@ -251,6 +251,16 @@ export const getBusiness = (data) => (dispatch) => {
     });
 };
 
+export const resetBusinessState = () => (dispatch) => {
+  dispatch({ type: actions.RESET_BUSINESS_STATE });
+};
+export const resetNewsState = () => (dispatch) => {
+  dispatch({ type: actions.RESET_NEWS_STATE });
+};
+export const resetEventsState = () => (dispatch) => {
+  dispatch({ type: actions.RESET_EVENTS_STATE });
+};
+
 export const getSingleBusiness = (slug) => (dispatch) => {
   dispatch({ type: actions.FETCH_SINGLE_BUSINESS_BEGIN });
   getSingleBusinessApi(slug)
