@@ -4,6 +4,7 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
 import { validationSchema } from './ValidationSchema';
@@ -17,6 +18,13 @@ const Register = ({ handleClose }) => {
   const classes = useStyles();
   const { news_loading } = useSelector((state) => state.news);
   const { get_category_loading } = useSelector((state) => state.news);
+
+  const {
+    watch,
+    control,
+    formState: { errors }
+  } = useForm();
+  console.log('wassssch', watch());
 
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));

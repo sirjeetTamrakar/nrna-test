@@ -30,6 +30,11 @@ export const axiosInstance = () => {
     //   'Content-Type': 'multipart/form-data'
     // }
   });
+
+  const handleLogout = () => {
+    window.location.href = '/';
+    localStorage.clear();
+  };
   instance.interceptors.request.use(
     (config) => {
       const token = TokenService.getLocalAccessToken();
@@ -94,6 +99,17 @@ export const axiosInstance = () => {
       }
 
       return Promise.reject(err);
+    }
+  );
+  instance.interceptors.response.use(
+    (response) => {
+      return response;
+    },
+    (error) => {
+      if (error.response && error.response.status === 401) {
+        handleLogout();
+      }
+      return Promise.reject(error);
     }
   );
   return instance;

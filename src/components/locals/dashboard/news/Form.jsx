@@ -1,11 +1,13 @@
 import { Box, Grid } from '@mui/material';
 import CustomEditor from 'components/common/CustomEditor';
 import CustomLoader from 'components/common/CustomLoader/CustomLoader';
+import { CustomSwitch } from 'components/common/CustomSwitch/CustomSwitch';
 import CustomAutoComplete from 'components/common/Form/CustomAutoComplete';
 import FileUploader from 'components/common/Form/CustomFileUpload';
 import CustomInput from 'components/common/Form/CustomInput';
 import CustomTextArea from 'components/common/Form/CustomTextarea';
 import { useEffect } from 'react';
+import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { getAllUsers } from '../userManagement/redux/actions';
 import { getCategory } from './redux/actions';
@@ -18,6 +20,12 @@ const NewsForm = ({ featureImage }) => {
   const { user } = useSelector((state) => state.auth);
   const { categoryData, get_category_loading } = useSelector((state) => state.news);
 
+  const {
+    watch,
+    control,
+    formState: { errors }
+  } = useForm();
+  console.log('watch', watch());
   const createdByUsers = users?.data?.map((item) => ({
     label: item?.full_name ? item?.full_name : item?.username,
     value: item?.id
@@ -69,6 +77,21 @@ const NewsForm = ({ featureImage }) => {
             <Grid item sm={12}>
               <CustomEditor name="description" />
             </Grid>
+            <Grid item sm={12}>
+              <CustomSwitch
+                name="hide_input"
+                label="Myself author"
+                control={control}
+                errors={errors}
+              />
+            </Grid>
+            {watch('hide_input') == true ? (
+              ''
+            ) : (
+              <Grid item sm={12}>
+                <CustomInput name="created_by_author" label="Author" />
+              </Grid>
+            )}
             {/* {user?.role_name != Roles.Member && (
           <Grid item sm={12}>
             <CustomAutoComplete
