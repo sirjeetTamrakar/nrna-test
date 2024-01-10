@@ -326,7 +326,7 @@ const Profile = () => {
 
   useEffect(() => {
     refetch();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, user]);
 
   return (
     <>
