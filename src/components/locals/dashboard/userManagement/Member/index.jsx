@@ -241,14 +241,14 @@ const Member = () => {
                   <li onClick={() => handleDelete(row)}>Delete</li>
                 </>
               )}
-              {roleIDData?.roleId1?.admin?.id === user?.id && (
+              {/* {roleIDData?.roleId1?.admin?.id === user?.id && (
                 <>
                   <li onClick={() => handleEdit(row)}>Edit Member </li>
                   <li onClick={() => handleRole(row)}>Change role</li>
                   <li onClick={() => handleApprove(row)}>Approve User</li>
                   <li onClick={() => handleDelete(row)}>Delete</li>
                 </>
-              )}
+              )} */}
               {roleIDData?.roleId1?.admin?.id !== user?.id && user?.id === row?.id && (
                 <>
                   <li onClick={() => handleEdit(row)}>Edit Member </li>
