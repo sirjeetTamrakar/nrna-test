@@ -102,6 +102,11 @@ const Member = () => {
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
     {
+      title: 'Reg No',
+      minWidth: 150,
+      field: 'registration_number'
+    },
+    {
       title: 'Name',
       minWidth: 150,
       field: (row) => {
