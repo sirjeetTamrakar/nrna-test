@@ -111,7 +111,6 @@ const RoleForm = ({ handleConfirm, handleClose, isLoading, data }) => {
     reset,
     formState: { errors }
   } = useFormContext();
-  console.log('watch', watch('role'));
 
   const roleData = [
     { value: 'admin', label: 'Admin' },
@@ -127,8 +126,6 @@ const RoleForm = ({ handleConfirm, handleClose, isLoading, data }) => {
   ];
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
 
-  console.log({ nccData });
-
   useEffect(() => {
     dispatch(getNCC());
   }, []);
@@ -139,7 +136,6 @@ const RoleForm = ({ handleConfirm, handleClose, isLoading, data }) => {
   }));
 
   const submitHandler = (data) => {
-    console.log('mmmmmmmmmff', { data });
     const finalData = {
       role_name: data?.role,
       ncc_id: data?.ncc_id

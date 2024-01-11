@@ -162,8 +162,6 @@ const NewsManagement = () => {
   //   user && refetch();
   // }, [page, rowsPerPage, user]);
 
-  console.log('selected------', { selected });
-
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, categoryData]);
@@ -213,17 +211,6 @@ const NewsManagement = () => {
     dispatch(getCategory());
   }, []);
 
-  console.log({ filteredNews, allFilteredNews, categoryData });
-
-  // useEffect(() => {
-  //   if (newsData) {
-  //     const allNewNews = newsData?.data?.filter((list) =>
-  //       list?.title?.toLowerCase()?.includes(search?.toLowerCase())
-  //     );
-  //     setAllFilteredNews(allNewNews);
-  //   }
-  // }, [search, newsData]);
-
   useEffect(() => {
     if (newsData) {
       const newNews = newsData?.data?.filter(
@@ -234,7 +221,6 @@ const NewsManagement = () => {
       setFilteredNews(selected === 'ALL' ? newsData?.data : newNews);
     }
   }, [search, newsData, selected, categoryData]);
-  console.log({ newsOrderData });
 
   return (
     <>

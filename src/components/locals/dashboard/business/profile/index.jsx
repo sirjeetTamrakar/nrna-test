@@ -43,9 +43,7 @@ const Profile = () => {
   const { businessData, get_business_loading, business_status_loading, delete_business_loading } =
     useSelector((state) => state.business);
 
-  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
-
-  console.log('userreerr', { user, admin_ncc_id_details });
+  const { user } = useSelector((state) => state.auth);
 
   // const refetch = () => {
   //   const data = {

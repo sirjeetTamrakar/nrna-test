@@ -204,7 +204,6 @@ const HomeData = () => {
     refetch();
   }, [page, rowsPerPage]);
 
-  console.log({ home_data });
   return (
     <>
       <Box>

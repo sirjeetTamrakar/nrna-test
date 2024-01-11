@@ -5,7 +5,6 @@ import CustomModal from './CustomModal';
 const CustomDeleteModal = ({ open, handleClose, handleConfirm, isLoading, slug, modalTitle }) => {
   return (
     <>
-      {console.log({ slug })}
       <CustomModal
         open={open}
         width={'500px'}

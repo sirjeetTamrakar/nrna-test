@@ -22,7 +22,6 @@ const BusinessProfile = () => {
 
   const [filteredSingleBusiness, setFilteredSingleBusiness] = useState();
   const { single_business, business_category } = useSelector((state) => state.homepage);
-  console.log({ filteredSingleBusiness });
   useEffect(() => {
     const filteredSingleCategoryData = business_category?.filter(
       (item) => item?.id === Number(single_business?.business_category_id)

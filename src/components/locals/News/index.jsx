@@ -5,16 +5,13 @@ import NewsCardOrderOne from 'components/globals/NewsCardOrderOne';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { getAllNews, getNewsCategory } from 'redux/homepage/actions';
 import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
 
 const News = () => {
   const location = useLocation();
-  console.log({ location });
-  const { candidate } = useParams();
-  console.log({ candidate });
   const pathname = window.location.pathname;
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -26,11 +23,9 @@ const News = () => {
   );
 
   const [filteredNews, setFilteredNews] = useState();
-  const [allFilteredNews, setAllFilteredNews] = useState();
   const [newsLimit, setNewsLimit] = useState(15);
 
   const [selected, setSelected] = useState();
-  console.log('ww------', { filteredNews });
 
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
@@ -61,8 +56,6 @@ const News = () => {
     dispatch(getNewsCategory());
   }, [newsLimit, selected, debouncedSearchQuery]);
 
-  console.log({ selected });
-
   // useEffect(() => {
   //   if (news) {
   //     const allNewNews = news?.data?.filter((list) =>
@@ -86,7 +79,6 @@ const News = () => {
   const handleShowMore = () => {
     setNewsLimit((prev) => prev + 12);
   };
-  console.log({ news });
 
   return (
     <>

@@ -18,7 +18,6 @@ const Form = () => {
   const classes = useStyles();
   const { single_business, business_contact_loading } = useSelector((state) => state.homepage);
   const { slug } = useParams();
-  console.log('ccxcxcxcxcxcxdddd', { single_business });
   useEffect(() => {
     dispatch(getSingleBusiness(slug));
   }, [slug]);
@@ -36,7 +35,6 @@ const Form = () => {
     array?.map((item) => setValue(item, ''));
   };
   const submitHandler = (data) => {
-    console.log('businessFormData', { data });
     dispatch(postBusinessContact({ ...data, business_id: single_business?.id }, handleSuccess));
   };
 

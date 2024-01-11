@@ -40,7 +40,6 @@ export const deleteTeams = (Data, handleSuccess, typeData) => async (dispatch) =
 
   try {
     await deleteTeamsApi(Data);
-    console.log('dataaa', Data);
     handleSuccess && handleSuccess();
     dispatch({
       type: actions.DELETE_TEAMS_SUCCESS,
@@ -50,7 +49,6 @@ export const deleteTeams = (Data, handleSuccess, typeData) => async (dispatch) =
     successToast('Team member has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_TEAMS_ERROR });
-    console.log(error);
     errorToast(error);
   }
 };

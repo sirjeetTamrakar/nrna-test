@@ -27,8 +27,6 @@ const NBNS = () => {
 
   const { news, news_loading } = useSelector((state) => state.homepage);
 
-  console.log({ news, news_loading });
-
   useEffect(() => {
     const finalData = {
       limit: 10,

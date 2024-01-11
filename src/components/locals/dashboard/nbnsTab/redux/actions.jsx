@@ -58,7 +58,6 @@ export const deleteGallery = (Data, handleSuccess, typeData) => async (dispatch)
     successToast('Gallery has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_GALLERY_ERROR });
-    console.log(error);
     errorToast(error);
   }
 };
@@ -68,7 +67,6 @@ export const updateGallery = (Data, id, handleSuccess, typeData) => async (dispa
 
   try {
     await updateGalleryApi(Data, id);
-    console.log('dataaasssssssssssss', Data);
     dispatch({
       type: actions.UPDATE_GALLERY_SUCCESS,
       payload: ''
@@ -78,7 +76,6 @@ export const updateGallery = (Data, id, handleSuccess, typeData) => async (dispa
     successToast('Gallery has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_GALLERY_ERROR });
-    console.log({ error });
     errorToast(error);
   }
 };
@@ -126,7 +123,6 @@ export const deleteArticle = (Data, handleSuccess, typeData) => async (dispatch)
     successToast('Article has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_ARTICLE_ERROR });
-    console.log(error);
     errorToast(error);
   }
 };
@@ -136,7 +132,6 @@ export const updateArticle = (Data, id, handleSuccess, typeData) => async (dispa
 
   try {
     await updateArticleApi(Data, id);
-    console.log('dataaasssssssssssss', Data);
     dispatch({
       type: actions.UPDATE_ARTICLE_SUCCESS,
       payload: ''
@@ -146,7 +141,6 @@ export const updateArticle = (Data, id, handleSuccess, typeData) => async (dispa
     successToast('Article has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_ARTICLE_ERROR });
-    console.log({ error });
     errorToast(error);
   }
 };
@@ -209,7 +203,6 @@ export const deletePressRelease = (Data, handleSuccess, typeData) => async (disp
     successToast('Press release has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_PRESS_RELEASE_ERROR });
-    console.log(error);
     errorToast(error);
   }
 };
@@ -219,7 +212,6 @@ export const updatePressRelease = (Data, id, handleSuccess, typeData) => async (
 
   try {
     await updatePressReleaseApi(Data, id);
-    console.log('dataaasssssssssssss', Data);
     dispatch({
       type: actions.UPDATE_PRESS_RELEASE_SUCCESS,
       payload: ''
@@ -229,7 +221,6 @@ export const updatePressRelease = (Data, id, handleSuccess, typeData) => async (
     successToast('Press release has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_PRESS_RELEASE_ERROR });
-    console.log({ error });
     errorToast(error);
   }
 };

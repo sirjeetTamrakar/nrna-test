@@ -23,7 +23,6 @@ const MemberForm = ({ disabled, registration_number }) => {
   }, []);
 
   const { countries_list, get_countries_list_loading } = useSelector((state) => state.ncc);
-  console.log({ countries_list });
 
   const countryList = countries_list?.map((item, index) => ({
     label: item,

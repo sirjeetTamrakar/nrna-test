@@ -21,7 +21,6 @@ const CustomDatePicker = ({
 }) => {
   return (
     <Box className={`${classnames} datepicker`}>
-      {console.log({ format })}
       <Controller
         control={control}
         errors={errors}

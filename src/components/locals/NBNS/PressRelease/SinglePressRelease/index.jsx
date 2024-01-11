@@ -18,7 +18,6 @@ const SinglePressRelease = () => {
     (state) => state.homepage
   );
   const recentPress = press_release?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { press_release });
 
   useEffect(() => {
     dispatch(getSinglePressRelease(slug));

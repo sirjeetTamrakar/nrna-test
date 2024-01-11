@@ -10,9 +10,7 @@ const News = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();
-  console.log({ location });
 
-  const { user } = useSelector((state) => state.auth);
   const { news, news_loading, news_category, news_category_loading, single_ncc } = useSelector(
     (state) => state.homepage
   );
@@ -24,14 +22,11 @@ const News = () => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { filteredNews });
   useEffect(() => {
     dispatch(getAllNews({ type: 'ncc', id: single_ncc?.id }));
     dispatch(getNewsCategory());
   }, []);
-  console.log({ ncc });
 
-  console.log({ single_ncc });
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
   }, [ncc]);
@@ -51,7 +46,6 @@ const News = () => {
     }
   }, [search, news?.data, selected, news_category]);
 
-  console.log('cxcxcxcxcxcx', { ncc });
   return (
     <>
       <SecondaryNav

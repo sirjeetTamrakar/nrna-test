@@ -37,7 +37,6 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   const { pathname } = useLocation();
   const [activeLink, setActiveLink] = useState(pathname);
 
-  console.log({ pathname });
   const [open, openFunction] = useToggle(false);
   const [openRegister, openFunctionRegister] = useToggle(false);
 

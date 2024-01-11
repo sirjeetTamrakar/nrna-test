@@ -15,8 +15,8 @@ import Questions from '../Question';
 import { changeSurveyStatus, deleteSurvey, getAllSurvey } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const SurveyListResult = () => {
   const dispatch = useDispatch();
@@ -183,7 +183,6 @@ const SurveyListResult = () => {
   };
 
   const handleShowQuestions = (row) => {
-    console.log('jjjsjsjsjs', { row });
     setDetail(row);
     navigate(`/dashboard/survey/result/result-list`, { state: row });
   };
@@ -201,8 +200,6 @@ const SurveyListResult = () => {
   useEffect(() => {
     refetch();
   }, [page, rowsPerPage]);
-
-  console.log({ detail });
 
   return (
     <>

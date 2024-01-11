@@ -7,8 +7,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import GalleryForm from './Form';
-import { useStyles } from './styles';
 import { editValidationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const EditForm = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
@@ -17,11 +17,8 @@ const EditForm = ({ detail, handleClose }) => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const { update_gallery_loading } = useSelector((state) => state.nbns);
-  const { user } = useSelector((state) => state.auth);
-  const [typeData, setTypeData] = useState();
 
   const onSubmit = (data) => {
-    console.log('ssssssssdd', { data });
     const formData = new FormData();
     formData.append('title', data?.title);
     formData.append('_method', 'PUT');

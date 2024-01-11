@@ -18,16 +18,10 @@ const NCCForm = ({ logo, data }) => {
   const { users } = useSelector((state) => state.user);
   const { regionData } = useSelector((state) => state.region);
 
-  console.log({ data });
-
   const {
     control,
-    setValue,
-    watch,
     formState: { errors }
   } = useFormContext();
-
-  console.log({ watch: watch() });
 
   const countryList = countries_list?.map((item, index) => ({
     label: item,
@@ -48,11 +42,6 @@ const NCCForm = ({ logo, data }) => {
     dispatch(getAllUsers());
     dispatch(getRegion());
   }, []);
-
-  // useEffect(() => {
-  //   const defaultRegions = data?.ncc_regions?.map((region) => Number(region?.region_id)) || [];
-  //   setValue('regions', defaultRegions);
-  // }, [data?.ncc_regions]);
 
   return (
     <Box className={classes.root}>
@@ -123,8 +112,6 @@ export const getRegionName = (id) => {
     regionData?.data?.length > 0
       ? regionData?.data?.find((region) => region?.id === Number(id))
       : {};
-
-  console.log({ regionData, regionDetailsFromId });
 
   return regionDetailsFromId?.name ?? '';
 };

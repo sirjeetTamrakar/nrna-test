@@ -18,8 +18,6 @@ const SecondaryNav = ({
   const classes = useStyles();
   const navigate = useNavigate();
 
-  console.log({ category });
-
   const checkActive = (slug) => {
     if (selected) {
       if (slug === selected) {

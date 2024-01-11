@@ -11,8 +11,8 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContact, getContact } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const Contact = () => {
   const dispatch = useDispatch();
@@ -28,8 +28,6 @@ const Contact = () => {
   const { contact, contact_loading, contact_delete_loading } = useSelector(
     (state) => state.homepage
   );
-
-  console.log({ contact });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },

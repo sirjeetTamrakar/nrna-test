@@ -251,31 +251,9 @@ const Downloads = () => {
   };
 
   const filterDataHomeAll = {
-    // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
     page: page + 1,
     pagination_limit: 100,
     search: download_search
-  };
-
-  console.log({ admin_ncc_id_details, admin_role_details });
-  const refetch = () => {
-    if (user?.role_name == Roles?.Member) {
-      dispatch(getDownload(filterDataMember));
-    } else if (user?.role_name == Roles?.NCC) {
-      dispatch(getDownload(filterDataNCC));
-    } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
-      dispatch(getDownload(filterDataHomeAdminNcc));
-    } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
-      dispatch(getDownload(filterDataHome));
-    } else {
-      dispatch(getDownload(filterDataHomeAll));
-    }
-
-    // if (user?.role_name === 'ncc') {
-    //   dispatch(getDownload(filterData, roleData));
-    // } else {
-    //   dispatch(getDownload(filterData));
-    // }
   };
 
   useEffect(() => {

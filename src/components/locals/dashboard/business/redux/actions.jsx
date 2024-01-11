@@ -120,7 +120,6 @@ export const postBusiness = (data, handleSuccess, typeData) => (dispatch) => {
     .then((res) => {
       dispatch({ type: actions.POST_BUSINESS_SUCCESS });
       handleSuccess && handleSuccess();
-      console.log({ typeData });
 
       dispatch(getBusiness(typeData));
       successToast('Business added successfully');
@@ -316,7 +315,6 @@ export const getBusinessOrder = () => (dispatch) => {
   dispatch({ type: actions.GET_BUSINESS_ORDER_BEGIN });
   getBusinessOrderApi()
     .then((res) => {
-      console.log({ res });
       dispatch({ type: actions.GET_BUSINESS_ORDER_SUCCESS, payload: res.data.data });
     })
     .catch((error) => {
@@ -329,7 +327,6 @@ export const getBusinessFollow = (data) => (dispatch) => {
   dispatch({ type: actions.GET_BUSINESS_FOLLOW_BEGIN });
   getBusinessFollowApi(data)
     .then((res) => {
-      console.log({ res });
       dispatch({ type: actions.GET_BUSINESS_FOLLOW_SUCCESS, payload: res.data });
     })
     .catch((error) => {
@@ -342,7 +339,6 @@ export const getBusinessFollowDownload = (data) => (dispatch) => {
   dispatch({ type: actions.GET_BUSINESS_FOLLOW_DOWNLOAD_BEGIN });
   getBusinessFollowDownloadApi(data)
     .then((res) => {
-      console.log({ res });
       dispatch({ type: actions.GET_BUSINESS_FOLLOW_DOWNLOAD_SUCCESS, payload: res.data });
     })
     .catch((error) => {

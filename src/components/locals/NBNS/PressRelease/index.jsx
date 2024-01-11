@@ -6,32 +6,22 @@ import NewsCardOrderOne from 'components/globals/NewsCardOrderOne';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
 import { getPressRelease } from 'redux/homepage/actions';
 // import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
 
 const PressRelease = () => {
-  const location = useLocation();
-  console.log({ location });
-  const { candidate } = useParams();
-  console.log({ candidate });
   const pathname = window.location.pathname;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   const dispatch = useDispatch();
-  // const { news, news_loading, news_category, news_category_loading } = useSelector(
-  //   (state) => state.homepage
-  // );
+
   const { press_release, press_release_loading } = useSelector((state) => state.homepage);
 
-  const [filteredArticle, setFilteredArticle] = useState();
   const [allFilteredPressRelease, setAllFilteredPressRelease] = useState();
   const [pressLimit, setPressLimit] = useState(7);
-
-  const [selected, setSelected] = useState();
 
   const [search, setSearch] = useState('');
 
@@ -47,8 +37,6 @@ const PressRelease = () => {
     dispatch(getPressRelease(finalData));
   }, [pressLimit, debouncedSearchQuery]);
 
-  console.log({ selected });
-
   useEffect(() => {
     if (press_release?.data) {
       const allNewPressRelease = press_release?.data?.filter((list) =>
@@ -61,7 +49,6 @@ const PressRelease = () => {
   const handleShowMore = () => {
     setPressLimit((prev) => prev + 4);
   };
-  console.log({ press_release });
 
   return (
     <>

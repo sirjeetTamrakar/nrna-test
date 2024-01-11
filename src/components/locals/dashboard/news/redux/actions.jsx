@@ -208,7 +208,6 @@ export const getNewsOrder = () => (dispatch) => {
   dispatch({ type: actions.GET_NEWS_ORDER_BEGIN });
   getNewsOrderApi()
     .then((res) => {
-      console.log({ res });
       dispatch({ type: actions.GET_NEWS_ORDER_SUCCESS, payload: res.data.data });
     })
     .catch((error) => {

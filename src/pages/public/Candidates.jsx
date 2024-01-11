@@ -3,16 +3,13 @@ import Button from '@mui/material/Button';
 import profileImage2 from 'assets/images/profileImage2.jpg';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { getCandidates } from 'redux/homepage/actions';
 
 const CandidateHome = ({ siteSettingImages, about, title }) => {
-  const { settings } = useSelector((state) => state.homepage);
   const [candidateLimit, setCandidateLimit] = useState(12);
 
   const dispatch = useDispatch();
-  const { ncc } = useParams();
-  console.log('ggsgggggg', { ncc });
   const { candidates, candidate_loading } = useSelector((state) => state.homepage);
   useEffect(() => {
     const finalData = {

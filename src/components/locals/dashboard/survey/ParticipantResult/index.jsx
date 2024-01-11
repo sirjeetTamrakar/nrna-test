@@ -9,18 +9,14 @@ const ParticipantResult = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
-  console.log(location);
-  console.log('ggdhhhhhhh', location?.state?.state?.questions?.[0]?.survey_id);
-  console.log({ location });
+
   const { participant_id } = useParams();
-  // const data = useParams();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const [name, setName] = useState();
   const { participant_result, participant_result_loading, participants } = useSelector(
     (state) => state.question
   );
-  console.log({ participants, participant_id, participant_result });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 

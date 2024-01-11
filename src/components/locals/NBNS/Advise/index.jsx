@@ -10,11 +10,8 @@ const Advise = () => {
   const classes = useStyles();
 
   const dispatch = useDispatch();
-  // const [adviceData, setAdviceData] = useState();
-  // const { home_data } = useSelector((state) => state.homepage);
   const { nbns_settings } = useSelector((state) => state.homepage);
 
-  // console.log('bttttt', { adviceData });
   useEffect(() => {
     const data = {
       type: 'nbns',
@@ -22,16 +19,6 @@ const Advise = () => {
     };
     dispatch(getAllHomeData(data));
   }, []);
-
-  // useEffect(() => {
-  //   const newArray = home_data?.data?.filter((item) => item?.slug === 'advice');
-  //   const newObj = {};
-
-  //   newArray.forEach((item, index) => {
-  //     newObj[`advice${index + 1}`] = item;
-  //   });
-  //   setAdviceData(newObj);
-  // }, [home_data?.data]);
 
   return (
     <>

@@ -27,7 +27,6 @@ const SecondaryNavWrapper = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { candidate } = useParams();
-  console.log({ candidate });
   const handleFunction = (data) => {
     navigate(data);
   };

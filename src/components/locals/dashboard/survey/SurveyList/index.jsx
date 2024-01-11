@@ -187,8 +187,6 @@ const SurveyList = () => {
     refetch();
   }, [page, rowsPerPage]);
 
-  console.log({ detail });
-
   return (
     <>
       <Box>

@@ -14,27 +14,6 @@ import * as Yup from 'yup';
 import { useStyles } from './styles';
 
 const Contact = () => {
-  // const dispatch = useDispatch();
-  // const { candidate } = useParams();
-  // const { single_user, teams_contact_loading } = useSelector((state) => state.homepage);
-  // console.log('ffffffff', { teams_contact_loading });
-  // useEffect(() => {
-  //   dispatch(getSingleUser(candidate));
-  // }, [candidate]);
-  // const { reset, watch } = useFormContext({});
-  // console.log('watch', watch());
-
-  // const handleSuccess = () => {
-  //   // const array = ['name', 'email', 'phone', 'message'];
-  //   // array?.map((item) => setValue(item, ''));
-  //   reset({});
-  // };
-
-  // const submitHandler = (data) => {
-  //   console.log({ data });
-  //   dispatch(teamsContactUs({ ...data, user_id: single_user?.id }, handleSuccess));
-  // };
-
   const { single_user, teams_contact_loading } = useSelector((state) => state.homepage);
 
   const validationSchema = Yup.object({
@@ -87,21 +66,16 @@ const FormComponent = ({ singleUser, loading }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
   const { candidate } = useParams();
-  console.log('cxcxcxxcxccccc', { candidate });
   useEffect(() => {
     dispatch(getSingleUser(candidate));
   }, [candidate]);
-  const { reset, watch } = useFormContext({});
-  console.log('watch', watch());
+  const { reset } = useFormContext({});
 
   const handleSuccess = () => {
-    // const array = ['name', 'email', 'phone', 'message'];
-    // array?.map((item) => setValue(item, ''));
     reset({});
   };
 
   const submitHandler = (data) => {
-    console.log({ data });
     dispatch(teamsContactUs({ ...data, user_id: singleUser?.id }, handleSuccess));
   };
 

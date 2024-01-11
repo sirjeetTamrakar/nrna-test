@@ -17,6 +17,5 @@ export const getError = (error) => {
       message: error?.response?.data?.message
     });
   }
-  console.log({ errrrrrr: error });
   return err;
 };

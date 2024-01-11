@@ -13,18 +13,15 @@ import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const dispatch = useDispatch();
-  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
   const { news_loading } = useSelector((state) => state.news);
   const { get_category_loading } = useSelector((state) => state.news);
 
   const {
-    watch,
-    control,
     formState: { errors }
   } = useForm();
-  console.log('wassssch', watch());
 
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));

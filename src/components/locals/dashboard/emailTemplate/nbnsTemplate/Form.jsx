@@ -21,9 +21,6 @@ const NBNSTemplateForm = () => {
   const { email_templateData, email_template_loading } = useSelector(
     (state) => state.emailTemplate
   );
-  const { user } = useSelector((state) => state.auth);
-
-  console.log('dasdasdsadsad', email_templateData?.data?.[0]);
 
   useEffect(() => {
     if (email_templateData?.data?.[0]) {

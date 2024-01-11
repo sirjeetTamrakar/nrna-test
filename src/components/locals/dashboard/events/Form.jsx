@@ -23,10 +23,6 @@ const EventForm = ({ image }) => {
     dispatch(getCategory());
   }, []);
 
-  var today = new Date();
-  const todayDate = today.getFullYear() + '-' + (today.getMonth() + 1) + '-' + today.getDate();
-
-  console.log({ todayDate });
   return (
     <Box className={classes.root}>
       {get_category_loading ? (

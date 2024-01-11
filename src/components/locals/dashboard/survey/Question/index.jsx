@@ -21,7 +21,6 @@ const Questions = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const location = useLocation();
-  console.log({ location });
   const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
@@ -97,7 +96,6 @@ const Questions = () => {
       setSingleSurveyQuestion(newArray);
     }
   }, [questions]);
-  console.log({ singleSurveyQuestion });
 
   const handleConfirm = (slug) => {
     dispatch(deleteQuestion(slug, deleteOpenFunction));

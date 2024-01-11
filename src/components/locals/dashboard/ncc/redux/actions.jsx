@@ -43,7 +43,6 @@ export const deleteNCC =
 
     try {
       await deleteNCCApi(Data);
-      console.log('dataaa', Data);
       refetch && refetch();
       dispatch({
         type: actions.DELETE_NCC_SUCCESS,
@@ -52,7 +51,6 @@ export const deleteNCC =
       successToast('NCC form has been deleted');
     } catch (error) {
       dispatch({ type: actions.DELETE_NCC_ERROR });
-      console.log(error);
       errorToast(error);
     }
   };

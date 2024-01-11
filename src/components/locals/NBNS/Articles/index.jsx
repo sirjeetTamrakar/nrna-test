@@ -6,37 +6,23 @@ import NewsCardOrderOne from 'components/globals/NewsCardOrderOne';
 import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useLocation, useParams } from 'react-router-dom';
 import { getArticles } from 'redux/homepage/actions';
 // import NewsCard from '../../globals/NewsCard';
 import SecondaryNav from './SecondaryNav';
 
 const Article = () => {
-  const location = useLocation();
-  console.log({ location });
-  const { candidate } = useParams();
-  console.log({ candidate });
   const pathname = window.location.pathname;
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   const dispatch = useDispatch();
-  // const { news, news_loading, news_category, news_category_loading } = useSelector(
-  //   (state) => state.homepage
-  // );
+
   const { article, article_loading } = useSelector((state) => state.homepage);
 
-  const [filteredArticle, setFilteredArticle] = useState();
   const [allFilteredArticle, setAllFilteredArticle] = useState();
   const [articleLimit, setArticleLimit] = useState(7);
 
-  const [selected, setSelected] = useState();
-  // console.log('ww------', { filteredNews });
-
-  // useEffect(() => {
-  //   setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
-  // }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
 
   const debouncedSearchQuery = useDebouncedValue(search, 500);
@@ -50,8 +36,6 @@ const Article = () => {
 
     dispatch(getArticles(finalData));
   }, [articleLimit, debouncedSearchQuery]);
-
-  console.log({ selected });
 
   useEffect(() => {
     if (article?.data) {
@@ -76,7 +60,6 @@ const Article = () => {
   const handleShowMore = () => {
     setArticleLimit((prev) => prev + 4);
   };
-  console.log({ article });
 
   return (
     <>

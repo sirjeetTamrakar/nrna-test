@@ -29,7 +29,6 @@ const Category = () => {
 
   const { categoryData, get_category_loading, category_status_loading, delete_category_loading } =
     useSelector((state) => state.business);
-  console.log({ categoryData });
 
   useEffect(() => {
     dispatch(getCategory());
@@ -66,7 +65,6 @@ const Category = () => {
       minWidth: 250,
       field: (row) => {
         const findCategoryTitle = categoryData?.find((item) => item?.id === Number(row?.title));
-        console.log({ findCategoryTitle });
         return (
           <Box>
             <Typography variant="body2">{row?.title ? findCategoryTitle?.title : '-'}</Typography>

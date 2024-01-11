@@ -15,10 +15,9 @@ const EditForm = ({ handleClose, detail }) => {
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  const { update_ncc_loading, get_countries_list_loading } = useSelector((state) => state.ncc);
+  const { update_ncc_loading } = useSelector((state) => state.ncc);
 
   const onSubmit = (data) => {
-    console.log('nccDataaa', { data });
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
     formData.append('subtitle', data?.subtitle);
@@ -55,9 +54,6 @@ const EditForm = ({ handleClose, detail }) => {
 };
 
 const Edit = ({ data, handleClose }) => {
-  console.log('jasbjsab', { data });
-
-  // console.log('ppooppopp', { defaultRegions });
   const defaultValues = {
     country_name: data?.country_name,
     admin_id: data?.admin?.id,
@@ -65,7 +61,6 @@ const Edit = ({ data, handleClose }) => {
     subtitle: data?.subtitle
   };
 
-  console.log('mnnnmmmmm', { data });
   return (
     <>
       <CustomFormProvider

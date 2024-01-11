@@ -1,25 +1,21 @@
-import { Box, Button, Typography } from '@mui/material';
-import CustomTable from 'components/common/table';
 import FileDownloadOutlinedIcon from '@mui/icons-material/FileDownloadOutlined';
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { Box, Button } from '@mui/material';
+import CustomTable from 'components/common/table';
 import { getPublicDownload } from 'components/locals/dashboard/downloads/redux/actions';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const Downloads = () => {
-  // const { settings } = useSelector((state) => state.homepage);
   const dispatch = useDispatch();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const { single_ncc } = useSelector((state) => state.homepage);
   const { downloadData, get_download_loading } = useSelector((state) => state.download);
-  // console.log('single_ncc', single_ncc);
 
   useEffect(() => {
     dispatch(getPublicDownload({ downloadable_type: 'ncc', downloadable_id: single_ncc?.id }));
   }, [single_ncc]);
-  // console.log('download downloadData', downloadData);
-  // console.log('download single_ncc', single_ncc);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },

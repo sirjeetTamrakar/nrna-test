@@ -1,6 +1,5 @@
 import { Box, Typography } from '@mui/material';
 import CustomBreadcrumbs from 'components/common/CustomBreadcrumbs/CustomBreadcrumbs';
-import { useState } from 'react';
 import { NavLink, useLocation } from 'react-router-dom';
 import AccountMenu from './AccountMenu';
 import useStyles from './Styles';
@@ -9,16 +8,6 @@ const Navbar = () => {
   const classes = useStyles();
   const location = useLocation();
   const paths = location.pathname.split('/').filter(Boolean);
-  const [anchorEl, setAnchorEl] = useState(null);
-  const open = Boolean(anchorEl);
-
-  console.log({ paths });
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
 
   return (
     <Box className={classes.root}>

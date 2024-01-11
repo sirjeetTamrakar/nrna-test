@@ -11,12 +11,8 @@ import 'yet-another-react-lightbox/plugins/counter.css';
 import 'yet-another-react-lightbox/styles.css';
 
 const Gallery = () => {
-  // const { settings } = useSelector((state) => state.homepage);
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
   const dispatch = useDispatch();
   const { gallery, gallery_loading } = useSelector((state) => state.homepage);
-  console.log({ gallery });
   useEffect(() => {
     dispatch(getGallery());
   }, []);
@@ -62,10 +58,7 @@ const Gallery = () => {
 };
 
 const ImageCard = ({ data, images, index }) => {
-  console.log('sdddssss', { data });
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  console.log({ isModalOpen });
 
   const openModal = () => {
     setIsModalOpen(true);

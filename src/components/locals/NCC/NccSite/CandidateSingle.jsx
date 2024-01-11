@@ -16,13 +16,10 @@ const CandidateSiteSingleNcc = () => {
 
   const { slug } = useParams();
 
-  const data = useParams();
-
   const { single_user } = useSelector((state) => state.homepage);
   const { countries_list } = useSelector((state) => state.ncc);
   const [filteredData, setFilteredData] = useState('');
 
-  console.log({ slug, single_user, data });
   useEffect(() => {
     dispatch(getSingleUser(slug));
     dispatch(getCountries());
@@ -39,8 +36,6 @@ const CandidateSiteSingleNcc = () => {
     });
     setFilteredData(newObj);
   }, [single_user]);
-
-  console.log({ filteredData });
 
   return (
     <>

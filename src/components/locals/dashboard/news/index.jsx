@@ -15,10 +15,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeNewsStatus, deleteNews, getNews, setNewsSearch } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeNewsStatus, deleteNews, getNews, setNewsSearch } from './redux/actions';
+import { useStyles } from './styles';
 
 const News = () => {
   const dispatch = useDispatch();
@@ -37,8 +37,6 @@ const News = () => {
     useSelector((state) => state.news);
 
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
-
-  console.log('user_details', { user });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -262,31 +260,9 @@ const News = () => {
   };
 
   const filterDataHomeAll = {
-    // if(user?.role_name === "superadmin" && admin_role_details === "admin"){}
     page: page + 1,
     pagination_limit: 100,
     search: news_search
-  };
-
-  console.log({ admin_ncc_id_details, admin_role_details });
-  const refetch = () => {
-    if (user?.role_name == Roles?.Member) {
-      dispatch(getNews(filterDataMember));
-    } else if (user?.role_name == Roles?.NCC) {
-      dispatch(getNews(filterDataNCC));
-    } else if (user?.role_name == 'superadmin' && admin_role_details === 'ncc') {
-      dispatch(getNews(filterDataHomeAdminNcc));
-    } else if (user?.role_name == 'superadmin' && admin_role_details === 'admin') {
-      dispatch(getNews(filterDataHome));
-    } else {
-      dispatch(getNews(filterDataHomeAll));
-    }
-
-    // if (user?.role_name === 'ncc') {
-    //   dispatch(getNews(filterData, roleData));
-    // } else {
-    //   dispatch(getNews(filterData));
-    // }
   };
 
   useEffect(() => {

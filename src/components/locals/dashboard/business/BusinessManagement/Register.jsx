@@ -6,8 +6,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { postBusinessOrder } from '../redux/actions';
 import BusinessManagementForm from './Form';
-import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Register = ({ handleClose, selected }) => {
   const { user } = useSelector((state) => state.auth);
@@ -16,7 +16,6 @@ const Register = ({ handleClose, selected }) => {
   const classes = useStyles();
   const { business_order_loading } = useSelector((state) => state.business);
   const onSubmit = (data) => {
-    console.log('gagggg', { data });
     // const formData = new FormData();
     // formData.append('order_number', data?.order_number);
     // formData.append('news_id', data?.news_id);

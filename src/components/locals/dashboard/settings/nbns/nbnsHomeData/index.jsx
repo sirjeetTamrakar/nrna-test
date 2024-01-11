@@ -14,8 +14,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteHomeData, getHomeData, updateHomeDataStatus } from '../../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const NbnsHomeData = () => {
   const dispatch = useDispatch();
@@ -188,7 +188,6 @@ const NbnsHomeData = () => {
     refetch();
   }, [page, rowsPerPage]);
 
-  console.log({ home_data });
   return (
     <>
       <Box>

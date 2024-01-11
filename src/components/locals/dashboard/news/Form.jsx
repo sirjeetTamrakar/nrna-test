@@ -15,20 +15,11 @@ import { useStyles } from './styles';
 const NewsForm = ({ featureImage }) => {
   const classes = useStyles();
   const dispatch = useDispatch();
-  const { users } = useSelector((state) => state.user);
-  const { user } = useSelector((state) => state.auth);
   const { categoryData, get_category_loading } = useSelector((state) => state.news);
 
   const {
-    watch,
-    control,
     formState: { errors }
   } = useFormContext();
-  console.log('watch', watch());
-  const createdByUsers = users?.data?.map((item) => ({
-    label: item?.full_name ? item?.full_name : item?.username,
-    value: item?.id
-  }));
 
   const newsCategory = categoryData?.map((item) => ({
     label: item?.title,

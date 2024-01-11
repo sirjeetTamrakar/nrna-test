@@ -15,11 +15,10 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { events_loading, get_category_loading } = useSelector((state) => state.events);
-  const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const storedValueRole = localStorage.getItem('nccRole');
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
-  console.log('cxcxddddd', { user });
   const onSubmit = (data) => {
     const formData = new FormData();
 

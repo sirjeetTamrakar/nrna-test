@@ -49,22 +49,15 @@ const SingleNews = () => {
   // ];
 
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
 
   const { slug, candidate } = useParams();
 
-  console.log('ccccccccxxxcccc', { candidate });
-
-  const { news, news_category, single_news, single_news_loading, single_user } = useSelector(
-    (state) => state.homepage
-  );
+  const { news, news_category, single_news, single_user } = useSelector((state) => state.homepage);
   const recentNews = news?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { single_news });
 
   const [selected, setSelected] = useState(
     single_news?.news_category_id ? parseInt(single_news?.news_category_id) : news_category?.[0]?.id
   );
-  console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
     dispatch(getSingleUser(candidate));

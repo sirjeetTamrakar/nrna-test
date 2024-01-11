@@ -19,29 +19,16 @@ const SingleNews = () => {
     (state) => state.homepage
   );
   const recentNews = news?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { single_news });
-  // const [filteredNews, setFilteredNews] = useState();
 
   const [selected, setSelected] = useState(
     single_news?.news_category_id ? parseInt(single_news?.news_category_id) : news_category?.[0]?.id
   );
-  console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
     dispatch(getSingleNews(slug));
     dispatch(getAllNews());
     dispatch(getNewsCategory());
   }, [slug]);
-  // useEffect(() => {
-  //   if (news) {
-  //     const newNews = news?.filter(
-  //       (list) =>
-  //         list?.title?.toLowerCase()?.includes(search?.toLowerCase()) &&
-  //         list?.news_category_id == Number(selected)
-  //     );
-  //     setFilteredNews(newNews);
-  //   }
-  // }, [news, selected, news_category]);
 
   return (
     <>

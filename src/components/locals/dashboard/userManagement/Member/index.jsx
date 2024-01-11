@@ -54,7 +54,6 @@ const Member = () => {
 
   const {
     users,
-    user_search,
     users_loading,
     user_status_loading,
     approve_user_loading,
@@ -62,12 +61,9 @@ const Member = () => {
     delete_users_loading,
     users_download
   } = useSelector((state) => state.user);
-  const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
-    (state) => state.auth
-  );
+  const { user } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
 
-  console.log({ user, users, nccData, users_download });
   const [roleIDData, setRoleIDData] = useState();
   useEffect(() => {
     dispatch(getCountries());
@@ -88,8 +84,6 @@ const Member = () => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
-
-  console.log({ detail });
 
   useEffect(() => {
     dispatch(getNCC());
@@ -483,9 +477,7 @@ const Filter = ({ refetch }) => {
   useEffect(() => {
     refetch(watch());
   }, [debounceValue, watch('country')]);
-  const handleFilter = (data) => {
-    console.log(data);
-  };
+  const handleFilter = (data) => {};
   return (
     <CustomForm onSubmit={handleFilter}>
       <Box display={'flex'} columnGap={4} justifyContent={'flex-start'}>

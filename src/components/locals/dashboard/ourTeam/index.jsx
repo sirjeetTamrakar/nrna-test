@@ -15,10 +15,10 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNCC } from '../ncc/redux/actions';
 import Edit from './Edit';
-import { changeTeamsStatus, deleteTeams, getTeams } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { changeTeamsStatus, deleteTeams, getTeams } from './redux/actions';
+import { useStyles } from './styles';
 
 const OurTeam = () => {
   const dispatch = useDispatch();
@@ -54,7 +54,6 @@ const OurTeam = () => {
     setNccInfo(newObj);
   }, [nccData?.data]);
 
-  console.log('ccdcddddee', { user, nccInfo });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 

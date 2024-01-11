@@ -6,8 +6,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { createSurvey } from '../redux/actions';
 import SurveyListForm from './Form';
-import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const { user } = useSelector((state) => state.auth);
@@ -15,12 +15,7 @@ const Register = ({ handleClose }) => {
   const defaultValues = { created_by: user?.id };
   const classes = useStyles();
   const { create_survey_loading } = useSelector((state) => state.question);
-  console.log({ create_survey_loading });
   const onSubmit = (data) => {
-    // const formData = new FormData();
-    // formData.append('title', data?.title);
-    // formData.append('description', data?.description);
-
     dispatch(createSurvey(data, handleClose));
   };
 

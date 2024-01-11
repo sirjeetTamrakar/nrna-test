@@ -419,9 +419,6 @@ export const emailCheck = (data, handleSuccess) => (dispatch) => {
     })
     .catch((error) => {
       dispatch({ type: actions.POST_EMAIL_CHECK_ERROR });
-      console.log({ aaaaa: error });
-      // alert('dsadsa');
-      // errorToast(error);
       getError(error);
     });
 };
@@ -464,7 +461,6 @@ export const getBusinessFollow = (data) => (dispatch) => {
   dispatch({ type: actions.GET_BUSINESS_FOLLOW_BEGIN });
   getBusinessFollowApi(data)
     .then((res) => {
-      console.log({ res });
       dispatch({ type: actions.GET_BUSINESS_FOLLOW_SUCCESS, payload: res.data.data });
     })
     .catch((error) => {
@@ -509,7 +505,6 @@ export const getNBNSFollow = (data) => (dispatch) => {
   dispatch({ type: actions.GET_NBNS_FOLLOW_BEGIN });
   getNbnsFollowApi(data)
     .then((res) => {
-      console.log({ res });
       dispatch({ type: actions.GET_NBNS_FOLLOW_SUCCESS, payload: res.data.data });
     })
     .catch((error) => {
