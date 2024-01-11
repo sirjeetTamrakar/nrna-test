@@ -60,6 +60,16 @@ const View = ({ data }) => {
       <li style={{ padding: '5px 0' }}>
         <div style={{ display: 'flex' }}>
           <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
+            Registration Number:
+          </span>
+          <div style={{ fontSize: '16px' }}>
+            {data?.registration_number ? data?.registration_number : '- '}
+          </div>
+        </div>
+      </li>
+      <li style={{ padding: '5px 0' }}>
+        <div style={{ display: 'flex' }}>
+          <span style={{ marginRight: '5px', fontWeight: '500', fontSize: '16px' }}>
             Created at:
           </span>
           <div style={{ fontSize: '16px' }}>{changeDateFormat(data?.created_at)}</div>

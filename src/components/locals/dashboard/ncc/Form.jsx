@@ -95,7 +95,7 @@ const NCCForm = ({ logo, data }) => {
               errors={errors}
               key={allRegions}
               defaultValue={data?.ncc_regions?.map((region) => ({
-                value: region?.region_id,
+                value: Number(region?.region_id),
                 label: getRegionName(region?.region_id)
               }))}
             />

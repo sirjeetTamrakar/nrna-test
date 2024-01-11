@@ -21,6 +21,7 @@ const EditForm = ({ handleClose, detail }) => {
     console.log('nccDataaa', { data });
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
+    formData.append('subtitle', data?.subtitle);
     formData.append('admin_id', data?.admin_id);
     formData.append('_method', 'PUT');
 
@@ -60,8 +61,8 @@ const Edit = ({ data, handleClose }) => {
   const defaultValues = {
     country_name: data?.country_name,
     admin_id: data?.admin?.id,
-    color: data?.color
-    // regions: [1, 2]
+    color: data?.color,
+    subtitle: data?.subtitle
   };
 
   console.log('mnnnmmmmm', { data });

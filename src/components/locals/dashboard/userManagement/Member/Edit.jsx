@@ -20,12 +20,18 @@ const EditForm = ({ handleClose, refetch }) => {
   };
 
   const onSubmit = (data) => {
-    dispatch(updateUsers({ ...data, _method: 'PUT' }, data?.username, handleRefetch));
+    dispatch(
+      updateUsers(
+        { ...data, registration_number: data?.registration_number, _method: 'PUT' },
+        data?.username,
+        handleRefetch
+      )
+    );
   };
 
   return (
     <CustomForm onSubmit={onSubmit}>
-      <MemberForm disabled />
+      <MemberForm disabled registration_number />
       {!get_countries_list_loading && (
         <Box className={classes.footerRoot}>
           <CustomButton buttonName="Update" loading={update_user_loading} />

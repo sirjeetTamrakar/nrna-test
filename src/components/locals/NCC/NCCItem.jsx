@@ -8,17 +8,17 @@ const NCCItem = ({ nccItem }) => {
         <img src={nccItem?.logo} alt="" />
       </div>
       <div className="ncc_item_title " style={{ fontSize: '14px' }}>
-        {nccItem.country_name}
+        {nccItem?.country_name}
       </div>
       <div
         className="ncc_item_title "
-        style={{ fontSize: '11px', color: '#6b6b6b', marginTop: '-5px' }}>
-        {nccItem.subtitle ?? ''}
+        style={{ fontSize: '11px', color: '#6b6b6b', marginTop: '-5px', height: '25px' }}>
+        {nccItem?.subtitle ?? ''}
       </div>
       <div
         className="ncc_item_title "
         style={{ fontSize: '12px', color: '#2e2e2e', marginTop: '-5px' }}>
-        {nccItem.members?.[0] ? fullname : '-'}
+        {nccItem?.admin?.full_name ?? ''}
       </div>
     </Link>
   );

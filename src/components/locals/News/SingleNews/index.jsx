@@ -64,8 +64,8 @@ const SingleNews = () => {
                     <div className="single_news_page_title">{single_news?.title}</div>
 
                     <div className="single_news_page_date">
-                      {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Created by:{' '}
-                      {single_news?.created_by?.full_name}
+                      {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Author:{' '}
+                      {single_news?.author ?? 'NBNS Global'}
                     </div>
 
                     <div

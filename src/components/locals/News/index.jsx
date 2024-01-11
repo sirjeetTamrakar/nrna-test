@@ -112,7 +112,7 @@ const News = () => {
                         image={item?.feature_image}
                         title={item?.title}
                         excerpt={item?.excerpt}
-                        author={item?.created_by?.full_name}
+                        author={item?.author ?? 'NBNS Global'}
                         featuredTitle={'News'}
                         linkUrl={`/news/${item?.slug}`}
                       />
@@ -131,7 +131,7 @@ const News = () => {
                             image={item?.feature_image}
                             title={item?.title}
                             excerpt={item?.excerpt}
-                            author={item?.created_by?.full_name}
+                            author={item?.author ?? 'NBNS Global'}
                             featuredTitle={'News'}
                             linkUrl={`/news/${item?.slug}`}
                           />
@@ -148,7 +148,7 @@ const News = () => {
                             image={item?.feature_image}
                             title={item?.title}
                             excerpt={item?.excerpt}
-                            author={item?.created_by?.full_name}
+                            author={item?.author ?? 'NBNS Global'}
                             featuredTitle={'News'}
                             linkUrl={`/news/${item?.slug}`}
                           />
@@ -165,7 +165,7 @@ const News = () => {
                             image={item?.feature_image}
                             title={item?.title}
                             excerpt={item?.excerpt}
-                            author={item?.created_by?.full_name}
+                            author={item?.author ?? 'NBNS Global'}
                             featuredTitle={'News'}
                             linkUrl={`/news/${item?.slug}`}
                           />
@@ -182,7 +182,7 @@ const News = () => {
                             image={item?.feature_image}
                             title={item?.title}
                             excerpt={item?.excerpt}
-                            author={item?.created_by?.full_name}
+                            author={item?.author ?? 'NBNS Global'}
                             featuredTitle={'News'}
                             linkUrl={`/news/${item?.slug}`}
                           />
@@ -199,7 +199,7 @@ const News = () => {
                             image={item?.feature_image}
                             title={item?.title}
                             excerpt={item?.excerpt}
-                            author={item?.created_by?.full_name}
+                            author={item?.author ?? 'NBNS Global'}
                             featuredTitle={'News'}
                             linkUrl={`/news/${item?.slug}`}
                           />
@@ -214,7 +214,7 @@ const News = () => {
                             image={item?.feature_image}
                             title={item?.title}
                             excerpt={item?.excerpt}
-                            author={item?.created_by?.full_name}
+                            author={item?.author ?? 'NBNS Global'}
                             featuredTitle={'News'}
                             linkUrl={`/news/${item?.slug}`}
                           />
@@ -232,7 +232,7 @@ const News = () => {
                     image={item?.feature_image}
                     title={item?.title}
                     excerpt={item?.excerpt}
-                    author={item?.created_by?.full_name}
+                    author={item?.author ?? 'NBNS Global'}
                     featuredTitle={'News'}
                     belowNews
                   />

@@ -29,6 +29,8 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('description', data?.description);
     formData.append('excerpt', data?.excerpt);
     formData.append('created_by', user?.id);
+    formData.append('author', data?.author);
+
     formData.append('_method', 'PUT');
     formData.append('news_category_id', data?.news_category_id);
 
@@ -88,6 +90,7 @@ const Edit = ({ data, handleClose }) => {
     title: data?.title,
     created_by: data?.created_by?.id,
     description: data?.description,
+    author: data?.author,
     excerpt: data?.excerpt,
     news_category_id: data?.news_category_id
   };

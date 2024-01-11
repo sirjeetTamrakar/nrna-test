@@ -20,6 +20,7 @@ const Register = ({ handleClose }) => {
     console.log('nccSubmitData', { data });
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
+    formData.append('subtitle', data?.subtitle);
     formData.append('admin_id', data?.admin_id);
 
     let obj = {};
