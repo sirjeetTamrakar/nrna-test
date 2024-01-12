@@ -2,7 +2,6 @@ import { axiosInstance } from 'apis/_axios';
 
 // get users
 export const getAllUsersApi = (data, roleData) => {
-  console.log('hhjjjssssjjs', { roleData });
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`

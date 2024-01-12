@@ -17,7 +17,6 @@ const Register = ({ handleClose }) => {
   const { users_loading } = useSelector((state) => state.user);
   const { get_region_loading } = useSelector((state) => state.region);
   const onSubmit = (data) => {
-    console.log('nccSubmitData', { data });
     const formData = new FormData();
     formData.append('country_name', data?.country_name);
     formData.append('subtitle', data?.subtitle);

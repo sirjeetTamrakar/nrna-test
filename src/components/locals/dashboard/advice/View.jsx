@@ -6,8 +6,6 @@ import Typography from '@mui/material/Typography';
 import { changeDateFormat } from 'utils/dateUtils';
 
 const View = ({ data }) => {
-  console.log('xcxxcxxcc', { data });
-
   // if (selectedFile) {
   //   const img = new Image();
   //   img.src = URL.createObjectURL(selectedFile);

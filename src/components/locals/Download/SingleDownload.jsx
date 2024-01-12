@@ -4,7 +4,6 @@ import { changeDateFormat } from 'utils/dateUtils';
 
 const SingleDownload = () => {
   const { state } = useLocation();
-  console.log('state', state);
 
   return (
     <>

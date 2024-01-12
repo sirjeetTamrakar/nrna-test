@@ -16,7 +16,6 @@ const BusinessItemOneSingle = () => {
   }, [pathname]);
 
   const { settings, banners, home_data } = useSelector((state) => state.homepage);
-  console.log('ssssssss', { home_data });
   useEffect(() => {
     const finalData = {
       type: 'business',
@@ -27,13 +26,11 @@ const BusinessItemOneSingle = () => {
   }, []);
 
   const [selected, setSelected] = useState('home');
-  console.log({ selected });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
-  console.log('bbbvbvbv', { home_data });
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
     title: item?.tabtitle,
     value: item?.slug,

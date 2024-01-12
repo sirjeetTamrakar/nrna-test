@@ -27,7 +27,6 @@ const Category = () => {
   const { categoryData, get_category_loading, delete_category_loading } = useSelector(
     (state) => state.business
   );
-  console.log({ categoryData });
 
   useEffect(() => {
     dispatch(getCategory());

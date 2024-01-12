@@ -19,7 +19,6 @@ const Form = () => {
   const classes = useStyles();
   const { countries_list } = useSelector((state) => state.ncc);
   const { advice_loading } = useSelector((state) => state.advice);
-  console.log({ countries_list });
 
   const countryList = countries_list?.map((item, index) => ({
     label: item,

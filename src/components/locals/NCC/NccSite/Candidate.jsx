@@ -5,10 +5,8 @@ import { Link, useParams } from 'react-router-dom';
 import { getCandidates } from 'redux/homepage/actions';
 
 const Candidate = ({ siteSettingImages, about, title }) => {
-  const { settings } = useSelector((state) => state.homepage);
   const dispatch = useDispatch();
   const { ncc } = useParams();
-  console.log('ggsgggggg', { ncc });
   const { candidates, candidate_loading } = useSelector((state) => state.homepage);
   useEffect(() => {
     const finalData = {

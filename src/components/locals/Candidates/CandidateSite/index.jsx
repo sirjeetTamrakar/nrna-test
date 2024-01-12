@@ -28,7 +28,6 @@ const CandidateSite = () => {
   const { countries_list } = useSelector((state) => state.ncc);
   const [filteredData, setFilteredData] = useState('');
 
-  console.log({ candidate, single_user, data });
   useEffect(() => {
     dispatch(getSingleUser(candidate));
     dispatch(getCountries());
@@ -45,8 +44,6 @@ const CandidateSite = () => {
     });
     setFilteredData(newObj);
   }, [single_user]);
-
-  console.log({ filteredData });
 
   return (
     <div className="main_content">

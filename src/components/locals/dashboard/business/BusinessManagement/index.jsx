@@ -161,8 +161,6 @@ const BusinessManagement = () => {
   //   user && refetch();
   // }, [page, rowsPerPage, user]);
 
-  console.log('selected------', { selected });
-
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, categoryData]);
@@ -171,8 +169,6 @@ const BusinessManagement = () => {
     dispatch(getBusiness());
     dispatch(getCategory());
   }, []);
-
-  console.log({ filteredBusiness, allFilteredBusiness, categoryData });
 
   // useEffect(() => {
   //   if (businessData) {
@@ -193,7 +189,6 @@ const BusinessManagement = () => {
       setFilteredBusiness(selected === 'ALL' ? businessData?.data : newBusiness);
     }
   }, [search, businessData?.data, selected, categoryData]);
-  console.log({ businessOrderData });
 
   return (
     <>

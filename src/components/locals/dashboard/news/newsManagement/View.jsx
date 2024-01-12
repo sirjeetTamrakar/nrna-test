@@ -4,8 +4,6 @@ import { Typography } from '@mui/material';
 import { changeDateFormat } from 'utils/dateUtils';
 
 const View = ({ data }) => {
-  console.log('xcxxcxxcc', { data });
-
   return (
     // <ol style={{ paddingTop: '8px', paddingBottom: '8px', listStyle: 'none' }}>
     //   <li style={{ padding: '5px 0' }}>

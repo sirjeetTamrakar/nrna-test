@@ -39,7 +39,6 @@ const Contact = ({ siteSettings, handleSubmit }) => {
   };
 
   const submitHandler = (data) => {
-    console.log('businessFormData', { data });
     dispatch(
       contactUs({ ...data, contactable_type: 'ncc', contactable_id: single_ncc?.id }, handleSuccess)
     );

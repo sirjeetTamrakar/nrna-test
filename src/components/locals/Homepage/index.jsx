@@ -10,7 +10,6 @@ import { getAllHomeData, getBanner } from 'redux/homepage/actions';
 const Homepage = () => {
   const dispatch = useDispatch();
   const { settings, banners, home_data } = useSelector((state) => state.homepage);
-  console.log('ssssssss', { home_data });
   useEffect(() => {
     dispatch(getAllHomeData());
     dispatch(getBanner());

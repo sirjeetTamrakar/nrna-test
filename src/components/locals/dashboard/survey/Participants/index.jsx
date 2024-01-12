@@ -15,7 +15,6 @@ const Participants = () => {
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
   const { participants, participants_loading } = useSelector((state) => state.question);
-  console.log({ participants, location });
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
 
@@ -30,7 +29,6 @@ const Participants = () => {
       title: 'Email/Phone',
       minWidth: 100,
       field: (row) => {
-        console.log({ row });
         return (
           <Box>
             <Typography variant="body2">{row?.email}</Typography>

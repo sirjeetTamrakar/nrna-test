@@ -15,14 +15,11 @@ const NccSite = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-  const { user } = useSelector((state) => state.auth);
   const { settings, banners, ncc, home_data } = useSelector((state) => state.homepage);
   useEffect(() => {
     const single = ncc?.data?.find((list) => list?.slug == slug);
     single?.id && dispatch(getBanner({ type: 'ncc', id: single?.id }));
   }, [ncc]);
-
-  console.log('ncc', ncc);
 
   // Map home_data into MissionSection and VisionSection in an alternating way
   const renderSections = () => {

@@ -8,7 +8,6 @@ const HomeDataCom = () => {
   const dispatch = useDispatch();
   const { settings, single_home_data } = useSelector((state) => state.homepage);
   const { slug } = useParams();
-  console.log({ single_home_data });
   useEffect(() => {
     dispatch(getSingleHomeData(slug));
   }, [slug]);

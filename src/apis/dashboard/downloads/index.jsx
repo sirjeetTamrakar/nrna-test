@@ -2,7 +2,6 @@ import { axiosInstance } from 'apis/_axios';
 
 // get downloads
 export const getDownloadApi = (data) => {
-  console.log(data, 'dddd');
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`

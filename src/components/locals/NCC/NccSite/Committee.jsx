@@ -9,21 +9,15 @@ const CommitteeMembers = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();
-  console.log({ location });
 
-  const { user } = useSelector((state) => state.auth);
-  const { teams, team_loading, department, department_loading, single_ncc } = useSelector(
-    (state) => state.homepage
-  );
+  const { teams, department, single_ncc } = useSelector((state) => state.homepage);
   const [filteredTeams, setFilteredTeams] = useState();
-  console.log('dasdeeeeww', { teams, filteredTeams, department });
   const { ncc } = useParams();
   const [selected, setSelected] = useState();
   useEffect(() => {
     setSelected(location?.state ? location?.state : department?.[0]?.id);
   }, [location?.state, department]);
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { selected, filteredTeams, single_ncc });
 
   useEffect(() => {
     dispatch(getTeams({ ncc_id: single_ncc?.id, country: ncc }));
@@ -37,7 +31,6 @@ const CommitteeMembers = () => {
           list?.member?.full_name?.toLowerCase()?.includes(search?.toLowerCase()) &&
           Number(list?.our_team_category_id) == Number(selected)
       );
-      console.log('dasdeee', { newTeams });
       setFilteredTeams(newTeams);
     }
   }, [search, teams?.data, selected, department]);
@@ -45,10 +38,6 @@ const CommitteeMembers = () => {
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
   }, [ncc]);
-
-  console.log('cxcxcxcxcxcx', { ncc });
-
-  // const { ncc } = useParams();
 
   return (
     <>

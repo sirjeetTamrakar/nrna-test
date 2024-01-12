@@ -42,23 +42,13 @@ const ViewMembersTable = ({ countrySlug }) => {
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [openRole, roleOpenFunction] = useToggle(false);
-  const [openStatus, statusOpenFunction] = useToggle(false);
   const [openApprove, approveOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
-  const {
-    users,
-    user_search,
-    users_loading,
-    user_status_loading,
-    approve_user_loading,
-    change_role_loading
-  } = useSelector((state) => state.user);
+  const { users, user_search, users_loading, approve_user_loading, change_role_loading } =
+    useSelector((state) => state.user);
   const { user, delete_users_loading } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
-  console.log({ user, users, nccData });
   const [roleIDData, setRoleIDData] = useState();
-
-  // const findNCCUserId = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
 
   useEffect(() => {
     const newArray = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
@@ -69,12 +59,10 @@ const ViewMembersTable = ({ countrySlug }) => {
     });
     setRoleIDData(newObj);
   }, [nccData?.data]);
-  console.log('ssssss', roleIDData);
 
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
-  // const [userSearch, setUserSearch] = useState('');
   const classes = useStyles();
   useEffect(() => {
     dispatch(getNCC());
@@ -275,8 +263,6 @@ const ViewMembersTable = ({ countrySlug }) => {
     setInputValue('');
     dispatch(setUserSearch(''));
   };
-
-  // console.log({ userSearch });
 
   const filterData = { page: page + 1, pagination_limit: rowsPerPage, search: user_search };
   const refetch = () => {

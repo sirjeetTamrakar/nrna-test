@@ -24,7 +24,6 @@ const FileUploader = ({
   } = useFormContext();
   const imageLink = watch(name);
   const [imagePreview, setImagePreview] = useState(image || '');
-  console.log(errors);
   useEffect(() => {
     if (imageLink?.length > 0) {
       const newImageLink = URL?.createObjectURL(imageLink?.[0]);

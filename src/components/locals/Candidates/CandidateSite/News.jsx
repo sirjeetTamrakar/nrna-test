@@ -41,15 +41,10 @@ const News = () => {
 
   const dispatch = useDispatch();
   const { candidate } = useParams();
-  console.log({ candidate });
 
   const location = useLocation();
-  console.log({ location });
 
-  const { user } = useSelector((state) => state.auth);
-  const { news, news_loading, news_category, news_category_loading, single_user } = useSelector(
-    (state) => state.homepage
-  );
+  const { news, news_category, single_user } = useSelector((state) => state.homepage);
   const [filteredNews, setFilteredNews] = useState();
   const [selected, setSelected] = useState();
 
@@ -57,7 +52,6 @@ const News = () => {
     setSelected(location?.state ? location?.state : news_category?.[0]?.id);
   }, [location?.state, news_category]);
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { single_user });
   useEffect(() => {
     dispatch(getSingleUser(candidate));
     dispatch(getAllNews({ type: single_user?.role_name, id: single_user?.id, limit: 100 }));
@@ -74,9 +68,6 @@ const News = () => {
       setFilteredNews(newNews);
     }
   }, [search, news, selected, news_category]);
-
-  // const { ncc } = useParams();
-  // console.log('cxcxcxcxcxcx', { ncc });
 
   return (
     <>

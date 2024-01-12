@@ -21,8 +21,6 @@ const CustomTextArea = ({
   } = useFormContext();
   const fieldError = errors[name]?.message;
 
-  console.log(fieldError);
-
   return (
     <>
       <Box display="flex" alignItems="center" columnGap={0.5}>

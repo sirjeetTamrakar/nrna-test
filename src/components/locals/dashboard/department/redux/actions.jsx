@@ -40,7 +40,6 @@ export const deleteDepartment = (Data, handleSuccess, typeData) => async (dispat
 
   try {
     await deleteDepartmentApi(Data);
-    console.log('dataaa', Data);
     handleSuccess && handleSuccess();
     dispatch({
       type: actions.DELETE_DEPARTMENT_SUCCESS
@@ -49,7 +48,6 @@ export const deleteDepartment = (Data, handleSuccess, typeData) => async (dispat
     successToast('Team member has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_DEPARTMENT_ERROR });
-    console.log(error);
     errorToast(error);
   }
 };

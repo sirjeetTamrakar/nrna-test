@@ -14,9 +14,7 @@ const BusinessNcc = () => {
   const dispatch = useDispatch();
 
   const location = useLocation();
-  console.log({ location });
 
-  const { user } = useSelector((state) => state.auth);
   const { business, business_loading, business_category, business_category_loading, single_ncc } =
     useSelector((state) => state.homepage);
   const { ncc } = useParams();
@@ -27,7 +25,6 @@ const BusinessNcc = () => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, business_category]);
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { filteredBusiness });
   useEffect(() => {
     const finalData = {
       country: ncc
@@ -35,9 +32,7 @@ const BusinessNcc = () => {
     dispatch(getBusiness(finalData));
     dispatch(getBusinessCategory());
   }, []);
-  console.log({ ncc });
 
-  console.log({ single_ncc });
   useEffect(() => {
     dispatch(getSingleNCC(ncc));
   }, [ncc]);
@@ -57,7 +52,6 @@ const BusinessNcc = () => {
     }
   }, [search, business?.data, selected, business_category]);
 
-  console.log('cxcxcxcxcxcx', { ncc });
   return (
     <>
       <SecondaryNav

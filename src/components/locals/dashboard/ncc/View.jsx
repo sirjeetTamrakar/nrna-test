@@ -3,8 +3,6 @@ import ColorLensOutlinedIcon from '@mui/icons-material/ColorLensOutlined';
 import LocationOnOutlinedIcon from '@mui/icons-material/LocationOnOutlined';
 import { changeDateFormat } from 'utils/dateUtils';
 const View = ({ data }) => {
-  console.log('xcxxcxxcc', { data });
-
   // if (selectedFile) {
   //   const img = new Image();
   //   img.src = URL.createObjectURL(selectedFile);

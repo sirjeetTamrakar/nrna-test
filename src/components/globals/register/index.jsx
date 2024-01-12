@@ -15,7 +15,6 @@ import { getCountriesCode } from 'redux/homepage/actions';
 import * as Yup from 'yup';
 
 const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode, signupPage }) => {
-  console.log('hhshhshhh', { defaultNccCountry });
   const defaultValues = {
     country_of_residence: defaultNccCountry ? defaultNccCountry : '',
     phone: defaultNccCountry ? nccCode : null
@@ -55,26 +54,12 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode, signupPa
     loginOpen();
     handleClose();
   };
-  // const countries = [
-  //   {
-  //     label: 'Nepal',
-  //     value: 'nepal'
-  //   },
-  //   { label: 'United Kingdom', value: 'uk' }
-  // ];
 
   useEffect(() => {
     dispatch(getCountries());
   }, []);
 
-  const { nccData, countries_list } = useSelector((state) => state.ncc);
   const { countries_list_code } = useSelector((state) => state.homepage);
-  console.log({ nccData, countries_list });
-
-  // const countryList = countries_list?.map((item, index) => ({
-  //   label: item,
-  //   value: item
-  // }));
 
   const countryListCode = countries_list_code?.map((item, index) => ({
     label: item?.name,
@@ -87,10 +72,6 @@ const Register = ({ loginOpen, handleClose, defaultNccCountry, nccCode, signupPa
   }, []);
 
   const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
-  // const classes = useStyles();
-
-  const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
-  console.log({ selectedCountry, lowercaseString });
 
   const handleCountrySelection = (selectedValue) => {
     setSelectedCountry(selectedValue);

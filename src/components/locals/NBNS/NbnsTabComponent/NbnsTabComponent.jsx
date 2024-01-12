@@ -9,7 +9,6 @@ const NbnsTabComponent = ({ siteSettingImages, about, title }) => {
   const dispatch = useDispatch();
   const { single_home_data } = useSelector((state) => state.homepage);
   const { slug } = useParams();
-  console.log('kkkkkskskkssk', { slug });
   useEffect(() => {
     dispatch(getSingleHomeData(slug));
   }, [slug]);

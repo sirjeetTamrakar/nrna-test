@@ -6,13 +6,12 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { postBusinessService } from '../redux/actions';
 import ServiceForm from './ServiceForm';
-import { useStyles } from './styles';
 import { serviceValidationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Form = ({ detail, handleClose }) => {
   const dispatch = useDispatch();
   const classes = useStyles();
-  console.log('mnnnnnn', { detail });
 
   const { business_service_loading } = useSelector((state) => state.business);
 

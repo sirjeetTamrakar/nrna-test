@@ -4,18 +4,17 @@ import {
   FormControl,
   FormHelperText,
   InputLabel,
-  TextField,
-} from "@mui/material";
-import { makeStyles } from "@mui/styles";
-import React from "react";
-import { Controller } from "react-hook-form";
+  TextField
+} from '@mui/material';
+import { makeStyles } from '@mui/styles';
+import { Controller } from 'react-hook-form';
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    "& .MuiFormControl-root": {
-      width: "100%",
-    },
-  },
+    '& .MuiFormControl-root': {
+      width: '100%'
+    }
+  }
 }));
 export const CustomGroupSearchSelect = ({
   name,
@@ -23,35 +22,34 @@ export const CustomGroupSearchSelect = ({
   errors,
   label,
   // data = [],
-  title = "",
+  title = '',
   disabled,
   defaultValue,
-  placeholder,
+  placeholder
 }) => {
   const classes = useStyles();
   const data = [
     {
-      title: "abcd",
+      title: 'abcd',
       children: [
         {
-          title: "2",
-          children: [{ title: "3" }, { title: "2123" }],
-        },
-      ],
+          title: '2',
+          children: [{ title: '3' }, { title: '2123' }]
+        }
+      ]
     },
     {
-      title: "1000",
+      title: '1000',
       children: [
         {
-          title: "23",
-          children: [{ title: "3" }],
-        },
-      ],
-    },
+          title: '23',
+          children: [{ title: '3' }]
+        }
+      ]
+    }
   ];
 
   const renderGroupRecursively = (props, option) => {
-    console.log({ optionoptionoption: option, props });
     return (
       <li key={option?.title}>
         <Box {...props} key={option?.title}>
@@ -61,10 +59,7 @@ export const CustomGroupSearchSelect = ({
           {option?.children &&
             option.children.map((child, index) => (
               <Box {...props} id={`combo-box-demo-option-100`} key={index}>
-                {renderGroupRecursively(
-                  { ...props, id: `combo-box-demo-option-100` },
-                  child
-                )}
+                {renderGroupRecursively({ ...props, id: `combo-box-demo-option-100` }, child)}
               </Box>
             ))}
         </Box>
@@ -75,9 +70,7 @@ export const CustomGroupSearchSelect = ({
   return (
     <div className="inputs">
       <div className={classes.root}>
-        {title && (
-          <InputLabel className="inputTitle">{title?.toUpperCase()}</InputLabel>
-        )}
+        {title && <InputLabel className="inputTitle">{title?.toUpperCase()}</InputLabel>}
         <FormControl variant="outlined">
           {/* <InputLabel>{label}</InputLabel> */}
           <Controller
@@ -90,8 +83,6 @@ export const CustomGroupSearchSelect = ({
                 options={data}
                 // getOptionLabel={(option) => option?.title}
                 renderOption={function newFunction(props, option) {
-                  console.log({ optionoptionoption: option, props });
-
                   return (
                     <li key={option?.title}>
                       <Box {...props} key={option?.title}>
@@ -100,11 +91,7 @@ export const CustomGroupSearchSelect = ({
                       <Box ml={2}>
                         {option?.children &&
                           option.children.map((child, index) => (
-                            <Box
-                              {...props}
-                              id={"combo-box-demo-option-2"}
-                              key={index}
-                            >
+                            <Box {...props} id={'combo-box-demo-option-2'} key={index}>
                               {newFunction(props, child)}
                             </Box>
                           ))}
@@ -130,10 +117,8 @@ export const CustomGroupSearchSelect = ({
             )}
           />
         </FormControl>
-        {errors[name] && errors[name].type === "required" && (
-          <FormHelperText style={{ color: "red" }}>
-            This field is required
-          </FormHelperText>
+        {errors[name] && errors[name].type === 'required' && (
+          <FormHelperText style={{ color: 'red' }}>This field is required</FormHelperText>
         )}
       </div>
     </div>

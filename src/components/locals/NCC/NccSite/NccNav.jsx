@@ -5,7 +5,6 @@ import { useStyles } from './styles';
 const NccNav = ({ category, selected, setSelected, setSearch }) => {
   const classes = useStyles();
   const navigate = useNavigate();
-  console.log({ category, selected });
 
   const checkActive = (slug) => {
     if (selected) {

@@ -54,7 +54,6 @@ export const deleteEvents = (Data, handleSuccess, typeData) => async (dispatch) 
     successToast('Event has been deleted');
   } catch (error) {
     dispatch({ type: actions.DELETE_EVENTS_ERROR });
-    console.log(error);
     errorToast(error);
   }
 };
@@ -64,7 +63,6 @@ export const updateEvents = (Data, slug, handleSuccess, typeData) => async (disp
 
   try {
     await updateEventsApi(Data, slug);
-    console.log('dataaasssssssssssss', Data);
     dispatch({
       type: actions.UPDATE_EVENTS_SUCCESS,
       payload: ''
@@ -74,7 +72,6 @@ export const updateEvents = (Data, slug, handleSuccess, typeData) => async (disp
     successToast('Event has been updated');
   } catch (error) {
     dispatch({ type: actions.UPDATE_EVENTS_ERROR });
-    console.log({ error });
     errorToast(error);
   }
 };

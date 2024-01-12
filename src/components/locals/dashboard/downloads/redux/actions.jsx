@@ -12,7 +12,6 @@ import * as actions from './types';
 export const getPublicDownload =
   ({ downloadable_type, downloadable_id }) =>
   (dispatch) => {
-    console.log('downloadable_type', downloadable_type);
     dispatch({ type: actions.GET_DOWNLOAD_BEGIN });
     getPublicDownloadApi({ downloadable_type, downloadable_id })
       .then((res) => {

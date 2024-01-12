@@ -13,11 +13,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
 import Edit from './Edit';
-import { changeNCCStatus, deleteNCC, getNCC } from './redux/actions';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
 import ViewMembersTable from './ViewMembersTable';
+import { changeNCCStatus, deleteNCC, getNCC } from './redux/actions';
+import { useStyles } from './styles';
 
 const NCC = () => {
   const dispatch = useDispatch();
@@ -75,7 +75,6 @@ const NCC = () => {
       title: 'Created At',
       minWidth: 80,
       field: (row) => {
-        console.log({ row });
         return changeDateFormat(row?.created_at);
       }
     },
@@ -125,7 +124,6 @@ const NCC = () => {
   ];
 
   const { nccData, get_ncc_loading } = useSelector((state) => state.ncc);
-  console.log({ nccData });
 
   // const refetch = () => {
   //   dispatch(getNCC());
@@ -178,8 +176,6 @@ const NCC = () => {
   useEffect(() => {
     refetch();
   }, [page, rowsPerPage]);
-
-  console.log('ncc-details', { detail });
 
   return (
     <>

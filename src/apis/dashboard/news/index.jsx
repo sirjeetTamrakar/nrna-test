@@ -28,7 +28,6 @@ export const changeCategoryStatusApi = (data) => {
 // NEWS---------------->
 // get news
 export const getNewsApi = (data) => {
-  console.log(data, 'dddd');
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`

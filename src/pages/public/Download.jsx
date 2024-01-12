@@ -1,20 +1,18 @@
 import SecondaryNav from 'components/globals/SecondaryNav';
 import Downloads from 'components/locals/Download';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { getAllHomeData, getCandidates } from 'redux/homepage/actions';
 
 const DownloadPage = () => {
   const [selected, setSelected] = useState('download');
-  console.log({ selected });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
   const dispatch = useDispatch();
-  const { candidates } = useSelector((state) => state.homepage);
   useEffect(() => {
     dispatch(getAllHomeData());
     dispatch(getCandidates());

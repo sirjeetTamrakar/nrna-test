@@ -18,7 +18,6 @@ const SingleArticle = () => {
     (state) => state.homepage
   );
   const recentArticles = article?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { article });
 
   useEffect(() => {
     dispatch(getSingleArticle(slug));

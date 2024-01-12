@@ -17,13 +17,11 @@ import {
 
 const SingleBusiness = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
   const { slug, ncc } = useParams();
   const [filteredSingleBusiness, setFilteredSingleBusiness] = useState();
   const { business, single_business, business_category, single_ncc } = useSelector(
     (state) => state.homepage
   );
-  console.log({ filteredSingleBusiness });
   useEffect(() => {
     const filteredSingleCategoryData = business_category?.filter(
       (item) => item?.id === Number(single_business?.business_category_id)
@@ -41,17 +39,6 @@ const SingleBusiness = () => {
     dispatch(getBusinessCategory());
     dispatch(getBusiness());
   }, [slug]);
-
-  console.log('ccccccccxxxcccc', { ncc });
-
-  console.log('xxxxxxxxxx', { single_business });
-
-  const [selected, setSelected] = useState(
-    single_business?.business_category_id
-      ? parseInt(single_business?.business_category_id)
-      : business_category?.[0]?.id
-  );
-  console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
     dispatch(getSingleNCC(ncc));

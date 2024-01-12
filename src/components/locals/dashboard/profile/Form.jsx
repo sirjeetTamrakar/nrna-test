@@ -12,7 +12,6 @@ import { useStyles } from './styles';
 
 const ProfileForm = () => {
   const { user } = useSelector((state) => state.auth);
-  console.log({ user });
   const { profile_update_loading } = useSelector((state) => state.user);
   const classes = useStyles();
   const dispatch = useDispatch();

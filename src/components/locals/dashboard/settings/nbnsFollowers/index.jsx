@@ -13,8 +13,8 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getNbnsFollowers, postNbnsUserApproval } from '../redux/actions';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const NBNSFollowers = () => {
   const dispatch = useDispatch();
@@ -32,11 +32,6 @@ const NBNSFollowers = () => {
 
   const { nbns_followers, nbns_user_approval_loading } = useSelector((state) => state.settings);
   const { user } = useSelector((state) => state.auth);
-
-  console.log({ nbns_followers });
-
-  const filterNbnsFollowers = nbns_followers?.data?.filter((item) => item?.follow_nbns === '1');
-  console.log({ filterNbnsFollowers });
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
@@ -130,8 +125,6 @@ const NBNSFollowers = () => {
     setDetail(row);
     approveOpenFunction();
   };
-
-  console.log({ detail });
 
   const handleApproveStatus = (value) => {
     const status = value === 'approved' ? 'approved' : 'rejected';

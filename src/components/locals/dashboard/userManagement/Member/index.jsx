@@ -54,7 +54,6 @@ const Member = () => {
 
   const {
     users,
-    user_search,
     users_loading,
     user_status_loading,
     approve_user_loading,
@@ -62,12 +61,9 @@ const Member = () => {
     delete_users_loading,
     users_download
   } = useSelector((state) => state.user);
-  const { user, role_details, admin_role_details, admin_ncc_id_details } = useSelector(
-    (state) => state.auth
-  );
+  const { user } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
 
-  console.log({ user, users, nccData, users_download });
   const [roleIDData, setRoleIDData] = useState();
   useEffect(() => {
     dispatch(getCountries());
@@ -89,8 +85,6 @@ const Member = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const classes = useStyles();
 
-  console.log({ detail });
-
   useEffect(() => {
     dispatch(getNCC());
   }, []);
@@ -107,6 +101,11 @@ const Member = () => {
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
+    {
+      title: 'Reg No',
+      minWidth: 150,
+      field: 'registration_number'
+    },
     {
       title: 'Name',
       minWidth: 150,
@@ -242,14 +241,14 @@ const Member = () => {
                   <li onClick={() => handleDelete(row)}>Delete</li>
                 </>
               )}
-              {roleIDData?.roleId1?.admin?.id === user?.id && (
+              {/* {roleIDData?.roleId1?.admin?.id === user?.id && (
                 <>
                   <li onClick={() => handleEdit(row)}>Edit Member </li>
                   <li onClick={() => handleRole(row)}>Change role</li>
                   <li onClick={() => handleApprove(row)}>Approve User</li>
                   <li onClick={() => handleDelete(row)}>Delete</li>
                 </>
-              )}
+              )} */}
               {roleIDData?.roleId1?.admin?.id !== user?.id && user?.id === row?.id && (
                 <>
                   <li onClick={() => handleEdit(row)}>Edit Member </li>
@@ -483,9 +482,7 @@ const Filter = ({ refetch }) => {
   useEffect(() => {
     refetch(watch());
   }, [debounceValue, watch('country')]);
-  const handleFilter = (data) => {
-    console.log(data);
-  };
+  const handleFilter = (data) => {};
   return (
     <CustomForm onSubmit={handleFilter}>
       <Box display={'flex'} columnGap={4} justifyContent={'flex-start'}>

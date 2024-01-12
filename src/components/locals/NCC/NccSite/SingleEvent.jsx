@@ -11,25 +11,19 @@ import SecondaryNav from './SecondaryNav';
 
 const SingleEvent = () => {
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.auth);
 
   const { slug, ncc } = useParams();
-  const data = useParams();
-
-  console.log('ccccccccxxvvv', { data });
 
   const { single_event, events, events_category, single_ncc } = useSelector(
     (state) => state.homepage
   );
   const recentEvent = events?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { recentEvent });
 
   const [selected, setSelected] = useState(
     single_event?.event_category_id
       ? parseInt(single_event?.event_category_id)
       : events_category?.[0]?.id
   );
-  console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
     dispatch(getSingleEvent(slug));

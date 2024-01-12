@@ -6,9 +6,9 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import NewsForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { postDownload } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const Register = ({ handleClose }) => {
   const { user, admin_role_details, admin_ncc_id_details } = useSelector((state) => state.auth);
@@ -22,7 +22,6 @@ const Register = ({ handleClose }) => {
     formData.append('title', data?.title);
     formData.append('description', data?.description);
     formData.append('created_by', user?.id);
-    console.log('data', data);
 
     if (data?.file?.length > 0) {
       formData.append('file', data?.file?.[0]);

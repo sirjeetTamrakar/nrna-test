@@ -7,9 +7,7 @@ import { getSingleBusiness } from 'redux/homepage/actions';
 const ServiceListPage = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
-  console.log('bnnbnbnn', { slug });
   const { single_business } = useSelector((state) => state.homepage);
-  console.log({ single_business });
   useEffect(() => {
     dispatch(getSingleBusiness(slug));
   }, [slug]);

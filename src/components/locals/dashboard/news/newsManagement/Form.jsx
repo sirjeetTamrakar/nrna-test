@@ -52,8 +52,6 @@ const NewsManagementForm = ({ featureImage }) => {
     dispatch(getNews());
   }, []);
 
-  console.log({ newsData });
-
   return (
     <Box className={classes.root}>
       {get_news_loading ? (

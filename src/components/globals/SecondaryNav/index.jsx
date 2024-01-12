@@ -67,8 +67,6 @@ const SecondaryNav = ({
     formOpenFunction();
   };
 
-  // console.log('kkkskkkksss', { single_business });
-
   const {
     ncc: nccData,
     businessFollowData,
@@ -80,22 +78,7 @@ const SecondaryNav = ({
   } = useSelector((state) => state.homepage);
   const { user } = useSelector((state) => state.auth);
 
-  // console.log('kdlaskjndu', { user });
-  const defaultValues = {};
-
   const { ncc: slug } = useParams();
-  const { slug: businessSlug } = useParams();
-
-  // console.log({ nbnsFollowData });
-
-  console.log('params_data', {
-    slug,
-    businessSlug,
-    nccData,
-    filteredNcc,
-    filteredNccCode,
-    countries_list_code
-  });
 
   useEffect(() => {
     const newArray = nccData?.data?.filter((item) => item?.slug === slug);
@@ -130,8 +113,6 @@ const SecondaryNav = ({
   }, [selected]);
 
   const handleOptionClick = (value) => {
-    console.log('Clicked value:', value);
-
     setSelected(value);
   };
   const checkActive = (slug) => {
@@ -185,8 +166,6 @@ const SecondaryNav = ({
       return;
     }
   }, [single_business?.id]);
-
-  // console.log({ single_business });
 
   const onSubmitDelete = (e) => {
     e.preventDefault();
@@ -301,7 +280,6 @@ const SecondaryNav = ({
                           className={classes.joinBtnNavbar}
                           type="submit"
                           disabled={get_business_follow_loading}
-                          // onClick={handleRegisterClick}
                           style={{
                             backgroundColor: '#276FC4'
                           }}>
@@ -559,13 +537,8 @@ const FormComponent = ({
   nccCode
 }) => {
   const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
-  // const classes = useStyles();
-
-  const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
-  console.log({ selectedCountry, lowercaseString, nccCode });
 
   const handleCountrySelection = (selectedValue) => {
-    console.log('hhshhjj', { selectedValue });
     setSelectedCountry(selectedValue);
   };
 

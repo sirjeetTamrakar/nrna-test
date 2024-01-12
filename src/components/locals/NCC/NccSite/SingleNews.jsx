@@ -1,5 +1,5 @@
 import { Box, CircularProgress, Grid } from '@mui/material';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import { getAllNews, getNewsCategory, getSingleNCC, getSingleNews } from 'redux/homepage/actions';
@@ -11,18 +11,8 @@ const SingleNews = () => {
 
   const { slug, ncc } = useParams();
 
-  console.log('ccccccccxxxcccc', { ncc });
-
-  const { news, news_category, single_news, single_news_loading, single_ncc } = useSelector(
-    (state) => state.homepage
-  );
+  const { news, single_news, single_news_loading } = useSelector((state) => state.homepage);
   const recentNews = news?.data?.filter((list) => list?.slug !== slug).slice(0, 4);
-  console.log('xxxxxxxxxx', { single_news });
-
-  const [selected, setSelected] = useState(
-    single_news?.news_category_id ? parseInt(single_news?.news_category_id) : news_category?.[0]?.id
-  );
-  console.log('zxzxzxzxz', { selected });
 
   useEffect(() => {
     dispatch(getSingleNews(slug));

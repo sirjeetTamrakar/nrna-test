@@ -30,7 +30,6 @@ const CustomCheckbox = ({
             name={name}
             control={control}
             render={({ field: { onChange, value } }) => {
-              console.log(value, 'value');
               return (
                 <FormControlLabel
                   sx={{ '& .MuiTypography-root': { fontSize: '1.2rem' } }}

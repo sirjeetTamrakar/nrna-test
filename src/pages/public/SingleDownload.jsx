@@ -7,15 +7,13 @@ import { getAllHomeData, getCandidates } from 'redux/homepage/actions';
 
 const SingleDownloadPage = () => {
   const [selected, setSelected] = useState('download');
-  console.log({ selected });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
   const dispatch = useDispatch();
-  const { home_data, candidates } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
+  const { candidates } = useSelector((state) => state.homepage);
   useEffect(() => {
     dispatch(getAllHomeData());
     dispatch(getCandidates());

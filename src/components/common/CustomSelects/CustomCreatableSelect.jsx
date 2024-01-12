@@ -1,9 +1,9 @@
-import { Box, InputLabel } from "@mui/material";
-import Autocomplete, { createFilterOptions } from "@mui/material/Autocomplete";
-import TextField from "@mui/material/TextField";
-import * as React from "react";
-import { Controller } from "react-hook-form";
-import styles from "./style";
+import { Box, InputLabel } from '@mui/material';
+import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete';
+import TextField from '@mui/material/TextField';
+import * as React from 'react';
+import { Controller } from 'react-hook-form';
+import styles from './style';
 
 const filter = createFilterOptions();
 
@@ -13,9 +13,9 @@ export default function CustomCreatableSelect({
   errors,
   label,
   data = [],
-  title = "",
+  title = '',
 
-  handleOpen = () => {},
+  handleOpen = () => {}
 }) {
   const classes = styles();
   const [value, setValue] = React.useState(null);
@@ -28,9 +28,7 @@ export default function CustomCreatableSelect({
   return (
     <React.Fragment>
       <Box className="inputs">
-        {title && (
-          <InputLabel className="inputTitle">{title?.toUpperCase()}</InputLabel>
-        )}
+        {title && <InputLabel className="inputTitle">{title?.toUpperCase()}</InputLabel>}
         <Controller
           name={name}
           control={control}
@@ -38,7 +36,6 @@ export default function CustomCreatableSelect({
             <Autocomplete
               value={value}
               onChange={(event, newValue) => {
-                console.log({ newValue });
                 if (newValue && newValue.inputValue) {
                   handleOpen(newValue);
                 } else {
@@ -49,13 +46,11 @@ export default function CustomCreatableSelect({
               filterOptions={(options, params) => {
                 const filtered = filter(options, params);
                 filtered.push({
-                  inputValue: params.inputValue ? params.inputValue : "New",
-                  title: `+ Add ${
-                    params.inputValue ? params.inputValue : "New"
-                  }`,
+                  inputValue: params.inputValue ? params.inputValue : 'New',
+                  title: `+ Add ${params.inputValue ? params.inputValue : 'New'}`
                 });
 
-                if (params.inputValue !== "") {
+                if (params.inputValue !== '') {
                 }
 
                 return filtered;
@@ -63,9 +58,8 @@ export default function CustomCreatableSelect({
               id="free-solo-dialog-demo"
               options={data}
               getOptionLabel={(option) => {
-                console.log({ option });
                 // e.g value selected with enter, right from the input
-                if (typeof option === "string") {
+                if (typeof option === 'string') {
                   return option;
                 }
                 if (option.inputValue) {
@@ -78,7 +72,6 @@ export default function CustomCreatableSelect({
               clearOnBlur
               handleHomeEndKeys
               renderOption={(props, option) => {
-                console.log({ props, option });
                 return option?.inputValue ? (
                   <li {...props} className={classes.creatableSelectAdd}>
                     {option.title}

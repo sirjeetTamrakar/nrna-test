@@ -23,7 +23,6 @@ const EditForm = ({ detail, handleClose }) => {
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
 
   const onSubmit = (data) => {
-    console.log('ssssssssdd', { data });
     const formData = new FormData();
     formData.append('title', data?.title);
     formData.append('description', data?.description);

@@ -7,7 +7,6 @@ import Candidates from './Candidates';
 
 const CandidatePage = () => {
   const [selected, setSelected] = useState('candidate');
-  console.log({ selected });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {

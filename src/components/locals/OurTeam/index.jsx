@@ -21,8 +21,6 @@ const OurTeam = () => {
   const [search, setSearch] = useState('');
   const [teamLimit, setTeamLimit] = useState(12);
 
-  console.log({ filteredTeam, selected });
-
   useEffect(() => {
     selected ?? setSelected(department?.[0]?.id);
   }, [department]);

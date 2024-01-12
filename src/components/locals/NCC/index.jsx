@@ -20,8 +20,6 @@ const AllNCCSection = () => {
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
 
-  console.log('nccDataNew', { filteredNcc });
-
   useEffect(() => {
     dispatch(getAllRegions());
   }, []);

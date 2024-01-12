@@ -16,24 +16,6 @@ const Register = ({ handleClose, selected }) => {
   const classes = useStyles();
   const { news_order_loading, get_news_loading } = useSelector((state) => state.news);
   const onSubmit = (data) => {
-    console.log('gagggg', { data });
-    // const formData = new FormData();
-    // formData.append('order_number', data?.order_number);
-    // formData.append('news_id', data?.news_id);
-    // formData.append('_method', 'PATCH');
-
-    // let typeData;
-    // if (user?.role_name == Roles?.Member) {
-    //   typeData = { type: 'member', id: user?.id, page: 1, pagination_limit: 10 };
-    // } else if (user?.role_name == Roles?.NCC) {
-    //   typeData = { type: 'ncc', id: user?.ncc?.id, page: 1, pagination_limit: 10 };
-    // }
-
-    // let typeData;
-    // if (selected !== 'All') {
-    //   typeData = { category_id: selected };
-    // }
-
     if (selected === 'ALL') {
       dispatch(postNewsOrder(data, handleClose));
     } else {
@@ -43,10 +25,6 @@ const Register = ({ handleClose, selected }) => {
       };
       dispatch(postNewsOrder(finalData, handleClose));
     }
-
-    // dispatch(
-    //   postNewsOrder({ ...data, category_id: selected !== 'All' ? selected : '' }, handleClose)
-    // );
   };
 
   return (

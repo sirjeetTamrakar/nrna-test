@@ -8,34 +8,21 @@ import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBusinessService, getBusinessService } from '../redux/actions';
-import { useStyles } from './styles';
 import ViewContact from './ViewContact';
+import { useStyles } from './styles';
 
 const ContactTable = ({ serviceId, data }) => {
   const dispatch = useDispatch();
-  const [openForm, formOpenFunction] = useToggle(false);
-  const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
-  const [openStatus, statusOpenFunction] = useToggle(false);
-  const [openApprove, approveOpenFunction] = useToggle(false);
-  const [openService, serviceOpenFunction] = useToggle(false);
   const [openView, viewOpenFunction] = useToggle(false);
 
   const [detail, setDetail] = useState();
   const [page, setPage] = useState();
   const [rowsPerPage, setRowsPerPage] = useState();
-  const [singleService, setSingleService] = useState();
-  console.log({ singleService });
+  const [setSingleService] = useState();
   const classes = useStyles();
 
-  console.log({ singleService });
-  console.log('jjjj', { data });
-
-  const { business_service, get_business_service_loading, delete_business_service_loading } =
-    useSelector((state) => state.business);
-  console.log({ business_service });
-  const { user } = useSelector((state) => state.auth);
-  console.log('userreerr', { user });
+  const { business_service, get_business_service_loading } = useSelector((state) => state.business);
 
   useEffect(() => {
     dispatch(getBusinessService());

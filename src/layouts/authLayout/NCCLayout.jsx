@@ -34,20 +34,16 @@ export default NCCLayout;
 
 const SecondaryNavWrapper = () => {
   const dispatch = useDispatch();
-  const { slug } = useParams();
 
   const [selected, setSelected] = useState('home');
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const { ncc } = useParams();
-  console.log('jjsjjjj', { ncc });
 
   const handleFunction = (data) => {
     navigate(data);
   };
-  console.log({ selected, slug });
   const { single_ncc } = useSelector((state) => state.homepage);
-  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     dispatch(getSingleNCC(ncc));

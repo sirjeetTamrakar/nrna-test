@@ -3,8 +3,6 @@ import { Typography } from '@mui/material';
 import { changeDateFormat } from 'utils/dateUtils';
 
 const View = ({ data }) => {
-  console.log('xcxxcxxcc', { data });
-
   return (
     <div style={{ padding: '10px 20px' }}>
       <div style={{ padding: '10px 0' }}>

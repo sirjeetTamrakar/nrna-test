@@ -315,7 +315,6 @@ const theme = createTheme({
     MuiTableFooter: {
       styleOverrides: {
         root: ({ theme }) => {
-          console.log({ theme });
           return {
             fontSize: '16px',
             fontWeight: '600',

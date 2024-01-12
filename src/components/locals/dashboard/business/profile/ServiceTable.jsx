@@ -11,12 +11,11 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteBusinessService, getBusinessService } from '../redux/actions';
 import ServiceFormEdit from './ServiceFormEdit';
-import { useStyles } from './styles';
 import View from './ViewServices';
+import { useStyles } from './styles';
 
 const ServiceTable = ({ serviceId }) => {
   const dispatch = useDispatch();
-  const [openForm, formOpenFunction] = useToggle(false);
   const [openEdit, editOpenFunction] = useToggle(false);
   const [openDelete, deleteOpenFunction] = useToggle(false);
   const [openStatus, statusOpenFunction] = useToggle(false);
@@ -27,16 +26,10 @@ const ServiceTable = ({ serviceId }) => {
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [singleService, setSingleService] = useState();
-  console.log({ singleService });
   const classes = useStyles();
-
-  console.log({ singleService });
 
   const { business_service, get_business_service_loading, delete_business_service_loading } =
     useSelector((state) => state.business);
-  console.log({ business_service });
-  const { user } = useSelector((state) => state.auth);
-  console.log('userreerr', { user });
 
   useEffect(() => {
     const data = { page: page + 1, pagination_limit: rowsPerPage, business_id: serviceId };

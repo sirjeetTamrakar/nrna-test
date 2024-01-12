@@ -6,8 +6,6 @@ const BusinessNav = ({ category, selected, setSelected, setSearch }) => {
   const classes = useStyles();
   const navigate = useNavigate();
 
-  console.log('llsllsl', { category });
-
   const checkActive = (slug) => {
     if (selected) {
       if (slug === selected) {
@@ -20,9 +18,6 @@ const BusinessNav = ({ category, selected, setSelected, setSearch }) => {
     }
   };
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
   const handleSetSelected = (slug) => {
     setSelected(slug);
 

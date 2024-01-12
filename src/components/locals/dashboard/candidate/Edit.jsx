@@ -6,9 +6,9 @@ import { Roles } from 'constants/RoleConstant';
 import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import MemberForm from './Form';
+import { validationSchema } from './ValidationSchema';
 import { updateCandidate } from './redux/actions';
 import { useStyles } from './styles';
-import { validationSchema } from './ValidationSchema';
 
 const EditForm = ({ id, handleClose }) => {
   const classes = useStyles();
@@ -48,7 +48,6 @@ const EditForm = ({ id, handleClose }) => {
   );
 };
 const Edit = ({ data, handleClose }) => {
-  console.log('llmmmmm', { data });
   const defaultValues = {
     member_id: data?.member?.id,
     designation: data?.designation,

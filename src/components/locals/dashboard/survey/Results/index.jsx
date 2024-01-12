@@ -16,7 +16,6 @@ const Results = () => {
   const [tableData, setTableData] = useState();
   const [singleSurveyQuestion, setSingleSurveyQuestion] = useState([]);
   const location = useLocation();
-  console.log({ location });
   const navigate = useNavigate();
 
   const tableHeads = [
@@ -47,7 +46,6 @@ const Results = () => {
       setSingleSurveyQuestion(newArray);
     }
   }, [result]);
-  console.log({ singleSurveyQuestion });
 
   useEffect(() => {
     dispatch(getSurveyResult());

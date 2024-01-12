@@ -38,23 +38,14 @@ const Survey = () => {
   const [surveySlug, setSurveySlug] = useState();
   const [number, setNumber] = useState('');
 
-  // console.log({ userFormDetails });
   const startSurvey = (id, slug) => {
     setSurveyID(id);
     setSurveySlug(slug);
-    // navigate(`/nbns/survey/questions`);
     formOpenFunction();
   };
 
-  const { user } = useSelector((state) => state.auth);
   const { nbns_settings, email_check_loading } = useSelector((state) => state.homepage);
-  console.log('dsadsdddddddddd', { nbns_settings });
-  console.log({ user });
   const { countries_list_code } = useSelector((state) => state.homepage);
-  console.log({ countries_list_code, number });
-
-  // const { watch } = useFormContext({});
-  // console.log('watchh--', watch());
 
   const countryList = countries_list_code?.map((item, index) => ({
     label: item?.name,
@@ -71,7 +62,6 @@ const Survey = () => {
     navigate(`questions`);
   };
   const onSubmitDetails = (data) => {
-    console.log({ details: data });
     setUserFormDetails({ ...data });
     dispatch(emailCheck({ email: data?.email }, () => refetch(data)));
   };
@@ -88,7 +78,6 @@ const Survey = () => {
   };
 
   const screenSize = useScreenSize();
-  console.log({ screenSize });
 
   return (
     <>
@@ -228,10 +217,6 @@ const Survey = () => {
 
 const FormComponent = ({ handleCancel, countryList, email_check_loading, number, setNumber }) => {
   const [selectedCountry, setSelectedCountry] = useState(null); // Track selected country
-  // const classes = useStyles();
-
-  const lowercaseString = selectedCountry && selectedCountry.toLowerCase();
-  console.log({ selectedCountry, lowercaseString });
 
   const handleCountrySelection = (selectedValue) => {
     setSelectedCountry(selectedValue);

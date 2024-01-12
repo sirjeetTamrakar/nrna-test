@@ -10,7 +10,6 @@ const Form = () => {
   const dispatch = useDispatch();
   const classes = useStyles();
   const { questions } = useSelector((state) => state.question);
-  console.log({ questions });
 
   const onSubmit = (data) => {
     dispatch(postQuestionFront());

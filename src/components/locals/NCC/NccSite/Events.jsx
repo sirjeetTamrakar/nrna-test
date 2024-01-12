@@ -17,9 +17,7 @@ const Events = () => {
   //-------------------
 
   const location = useLocation();
-  console.log({ location });
 
-  const { user } = useSelector((state) => state.auth);
   const { events, events_loading, events_category, events_category_loading, single_ncc } =
     useSelector((state) => state.homepage);
   const [filteredEvents, setFilteredEvents] = useState();
@@ -28,7 +26,6 @@ const Events = () => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [location?.state, events_category]);
   const [search, setSearch] = useState('');
-  console.log('dsadddddddcxx', { filteredEvents });
   useEffect(() => {
     dispatch(getAllEvents({ ncc_id: single_ncc?.id }));
     dispatch(getEventsCategory());
@@ -50,7 +47,6 @@ const Events = () => {
     }
   }, [search, events?.data, selected, events_category]);
 
-  console.log('cxcxcxcxcxcx', { ncc });
   return (
     <>
       <SecondaryNav

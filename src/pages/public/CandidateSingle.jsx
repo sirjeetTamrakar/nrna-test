@@ -17,13 +17,10 @@ const CandidateSiteSingleHome = () => {
 
   const { slug } = useParams();
 
-  const data = useParams();
-
   const { single_user } = useSelector((state) => state.homepage);
   const { countries_list } = useSelector((state) => state.ncc);
   const [filteredData, setFilteredData] = useState('');
 
-  console.log({ slug, single_user, data });
   useEffect(() => {
     dispatch(getSingleUser(slug));
     dispatch(getCountries());
@@ -41,17 +38,13 @@ const CandidateSiteSingleHome = () => {
     setFilteredData(newObj);
   }, [single_user]);
 
-  console.log({ filteredData });
-
   const [selected, setSelected] = useState('candidate');
-  console.log({ selected });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
   const { home_data } = useSelector((state) => state.homepage);
-  console.log('bbbvbvbv', { home_data });
   useEffect(() => {
     dispatch(getAllHomeData());
   }, []);

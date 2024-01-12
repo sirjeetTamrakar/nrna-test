@@ -51,7 +51,6 @@ export const getParticipantResultApi = (slug, user_id) => {
 // get all survey
 
 export const getAllSurveyApi = (data) => {
-  console.log(data, 'dddd');
   const page = data?.page ? `?page=${data?.page}` : '';
   const pagination_limit = data?.pagination_limit
     ? `&pagination_limit=${data?.pagination_limit}`

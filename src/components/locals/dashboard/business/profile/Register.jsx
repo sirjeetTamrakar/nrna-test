@@ -13,11 +13,9 @@ const Register = ({ handleClose }) => {
   const defaultValues = {};
   const classes = useStyles();
   const { business_loading } = useSelector((state) => state.business);
-  const { user, admin_ncc_id_details, admin_role_details } = useSelector((state) => state.auth);
+  const { user, admin_role_details } = useSelector((state) => state.auth);
   const storedValueID = Number(localStorage.getItem('nccRoleID'));
   const storedValueRole = localStorage.getItem('nccRole');
-
-  console.log('sssdddddddff', { user });
 
   const onSubmit = (data) => {
     const formData = new FormData();

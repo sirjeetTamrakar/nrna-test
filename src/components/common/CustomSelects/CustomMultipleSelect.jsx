@@ -32,7 +32,6 @@ export const CustomMultipleSelect = ({
             name={name}
             control={control}
             render={({ field: { onChange, value } }) => {
-              console.log({ value, data });
               return (
                 <>
                   <Autocomplete
@@ -45,9 +44,7 @@ export const CustomMultipleSelect = ({
                     onChange={(e, data) => onChange(data?.map((item) => item?.value))}
                     getOptionLabel={(option) => option.label}
                     isOptionEqualToValue={
-                      (option, value) => {
-                        console.log({ option, value });
-                      }
+                      (option, value) => {}
                       // {
                       //   return option?.value === value?.value;
                       // }

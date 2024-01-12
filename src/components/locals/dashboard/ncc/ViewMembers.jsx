@@ -1,29 +1,18 @@
 import { Box, Typography } from '@mui/material';
 import CustomTable from 'components/common/table';
-import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { changeDateFormat } from 'utils/dateUtils';
-import { useStyles } from './styles';
 
 const ViewMembers = ({ data }) => {
-  const dispatch = useDispatch();
-  const [openDelete, deleteOpenFunction] = useToggle(false);
-  const [openView, viewOpenFunction] = useToggle(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [roleIDData, setRoleIDData] = useState();
 
-  const [detail, setDetail] = useState();
-  const classes = useStyles();
   const { user } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
 
-  const { contact, contact_loading, contact_delete_loading } = useSelector(
-    (state) => state.homepage
-  );
-
-  console.log('dataattt', { data });
+  const { contact_loading } = useSelector((state) => state.homepage);
 
   useEffect(() => {
     const newArray = nccData?.data?.filter((item) => item?.slug === user?.ncc?.slug);
@@ -34,7 +23,6 @@ const ViewMembers = ({ data }) => {
     });
     setRoleIDData(newObj);
   }, [nccData?.data]);
-  console.log('ssssss', roleIDData);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },

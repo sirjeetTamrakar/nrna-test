@@ -1,11 +1,11 @@
 import { Box, Button, CircularProgress, Grid } from '@mui/material';
+import { useDebouncedValue } from 'hooks/useDebouncedValue';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getBusiness, getBusinessCategory, getSiteSettings } from 'redux/homepage/actions';
 import BusinessItem from './BusinessItem';
 import BusinessItemOne from './BusinessItemOne';
 import SecondaryNav from './SecondaryNav';
-import { useDebouncedValue } from 'hooks/useDebouncedValue';
 
 const Business = () => {
   const dispatch = useDispatch();
@@ -15,21 +15,16 @@ const Business = () => {
   }, [pathname]);
   const { business, business_category, business_loading, business_category_loading, settings } =
     useSelector((state) => state.homepage);
-  console.log('dasldsalda', business_category?.[0]?.id);
   const [filteredBusiness, setFilteredBusiness] = useState();
-  const [allFilteredBusiness, setAllFilteredBusiness] = useState();
   const [businessLimit, setBusinessLimit] = useState(9);
   const [selected, setSelected] = useState();
   const [search, setSearch] = useState('');
 
   const debouncedSearchQuery = useDebouncedValue(search, 500);
-  // console.log('debouncedValue', debouncedValue);
 
   useEffect(() => {
     setSelected(location?.state ? location?.state : selected ? selected : 'ALL');
   }, [business_category]);
-
-  console.log({ selected });
 
   useEffect(() => {
     const finalData = {
@@ -76,9 +71,6 @@ const Business = () => {
     dispatch(getSiteSettings());
   }, []);
 
-  console.log({ selected });
-
-  console.log('llll', business?.meta?.total);
   return (
     <>
       <SecondaryNav

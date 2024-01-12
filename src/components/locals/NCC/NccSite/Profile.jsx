@@ -8,7 +8,7 @@ import facebook from 'assets/images/facebook.png';
 import insta from 'assets/images/insta.png';
 import linkedin from 'assets/images/linkedin.png';
 import profilePic from 'assets/images/profileImage2.jpg';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { getDepartment, getSingleUser, getTeams } from 'redux/homepage/actions';
@@ -22,30 +22,13 @@ const Profile = () => {
     name: 'Yogen Bahadur Chhetri',
     designation: 'Chairman'
   };
-  const candidateData = {
-    email: 'yogen@ybcservices.com',
-    phone: '+1231 124391 129381',
-    address: 'North Lane, Aldershot, UK'
-  };
 
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
 
-  const { username, ncc } = useParams();
-  const data = useParams();
+  const { username } = useParams();
 
-  const { teams, team_loading, department, department_loading, single_teams, single_user } =
-    useSelector((state) => state.homepage);
-
-  const recentTeam = teams?.data?.filter((list) => list?.slug !== username).slice(0, 4);
-  console.log('xxxxxxxxxx', { recentTeam, single_teams, single_user });
-
-  const [selected, setSelected] = useState(
-    single_teams?.news_category_id
-      ? parseInt(single_teams?.our_team_category_id)
-      : department?.[0]?.id
-  );
-  console.log('zxzxzxzxz', { selected });
+  const { single_user } = useSelector((state) => state.homepage);
 
   useEffect(() => {
     dispatch(getSingleUser(username));

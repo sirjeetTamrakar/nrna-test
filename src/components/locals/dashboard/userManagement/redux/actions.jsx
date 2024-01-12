@@ -90,7 +90,6 @@ export const updateUsers =
     try {
       await updateUsersApi(Data, slug);
       refetch && refetch();
-      console.log('dataaasssssssssssss', Data);
       dispatch({
         type: actions.UPDATE_USER_SUCCESS,
         payload: ''
@@ -98,7 +97,6 @@ export const updateUsers =
       successToast('User has been updated');
     } catch (error) {
       dispatch({ type: actions.UPDATE_USER_ERROR });
-      console.log({ error });
       errorToast(error);
     }
   };

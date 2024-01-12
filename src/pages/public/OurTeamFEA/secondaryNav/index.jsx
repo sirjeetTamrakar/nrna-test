@@ -4,8 +4,6 @@ import { useStyles } from './styles';
 const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
   const classes = useStyles();
 
-  console.log({ departments });
-
   const checkActive = (slug) => {
     if (selected) {
       if (slug === selected) {
@@ -18,9 +16,6 @@ const SecondaryNav = ({ departments, selected, setSelected, setSearch }) => {
     }
   };
 
-  const handleSearch = (e) => {
-    setSearch(e.target.value);
-  };
   const handleSetSelected = (slug) => {
     setSelected(slug);
   };

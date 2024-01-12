@@ -4,7 +4,6 @@ import CustomForm from 'components/common/Form/CustomForm';
 import CustomFormProvider from 'components/common/Form/CustomFormProvider';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
 import { postQuestionFront } from 'components/locals/dashboard/survey/redux/actions';
-import useToggle from 'hooks/useToggle';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -17,20 +16,14 @@ const FormTwo = () => {
   const navigate = useNavigate();
   const { post_question_front_loading } = useSelector((state) => state.question);
   const { questions, details } = useSelector((state) => state.homepage);
-  const { user } = useSelector((state) => state.auth);
-  const [openForm, formOpenFunction] = useToggle(true);
-  console.log('hdkashksahd', { details });
   const [answers, setAnswers] = useState([]);
-  const [userFormDetails, setUserFormDetails] = useState([]);
   const [filteredQuestions, setFilteredQuestions] = useState([]);
-  console.log({ userFormDetails });
   const handleOptionChange = (questionId, selectedOptionId) => {
     const updatedAnswers = answers.filter((answer) => answer.questionId !== questionId);
     updatedAnswers.push({ questionId, selectedOptionId });
     setAnswers(updatedAnswers);
   };
 
-  console.log({ filteredQuestions });
   useEffect(() => {
     if (questions) {
       const newArray = questions?.filter((item) => Number(item?.survey_id) === details?.survey_id);
@@ -43,7 +36,6 @@ const FormTwo = () => {
     dispatch(updateSurveyTaken());
   };
   const onSubmit = (data) => {
-    console.log({ data });
     const finalData = {
       ...details,
       question_answers: answers.map((answer) => ({
@@ -51,31 +43,12 @@ const FormTwo = () => {
         option_id: answer.selectedOptionId
       }))
     };
-    console.log({ finalData });
     dispatch(postQuestionFront(finalData, handleSuccess));
   };
-
-  const onSubmitDetails = (data) => {
-    console.log({ details: data });
-    setUserFormDetails(data);
-    formOpenFunction();
-  };
-
-  const { countries_list } = useSelector((state) => state.ncc);
-  console.log({ countries_list });
-
-  const countryList = countries_list?.map((item, index) => ({
-    label: item,
-    value: item
-  }));
 
   useEffect(() => {
     dispatch(getCountries());
   }, []);
-
-  const handleCancel = () => {
-    navigate(`/nbns/survey`);
-  };
 
   return (
     <>

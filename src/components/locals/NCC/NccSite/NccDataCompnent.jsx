@@ -16,25 +16,21 @@ const NccDataComponent = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
 
-  const { settings, banners, home_data, single_home_data } = useSelector((state) => state.homepage);
-  console.log('ssssssss', { home_data, slug });
+  const { home_data, single_home_data } = useSelector((state) => state.homepage);
   useEffect(() => {
     const finalData = {
       type: 'nccCard',
       id: 1
     };
     dispatch(getAllHomeData(finalData));
-    //  dispatch(getSiteSettings());
   }, []);
 
   const [selected, setSelected] = useState('home');
-  console.log({ selected, single_home_data });
 
   const navigate = useNavigate();
   const handleFunction = (data) => {
     navigate(data);
   };
-  console.log('bbbvbvbv', { home_data });
   const homeOptions = (home_data?.data?.slice(0, 4) || []).map((item) => ({
     title: item?.tabtitle,
     value: item?.slug,

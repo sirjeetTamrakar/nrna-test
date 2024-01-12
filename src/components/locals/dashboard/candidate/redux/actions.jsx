@@ -40,7 +40,6 @@ export const deleteCandidate = (Data, handleSuccess, typeData) => async (dispatc
 
   try {
     await deleteCandidateApi(Data);
-    console.log('dataaa', Data);
     handleSuccess && handleSuccess();
     dispatch({
       type: actions.DELETE_CANDIDATE_SUCCESS,

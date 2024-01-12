@@ -40,19 +40,8 @@ import View from './View';
 const ViewFollowerTable = ({ countrySlug, businessId }) => {
   const dispatch = useDispatch();
 
-  console.log({ businessId });
-
   const [openApprove, approveOpenFunction] = useToggle(false);
-
-  const {
-    users,
-    user_search,
-    users_loading,
-    user_status_loading,
-    approve_user_loading,
-    change_role_loading
-  } = useSelector((state) => state.user);
-  const { user, delete_users_loading } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth);
   const { nccData } = useSelector((state) => state.ncc);
   const {
     businessFollowData,
@@ -61,7 +50,6 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     followers_search,
     businessFollowDownloadData
   } = useSelector((state) => state.business);
-  console.log({ user, users, nccData, businessFollowData, businessFollowDownloadData });
   const [roleIDData, setRoleIDData] = useState();
   const [openView, viewOpenFunction] = useToggle(false);
 
@@ -74,7 +62,6 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     });
     setRoleIDData(newObj);
   }, [nccData?.data]);
-  console.log('ssssss', roleIDData);
 
   const [detail, setDetail] = useState();
   const [page, setPage] = useState(0);
@@ -190,8 +177,6 @@ const ViewFollowerTable = ({ countrySlug, businessId }) => {
     setDetail(row);
     approveOpenFunction();
   };
-
-  console.log({ detail });
 
   const handleApproveStatus = (value) => {
     const status = value === 'approved' ? 'approved' : 'rejected';

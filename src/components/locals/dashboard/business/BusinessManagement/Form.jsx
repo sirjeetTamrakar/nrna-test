@@ -51,8 +51,6 @@ const BusinessManagementForm = ({ featureImage }) => {
     dispatch(getBusiness());
   }, []);
 
-  console.log({ businessCategory });
-
   return (
     <Box className={classes.root}>
       <Grid container spacing={2}>

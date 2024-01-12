@@ -13,13 +13,8 @@ const CompleteRegistration = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [params] = useSearchParams();
-  // const data = use();
-  // const
-  // console.log({ data });
-  // console.log({ params });
   const { loading } = useSelector((state) => state.auth);
   const validationSchema = Yup.object({
-    // old_password: Yup.string().required('Please enter your old password'),
     password: Yup.string().required('Please enter your password'),
     password_confirmation: Yup.string()
       .required('Please retype your password.')

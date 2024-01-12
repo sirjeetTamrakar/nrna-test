@@ -15,8 +15,8 @@ import { changeDateFormat } from 'utils/dateUtils';
 import { changePressReleaseStatus, deletePressRelease, getPressRelease } from '../redux/actions';
 import Edit from './Edit';
 import Register from './Register';
-import { useStyles } from './styles';
 import View from './View';
+import { useStyles } from './styles';
 
 const NBNSPressRelease = () => {
   const dispatch = useDispatch();
@@ -42,17 +42,8 @@ const NBNSPressRelease = () => {
     pressReleaseData,
     get_press_release_loading,
     delete_press_release_loading,
-    press_release_loading,
     press_release_status_loading
   } = useSelector((state) => state.nbns);
-
-  console.log({
-    pressReleaseData,
-    get_press_release_loading,
-    delete_press_release_loading,
-    press_release_loading
-  });
-  const { user } = useSelector((state) => state.auth);
 
   const tableHeads = [
     { title: 'S.N.', type: 'Index', minWidth: 20 },
