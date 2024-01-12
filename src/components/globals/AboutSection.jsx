@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-const AboutSection = ({ image, linkUrl, title = 'About', about }) => {
+const AboutSection = ({ image, linkUrl, title = 'About', about, viewAll }) => {
   return (
     <section className="about" id="about_main">
       <div className="container">
@@ -14,9 +14,11 @@ const AboutSection = ({ image, linkUrl, title = 'About', about }) => {
             <div className="about_title">{title}</div>
             <div className="about_description" dangerouslySetInnerHTML={{ __html: about || '' }} />
 
-            <Link to={linkUrl || `/foreign-employment/about`} className="view_more">
-              View More
-            </Link>
+            {!viewAll && (
+              <Link to={linkUrl || `/foreign-employment/about`} className="view_more">
+                View More
+              </Link>
+            )}
           </div>
         </div>
       </div>

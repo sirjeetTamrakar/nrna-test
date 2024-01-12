@@ -1,3 +1,4 @@
+import AboutSection from 'components/globals/AboutSection';
 import MissionSection from 'components/globals/MissionSection';
 import BannerBannerSection from 'components/globals/SingleBanner';
 import VisionSection from 'components/globals/VisionSection';
@@ -84,19 +85,16 @@ const BusinessItemOneSingle = () => {
         //   setSearch={setSearch}
       />
       <BannerBannerSection banners={settings} data={home_data} singleBanner />
-      {/* {settings?.tagline_description && (
-        <TaglineSection
-          tagline={settings?.tagline_description}
-          taglineAuthor={settings?.tagline_author}
-        />
-      )} */}
-      {/* {settings?.about && (
+      {settings?.business_description && (
         <AboutSection
-          about={settings?.about}
-          image={settings?.about_image}
-          title="बारेमा (About)"
+          title={'About'}
+          image={settings?.business_banner_image}
+          viewAll
+          // linkUrl={`/nrna/business/${item?.slug}`}
+          about={settings?.business_description}
         />
-      )} */}
+      )}
+
       {renderSections()}
     </>
   );

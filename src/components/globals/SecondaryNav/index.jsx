@@ -374,7 +374,7 @@ const SecondaryNav = ({
             )}
             {nbns && isLoggedIn() && (
               <>
-                {nbnsFollowData?.[0]?.follow_nbns === '1' ? (
+                {Number(nbnsFollowData?.[0]?.follow_nbns) === 1 ? (
                   <Box className={`${classes.header} second-nav-title`} sx={{ marginTop: '10px' }}>
                     <Box className={`${classes.header} second-nav-title`}>
                       <form onSubmit={onSubmitDelete}>
