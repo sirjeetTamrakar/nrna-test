@@ -7,8 +7,8 @@ import useYupValidationResolver from 'hooks/useYupValidationResolver';
 import { useDispatch, useSelector } from 'react-redux';
 import { postNews } from '../redux/actions';
 import NewsForm from './Form';
-import { useStyles } from './styles';
 import { validationSchema } from './ValidationSchema';
+import { useStyles } from './styles';
 
 const Register = ({ handleClose }) => {
   const { user } = useSelector((state) => state.auth);
@@ -22,7 +22,9 @@ const Register = ({ handleClose }) => {
     formData.append('title', data?.title);
     formData.append('description', data?.description);
     formData.append('excerpt', data?.excerpt);
-    formData.append('created_by', data?.created_by);
+    formData.append('created_by', user?.id);
+    formData.append('author', data?.author);
+
     formData.append('news_category_id', data?.news_category_id);
 
     if (data?.feature_image?.length > 0) {

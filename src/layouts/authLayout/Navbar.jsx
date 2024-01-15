@@ -17,7 +17,6 @@ import Register from 'components/globals/register';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { logout } from 'redux/auth/actions';
 import { isLoggedIn } from 'utils';
 import useStyles from './styles';
 
@@ -60,9 +59,9 @@ function Navbar({ isHomePage, currentUser, sticky }) {
   };
 
   const handleLogout = () => {
-    logout();
-    navigate(`/`);
-    closeNav();
+    // logout();
+    // navigate(`/`);
+    // closeNav();
   };
 
   const sideNavItems = [

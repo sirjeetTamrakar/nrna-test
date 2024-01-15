@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { failureToast } from 'utils/toast';
 import TokenService from './TokenService';
 
 // for multiple requests
@@ -31,10 +32,10 @@ export const axiosInstance = () => {
     // }
   });
 
-  const handleLogout = () => {
-    window.location.href = '/';
-    localStorage.clear();
-  };
+  // const handleLogout = () => {
+  //   window.location.href = '/';
+  //   localStorage.clear();
+  // };
   instance.interceptors.request.use(
     (config) => {
       const token = TokenService.getLocalAccessToken();
@@ -70,6 +71,7 @@ export const axiosInstance = () => {
                 let token = TokenService.getLocalAccessToken();
                 if (token == 'undefined' || !token) {
                   localStorage.clear();
+                  failureToast('Invalid token.');
                   window.location.replace('/');
                 }
                 return Promise.reject(err);
@@ -83,6 +85,8 @@ export const axiosInstance = () => {
             const refreshToken = TokenService.getLocalRefreshToken();
             const rs = await instance.post(`/api/refresh/${refreshToken}`).catch(() => {
               localStorage.clear();
+              failureToast('Invalid token.');
+
               window.location.replace('/');
             });
             const { access_token, refresh_token } = rs.data.data.original;
@@ -101,16 +105,16 @@ export const axiosInstance = () => {
       return Promise.reject(err);
     }
   );
-  instance.interceptors.response.use(
-    (response) => {
-      return response;
-    },
-    (error) => {
-      if (error.response && error.response.status === 401) {
-        handleLogout();
-      }
-      return Promise.reject(error);
-    }
-  );
+  // instance.interceptors.response.use(
+  //   (response) => {
+  //     return response;
+  //   },
+  //   (error) => {
+  //     if (error.response && error.response.status === 401) {
+  //       handleLogout();
+  //     }
+  //     return Promise.reject(error);
+  //   }
+  // );
   return instance;
 };
