@@ -28,7 +28,7 @@ const EditForm = ({ detail, handleClose }) => {
     formData.append('description', data?.description);
     formData.append('excerpt', data?.excerpt);
     formData.append('created_by', user?.id);
-    formData.append('author', data?.author);
+    formData.append('author', data?.author ?? '');
 
     formData.append('_method', 'PUT');
     formData.append('news_category_id', data?.news_category_id);
