@@ -44,6 +44,16 @@ const SingleNews = () => {
   //   console.log({ window: window.location() });
   // }, []);
 
+  let title = single_news?.title !== undefined ? single_news?.title : 'NBNS Global News';
+  let image =
+    single_news?.image !== undefined
+      ? single_news?.feature_image
+      : 'https://images.unsplash.com/photo-1576091160550-2173dba999ef?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2850&q=80';
+  let excerpt =
+    single_news?.excerpt !== undefined
+      ? String(single_news?.excerpt)?.slice(0, 100)
+      : 'Welcome to NBNS News';
+
   return (
     <div>
       <Helmet>
@@ -71,19 +81,19 @@ const SingleNews = () => {
         <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
 
         <title>NBNS Global</title>
-        <meta name="description" content={String(single_news?.excerpt)?.slice(0, 100)}></meta>
+        <meta name="description" content={excerpt}></meta>
 
-        <meta itemProp="name" content={single_news?.title}></meta>
-        <meta itemProp="description" content={single_news?.excerpt}></meta>
-        <meta itemProp="image" content={single_news?.feature_image}></meta>
+        <meta itemProp="name" content={title}></meta>
+        <meta itemProp="description" content={excerpt}></meta>
+        <meta itemProp="image" content={image}></meta>
 
         <meta
           property="og:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
         <meta property="og:type" content="website"></meta>
-        <meta property="og:title" content={single_news?.title}></meta>
-        <meta property="og:description" content={single_news?.excerpt}></meta>
-        <meta property="og:image" content={single_news?.feature_image}></meta>
+        <meta property="og:title" content={title}></meta>
+        <meta property="og:description" content={excerpt}></meta>
+        <meta property="og:image" content={image}></meta>
 
         <meta name="twitter:card" content="summary_large_image"></meta>
         <meta name="twitter:title" content={single_news?.title}></meta>
