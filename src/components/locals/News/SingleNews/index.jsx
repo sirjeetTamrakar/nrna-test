@@ -70,7 +70,7 @@ const SingleNews = () => {
 
         <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
 
-        <title>NBNS Global</title>
+        {/* <title>NBNS Global</title>
         <meta name="description" content={String(single_news?.excerpt)?.slice(0, 100)}></meta>
 
         <meta itemProp="name" content={single_news?.title}></meta>
@@ -89,7 +89,24 @@ const SingleNews = () => {
         <meta name="twitter:title" content={single_news?.title}></meta>
         <meta name="twitter:description" content={single_news?.excerpt}></meta>
         <meta name="twitter:image" content={single_news?.feature_image}></meta>
-        <link rel="canonical" href={`https://nrna-front.vercel.app${location?.pathname}`} />
+        <link rel="canonical" href={`https://nrna-front.vercel.app${location?.pathname}`} /> */}
+        {/* Title */}
+        <title>Your Blog Post Title</title>
+
+        {/* Description */}
+        <meta name="description" content="Your blog post description goes here." />
+
+        {/* Open Graph Tags for Facebook */}
+        <meta property="og:title" content="Your Blog Post Title" />
+        <meta property="og:description" content="Your blog post description goes here." />
+        <meta property="og:type" content="article" />
+        {/* Add more Open Graph tags as needed */}
+
+        {/* Twitter Card Tags */}
+        <meta name="twitter:title" content="Your Blog Post Title" />
+        <meta name="twitter:description" content="Your blog post description goes here." />
+        <meta name="twitter:card" content="summary_large_image" />
+        {/* Add more Twitter Card tags as needed */}
       </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
