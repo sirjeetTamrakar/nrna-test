@@ -44,7 +44,7 @@ const SingleNews = () => {
   // }, []);
 
   return (
-    <>
+    <div>
       <Helmet>
         <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
@@ -158,7 +158,7 @@ const SingleNews = () => {
           </div>
         )}
       </div>
-    </>
+    </div>
   );
 };
 
