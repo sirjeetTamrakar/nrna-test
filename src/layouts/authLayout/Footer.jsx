@@ -28,7 +28,10 @@ const Footer = () => {
                 rel="noreferrer">
                 <img src={googlePlayImage} alt="Google Play Store" width="100" height="33" />
               </a>
-              <a href="#" target="_blank" rel="noreferrer">
+              <a
+                href="https://apps.apple.com/np/app/nbns-global/id6469577666"
+                target="_blank"
+                rel="noreferrer">
                 <img src={appStoreImage} alt="Apple Store" width="100" height="33" />
               </a>
             </div>

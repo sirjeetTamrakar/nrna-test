@@ -32,6 +32,19 @@ const SingleNews = () => {
 
   return (
     <>
+      <head>
+        <title>{single_news?.title}</title>
+        <meta name="description" content={single_news?.excerpt}></meta>
+        <meta property="og:title" content={single_news?.title}></meta>
+        <meta property="og:image" content={single_news?.feature_image}></meta>
+        <meta name="twitter:card" content={single_news?.feature_image}></meta>
+        {/* <meta name="twitter:site" content="@site_username"></meta> */}
+        <meta name="twitter:title" content={single_news?.title}></meta>
+        <meta name="twitter:description" content={single_news?.excerpt}></meta>
+        {/* <meta name="twitter:creator" content="@creator_username"></meta> */}
+        <meta name="twitter:image" content={single_news?.feature_image}></meta>
+        <meta name="twitter:domain" content="nbnsglobal.com"></meta>
+      </head>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
