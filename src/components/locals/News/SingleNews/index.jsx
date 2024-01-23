@@ -38,6 +38,11 @@ const SingleNews = () => {
     dispatch(getNewsCategory());
   }, [slug]);
 
+  // useEffect(() => {
+
+  //   console.log({ window: window.location() });
+  // }, []);
+
   return (
     <>
       <Helmet>
@@ -45,7 +50,9 @@ const SingleNews = () => {
         <meta name="description" content={single_news?.excerpt}></meta>
         <meta name="og:description" content={single_news?.excerpt}></meta>
         <meta property="og:title" content={single_news?.title}></meta>
-        <meta property="og:url" content={`https://nbnsglobal.com${location?.pathname}`}></meta>
+        <meta
+          property="og:url"
+          content={`https://nrna-front.vercel.app/${location?.pathname}`}></meta>
         <meta property="og:image" content={single_news?.feature_image}></meta>
         <meta property="og:type" content="article"></meta>
         <meta property="og:site_name" content="NBNS Global"></meta>
@@ -56,7 +63,7 @@ const SingleNews = () => {
         <meta name="twitter:description" content={single_news?.excerpt}></meta>
         {/* <meta name="twitter:creator" content="@creator_username"></meta> */}
         <meta name="twitter:image" content={single_news?.feature_image}></meta>
-        <meta name="twitter:domain" content="nbnsglobal.com"></meta>
+        <meta name="twitter:domain" content="https://nrna-front.vercel.app/"></meta>
       </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
