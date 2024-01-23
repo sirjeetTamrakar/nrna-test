@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>NBNS Global</title>
 
+    <meta property="og:description" content="NBNS Global desc" />
+
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css"
@@ -33,6 +35,25 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
+
+    <script type="module">
+      document.addEventListener('DOMContentLoaded', function () {
+        // Check if the "title" item exists in localStorage
+        if (localStorage.getItem('title')) {
+          // Retrieve the value and assign it to the document title
+          const dynamicTitle = localStorage.getItem('title');
+          document.title = dynamicTitle;
+
+          // Update the og:title meta tag with the dynamic value
+          const ogTitleMetaTag = document.querySelector('meta[property="og:description"]');
+          if (ogTitleMetaTag) {
+            // Set the content attribute to the retrieved title
+            ogTitleMetaTag.content = dynamicTitle;
+          }
+        }
+      });
+    </script>
+
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
