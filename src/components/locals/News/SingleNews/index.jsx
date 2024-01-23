@@ -46,10 +46,18 @@ const SingleNews = () => {
   return (
     <>
       <Helmet>
-        <title>{single_news?.title}</title>
-        <meta name="description" content={single_news?.excerpt}></meta>
-        <meta name="og:description" content={single_news?.excerpt}></meta>
-        <meta property="og:title" content={single_news?.title}></meta>
+        {/* <title>{single_news?.title}</title> */}
+        <title>News NEWS</title>
+
+        {/* <meta name="description" content={single_news?.excerpt}></meta> */}
+        <meta name="description" content={'Get News Faster then light'}></meta>
+
+        {/* <meta name="og:description" content={single_news?.excerpt}></meta> */}
+        <meta name="og:description" content={'Get News Fater'}></meta>
+
+        {/* <meta property="og:title" content={single_news?.title}></meta> */}
+        <meta property="og:title" content={'NEWS NEWS'}></meta>
+
         <meta property="baseUrl" content={`https://nrna-front.vercel.app`}></meta>
         <meta
           property="og:url"
