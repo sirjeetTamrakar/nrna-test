@@ -71,24 +71,25 @@ const SingleNews = () => {
         <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
 
         <title>NBNS Global</title>
-        <meta name="description" content=""></meta>
+        <meta name="description" content={String(single_news?.excerpt)?.slice(0, 100)}></meta>
 
-        <meta itemProp="name" content="NBNS Global"></meta>
-        <meta itemProp="description" content=""></meta>
-        <meta itemProp="image" content=""></meta>
+        <meta itemProp="name" content={single_news?.title}></meta>
+        <meta itemProp="description" content={single_news?.excerpt}></meta>
+        <meta itemProp="image" content={single_news?.feature_image}></meta>
 
         <meta
           property="og:url"
-          content="https://nrna-front.vercel.app/news/napal-vashaja-nagaraka-saghaka-yaka-sayajakama-sanavara"></meta>
+          content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
         <meta property="og:type" content="website"></meta>
-        <meta property="og:title" content="NBNS Global"></meta>
-        <meta property="og:description" content=""></meta>
-        <meta property="og:image" content=""></meta>
+        <meta property="og:title" content={single_news?.title}></meta>
+        <meta property="og:description" content={single_news?.excerpt}></meta>
+        <meta property="og:image" content={single_news?.feature_image}></meta>
 
         <meta name="twitter:card" content="summary_large_image"></meta>
-        <meta name="twitter:title" content="NBNS Global"></meta>
-        <meta name="twitter:description" content=""></meta>
-        <meta name="twitter:image" content=""></meta>
+        <meta name="twitter:title" content={single_news?.title}></meta>
+        <meta name="twitter:description" content={single_news?.excerpt}></meta>
+        <meta name="twitter:image" content={single_news?.feature_image}></meta>
+        <link rel="canonical" href={`https://nrna-front.vercel.app${location?.pathname}`} />
       </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
