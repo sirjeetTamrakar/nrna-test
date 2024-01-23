@@ -52,7 +52,7 @@ const SingleNews = () => {
         <meta property="og:title" content={single_news?.title}></meta>
         <meta
           property="og:url"
-          content={`https://nrna-front.vercel.app/${location?.pathname}`}></meta>
+          content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
         <meta property="og:image" content={single_news?.feature_image}></meta>
         <meta property="og:type" content="article"></meta>
         <meta property="og:site_name" content="NBNS Global"></meta>
