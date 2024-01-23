@@ -43,8 +43,13 @@ const SingleNews = () => {
       <Helmet>
         <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
+        <meta name="og:description" content={single_news?.excerpt}></meta>
         <meta property="og:title" content={single_news?.title}></meta>
+        <meta property="og:url" content={`https://nbnsglobal.com${location?.pathname}`}></meta>
         <meta property="og:image" content={single_news?.feature_image}></meta>
+        <meta property="og:type" content="article"></meta>
+        <meta property="og:site_name" content="NBNS Global"></meta>
+        <meta property="author" content={single_news?.author}></meta>
         <meta name="twitter:card" content={single_news?.feature_image}></meta>
         {/* <meta name="twitter:site" content="@site_username"></meta> */}
         <meta name="twitter:title" content={single_news?.title}></meta>
