@@ -1,7 +1,12 @@
+import { WhatsApp } from '@mui/icons-material';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
+import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
+import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
 import { getAllNews, getNewsCategory, getSingleNews } from 'redux/homepage/actions';
 import { changeDateFormat } from 'utils/dateUtils';
 import SecondaryNav from '../SecondaryNav';
@@ -9,7 +14,10 @@ import SecondaryNav from '../SecondaryNav';
 const SingleNews = () => {
   const dispatch = useDispatch();
   const { slug } = useParams();
+  const location = useLocation();
   const pathname = window.location.pathname;
+
+  console.log({ location });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -32,7 +40,7 @@ const SingleNews = () => {
 
   return (
     <>
-      <head>
+      <Helmet>
         <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
         <meta property="og:title" content={single_news?.title}></meta>
@@ -44,7 +52,7 @@ const SingleNews = () => {
         {/* <meta name="twitter:creator" content="@creator_username"></meta> */}
         <meta name="twitter:image" content={single_news?.feature_image}></meta>
         <meta name="twitter:domain" content="nbnsglobal.com"></meta>
-      </head>
+      </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
@@ -67,6 +75,17 @@ const SingleNews = () => {
                       {changeDateFormat(single_news?.created_at, 'DD-MMM-YYYY HH:MM')} | Author:{' '}
                       {single_news?.author ?? 'NBNS Global'}
                     </div>
+                    <Box sx={{ display: 'flex', gap: '15px', marginTop: '20px' }}>
+                      <FacebookShareButton url={`https://nbnsglobal.com${location?.pathname}`}>
+                        <FacebookIcon sx={{ color: '#0866FF', fontSize: '30px' }} />
+                      </FacebookShareButton>
+                      <TwitterShareButton url={`https://nbnsglobal.com${location?.pathname}`}>
+                        <TwitterIcon sx={{ color: '#1BC4F7', fontSize: '30px' }} />
+                      </TwitterShareButton>
+                      <WhatsappShareButton url={`https://nbnsglobal.com${location?.pathname}`}>
+                        <WhatsApp sx={{ color: '#24CC63', fontSize: '30px' }} />
+                      </WhatsappShareButton>
+                    </Box>
 
                     <div
                       className="single_news_page_long"
