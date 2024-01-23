@@ -98,13 +98,16 @@ const SingleNews = () => {
                       }}>
                       <Box sx={{ color: 'gray', fontSize: '12px' }}>Share News</Box>
                       <Box sx={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
-                        <FacebookShareButton url={`https://nbnsglobal.com${location?.pathname}`}>
+                        <FacebookShareButton
+                          url={`https://nrna-front.vercel.app${location?.pathname}`}>
                           <FacebookIcon sx={{ color: '#0866FF', fontSize: '30px' }} />
                         </FacebookShareButton>
-                        <TwitterShareButton url={`https://nbnsglobal.com${location?.pathname}`}>
+                        <TwitterShareButton
+                          url={`https://nrna-front.vercel.app${location?.pathname}`}>
                           <TwitterIcon sx={{ color: '#1BC4F7', fontSize: '30px' }} />
                         </TwitterShareButton>
-                        <WhatsappShareButton url={`https://nbnsglobal.com${location?.pathname}`}>
+                        <WhatsappShareButton
+                          url={`https://nrna-front.vercel.app${location?.pathname}`}>
                           <WhatsApp sx={{ color: '#24CC63', fontSize: '30px' }} />
                         </WhatsappShareButton>
                       </Box>
