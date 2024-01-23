@@ -44,6 +44,10 @@ const SingleNews = () => {
   //   console.log({ window: window.location() });
   // }, []);
 
+  const handleSocialClick = () => {
+    localStorage.setItem('title', single_news?.title);
+  };
+
   return (
     <div>
       <Helmet>
@@ -122,6 +126,7 @@ const SingleNews = () => {
                       <Box sx={{ color: 'gray', fontSize: '12px' }}>Share News</Box>
                       <Box sx={{ display: 'flex', gap: '15px', marginTop: '10px' }}>
                         <FacebookShareButton
+                          onClick={handleSocialClick}
                           url={`https://nrna-front.vercel.app${location?.pathname}`}>
                           <FacebookIcon sx={{ color: '#0866FF', fontSize: '30px' }} />
                         </FacebookShareButton>
