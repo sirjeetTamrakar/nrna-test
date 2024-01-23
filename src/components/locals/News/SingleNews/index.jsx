@@ -3,6 +3,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
+// import { Helmet } from 'react-helmet-async';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
@@ -46,7 +47,7 @@ const SingleNews = () => {
   return (
     <div>
       <Helmet>
-        <title>{single_news?.title}</title>
+        {/* <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
 
         <meta name="og:description" content={single_news?.excerpt}></meta>
@@ -60,16 +61,34 @@ const SingleNews = () => {
 
         <meta property="author" content={single_news?.author}></meta>
         <meta name="twitter:card" content={'summary_large_image'}></meta>
-        {/* <meta name="twitter:site" content="@site_username"></meta> */}
         <meta name="twitter:title" content={single_news?.title}></meta>
         <meta name="twitter:description" content={single_news?.excerpt}></meta>
-        {/* <meta name="twitter:creator" content="@creator_username"></meta> */}
         <meta name="twitter:image" content={single_news?.feature_image}></meta>
         <meta
           name="twitter:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
 
-        <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta>
+        <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
+
+        <title>NBNS Global</title>
+        <meta name="description" content=""></meta>
+
+        <meta itemProp="name" content="NBNS Global"></meta>
+        <meta itemProp="description" content=""></meta>
+        <meta itemProp="image" content=""></meta>
+
+        <meta
+          property="og:url"
+          content="https://nrna-front.vercel.app/news/napal-vashaja-nagaraka-saghaka-yaka-sayajakama-sanavara"></meta>
+        <meta property="og:type" content="website"></meta>
+        <meta property="og:title" content="NBNS Global"></meta>
+        <meta property="og:description" content=""></meta>
+        <meta property="og:image" content=""></meta>
+
+        <meta name="twitter:card" content="summary_large_image"></meta>
+        <meta name="twitter:title" content="NBNS Global"></meta>
+        <meta name="twitter:description" content=""></meta>
+        <meta name="twitter:image" content=""></meta>
       </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
