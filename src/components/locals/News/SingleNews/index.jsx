@@ -3,7 +3,7 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-// import { Helmet } from 'react-helmet-async';
+import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
@@ -76,7 +76,7 @@ const SingleNews = () => {
         <meta
           name="twitter:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
-        <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
+        <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta>
         {/* <title>NBNS Global</title>
         <meta name="description" content={String(single_news?.excerpt)?.slice(0, 100)}></meta>
 
