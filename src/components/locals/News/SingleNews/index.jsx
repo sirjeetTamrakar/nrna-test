@@ -44,9 +44,18 @@ const SingleNews = () => {
   //   console.log({ window: window.location() });
   // }, []);
 
-  const handleSocialClick = () => {
-    localStorage.setItem('description', single_news?.excerpt);
-  };
+  useEffect(() => {
+    if (single_news) {
+      var description = single_news?.title;
+      let meta_description_elm = document.getElementById('description');
+
+      meta_description_elm.setAttribute('content', description);
+
+      console.log({ meta_description_elm, description, single_news });
+    }
+  }, [single_news]);
+
+  const handleSocialClick = () => {};
 
   return (
     <div>
