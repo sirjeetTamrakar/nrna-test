@@ -47,7 +47,6 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
-    "postbuild": "react-snap",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
@@ -78,7 +77,6 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.30.0",
     "prettier": "^2.7.1",
-    "react-snap": "^1.23.0",
     "sass": "^1.52.3",
     "vite": "^4.4.4",
     "vite-jsconfig-paths": "^2.0.1",
