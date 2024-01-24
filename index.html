@@ -4,8 +4,10 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="og:description" content="" />
-
+    <meta
+      name="og:description"
+      content="संक्षिप्त प्रतिक्रिया दिंदै संयोजक सुनुवारले संघले लिएको उद्देश्य पूरा गर्न, नेपालको समृद्धिको लागि योगदान गर्न, वंशजको नागरिकताको निरन्तरता गर्नको लागि आफूले युके संयोजकको जिम्मेवारी लिएको बताउनुभयो ।"
+    />
     <title>NBNS Global</title>
 
     <link
@@ -35,18 +37,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-    <script>
-      document.addEventListener('DOMContentLoaded', function () {
-        // Get the description from localStorage
-        var description = localStorage.getItem('description');
 
-        // Set og:description content
-        var ogDescriptionMetaTag = document.querySelector('meta[name="og:description"]');
-        if (ogDescriptionMetaTag) {
-          ogDescriptionMetaTag.content = description || ''; // Set to empty string if description is null
-        }
-      });
-    </script>
     <script type="module" src="/src/index.jsx"></script>
   </body>
 </html>
