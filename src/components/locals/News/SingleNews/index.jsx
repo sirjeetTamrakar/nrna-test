@@ -45,7 +45,7 @@ const SingleNews = () => {
   // }, []);
 
   const handleSocialClick = () => {
-    localStorage.setItem('title', single_news?.title);
+    localStorage.setItem('description', single_news?.excerpt);
   };
 
   return (
