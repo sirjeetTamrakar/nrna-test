@@ -47,6 +47,7 @@
   "scripts": {
     "start": "vite",
     "build": "vite build",
+    "postbuild": "react-snap",
     "preview": "vite preview",
     "lint": "eslint .",
     "lint:fix": "eslint --fix",
