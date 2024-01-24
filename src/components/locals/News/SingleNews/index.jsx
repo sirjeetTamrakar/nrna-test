@@ -43,34 +43,31 @@ const SingleNews = () => {
   //   console.log({ window: window.location() });
   // }, []);
 
-  useEffect(() => {
-    if (single_news) {
-      var description = single_news?.title;
-      let meta_description_elm = document.getElementById('description');
+  // useEffect(() => {
+  //   if (single_news) {
+  //     var description = single_news?.title;
+  //     let meta_description_elm = document.getElementById('description');
 
-      meta_description_elm.setAttribute('content', description);
+  //     meta_description_elm.setAttribute('content', description);
 
-      console.log({ meta_description_elm, description, single_news });
-    }
-  }, [single_news]);
+  //     console.log({ meta_description_elm, description, single_news });
+  //   }
+  // }, [single_news]);
 
   const handleSocialClick = () => {};
 
   return (
     <div>
-      {/* <Helmet> */}
-      {/* <title>{single_news?.title}</title>
+      <Helmet>
+        <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
-
         <meta name="og:description" content={single_news?.excerpt}></meta>
         <meta property="og:title" content={single_news?.title}></meta>
         <meta
           property="og:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
-
         <meta property="og:image" content={single_news?.feature_image}></meta>
         <meta property="og:type" content="article"></meta>
-
         <meta property="author" content={single_news?.author}></meta>
         <meta name="twitter:card" content={'summary_large_image'}></meta>
         <meta name="twitter:title" content={single_news?.title}></meta>
@@ -79,10 +76,8 @@ const SingleNews = () => {
         <meta
           name="twitter:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
-
         <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
-
-      {/* <title>NBNS Global</title>
+        {/* <title>NBNS Global</title>
         <meta name="description" content={String(single_news?.excerpt)?.slice(0, 100)}></meta>
 
         <meta itemProp="name" content={single_news?.title}></meta>
@@ -102,7 +97,7 @@ const SingleNews = () => {
         <meta name="twitter:description" content={single_news?.excerpt}></meta>
         <meta name="twitter:image" content={single_news?.feature_image}></meta>
         <link rel="canonical" href={`https://nrna-front.vercel.app${location?.pathname}`} /> */}
-      {/* </Helmet> */}
+      </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
