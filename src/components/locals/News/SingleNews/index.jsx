@@ -4,7 +4,6 @@ import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
 // import { Helmet } from 'react-helmet-async';
-import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
@@ -59,8 +58,8 @@ const SingleNews = () => {
 
   return (
     <div>
-      <Helmet>
-        {/* <title>{single_news?.title}</title>
+      {/* <Helmet> */}
+      {/* <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
 
         <meta name="og:description" content={single_news?.excerpt}></meta>
@@ -83,7 +82,7 @@ const SingleNews = () => {
 
         <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta> */}
 
-        <title>NBNS Global</title>
+      {/* <title>NBNS Global</title>
         <meta name="description" content={String(single_news?.excerpt)?.slice(0, 100)}></meta>
 
         <meta itemProp="name" content={single_news?.title}></meta>
@@ -102,8 +101,8 @@ const SingleNews = () => {
         <meta name="twitter:title" content={single_news?.title}></meta>
         <meta name="twitter:description" content={single_news?.excerpt}></meta>
         <meta name="twitter:image" content={single_news?.feature_image}></meta>
-        <link rel="canonical" href={`https://nrna-front.vercel.app${location?.pathname}`} />
-      </Helmet>
+        <link rel="canonical" href={`https://nrna-front.vercel.app${location?.pathname}`} /> */}
+      {/* </Helmet> */}
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
