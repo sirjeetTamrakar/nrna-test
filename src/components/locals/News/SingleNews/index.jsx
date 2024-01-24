@@ -3,7 +3,6 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-// import { Helmet } from 'react-helmet-async';
 import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
@@ -39,10 +38,6 @@ const SingleNews = () => {
     dispatch(getNewsCategory());
   }, [slug]);
 
-  // useEffect(() => {
-
-  //   console.log({ window: window.location() });
-  // }, []);
 
   const handleSocialClick = () => {};
 
@@ -51,16 +46,13 @@ const SingleNews = () => {
       <Helmet>
         <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
-
         <meta name="og:description" content={single_news?.excerpt}></meta>
         <meta property="og:title" content={single_news?.title}></meta>
         <meta
           property="og:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
-
         <meta property="og:image" content={single_news?.feature_image}></meta>
         <meta property="og:type" content="article"></meta>
-
         <meta property="author" content={single_news?.author}></meta>
         <meta name="twitter:card" content={'summary_large_image'}></meta>
         <meta name="twitter:title" content={single_news?.title}></meta>
@@ -69,8 +61,6 @@ const SingleNews = () => {
         <meta
           name="twitter:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
-
-        <meta name="twitter:domain" content="https://nrna-front.vercel.app"></meta>
       </Helmet>
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
