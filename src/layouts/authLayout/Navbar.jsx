@@ -3,7 +3,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SegmentIcon from '@mui/icons-material/Segment';
 import { Box } from '@mui/material';
-import Logo from 'assets/images/nrna.png';
+import Logo from 'assets/logo/newNBNSLogo.png';
 import BusinessIcon from 'assets/navicons/business.svg';
 import EventIcon from 'assets/navicons/events.svg';
 import HomeIcon from 'assets/navicons/home.svg';

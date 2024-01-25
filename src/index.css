@@ -20,3 +20,6 @@
 .ck-balloon-panel {
   z-index: 10000 !important;
 }
+/* body {
+  min-width: 1200px;
+} */

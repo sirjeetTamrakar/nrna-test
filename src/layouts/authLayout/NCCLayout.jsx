@@ -141,7 +141,7 @@ const SecondaryNavWrapper = () => {
   }));
 
   // const allOptions = [...options, ...homeOptions, ...contact, ...download];
-  const allOptions = [...options, ...homeOptions];
+  const allOptions = [...options];
 
   return (
     <SecondaryNav
