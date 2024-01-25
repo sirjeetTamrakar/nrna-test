@@ -425,6 +425,14 @@ const theme = createTheme({
           }
         })
       }
+    },
+    MuiBox: {
+      styleOverrides: {
+        // selectLabel: {
+        //   margin: 0
+        // },
+        width: '100% !important'
+      }
     }
   }
 });
