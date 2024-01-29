@@ -85,7 +85,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
           <div className="Navbar_wrapper">
             <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
               <div className="d-flex align-items-center" style={{ gridColumnGap: '1rem' }}>
-                {screenSize?.width < 370 ? (
+                {screenSize?.width < 371 ? (
                   <div>
                     <img style={{ height: '55px', width: 'auto' }} src={SmallLogo} alt="Logo" />
                   </div>
