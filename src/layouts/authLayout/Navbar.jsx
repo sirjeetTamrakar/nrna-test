@@ -3,6 +3,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import PersonAddIcon from '@mui/icons-material/PersonAdd';
 import SegmentIcon from '@mui/icons-material/Segment';
 import { Box } from '@mui/material';
+import SmallLogo from 'assets/logo/nbnsLogo.png';
 import Logo from 'assets/logo/newNBNSLogo.png';
 import BusinessIcon from 'assets/navicons/business.svg';
 import EventIcon from 'assets/navicons/events.svg';
@@ -14,6 +15,7 @@ import TeamIcon from 'assets/navicons/team.svg';
 import CustomModal from 'components/common/CustomModal/CustomModal';
 import Login from 'components/globals/login';
 import Register from 'components/globals/register';
+import useScreenSize from 'hooks/useScreenSize';
 import useToggle from 'hooks/useToggle';
 import { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
@@ -74,6 +76,7 @@ function Navbar({ isHomePage, currentUser, sticky }) {
     { title: 'Events', link: '/events', value: '/events' },
     { title: 'Contact', link: '/foreign-employment/contact', value: '/foreign-employment/contact' }
   ];
+  const screenSize = useScreenSize();
 
   return (
     <>
@@ -82,9 +85,15 @@ function Navbar({ isHomePage, currentUser, sticky }) {
           <div className="Navbar_wrapper">
             <Link to="/" style={{ textDecoration: 'none', color: 'white' }}>
               <div className="d-flex align-items-center" style={{ gridColumnGap: '1rem' }}>
-                <div className="logo_wrapper">
-                  <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
-                </div>
+                {screenSize?.width < 1500 ? (
+                  <div>
+                    <img style={{ height: '55px', width: 'auto' }} src={SmallLogo} alt="Logo" />
+                  </div>
+                ) : (
+                  <div className="logo_wrapper">
+                    <img style={{ height: '45px', width: 'auto' }} src={Logo} alt="Logo" />
+                  </div>
+                )}
               </div>
             </Link>
 
