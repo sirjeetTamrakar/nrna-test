@@ -2,7 +2,11 @@ import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles((theme) => ({
   drawer: {
-    paddingInline: '12px'
+    paddingInline: '12px',
+    '& .MuiDrawer-paper': {
+      backgroundColor: 'red !important',
+      width: '0px !important'
+    }
   },
   drawerHeader: {
     display: 'flex',

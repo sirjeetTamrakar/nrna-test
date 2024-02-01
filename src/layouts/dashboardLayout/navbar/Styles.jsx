@@ -6,6 +6,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'space-between',
     alignItems: 'start',
     columnGap: '2rem',
+    '& .hamburger': {
+      display: 'none',
+      [theme.breakpoints.down('md')]: {
+        display: 'block'
+      }
+    },
     '& .MuiButton-root': {
       color: theme.palette.text.main
     },

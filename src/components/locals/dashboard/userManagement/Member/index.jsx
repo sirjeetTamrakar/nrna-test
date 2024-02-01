@@ -349,7 +349,7 @@ const Member = () => {
 
   useEffect(() => {
     refetch();
-  }, [page, rowsPerPage]);
+  }, [page, rowsPerPage, filteredNcc?.nccID1]);
 
   useEffect(() => {
     dispatch(getAllUsersDownload());

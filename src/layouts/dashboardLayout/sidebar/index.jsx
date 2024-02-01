@@ -46,7 +46,7 @@ const DrawerHeader = styled('div')(({ theme }) => ({
 
 const Drawer = styled(MuiDrawer, {
   shouldForwardProp: (prop) => prop !== 'open'
-})(({ theme, open }) => ({
+})(({ theme, open, drawerWidth }) => ({
   width: drawerWidth,
   flexShrink: 0,
   whiteSpace: 'nowrap',
@@ -61,7 +61,7 @@ const Drawer = styled(MuiDrawer, {
   })
 }));
 
-export default function Sidebar() {
+export default function Sidebar({ toggleDrawer, drawerOpen }) {
   const { SidebarConstants } = useGetSidebar();
 
   const classes = useStyles();
@@ -70,13 +70,23 @@ export default function Sidebar() {
   const handleClick = (item) => {
     sessionStorage.setItem('active', open === item?.label ? '' : item?.label);
     setOpen((prev) => (prev === item?.label ? '' : item?.label));
+    !item && toggleDrawer();
   };
 
   const { user, role_details, admin_role_details } = useSelector((state) => state.auth);
 
+  // --------------------
+
+  console.log({ drawerOpen });
+
   return (
     <Box sx={{ display: 'flex', '& .MuiDrawer-paper': { border: 'none' } }}>
-      <Drawer variant="permanent" open>
+      <Drawer
+        sx={!drawerOpen ? { display: 'none' } : { display: 'block' }}
+        variant="permanent"
+        anchor="left"
+        open={drawerOpen}
+        onClose={toggleDrawer}>
         <Box className={classes.drawer}>
           <DrawerHeader>
             <Box className={classes.drawerHeader}>
@@ -179,7 +189,12 @@ export default function Sidebar() {
                         <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
                           <Box className={classes.childContainer}>
                             {item?.children?.map((child, index) => (
-                              <ChildComponent child={child} key={index} classes={classes} />
+                              <ChildComponent
+                                child={child}
+                                key={index}
+                                classes={classes}
+                                toggleDrawer={toggleDrawer}
+                              />
                             ))}
                           </Box>
                         </Collapse>
@@ -275,7 +290,12 @@ const NavBarByRoles = ({ role_details, user, handleClick, open }) => {
                     <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
                       <Box className={classes.childContainer}>
                         {item?.children?.map((child, index) => (
-                          <ChildComponent child={child} key={index} classes={classes} />
+                          <ChildComponent
+                            child={child}
+                            key={index}
+                            classes={classes}
+                            toggleDrawer={toggleDrawer}
+                          />
                         ))}
                       </Box>
                     </Collapse>
@@ -368,7 +388,12 @@ const NavBarByRoleNCC = ({ role_details, user, handleClick, open }) => {
                     <Collapse in={open === item?.label} timeout="auto" unmountOnExit>
                       <Box className={classes.childContainer}>
                         {item?.children?.map((child, index) => (
-                          <ChildComponent child={child} key={index} classes={classes} />
+                          <ChildComponent
+                            child={child}
+                            key={index}
+                            classes={classes}
+                            toggleDrawer={toggleDrawer}
+                          />
                         ))}
                       </Box>
                     </Collapse>
@@ -461,6 +486,7 @@ const NavBarByRoleSuperadmin = ({ admin_role_details, user, handleClick, open })
                       <Box className={classes.childContainer}>
                         {item?.children?.map((child, index) => (
                           <ChildComponent
+                            toggleDrawer={toggleDrawer}
                             child={child}
                             key={index}
                             classes={classes}
@@ -479,7 +505,7 @@ const NavBarByRoleSuperadmin = ({ admin_role_details, user, handleClick, open })
   );
 };
 
-const ChildComponent = ({ child, classes, admin_role_details, role_details }) => {
+const ChildComponent = ({ child, classes, admin_role_details, role_details, toggleDrawer }) => {
   const { user } = useSelector((state) => state.auth);
   const filterData = child?.roles?.includes(user?.role_name);
   if (filterData) {
@@ -491,7 +517,7 @@ const ChildComponent = ({ child, classes, admin_role_details, role_details }) =>
           disablePadding
           sx={{ paddingBottom: '5px' }}
           className={classes.nav}>
-          <NavLink to={child?.url}>
+          <NavLink onClick={() => toggleDrawer()} to={child?.url}>
             {({ isActive }) => (
               <ListItemButton
                 className={[classes.listItemButtonChild, isActive && classes.activeChildClass]}>

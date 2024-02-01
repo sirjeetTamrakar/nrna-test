@@ -1,6 +1,6 @@
 import { Box, Divider } from '@mui/material';
 import { getCountries } from 'components/locals/dashboard/ncc/redux/actions';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 import Navbar from './navbar';
@@ -14,17 +14,24 @@ const MainLayout = () => {
     dispatch(getCountries());
     // dispatch(getAllUsers());
   }, []);
+
+  const [drawerOpen, setDrawerOpen] = useState(true);
+
+  const toggleDrawer = () => {
+    setDrawerOpen(!drawerOpen);
+  };
+
   return (
     <>
       <Box className={classes.root}>
-        <Sidebar />
+        <Sidebar toggleDrawer={toggleDrawer} drawerOpen={drawerOpen} />
         <Box sx={{ background: '#F9F9FB', width: '100%' }}>
           <Box sx={{ paddingInline: '46px' }}>
-            <Navbar />
+            <Navbar drawerOpen={drawerOpen} toggleDrawer={toggleDrawer} />
           </Box>
           <Divider />
           <Box className={classes.content}>
-            <Outlet />
+            <Outlet drawerOpen={drawerOpen} />
           </Box>
         </Box>
       </Box>

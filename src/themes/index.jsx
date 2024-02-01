@@ -433,6 +433,18 @@ const theme = createTheme({
         // },
         width: '100% !important'
       }
+    },
+    MuiDrawer: {
+      styleOverrides: {
+        root: ({ theme }) => ({
+          // '& .MuiDrawer-docked': {
+          //   width: '0px !important'
+          // },
+          // '& .MuiDrawer-paper': {
+          //   width: '0px !important'
+          // }
+        })
+      }
     }
   }
 });
