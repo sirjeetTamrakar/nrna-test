@@ -31,7 +31,7 @@ const MainLayout = () => {
           </Box>
           <Divider />
           <Box className={classes.content}>
-            <Outlet drawerOpen={drawerOpen} />
+            <Outlet />
           </Box>
         </Box>
       </Box>
