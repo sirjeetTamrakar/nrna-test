@@ -5,7 +5,21 @@ const useStyles = makeStyles((theme) => ({
     margin: 0,
     padding: '0',
     display: 'flex',
-    minWidth: '1200px'
+    minWidth: '1200px',
+    '& .sidebarMobile': {
+      display: 'none',
+
+      [theme.breakpoints.down('md')]: {
+        display: 'block'
+      }
+    },
+    '& .sidebarDesk': {
+      display: 'blobk',
+
+      [theme.breakpoints.down('md')]: {
+        display: 'none'
+      }
+    }
   },
 
   content: {
