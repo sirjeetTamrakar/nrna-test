@@ -3,7 +3,6 @@ import FacebookIcon from '@mui/icons-material/Facebook';
 import TwitterIcon from '@mui/icons-material/Twitter';
 import { Box, CircularProgress, Grid } from '@mui/material';
 import { useEffect, useState } from 'react';
-import { Helmet } from 'react-helmet';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation, useParams } from 'react-router-dom';
 import { FacebookShareButton, TwitterShareButton, WhatsappShareButton } from 'react-share';
@@ -43,7 +42,7 @@ const SingleNews = () => {
 
   return (
     <div>
-      <Helmet>
+      {/* <Helmet>
         <title>{single_news?.title}</title>
         <meta name="description" content={single_news?.excerpt}></meta>
         <meta name="og:description" content={single_news?.excerpt}></meta>
@@ -61,7 +60,7 @@ const SingleNews = () => {
         <meta
           name="twitter:url"
           content={`https://nrna-front.vercel.app${location?.pathname}`}></meta>
-      </Helmet>
+      </Helmet> */}
       <SecondaryNav category={news_category} setSelected={setSelected} selected={selected} />
 
       <div className="container">
