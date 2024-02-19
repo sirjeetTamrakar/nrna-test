@@ -37,6 +37,7 @@ const SingleNews = () => {
     dispatch(getAllNews());
     dispatch(getNewsCategory());
   }, [slug]);
+  console.log({ single_news });
 
   const handleSocialClick = () => {};
 
@@ -94,10 +95,11 @@ const SingleNews = () => {
                         <FacebookShareButton
                           appId="393640856408187"
                           onClick={handleSocialClick}
-                          url={`https://youtube.com`}>
+                          url={`https://nrna-front.vercel.app/news/` + single_news?.slug}>
                           <FacebookIcon sx={{ color: '#0866FF', fontSize: '30px' }} />
                         </FacebookShareButton>
-                        <TwitterShareButton url={`https://youtube.com`}>
+                        <TwitterShareButton
+                          url={`https://nrna-front.vercel.app${location?.pathname}`}>
                           <TwitterIcon sx={{ color: '#1BC4F7', fontSize: '30px' }} />
                         </TwitterShareButton>
                         <WhatsappShareButton
